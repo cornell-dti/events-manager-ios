@@ -8,6 +8,7 @@ target 'EventsManager' do
 
   # Pods for EventsManager
 	pod 'SnapKit', '~> 4.0.0'
+	pod 'Kingfisher', '~> 4.0'
 
   target 'EventsManagerTests' do
     inherit! :search_paths
