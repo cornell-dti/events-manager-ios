@@ -8,7 +8,11 @@
 
 import UIKit
 
-class EventsDiscoveryTableViewController: UITableViewController, UISearchControllerDelegate {
+class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
+    
+    var tableView = UITableView()
+
+    var events:[Event] = []
     
     var searchController = UISearchController(searchResultsController: nil)
 
@@ -21,6 +25,12 @@ class EventsDiscoveryTableViewController: UITableViewController, UISearchControl
     * View initial setups
     */
     func setup(){
+        //for testing
+        for _ in 1...20 {
+            events.append(Event(startTime: "9:00 AM", endTime: "10:00 AM", eventName: "Cornell DTI Recruiting", eventLocation: "Upson B02", eventParticipant: "David, Jagger and 10 friends", avatars:[URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!]))
+        }
+        
+        //NAVIGATION STUFFS
         navigationItem.title = "Discover"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 22.0)]
         searchController.delegate = self
@@ -28,27 +38,29 @@ class EventsDiscoveryTableViewController: UITableViewController, UISearchControl
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
+        //Tableview stuffs
+        //let topBarHeight = (navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height //statusbar + navbar + tagbar
+        //let bottomBarHeight = CGFloat(integerLiteral: 0)
+        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
         tableView.rowHeight = UITableViewAutomaticDimension
+        view.addSubview(tableView)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return events.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventsDiscoveryCell", for: indexPath) as! EventsDiscoveryTableViewCell
-        cell.configure(event: Event(startTime: "9:00 AM", endTime: "10:00 AM", eventName: "Cornell DTI Recruiting", eventLocation: "Upson B02", eventParticipant: "David, David and 10 friends", avatars:[URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/davidc.jpg")!]))
+        cell.configure(event: events[indexPath.row])
         // Configure the cell...
 
         return cell

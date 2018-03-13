@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let navigationController = UINavigationController(rootViewController: EventsDiscoveryTableViewController())
+        let navigationController = UINavigationController(rootViewController: EventsDiscoveryController())
         window?.rootViewController = navigationController
         
         return true

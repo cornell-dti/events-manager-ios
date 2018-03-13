@@ -14,14 +14,15 @@ import Foundation
 class EventsDiscoveryTableViewCell: UITableViewCell {
     static let identifer = "EventsDiscoveryCell"
     
-    var event:Event?
+    private var event:Event?
     
-    let startTime = UILabel()
-    let endTime = UILabel()
-    let eventName = UILabel()
-    let eventLocation = UILabel()
-    let eventParticipant = UILabel()
-    var avatars: [UIImageView] = [UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20)),UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20)),UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))]
+    private let startTime = UILabel()
+    private let endTime = UILabel()
+    private let eventName = UILabel()
+    private let eventLocation = UILabel()
+    private let eventParticipant = UILabel()
+    private var avatars: [UIImageView] = []
+    private var eventParticipantStack:UIStackView = UIStackView()
     
     
     
@@ -48,23 +49,12 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         eventParticipant.font = UIFont.systemFont(ofSize: 13)
         eventParticipant.textColor = UIColor.gray
         
-        
         startTime.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(80)
         }
         endTime.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(80)
         }
-        
-        for index in 0..<avatars.count {
-            avatars[index].snp.makeConstraints{ (make) -> Void in
-                make.width.equalTo(20.0)
-                make.height.equalTo(20.0)
-            }
-            avatars[index].layer.cornerRadius = avatars[index].frame.height/2
-            avatars[index].clipsToBounds = true
-        }
-        
         
         let eventTimeStack:UIStackView = UIStackView(arrangedSubviews: [startTime, endTime])
         eventTimeStack.axis = .vertical
@@ -79,8 +69,6 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         eventTimeStack.distribution = .fill
         eventTimeStack.alignment = .leading
         
-        
-        let eventParticipantStack:UIStackView = UIStackView(arrangedSubviews: avatars)
         eventParticipantStack.addArrangedSubview(eventParticipant)
         eventParticipantStack.axis = .horizontal
         eventParticipantStack.distribution = .fill
@@ -121,11 +109,32 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         eventLocation.text = event?.eventLocation
         eventName.text = event?.eventName
         eventParticipant.text = event?.eventParticipant
-        for index in 0..<avatars.count {
-            if index < (event?.avatars.count) ?? 0 {
-                avatars[index].kf.setImage(with: event?.avatars[index])
+        for imageView in avatars {
+            imageView.removeFromSuperview()
+        }
+        avatars = []
+        
+        for _ in event?.avatars ?? []{
+            if avatars.count < 3 {  //support maximum 3 avatars, if more than 3, only add first three to the array
+                avatars.append(UIImageView(frame:CGRect(x: 0, y: 0, width: 20, height: 20)))
             }
         }
+        
+        for index in 0..<avatars.count {
+            avatars[index].snp.makeConstraints{ (make) -> Void in
+                make.width.equalTo(20.0)
+                make.height.equalTo(20.0)
+            }
+            avatars[index].layer.cornerRadius = avatars[index].frame.height/2
+            avatars[index].clipsToBounds = true
+            print(index)
+            avatars[index].kf.setImage(with: event?.avatars[index])
+        }
+        
+        for index in (0...avatars.count - 1).reversed() {
+            eventParticipantStack.insertArrangedSubview(avatars[index], at: 0)
+        }
+        
     }
 
 }
