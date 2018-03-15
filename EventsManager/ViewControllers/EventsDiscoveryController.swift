@@ -31,8 +31,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         }
         
         //NAVIGATION STUFFS
-        navigationItem.title = "Discover"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 22.0)]
         searchController.delegate = self
         searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController

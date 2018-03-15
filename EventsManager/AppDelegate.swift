@@ -17,10 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
         
-        let navigationController = UINavigationController(rootViewController: EventsDiscoveryController())
-        window?.rootViewController = navigationController
+        let tabBarVC = TabBarViewController()
+        tabBarVC.tabBar.barTintColor = UIColor.tabBarGray
+        
+        window?.rootViewController = tabBarVC
+        window?.makeKeyAndVisible()
         
         return true
     }
