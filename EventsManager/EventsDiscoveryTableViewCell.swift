@@ -73,7 +73,7 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         eventParticipantStack.axis = .horizontal
         eventParticipantStack.distribution = .fill
         eventParticipantStack.alignment = .center
-        eventParticipantStack.spacing = 4.0
+        eventParticipantStack.spacing = 5.0
         
         let eventRightStack:UIStackView = UIStackView(arrangedSubviews: [eventInfoStack, eventParticipantStack])
         eventRightStack.axis = .vertical
@@ -109,6 +109,8 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         eventLocation.text = event?.eventLocation
         eventName.text = event?.eventName
         eventParticipant.text = event?.eventParticipant
+        
+        //remove the imageviews in eventParticipantStack on updateUI to prevent error caused by the resuing of cells
         for imageView in avatars {
             imageView.removeFromSuperview()
         }
