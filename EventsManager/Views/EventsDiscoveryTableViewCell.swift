@@ -129,7 +129,6 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
             }
             avatars[index].layer.cornerRadius = avatars[index].frame.height/2
             avatars[index].clipsToBounds = true
-            print(index)
             avatars[index].kf.setImage(with: event?.avatars[index])
         }
         

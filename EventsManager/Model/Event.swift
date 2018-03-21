@@ -15,14 +15,20 @@ class Event {
     var eventLocation:String
     var eventParticipant:String
     var avatars:[URL]
+    var eventImage:URL
+    var eventOrganizer:String
+    var eventDiscription:String
     
-    //requires: 3 avatars must be provided
-    init(startTime:String, endTime:String, eventName:String, eventLocation:String, eventParticipant:String, avatars:[URL]) {
+    //requires: at most 3 avatars can be provided
+    init(startTime:String, endTime:String, eventName:String, eventLocation:String, eventParticipant:String, avatars:[URL], eventImage:URL, eventOrganizer:String, eventDiscription:String) {
         self.startTime = startTime
         self.endTime = endTime
         self.eventName = eventName
         self.eventLocation = eventLocation
         self.eventParticipant = eventParticipant
         self.avatars = avatars
+        self.eventImage = eventImage
+        self.eventOrganizer = eventOrganizer
+        self.eventDiscription = eventDiscription
     }
 }

@@ -27,7 +27,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     func setup(){
         //for testing
         for _ in 1...20 {
-            events.append(Event(startTime: "9:00 AM", endTime: "10:00 AM", eventName: "Cornell DTI Recruiting", eventLocation: "Upson B02", eventParticipant: "David, Jagger and 10 friends", avatars:[URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!]))
+            events.append(Event(startTime: "9:00 AM", endTime: "10:00 AM", eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDiscription: "THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION THIS IS THE DISCRIPTION "))
         }
         
         //NAVIGATION STUFFS
@@ -62,6 +62,15 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         // Configure the cell...
 
         return cell
+    }
+    
+    /*
+     segue to the selected eventsDetailController
+    */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailsViewController = EventDetailViewController()
+        detailsViewController.configure(with: events[indexPath.row])
+        navigationController?.pushViewController(detailsViewController, animated: true)
     }
 
     /*
