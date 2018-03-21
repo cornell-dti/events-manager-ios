@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 import Kingfisher
 
 class EventDetailViewController: UIViewController {
@@ -21,11 +22,15 @@ class EventDetailViewController: UIViewController {
     let infoStackIconLabelSpacing = CGFloat(integerLiteral: 15)
     let avatarSpacing = CGFloat(integerLiteral: 5)
     let infoTableSpacing = CGFloat(integerLiteral: 5)
+    let buttonDividerTopBottomSpacing = CGFloat(integerLiteral: 5)
+    let eventDiscriptionFontSize = CGFloat(integerLiteral: 16)
+    let mapViewHeight = CGFloat(integerLiteral: 140)
     
     
-    
+    //datasource
     var event:Event?
     
+    //view elements
     var scrollView = UIScrollView()
     var contentView = UIView()
     var eventImage:UIImageView = UIImageView()
@@ -36,6 +41,7 @@ class EventDetailViewController: UIViewController {
     var eventParticipants = UILabel()
     var eventOrganizer = UILabel()
     var eventLocation = UILabel()
+    var eventMapView = MKMapView()
     
 
     override func viewDidLoad() {
@@ -57,11 +63,11 @@ class EventDetailViewController: UIViewController {
             make.width.equalTo(view.frame.width)
         }
         
+        //interested and going buttons
         let buttonStackBackground = UIView()
         buttonStackBackground.backgroundColor = UIColor.darkSkyBlue
         buttonStackBackground.layer.cornerRadius = buttonHeight / 2
         buttonStackBackground.translatesAutoresizingMaskIntoConstraints = false
-        //interested and going buttons
         interestedButton.snp.makeConstraints{ (make) -> Void in
             make.height.equalTo(buttonHeight)
         }
@@ -72,6 +78,15 @@ class EventDetailViewController: UIViewController {
         buttonStack.alignment = .center
         buttonStack.axis = .horizontal
         buttonStack.distribution = .fillEqually
+        let buttonDivider = UIView()
+        buttonDivider.backgroundColor = UIColor.white
+        buttonStack.insertSubview(buttonDivider, at: 1)
+        buttonDivider.snp.makeConstraints{ (make) -> Void in
+            make.width.equalTo(1)
+            make.top.equalTo(buttonStack).offset(buttonDividerTopBottomSpacing)
+            make.bottom.equalTo(buttonStack).offset(-buttonDividerTopBottomSpacing)
+            make.left.equalTo(interestedButton.snp.right).offset(-0.5)
+        }
         buttonStack.insertSubview(buttonStackBackground, at: 0)
         buttonStackBackground.snp.makeConstraints{ (make) -> Void in
             make.edges.equalTo(buttonStack)
@@ -158,6 +173,7 @@ class EventDetailViewController: UIViewController {
         contentView.addSubview(buttonStack)
         contentView.addSubview(eventDiscription)
         contentView.addSubview(infoTableStack)
+        contentView.addSubview(eventMapView)
         
         
         //Constraints for UI elements
@@ -175,6 +191,8 @@ class EventDetailViewController: UIViewController {
         }
         
         eventDiscription.numberOfLines = 0
+        eventDiscription.textAlignment = .justified
+        eventDiscription.font = UIFont.systemFont(ofSize: eventDiscriptionFontSize)
         eventDiscription.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(buttonStack.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
@@ -185,6 +203,13 @@ class EventDetailViewController: UIViewController {
             make.top.equalTo(eventDiscription.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(infoStackEdgeSpacing)
             make.right.equalTo(contentView).offset(-infoStackEdgeSpacing)
+        }
+        
+        eventMapView.snp.makeConstraints{ (make) -> Void in
+            make.top.equalTo(infoTableStack.snp.bottom).offset(standardEdgeSpacing)
+            make.left.equalTo(contentView).offset(standardEdgeSpacing)
+            make.right.equalTo(contentView).offset(-standardEdgeSpacing)
+            make.height.equalTo(mapViewHeight)
             make.bottom.equalTo(contentView).offset(-standardEdgeSpacing)
         }
         
