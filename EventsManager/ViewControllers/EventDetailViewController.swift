@@ -25,6 +25,9 @@ class EventDetailViewController: UIViewController {
     let buttonDividerTopBottomSpacing = CGFloat(integerLiteral: 5)
     let eventDiscriptionFontSize = CGFloat(integerLiteral: 16)
     let mapViewHeight = CGFloat(integerLiteral: 140)
+    let tagScrollViewHeight = CGFloat(integerLiteral: 50)
+    let tagHorizontalSpacing = CGFloat(integerLiteral: 8)
+    let tagLabelFontSize = CGFloat(integerLiteral: 22)
     
     
     //datasource
@@ -42,6 +45,8 @@ class EventDetailViewController: UIViewController {
     var eventOrganizer = UILabel()
     var eventLocation = UILabel()
     var eventMapView = MKMapView()
+    var tagScrollView = UIScrollView()
+    var tagStack = UIStackView()
     
 
     override func viewDidLoad() {
@@ -156,6 +161,8 @@ class EventDetailViewController: UIViewController {
         infoTableStack.spacing = infoTableSpacing
         
         
+        
+        
         //Add three dividers between the elements of infoTableStack
         for index in stride(from: 1, through: 5, by: 2){
             let divider = UIView()
@@ -169,11 +176,25 @@ class EventDetailViewController: UIViewController {
         }
         
         
+        let tagLabel = UILabel()
+        tagLabel.text = "TAGS"
+        tagLabel.font = UIFont.boldSystemFont(ofSize: tagLabelFontSize)
+        tagStack.insertArrangedSubview(tagLabel, at: 0)
+        tagStack.alignment = .center
+        tagStack.axis = .horizontal
+        tagStack.distribution = .fill
+        tagStack.spacing = tagHorizontalSpacing
+        tagScrollView.addSubview(tagStack)
+        
+        
+        
+        
         contentView.addSubview(eventImage)
         contentView.addSubview(buttonStack)
         contentView.addSubview(eventDiscription)
         contentView.addSubview(infoTableStack)
         contentView.addSubview(eventMapView)
+        contentView.addSubview(tagScrollView)
         
         
         //Constraints for UI elements
@@ -210,8 +231,20 @@ class EventDetailViewController: UIViewController {
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
             make.height.equalTo(mapViewHeight)
+        }
+        
+        tagScrollView.snp.makeConstraints{ (make) -> Void in
+            make.top.equalTo(eventMapView.snp.bottom).offset(standardEdgeSpacing)
+            make.left.equalTo(contentView).offset(standardEdgeSpacing)
+            make.right.equalTo(contentView).offset(-standardEdgeSpacing)
+            make.height.equalTo(tagScrollViewHeight)
             make.bottom.equalTo(contentView).offset(-standardEdgeSpacing)
         }
+        
+        tagStack.snp.makeConstraints{ (make) -> Void in
+            make.edges.equalTo(tagScrollView)
+        }
+        
         
 }
     
@@ -228,6 +261,12 @@ class EventDetailViewController: UIViewController {
         eventOrganizer.text = event.eventOrganizer
         eventLocation.text = event.eventLocation
         eventParticipants.text = event.eventParticipant
+        
+        for tag in event.eventTags {
+            let tagButton = EventTagButton()
+            tagButton.setTitle(tag, for: .normal)
+            tagStack.addArrangedSubview(tagButton)
+        }
         
     }
 

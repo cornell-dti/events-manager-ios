@@ -15,6 +15,7 @@
 		A40E37E4201E91CA00B3AFA4 /* EventsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37E3201E91CA00B3AFA4 /* EventsManagerTests.swift */; };
 		A40E37EF201E91CA00B3AFA4 /* EventsManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37EE201E91CA00B3AFA4 /* EventsManagerUITests.swift */; };
 		AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03DC272061B8220059EE1B /* EventDetailViewController.swift */; };
+		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		B8AB18432A62923AEF3E6DFE /* Pods_EventsManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF47980A8E89AE42E0C0DE5 /* Pods_EventsManagerUITests.framework */; };
 		DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */; };
 		DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */; };
@@ -62,6 +63,7 @@
 		A40E37EE201E91CA00B3AFA4 /* EventsManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerUITests.swift; sourceTree = "<group>"; };
 		A40E37F0201E91CA00B3AFA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA03DC272061B8220059EE1B /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventDetailViewController.swift; path = EventsManager/ViewControllers/EventDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		CB2AB3B6C27F698CDD077DDC /* Pods-EventsManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsDiscoveryTableViewCell.swift; path = EventsManager/Views/EventsDiscoveryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsDiscoveryController.swift; path = EventsManager/ViewControllers/EventsDiscoveryController.swift; sourceTree = SOURCE_ROOT; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */,
+				AA5B784C2076E29F00D15262 /* EventTagButton.swift */,
 			);
 			name = Views;
 			path = "New Group2";
@@ -293,7 +296,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Jagger Brulato";
 				TargetAttributes = {
 					A40E37CA201E91CA00B3AFA4 = {
@@ -520,6 +523,7 @@
 				DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */,
 				DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */,
 				DA75C21B205ABDB600C1822C /* ViewController.swift in Sources */,
+				AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */,
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
 				DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */,
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
@@ -585,6 +589,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -592,6 +597,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -619,7 +625,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -642,6 +648,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -649,6 +656,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -670,7 +678,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
