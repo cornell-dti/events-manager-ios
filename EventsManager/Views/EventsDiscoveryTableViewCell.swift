@@ -104,8 +104,11 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
     }
     
     func updateUI(){
-        startTime.text = event?.startTime
-        endTime.text = event?.endTime
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "HH:mm a"
+        startTime.text = dateFormatter.string(from: event?.startTime ?? Date())
+        endTime.text = dateFormatter.string(from: event?.endTime ?? Date())
         eventLocation.text = event?.eventLocation
         eventName.text = event?.eventName
         eventParticipant.text = event?.eventParticipant

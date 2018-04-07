@@ -9,8 +9,8 @@
 import Foundation
 
 class Event {
-    var startTime:String
-    var endTime:String
+    var startTime:Date
+    var endTime:Date
     var eventName:String
     var eventLocation:String
     var eventParticipant:String
@@ -21,7 +21,7 @@ class Event {
     var eventTags:[String]
     
     //requires: at most 3 avatars can be provided
-    init(startTime:String, endTime:String, eventName:String, eventLocation:String, eventParticipant:String, avatars:[URL], eventImage:URL, eventOrganizer:String, eventDiscription:String, eventTags:[String]) {
+    init(startTime:Date, endTime:Date, eventName:String, eventLocation:String, eventParticipant:String, avatars:[URL], eventImage:URL, eventOrganizer:String, eventDiscription:String, eventTags:[String]) {
         self.startTime = startTime
         self.endTime = endTime
         self.eventName = eventName

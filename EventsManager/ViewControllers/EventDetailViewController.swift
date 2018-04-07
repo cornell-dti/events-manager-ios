@@ -256,8 +256,13 @@ class EventDetailViewController: UIViewController {
         interestedButton.setTitle("INTERESTED", for: .normal)
         goingButton.setTitle("GOING", for: .normal)
         
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "HH:mm a"
+        
         eventDiscription.text = event.eventDiscription
-        eventTime.text = "From \(event.startTime) to \(event.endTime)"
+        eventTime.text = "From \(dateFormatter.string(from: event.startTime)) to \(dateFormatter.string(from: event.endTime))"
         eventOrganizer.text = event.eventOrganizer
         eventLocation.text = event.eventLocation
         eventParticipants.text = event.eventParticipant
