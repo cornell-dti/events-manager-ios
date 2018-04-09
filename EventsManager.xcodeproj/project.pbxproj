@@ -15,11 +15,11 @@
 		A40E37E4201E91CA00B3AFA4 /* EventsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37E3201E91CA00B3AFA4 /* EventsManagerTests.swift */; };
 		A40E37EF201E91CA00B3AFA4 /* EventsManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37EE201E91CA00B3AFA4 /* EventsManagerUITests.swift */; };
 		AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03DC272061B8220059EE1B /* EventDetailViewController.swift */; };
+		AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		B8AB18432A62923AEF3E6DFE /* Pods_EventsManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF47980A8E89AE42E0C0DE5 /* Pods_EventsManagerUITests.framework */; };
 		DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */; };
 		DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */; };
-		DA75C21B205ABDB600C1822C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C219205ABDB600C1822C /* ViewController.swift */; };
 		DA75C21D205ABDCD00C1822C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21C205ABDCD00C1822C /* Event.swift */; };
 		DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */; };
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
@@ -63,11 +63,11 @@
 		A40E37EE201E91CA00B3AFA4 /* EventsManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerUITests.swift; sourceTree = "<group>"; };
 		A40E37F0201E91CA00B3AFA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA03DC272061B8220059EE1B /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventDetailViewController.swift; path = EventsManager/ViewControllers/EventDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		CB2AB3B6C27F698CDD077DDC /* Pods-EventsManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsDiscoveryTableViewCell.swift; path = EventsManager/Views/EventsDiscoveryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsDiscoveryController.swift; path = EventsManager/ViewControllers/EventsDiscoveryController.swift; sourceTree = SOURCE_ROOT; };
-		DA75C219205ABDB600C1822C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = EventsManager/ViewControllers/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		DA75C21C205ABDCD00C1822C /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = EventsManager/Model/Event.swift; sourceTree = SOURCE_ROOT; };
 		DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = EventsManager/ViewControllers/TabBarViewController.swift; sourceTree = SOURCE_ROOT; };
 		DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyEventsViewController.swift; path = EventsManager/ViewControllers/MyEventsViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -196,11 +196,11 @@
 			isa = PBXGroup;
 			children = (
 				DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */,
-				DA75C219205ABDB600C1822C /* ViewController.swift */,
 				DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */,
 				DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */,
 				DA75C222205ABF0400C1822C /* MyProfileViewController.swift */,
 				AA03DC272061B8220059EE1B /* EventDetailViewController.swift */,
+				AA58DE66207BF6F700CDC38E /* TagViewController.swift */,
 			);
 			name = ViewControllers;
 			path = "New Group/New Group1";
@@ -522,9 +522,9 @@
 				DA75C226205ABF6F00C1822C /* Colors.swift in Sources */,
 				DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */,
 				DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */,
-				DA75C21B205ABDB600C1822C /* ViewController.swift in Sources */,
 				AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */,
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
+				AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */,
 				DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */,
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,

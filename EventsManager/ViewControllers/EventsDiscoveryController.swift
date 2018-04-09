@@ -28,10 +28,10 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         //for testing
         let RFC3339DateFormatter = DateFormatter()
         RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        RFC3339DateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        let date1 = "1996-12-19T16:39:57-08:00"
-        let date2 = "1996-12-19T18:39:57-08:00"
+        RFC3339DateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        RFC3339DateFormatter.timeZone = TimeZone(abbreviation: "EST")
+        let date1 = "2018-04-19 16:39:57"
+        let date2 = "2018-04-19 18:39:57"
         for _ in 1...20 {
             events.append(Event(startTime: RFC3339DateFormatter.date(from: date1)!, endTime: RFC3339DateFormatter.date(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDiscription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"]))
         }
@@ -43,14 +43,16 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         navigationItem.hidesSearchBarWhenScrolling = false
         
         //Tableview stuffs
-        //let topBarHeight = (navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height //statusbar + navbar + tagbar
-        //let bottomBarHeight = CGFloat(integerLiteral: 0)
-        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
         tableView.rowHeight = UITableViewAutomaticDimension
         view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints { (make) -> Void in
+            make.edges.equalTo(view)
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,8 +66,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventsDiscoveryCell", for: indexPath) as! EventsDiscoveryTableViewCell
-        cell.configure(event: events[indexPath.row])
         // Configure the cell...
+        cell.configure(event: events[indexPath.row])
+        cell.selectionStyle = .none
 
         return cell
     }

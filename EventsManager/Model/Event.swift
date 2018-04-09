@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Event {
+struct Event {
     var startTime:Date
     var endTime:Date
     var eventName:String

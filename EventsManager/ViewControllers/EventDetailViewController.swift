@@ -270,9 +270,21 @@ class EventDetailViewController: UIViewController {
         for tag in event.eventTags {
             let tagButton = EventTagButton()
             tagButton.setTitle(tag, for: .normal)
+            tagButton.addTarget(self, action: #selector(self.tagButtonPressed(_:)), for: .touchUpInside)
             tagStack.addArrangedSubview(tagButton)
         }
         
+    }
+    
+    @objc func tagButtonPressed(_ sender: UIButton) {
+        let tagViewController = TagViewController()
+        if let tagButton = sender as? EventTagButton {
+            let tag = tagButton.getTagName()
+            if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
+                tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
+                navigationController?.pushViewController(tagViewController, animated: true)
+            }
+        }
     }
 
 }

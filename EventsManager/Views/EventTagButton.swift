@@ -13,6 +13,8 @@ class EventTagButton: UIButton {
     //Constants
     let tagHeight = CGFloat(integerLiteral: 40)
     
+    private var tagName = ""
+    
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
     
     override init(frame: CGRect) {
@@ -22,6 +24,11 @@ class EventTagButton: UIButton {
     
     override func setTitle(_ title: String?, for state: UIControlState) {
         super.setTitle("    \(title ?? "")    ", for: state)
+        tagName = title ?? ""
+    }
+    
+    func getTagName() -> String {
+        return tagName
     }
     
     /**
