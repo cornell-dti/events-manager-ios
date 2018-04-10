@@ -13,7 +13,7 @@ import Kingfisher
 class EventDetailViewController: UIViewController {
     
     //Constants
-    let buttonHeight = CGFloat(integerLiteral: 40)
+    let buttonHeight:CGFloat = 40
     let buttonImageViewOffSet = CGFloat(integerLiteral: 20)
     let standardEdgeSpacing = CGFloat(integerLiteral: 20)
     let imageViewHeight = CGFloat(integerLiteral: 200)
@@ -36,10 +36,10 @@ class EventDetailViewController: UIViewController {
     //view elements
     var scrollView = UIScrollView()
     var contentView = UIView()
-    var eventImage:UIImageView = UIImageView()
-    var interestedButton:UIButton = UIButton()
-    var goingButton:UIButton = UIButton()
-    var eventDiscription:UILabel = UILabel()
+    var eventImage = UIImageView()
+    var interestedButton = UIButton()
+    var goingButton = UIButton()
+    var eventDiscription = UILabel()
     var eventTime = UILabel()
     var eventParticipants = UILabel()
     var eventOrganizer = UILabel()
@@ -99,7 +99,7 @@ class EventDetailViewController: UIViewController {
         
         //table of info
         let calendarIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        calendarIcon.image = UIImage(named: "magnifyingGlass")
+        calendarIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
         let calendarStack = UIStackView(arrangedSubviews: [calendarIcon, eventTime])
         calendarStack.alignment = .center
         calendarStack.axis = .horizontal
@@ -107,7 +107,7 @@ class EventDetailViewController: UIViewController {
         calendarStack.spacing = infoStackIconLabelSpacing
         
         let participantIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        participantIcon.image = UIImage(named: "magnifyingGlass")
+        participantIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
         let participantImageAndStringStack = UIStackView(arrangedSubviews: [eventParticipants])
         var avatars:[UIImageView] = []
         for _ in event?.avatars ?? []{
@@ -138,7 +138,7 @@ class EventDetailViewController: UIViewController {
         participantStack.spacing = infoStackIconLabelSpacing
         
         let organizerIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        organizerIcon.image = UIImage(named: "magnifyingGlass")
+        organizerIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
         let organizerStack = UIStackView(arrangedSubviews: [organizerIcon, eventOrganizer])
         organizerStack.alignment = .center
         organizerStack.axis = .horizontal
@@ -147,7 +147,7 @@ class EventDetailViewController: UIViewController {
         
         
         let locationIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        locationIcon.image = UIImage(named: "magnifyingGlass")
+        locationIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
         let locationStack = UIStackView(arrangedSubviews: [locationIcon, eventLocation])
         locationStack.alignment = .center
         locationStack.axis = .horizontal
@@ -248,7 +248,7 @@ class EventDetailViewController: UIViewController {
         
 }
     
-    /* Allow client to configure the event detail page by passing in an event object*/
+    /* Allow client to configure the event detail page by passing in an event object */
     func configure(with event:Event){
         self.event = event
         
@@ -256,13 +256,8 @@ class EventDetailViewController: UIViewController {
         interestedButton.setTitle("INTERESTED", for: .normal)
         goingButton.setTitle("GOING", for: .normal)
         
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "HH:mm a"
-        
         eventDiscription.text = event.eventDiscription
-        eventTime.text = "From \(dateFormatter.string(from: event.startTime)) to \(dateFormatter.string(from: event.endTime))"
+        eventTime.text = "From \(DateFormatHelper.hourMinute(from: event.startTime)) to \(DateFormatHelper.hourMinute(from: event.endTime))"
         eventOrganizer.text = event.eventOrganizer
         eventLocation.text = event.eventLocation
         eventParticipants.text = event.eventParticipant
@@ -276,6 +271,10 @@ class EventDetailViewController: UIViewController {
         
     }
     
+    /*
+     * Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
+     * - sender: the sender of the action.
+     */
     @objc func tagButtonPressed(_ sender: UIButton) {
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
