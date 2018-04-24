@@ -19,4 +19,5 @@ struct Event {
     let eventOrganizer:String
     let eventDiscription:String
     let eventTags:[String]
+    let eventParticipantCount:Int
 }

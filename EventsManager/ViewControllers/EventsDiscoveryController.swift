@@ -21,6 +21,12 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: animated)
+        }
+    }
+    
     /**
     * View initial setups
     */
@@ -29,7 +35,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         let date1 = "2018-04-19 16:39:57"
         let date2 = "2018-04-19 18:39:57"
         for _ in 1...20 {
-            events.append(Event(startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDiscription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"]))
+            events.append(Event(startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDiscription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
         }
         
         //NAVIGATION STUFFS
@@ -43,6 +49,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
+        tableView.register(EventCardCell.self, forCellReuseIdentifier: EventCardCell.identifer)
         tableView.rowHeight = UITableViewAutomaticDimension
         view.addSubview(tableView)
         
@@ -52,20 +59,41 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return events.count
+        switch section {
+            case 0: return 1
+            case 1: return 1
+            case 2: return events.count
+            default: return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventsDiscoveryCell", for: indexPath) as! EventsDiscoveryTableViewCell
-        // Configure the cell...
-        cell.configure(event: events[indexPath.row])
-        cell.selectionStyle = .none
-
+        var cell = UITableViewCell()
+        switch indexPath.section {
+            case 0:
+                if let popularCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
+                    popularCardCell.configure(with: events)
+                    cell = popularCardCell
+                    cell.selectionStyle = .none
+                }
+            case 1:
+                if let todayCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
+                    todayCardCell.configure(with: events)
+                    cell = todayCardCell
+                    cell.selectionStyle = .none
+                }
+            case 2:
+                if let eventDiscoveryCell = tableView.dequeueReusableCell(withIdentifier: EventsDiscoveryTableViewCell.identifer, for: indexPath) as? EventsDiscoveryTableViewCell {
+                    eventDiscoveryCell.configure(event: events[indexPath.row])
+                    cell = eventDiscoveryCell
+                }
+            default: break
+        }
         return cell
     }
     
@@ -78,6 +106,18 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+            case 0:
+                return "Popular Events"
+            case 1:
+                return "Today's Events"
+            case 2:
+                return "Upcoming events"
+            default: return ""
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

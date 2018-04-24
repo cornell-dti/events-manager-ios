@@ -15,6 +15,8 @@
 		A40E37E4201E91CA00B3AFA4 /* EventsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37E3201E91CA00B3AFA4 /* EventsManagerTests.swift */; };
 		A40E37EF201E91CA00B3AFA4 /* EventsManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37EE201E91CA00B3AFA4 /* EventsManagerUITests.swift */; };
 		AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03DC272061B8220059EE1B /* EventDetailViewController.swift */; };
+		AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF97208ED460007A5E5C /* EventCard.swift */; };
+		AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */; };
 		AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
@@ -64,6 +66,8 @@
 		A40E37EE201E91CA00B3AFA4 /* EventsManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerUITests.swift; sourceTree = "<group>"; };
 		A40E37F0201E91CA00B3AFA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA03DC272061B8220059EE1B /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventDetailViewController.swift; path = EventsManager/ViewControllers/EventDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		AA1FFF97208ED460007A5E5C /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCard.swift; path = EventsManager/Views/EventCard.swift; sourceTree = SOURCE_ROOT; };
+		AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCardCell.swift; path = EventsManager/Views/EventCardCell.swift; sourceTree = SOURCE_ROOT; };
 		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 			children = (
 				DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */,
 				AA5B784C2076E29F00D15262 /* EventTagButton.swift */,
+				AA1FFF97208ED460007A5E5C /* EventCard.swift */,
+				AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */,
 			);
 			name = Views;
 			path = "New Group2";
@@ -525,6 +531,7 @@
 				DA75C226205ABF6F00C1822C /* Colors.swift in Sources */,
 				DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */,
 				DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */,
+				AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */,
 				AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */,
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
 				AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */,
@@ -533,6 +540,7 @@
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,
 				DA75C21D205ABDCD00C1822C /* Event.swift in Sources */,
+				AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

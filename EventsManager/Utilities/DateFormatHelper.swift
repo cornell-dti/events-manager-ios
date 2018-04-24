@@ -20,7 +20,23 @@ class DateFormatHelper {
     private static let hourMinuteFromDateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "hh:mm a"
+        formatter.dateFormat = "h:mm a"
+        formatter.timeZone = TimeZone(abbreviation: "EST")
+        return formatter
+    }()
+    
+    private static let monthFromDateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "MMM"
+        formatter.timeZone = TimeZone(abbreviation: "EST")
+        return formatter
+    }()
+    
+    private static let dayFromDateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "dd"
         formatter.timeZone = TimeZone(abbreviation: "EST")
         return formatter
     }()
@@ -30,6 +46,12 @@ class DateFormatHelper {
     }
     public static func hourMinute(from date:Date) -> String {
         return hourMinuteFromDateFormatter.string(from: date)
+    }
+    public static func month(from date:Date) -> String {
+        return monthFromDateFormatter.string(from: date)
+    }
+    public static func day(from date:Date) -> String {
+        return dayFromDateFormatter.string(from: date)
     }
     
     
