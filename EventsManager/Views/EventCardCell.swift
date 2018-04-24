@@ -46,7 +46,10 @@ class EventCardCell: UITableViewCell {
         eventsScrollView.addSubview(eventsCardStack)
         
         eventsCardStack.snp.makeConstraints { make in
-            make.edges.equalTo(eventsScrollView).offset(eventCardMargins)
+            make.top.equalTo(eventsScrollView).offset(eventCardMargins)
+            make.left.equalTo(eventsScrollView).offset(eventCardMargins)
+            make.right.equalTo(eventsScrollView).offset(-eventCardMargins)
+            make.bottom.equalTo(eventsScrollView).offset(-eventCardMargins)
         }
         
         eventsScrollView.snp.makeConstraints { make in
