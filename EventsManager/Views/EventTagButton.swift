@@ -11,7 +11,8 @@ import SnapKit
 
 class EventTagButton: UIButton {
     //Constants
-    let tagHeight = CGFloat(integerLiteral: 40)
+    let tagHeight = CGFloat(integerLiteral: 30)
+    let tagFontSize:CGFloat = 14
     
     private var tagName = ""
     
@@ -35,6 +36,7 @@ class EventTagButton: UIButton {
      * Modifiy the button's styles
      */
     func layoutUI() {
+        self.titleLabel?.font = UIFont.systemFont(ofSize: tagFontSize)
         self.layer.cornerRadius = tagHeight / 2
         self.layer.borderWidth = 1;
         self.layer.borderColor = UIColor.black.cgColor

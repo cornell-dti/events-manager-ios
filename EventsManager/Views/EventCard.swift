@@ -15,12 +15,12 @@ class EventCard: UIView {
     var event:Event?
     
     //View Elements
-    var eventPicture = UIImageView()
-    var monthLabel = UILabel()
-    var dayLabel = UILabel()
-    var eventNameLabel = UILabel()
-    var eventTimeLocationLabel = UILabel()
-    var eventParticipantCountLabel = UILabel()
+    let eventPicture = UIImageView()
+    let monthLabel = UILabel()
+    let dayLabel = UILabel()
+    let eventNameLabel = UILabel()
+    let eventTimeLocationLabel = UILabel()
+    let eventParticipantCountLabel = UILabel()
     
     //Constants
     let cardWidth:CGFloat = 300
@@ -77,17 +77,14 @@ class EventCard: UIView {
             make.height.equalTo(eventPicHeight)
         }
         
-        let eventInfoStack = UIStackView(arrangedSubviews: [eventNameLabel, eventTimeLocationLabel, eventParticipantCountLabel])
+        let eventInfoLabels = [eventNameLabel, eventTimeLocationLabel, eventParticipantCountLabel]
+        let eventInfoStack = UIStackView(arrangedSubviews: eventInfoLabels)
         eventInfoStack.alignment = .leading
         eventInfoStack.distribution = .fill
         eventInfoStack.axis = .vertical
         eventInfoStack.spacing = eventinfoSpacing
         
-        for eventInfoLabelView in eventInfoStack.arrangedSubviews {
-            if let eventInfoLabel = eventInfoLabelView as? UILabel {
-                eventInfoLabel.font = UIFont.systemFont(ofSize: eventInfoFontSize)
-            }
-        }
+        eventInfoLabels.forEach{ $0.font = UIFont.systemFont(ofSize: eventInfoFontSize) }
         
         monthLabel.font = UIFont.boldSystemFont(ofSize: eventDateFontSize)
         dayLabel.font = UIFont.boldSystemFont(ofSize: eventDateFontSize)

@@ -10,9 +10,19 @@ import UIKit
 
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
     
-    var tableView = UITableView()
-
-    var events:[Event] = []
+    //Constants
+    let reccommendedTagViewHeight:CGFloat = 50
+    let tagSideMargins:CGFloat = 10
+    let tagSpacing:CGFloat = 12
+    
+    //View Elements
+    let tableView = UITableView()
+    let recommendedTagView = UIView()
+    let recommendedTagScrollView = UIScrollView()
+    
+    //Models
+    var events = [Event]()
+    var recommendedTags = [String]()
     
     var searchController = UISearchController(searchResultsController: nil)
 
@@ -27,6 +37,21 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    /*
+     * Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
+     * - sender: the sender of the action.
+     */
+    @objc func tagButtonPressed(_ sender: UIButton) {
+        let tagViewController = TagViewController()
+        if let tagButton = sender as? EventTagButton {
+            let tag = tagButton.getTagName()
+            if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
+                tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
+                navigationController?.pushViewController(tagViewController, animated: true)
+            }
+        }
+    }
+    
     /**
     * View initial setups
     */
@@ -37,15 +62,16 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         for _ in 1...20 {
             events.append(Event(startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDiscription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
         }
+        recommendedTags = ["#Kornell", "#oweek", "#Events", "#lololo", "#Party"]
+        
+        view.backgroundColor = UIColor.white
         
         //NAVIGATION STUFFS
         searchController.delegate = self
         searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
         
         //Tableview stuffs
-        tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
@@ -53,9 +79,47 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         tableView.rowHeight = UITableViewAutomaticDimension
         view.addSubview(tableView)
         
-        tableView.snp.makeConstraints { (make) -> Void in
-            make.edges.equalTo(view)
+        //Recommended TagView
+        recommendedTagView.backgroundColor = UIColor(named: "tableViewBackground")
+        let tagStackView = UIStackView()
+        tagStackView.alignment = .center
+        tagStackView.axis = .horizontal
+        tagStackView.distribution = .fill
+        tagStackView.spacing = tagSpacing
+        tagStackView.addArrangedSubview(DatePickerTagView())
+        for tag in recommendedTags {
+            let eventTagButton = EventTagButton() 
+            eventTagButton.setTitle(tag, for: .normal)
+            eventTagButton.addTarget(self, action: #selector(tagButtonPressed(_:)), for: .touchUpInside)
+            tagStackView.addArrangedSubview(eventTagButton)
         }
+        recommendedTagScrollView.addSubview(tagStackView)
+        recommendedTagView.addSubview(recommendedTagScrollView)
+        view.addSubview(recommendedTagView)
+        tagStackView.snp.makeConstraints { make in
+            make.left.equalTo(recommendedTagScrollView).offset(tagSideMargins)
+            make.right.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
+            make.top.equalTo(recommendedTagScrollView).offset(tagSideMargins)
+            make.bottom.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
+        }
+        recommendedTagScrollView.snp.makeConstraints{ make in
+            make.edges.equalTo(recommendedTagView)
+        }
+        recommendedTagView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalTo(view)
+            make.right.equalTo(view)
+            make.height.equalTo(reccommendedTagViewHeight)
+        }
+        
+        //tableview layout
+        tableView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(recommendedTagView.snp.bottom)
+            make.right.equalTo(view)
+            make.left.equalTo(view)
+            make.bottom.equalTo(view)
+        }
+        
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

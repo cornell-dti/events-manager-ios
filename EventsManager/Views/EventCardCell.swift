@@ -84,7 +84,6 @@ class EventCardCell: UITableViewCell {
     @objc func onCardPressed(_ sender:UITapGestureRecognizer){
         if let senderCard = sender.view as? EventCard {
             if let event = senderCard.event {
-                print("ok")
                 let detailsViewController = EventDetailViewController()
                 detailsViewController.configure(with: event)
                 if let tabBarViewController = self.window?.rootViewController as? TabBarViewController {

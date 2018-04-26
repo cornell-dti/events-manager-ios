@@ -44,9 +44,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         // Set up each view controller's nav bar
         viewController.navigationItem.title = title
     
-        let navVC = UINavigationController(rootViewController: viewController)
-        navVC.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 20)]
-    
+        let navVC = UINavigationController(rootViewController: viewController)    
         return navVC
     }
     
