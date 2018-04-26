@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
         
+        UITabBar.appearance().barTintColor = UIColor.white
+
         return true
     }
 
