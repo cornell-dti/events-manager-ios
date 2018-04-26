@@ -14,9 +14,11 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     let reccommendedTagViewHeight:CGFloat = 50
     let tagSideMargins:CGFloat = 10
     let tagSpacing:CGFloat = 12
+    let headerFontSize:CGFloat = 20
+    let headerHeight:CGFloat = 40
     
     //View Elements
-    let tableView = UITableView()
+    let tableView = UITableView(frame: CGRect(), style: .grouped)
     let recommendedTagView = UIView()
     let recommendedTagScrollView = UIScrollView()
     
@@ -72,6 +74,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         navigationItem.searchController = searchController
         
         //Tableview stuffs
+        tableView.backgroundColor = UIColor(named: "tableViewBackground")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
@@ -180,6 +183,17 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
                 return "Upcoming events"
             default: return ""
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.font = UIFont.boldSystemFont(ofSize: headerFontSize)
+            headerView.textLabel?.textColor = UIColor.black
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerHeight
     }
     
     /*
