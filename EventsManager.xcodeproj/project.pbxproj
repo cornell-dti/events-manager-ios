@@ -21,6 +21,9 @@
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
 		AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */; };
+		AAF8FC6B209AA69900BF8277 /* EventTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF8FC6A209AA69900BF8277 /* EventTableHeaderFooterView.swift */; };
+		AAF8FC6D209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF8FC6C209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift */; };
+		AAF8FC6F209AAF3500BF8277 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */; };
 		B8AB18432A62923AEF3E6DFE /* Pods_EventsManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF47980A8E89AE42E0C0DE5 /* Pods_EventsManagerUITests.framework */; };
 		DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */; };
 		DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */; };
@@ -73,6 +76,9 @@
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
 		AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerTagView.swift; path = EventsManager/Views/DatePickerTagView.swift; sourceTree = SOURCE_ROOT; };
+		AAF8FC6A209AA69900BF8277 /* EventTableHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTableHeaderFooterView.swift; path = EventsManager/Views/EventTableHeaderFooterView.swift; sourceTree = SOURCE_ROOT; };
+		AAF8FC6C209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeeAllEventsHeaderFooterView.swift; path = EventsManager/Views/SeeAllEventsHeaderFooterView.swift; sourceTree = SOURCE_ROOT; };
+		AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventListViewController.swift; path = EventsManager/ViewControllers/EventListViewController.swift; sourceTree = SOURCE_ROOT; };
 		CB2AB3B6C27F698CDD077DDC /* Pods-EventsManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsDiscoveryTableViewCell.swift; path = EventsManager/Views/EventsDiscoveryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsDiscoveryController.swift; path = EventsManager/ViewControllers/EventsDiscoveryController.swift; sourceTree = SOURCE_ROOT; };
@@ -209,6 +215,7 @@
 				DA75C222205ABF0400C1822C /* MyProfileViewController.swift */,
 				AA03DC272061B8220059EE1B /* EventDetailViewController.swift */,
 				AA58DE66207BF6F700CDC38E /* TagViewController.swift */,
+				AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */,
 			);
 			name = ViewControllers;
 			path = "New Group/New Group1";
@@ -222,6 +229,8 @@
 				AA1FFF97208ED460007A5E5C /* EventCard.swift */,
 				AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */,
 				AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */,
+				AAF8FC6A209AA69900BF8277 /* EventTableHeaderFooterView.swift */,
+				AAF8FC6C209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift */,
 			);
 			name = Views;
 			path = "New Group2";
@@ -537,10 +546,13 @@
 				AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */,
 				AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */,
 				AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */,
+				AAF8FC6B209AA69900BF8277 /* EventTableHeaderFooterView.swift in Sources */,
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
 				AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */,
+				AAF8FC6D209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift in Sources */,
 				DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */,
 				AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */,
+				AAF8FC6F209AAF3500BF8277 /* EventListViewController.swift in Sources */,
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,
 				DA75C21D205ABDCD00C1822C /* Event.swift in Sources */,

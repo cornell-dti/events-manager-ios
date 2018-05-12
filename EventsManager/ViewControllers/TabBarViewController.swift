@@ -29,7 +29,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     }
     
     private func setUpViewControllers() {
-        discoverNavVC = makeNavVC(viewController: EventsDiscoveryController(), title: "Browse", tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
+        discoverNavVC = makeNavVC(viewController: EventsDiscoveryController(), title: "Discovery", tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
         myEventsNavVC = makeNavVC(viewController: MyEventsViewController(), title: "My Events", tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
         myProfileNavVC = makeNavVC(viewController: MyProfileViewController(), title: "My Profile", tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
         

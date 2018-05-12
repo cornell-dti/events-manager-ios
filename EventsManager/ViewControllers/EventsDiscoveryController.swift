@@ -11,19 +11,22 @@ import UIKit
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
     
     //Constants
-    let reccommendedTagViewHeight:CGFloat = 50
-    let tagSideMargins:CGFloat = 10
-    let tagSpacing:CGFloat = 12
     let headerFontSize:CGFloat = 20
     let headerHeight:CGFloat = 40
     
+    let popularEventsSection = 0
+    let todayEventsSection = 1
+    let tomorrowEventsSection = 2
+    let seeAllEventSection = 3
+    
     //View Elements
     let tableView = UITableView(frame: CGRect(), style: .grouped)
-    let recommendedTagView = UIView()
-    let recommendedTagScrollView = UIScrollView()
     
     //Models
     var events = [Event]()
+    var popularEvents = [Event]()
+    var todayEvents = [Event]()
+    var tomorrowEvents = [Event] ()
     var recommendedTags = [String]()
     
     var searchController = UISearchController(searchResultsController: nil)
@@ -33,37 +36,19 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         setup()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if let indexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: indexPath, animated: animated)
-        }
-    }
-    
-    /*
-     * Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
-     * - sender: the sender of the action.
-     */
-    @objc func tagButtonPressed(_ sender: UIButton) {
-        let tagViewController = TagViewController()
-        if let tagButton = sender as? EventTagButton {
-            let tag = tagButton.getTagName()
-            if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
-                tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
-                navigationController?.pushViewController(tagViewController, animated: true)
-            }
-        }
-    }
-    
     /**
     * View initial setups
     */
     func setup(){
         //for testing
-        let date1 = "2018-04-19 16:39:57"
-        let date2 = "2018-04-19 18:39:57"
+        let date1 = "2018-05-12 16:39:57"
+        let date2 = "2018-05-12 18:39:57"
         for _ in 1...20 {
             events.append(Event(startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDiscription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
         }
+        popularEvents = events
+        todayEvents = events
+        tomorrowEvents = events
         recommendedTags = ["#Kornell", "#oweek", "#Events", "#lololo", "#Party"]
         
         view.backgroundColor = UIColor.white
@@ -79,62 +64,69 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         tableView.dataSource = self
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
         tableView.register(EventCardCell.self, forCellReuseIdentifier: EventCardCell.identifer)
+        tableView.register(EventTableHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: EventTableHeaderFooterView.identifier)
+        tableView.register(SeeAllEventsHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: SeeAllEventsHeaderFooterView.identifier)
+
         tableView.rowHeight = UITableViewAutomaticDimension
         view.addSubview(tableView)
         
-        //Recommended TagView
-        recommendedTagView.backgroundColor = UIColor(named: "tableViewBackground")
-        let tagStackView = UIStackView()
-        tagStackView.alignment = .center
-        tagStackView.axis = .horizontal
-        tagStackView.distribution = .fill
-        tagStackView.spacing = tagSpacing
-        tagStackView.addArrangedSubview(DatePickerTagView())
-        for tag in recommendedTags {
-            let eventTagButton = EventTagButton() 
-            eventTagButton.setTitle(tag, for: .normal)
-            eventTagButton.addTarget(self, action: #selector(tagButtonPressed(_:)), for: .touchUpInside)
-            tagStackView.addArrangedSubview(eventTagButton)
-        }
-        recommendedTagScrollView.addSubview(tagStackView)
-        recommendedTagView.addSubview(recommendedTagScrollView)
-        view.addSubview(recommendedTagView)
-        tagStackView.snp.makeConstraints { make in
-            make.left.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-            make.right.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-            make.top.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-            make.bottom.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-        }
-        recommendedTagScrollView.snp.makeConstraints{ make in
-            make.edges.equalTo(recommendedTagView)
-        }
-        recommendedTagView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.equalTo(view)
-            make.right.equalTo(view)
-            make.height.equalTo(reccommendedTagViewHeight)
-        }
-        
         //tableview layout
         tableView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(recommendedTagView.snp.bottom)
-            make.right.equalTo(view)
-            make.left.equalTo(view)
-            make.bottom.equalTo(view)
+            make.edges.equalTo(view)
         }
         
+    }
+
+    /**
+     Handle the action for user pressing the see more buttons above a popular card stack. Should segue to a event list view controller without filters
+     - sender: the button that this action is triggered.
+    */
+    @objc func popularSeeMoreButtonPressed(_ sender: UIButton){
+        let popularListViewController = EventListViewController()
+        popularListViewController.setup(with: popularEvents, title: "All Popular Events", withFilterBar: false)
+        navigationController?.pushViewController(popularListViewController, animated: true)
+    }
+    
+    /**
+     Handle the action for user pressing the see more buttons above a today card stack. Should segue to a event list view controller without filters
+     - sender: the button that this action is triggered.
+     */
+    @objc func todaySeeMoreButtonPressed(_ sender: UIButton){
+        let todayListViewController = EventListViewController()
+        todayListViewController.setup(with: popularEvents, title: "Today's Events", withFilterBar: false)
+        navigationController?.pushViewController(todayListViewController, animated: true)
+    }
+    
+    /**
+     Handle the action for user pressing the see more buttons above a tomorrow card stack. Should segue to a event list view controller without filters
+     - sender: the button that this action is triggered.
+     */
+    @objc func tomorrowSeeMoreButtonPressed(_ sender: UIButton){
+        let tomorrowListViewController = EventListViewController()
+        tomorrowListViewController.setup(with: popularEvents, title: "Tomorrow's Events", withFilterBar: false)
+        navigationController?.pushViewController(tomorrowListViewController, animated: true)
+    }
+    
+    /**
+     Handle the action for user pressing the see all events buttons at the bottom of the page. Should segue to a event list view controller with filters
+     - sender: the button that this action is triggered.
+     */
+    @objc func seeAllEventsButtonPressed(_ sender: UIButton){
+        let seeAllEventsListViewController = EventListViewController()
+        seeAllEventsListViewController.setup(with: popularEvents, title: "All Events", withFilterBar: true)
+        navigationController?.pushViewController(seeAllEventsListViewController, animated: true)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         switch section {
-            case 0: return 1
-            case 1: return 1
-            case 2: return events.count
+            case popularEventsSection: return 1
+            case todayEventsSection: return 1
+            case tomorrowEventsSection: return 1
+            case seeAllEventSection: return 0
             default: return 0
         }
     }
@@ -142,25 +134,24 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         switch indexPath.section {
-            case 0:
+            case popularEventsSection:
                 if let popularCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
-                    popularCardCell.configure(with: events)
+                    popularCardCell.configure(with: popularEvents)
                     cell = popularCardCell
-                    cell.selectionStyle = .none
                 }
-            case 1:
+            case todayEventsSection:
                 if let todayCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
-                    todayCardCell.configure(with: events)
+                    todayCardCell.configure(with: todayEvents)
                     cell = todayCardCell
-                    cell.selectionStyle = .none
                 }
-            case 2:
-                if let eventDiscoveryCell = tableView.dequeueReusableCell(withIdentifier: EventsDiscoveryTableViewCell.identifer, for: indexPath) as? EventsDiscoveryTableViewCell {
-                    eventDiscoveryCell.configure(event: events[indexPath.row])
-                    cell = eventDiscoveryCell
-                }
+            case tomorrowEventsSection:
+                if let tomorrowCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
+                    tomorrowCardCell.configure(with: tomorrowEvents)
+                    cell = tomorrowCardCell
+            }
             default: break
         }
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -173,23 +164,40 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+   
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var header = UITableViewHeaderFooterView()
         switch section {
-            case 0:
-                return "Popular Events"
-            case 1:
-                return "Today's Events"
-            case 2:
-                return "Upcoming events"
-            default: return ""
+        case popularEventsSection:
+            if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
+                popularHeader.setMainTitle("Popular Events")
+                popularHeader.setButtonTitle("See More...")
+                popularHeader.editButton.addTarget(self, action:#selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
+                header = popularHeader
+            }
+        case todayEventsSection:
+            if let todayHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
+                todayHeader.setMainTitle("Today's Events")
+                todayHeader.setButtonTitle("See More...")
+                todayHeader.editButton.addTarget(self, action:#selector(todaySeeMoreButtonPressed(_:)), for: .touchUpInside)
+                header = todayHeader
+            }
+        case tomorrowEventsSection:
+            if let tomorrowHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
+                tomorrowHeader.setMainTitle("Tomorrow's Events")
+                tomorrowHeader.setButtonTitle("See More...")
+                tomorrowHeader.editButton.addTarget(self, action:#selector(tomorrowSeeMoreButtonPressed(_:)), for: .touchUpInside)
+                header = tomorrowHeader
+            }
+        case seeAllEventSection:
+            if let seeAllEventsHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: SeeAllEventsHeaderFooterView.identifier) as? SeeAllEventsHeaderFooterView {
+                seeAllEventsHeader.setButtonTitle("- See All Events -")
+                seeAllEventsHeader.editButton.addTarget(self, action:#selector(seeAllEventsButtonPressed(_:)), for: .touchUpInside)
+                header = seeAllEventsHeader
+            }
+        default: break;
         }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.textLabel?.font = UIFont.boldSystemFont(ofSize: headerFontSize)
-            headerView.textLabel?.textColor = UIColor.black
-        }
+        return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

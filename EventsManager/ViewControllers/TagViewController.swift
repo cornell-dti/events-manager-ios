@@ -22,6 +22,12 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: animated)
+        }
+    }
+    
     /*
      * Sets up the tag view
      * - events: an events array that tha tag view should filter events from
@@ -77,7 +83,6 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventsDiscoveryCell", for: indexPath) as! EventsDiscoveryTableViewCell
         // Configure the cell...
         cell.configure(event: events[indexPath.row])
-        cell.selectionStyle = .none
         
         return cell
     }

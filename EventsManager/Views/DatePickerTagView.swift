@@ -11,6 +11,8 @@ import SnapKit
 
 class DatePickerTagView: UIView {
     
+    var date:Date?
+    
     //ViewElements
     let dateLabel = UILabel()
     let displayLabel = UILabel()
@@ -32,6 +34,20 @@ class DatePickerTagView: UIView {
         layoutUI()
     }
     
+    /**
+     Sets the date for this date picker
+    */
+    func setDate(_ date:Date) {
+        self.date = date
+        displayLabel.text = "\(DateFormatHelper.month(from: date)) \(DateFormatHelper.day(from: date))"
+    }
+    
+    /**
+     Gets the date for this date picker.
+    */
+    func getDate() -> Date?{
+        return date
+    }
     
     /**
      * Modifiy the button's styles
@@ -52,7 +68,6 @@ class DatePickerTagView: UIView {
         dateLabel.textAlignment = .center
         displayLabel.textAlignment = .center
         dateLabel.text = " Date"
-        displayLabel.text = "Jan 27"
         
         self.addSubview(dateLabel)
         self.addSubview(displayLabel)

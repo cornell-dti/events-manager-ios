@@ -18,7 +18,7 @@ class EventCardCell: UITableViewCell {
     //Constants
     private let scrollViewHeight:CGFloat = 270 //Should be cardHeight + 2 * cardMargins
     private let eventCardMargins:CGFloat = 10
-
+    private let cardLimit = 10
     
     private var eventsScrollView = UIScrollView()
     private var eventsCardStack = UIStackView()
@@ -68,12 +68,17 @@ class EventCardCell: UITableViewCell {
             card.removeFromSuperview()
         }
         self.events = events
+        var count = 0
         for event in events {
+            if count >= 10 {
+                break
+            }
             let card = EventCard()
             card.configure(with: event)
             let cardPressedGesture = UITapGestureRecognizer(target: self, action: #selector(onCardPressed(_:)))
             card.addGestureRecognizer(cardPressedGesture)
             eventsCardStack.addArrangedSubview(card)
+            count = count + 1
         }
     }
     
