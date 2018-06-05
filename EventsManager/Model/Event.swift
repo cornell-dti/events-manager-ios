@@ -9,15 +9,17 @@
 import Foundation
 
 struct Event {
+    let id:Int
     let startTime:Date
     let endTime:Date
     let eventName:String
     let eventLocation:String
+    let eventLocationID:String
     let eventParticipant:String
-    let avatars:[URL]
-    let eventImage:URL
+    let avatars:[URL] //id
+    let eventImage:URL //id
     let eventOrganizer:String
-    let eventDiscription:String
+    let eventDescription:String
     let eventTags:[String]
     let eventParticipantCount:Int
 }

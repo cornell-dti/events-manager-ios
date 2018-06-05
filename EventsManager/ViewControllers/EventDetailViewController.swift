@@ -256,7 +256,7 @@ class EventDetailViewController: UIViewController {
         interestedButton.setTitle("INTERESTED", for: .normal)
         goingButton.setTitle("GOING", for: .normal)
         
-        eventDiscription.text = event.eventDiscription
+        eventDiscription.text = event.eventDescription
         eventTime.text = "From \(DateFormatHelper.hourMinute(from: event.startTime)) to \(DateFormatHelper.hourMinute(from: event.endTime))"
         eventOrganizer.text = event.eventOrganizer
         eventLocation.text = event.eventLocation

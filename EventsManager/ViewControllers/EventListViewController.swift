@@ -119,6 +119,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
                 make.edges.equalTo(view)
             }
         }
+        
         //datepicker
         view.addSubview(datePickerContainerView)
         datePickerContainerView.addSubview(datePicker)
