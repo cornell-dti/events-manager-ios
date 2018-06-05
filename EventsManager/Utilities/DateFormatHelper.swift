@@ -41,6 +41,7 @@ class DateFormatHelper {
         return formatter
     }()
     
+    
     public static func date(from string:String) -> Date?{
         return dateFromStringFormatter.date(from: string)
     }
@@ -52,6 +53,20 @@ class DateFormatHelper {
     }
     public static func day(from date:Date) -> String {
         return dayFromDateFormatter.string(from: date)
+    }
+    public static func dayOfWeek(from date:Date) -> String {
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: date)
+        switch weekDay {
+            case 1: return "Mon"
+            case 2: return "Tue"
+            case 3: return "Wed"
+            case 4: return "Thu"
+            case 5: return "Fri"
+            case 6: return "Sat"
+            case 7: return "Sun"
+            default: return "ERR"
+        }
     }
     
     

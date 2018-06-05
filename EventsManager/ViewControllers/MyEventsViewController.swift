@@ -7,29 +7,44 @@
 //
 
 import UIKit
+import SnapKit
 
 class MyEventsViewController: UIViewController {
+    
+    
+    let datePicker = MyEventsDatePickerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.purple
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        setLayouts()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    /* Sets all the layout elements in the view */
+    func setLayouts(){
+        view.backgroundColor = UIColor.white
+        view.addSubview(datePicker)
+        
+        datePicker.snp.makeConstraints{ make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.right.equalTo(view)
+            make.left.equalTo(view)
+        }
+        
+        for date in datePicker.dateStack.arrangedSubviews {
+            let dateTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDatePressed(_:)))
+            date.addGestureRecognizer(dateTapGesture)
+            date.isUserInteractionEnabled = true
+        }
     }
+    
+    /**
+     Event Handler for pressing dates on the date picker. Should highlight the selected date and filter the events in myevents.
     */
+    @objc func onDatePressed(_ sender:UITapGestureRecognizer){
+        if let individualDateStack = sender.view as? UIStackView {
+            datePicker.setSelected(selectedView: individualDateStack)
+        }
+    }
 
+   
 }
