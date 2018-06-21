@@ -145,6 +145,10 @@ class EventDetailViewController: UIViewController {
         organizerStack.distribution = .fill
         organizerStack.spacing = infoStackIconLabelSpacing
         
+        let organzationTapGesture = UITapGestureRecognizer(target: self, action: #selector(orgNamePressed(_:)))
+        eventOrganizer.addGestureRecognizer(organzationTapGesture)
+        eventOrganizer.isUserInteractionEnabled = true
+        
         
         let locationIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
         locationIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
@@ -269,6 +273,17 @@ class EventDetailViewController: UIViewController {
             tagStack.addArrangedSubview(tagButton)
         }
         
+    }
+    
+    /**
+     Handler for the pressing action of the organization name. Should segue to the correct organization page.
+     - sender: the sender of the action
+     */
+    @objc func orgNamePressed(_ sender: UITapGestureRecognizer){
+        let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")
+        let orgController = OrganizationViewController()
+        orgController.configure(organization: testOrg)
+        navigationController?.pushViewController(orgController, animated: true)
     }
     
     /*

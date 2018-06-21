@@ -11,7 +11,6 @@ import UIKit
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
     
     //Constants
-    let headerFontSize:CGFloat = 20
     let headerHeight:CGFloat = 40
     
     let popularEventsSection = 0
@@ -27,7 +26,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     var popularEvents = [Event]()
     var todayEvents = [Event]()
     var tomorrowEvents = [Event] ()
-    var recommendedTags = [String]()
     
     var searchController = UISearchController(searchResultsController: nil)
 
@@ -41,15 +39,14 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     */
     func setup(){
         //for testing
-        let date1 = "2018-05-12 16:39:57"
-        let date2 = "2018-05-12 18:39:57"
+        let date1 = "2018-06-20 16:39:57"
+        let date2 = "2018-06-20 18:39:57"
         for _ in 1...20 {
             events.append(Event(id:1, startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
         }
         popularEvents = events
         todayEvents = events
         tomorrowEvents = events
-        recommendedTags = ["#Kornell", "#oweek", "#Events", "#lololo", "#Party"]
         
         view.backgroundColor = UIColor.white
         

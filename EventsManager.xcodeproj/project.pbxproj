@@ -25,6 +25,7 @@
 		AABA675020C6E5DD00363899 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674F20C6E5DD00363899 /* User.swift */; };
 		AABA675220C6E5E400363899 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675120C6E5E400363899 /* Category.swift */; };
 		AABA675420C7244600363899 /* MyEventsDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675320C7244600363899 /* MyEventsDatePickerView.swift */; };
+		AADAFB2920DA019D000F72E3 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */; };
 		AAE10F4920AF42530070F515 /* Internet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4820AF42530070F515 /* Internet.swift */; };
 		AAE10F4B20AF42D50070F515 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4A20AF42D50070F515 /* UserData.swift */; };
 		AAF8FC6B209AA69900BF8277 /* EventTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF8FC6A209AA69900BF8277 /* EventTableHeaderFooterView.swift */; };
@@ -86,6 +87,7 @@
 		AABA674F20C6E5DD00363899 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = EventsManager/Model/User.swift; sourceTree = SOURCE_ROOT; };
 		AABA675120C6E5E400363899 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = EventsManager/Model/Category.swift; sourceTree = SOURCE_ROOT; };
 		AABA675320C7244600363899 /* MyEventsDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyEventsDatePickerView.swift; path = EventsManager/Views/MyEventsDatePickerView.swift; sourceTree = SOURCE_ROOT; };
+		AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrganizationViewController.swift; path = EventsManager/ViewControllers/OrganizationViewController.swift; sourceTree = SOURCE_ROOT; };
 		AAE10F4820AF42530070F515 /* Internet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Internet.swift; sourceTree = "<group>"; };
 		AAE10F4A20AF42D50070F515 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		AAF8FC6A209AA69900BF8277 /* EventTableHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTableHeaderFooterView.swift; path = EventsManager/Views/EventTableHeaderFooterView.swift; sourceTree = SOURCE_ROOT; };
@@ -231,6 +233,7 @@
 				AA03DC272061B8220059EE1B /* EventDetailViewController.swift */,
 				AA58DE66207BF6F700CDC38E /* TagViewController.swift */,
 				AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */,
+				AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */,
 			);
 			name = ViewControllers;
 			path = "New Group/New Group1";
@@ -575,6 +578,7 @@
 				AABA675220C6E5E400363899 /* Category.swift in Sources */,
 				DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */,
 				AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */,
+				AADAFB2920DA019D000F72E3 /* OrganizationViewController.swift in Sources */,
 				AAF8FC6F209AAF3500BF8277 /* EventListViewController.swift in Sources */,
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,
