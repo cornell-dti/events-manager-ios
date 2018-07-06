@@ -54,6 +54,10 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         searchController.delegate = self
         searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
+        if #available(iOS 11, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+            self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        }
         
         //Tableview stuffs
         tableView.backgroundColor = UIColor(named: "tableViewBackground")
@@ -189,7 +193,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             }
         case seeAllEventSection:
             if let seeAllEventsHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: SeeAllEventsHeaderFooterView.identifier) as? SeeAllEventsHeaderFooterView {
-                seeAllEventsHeader.setButtonTitle("- See All Events -")
+                seeAllEventsHeader.setButtonTitle("See All >")
                 seeAllEventsHeader.editButton.addTarget(self, action:#selector(seeAllEventsButtonPressed(_:)), for: .touchUpInside)
                 header = seeAllEventsHeader
             }
