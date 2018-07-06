@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Ethan Hu on 6/5/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit

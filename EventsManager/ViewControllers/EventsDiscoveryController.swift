@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Ethan Hu on 2/27/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit
@@ -52,11 +52,11 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         
         //NAVIGATION STUFFS
         searchController.delegate = self
-        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.placeholder = NSLocalizedString("search", comment: "")
         navigationItem.searchController = searchController
         if #available(iOS 11, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-            self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+            self.navigationController?.navigationBar.prefersLargeTitles = true;
+            self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         }
         
         //Tableview stuffs
@@ -85,7 +85,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton){
         let popularListViewController = EventListViewController()
-        popularListViewController.setup(with: popularEvents, title: "All Popular Events", withFilterBar: false)
+        popularListViewController.setup(with: popularEvents, title: NSLocalizedString("popular-events", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
     
@@ -95,7 +95,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      */
     @objc func todaySeeMoreButtonPressed(_ sender: UIButton){
         let todayListViewController = EventListViewController()
-        todayListViewController.setup(with: popularEvents, title: "Today's Events", withFilterBar: false)
+        todayListViewController.setup(with: popularEvents, title: NSLocalizedString("today-events", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(todayListViewController, animated: true)
     }
     
@@ -105,7 +105,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      */
     @objc func tomorrowSeeMoreButtonPressed(_ sender: UIButton){
         let tomorrowListViewController = EventListViewController()
-        tomorrowListViewController.setup(with: popularEvents, title: "Tomorrow's Events", withFilterBar: false)
+        tomorrowListViewController.setup(with: popularEvents, title: NSLocalizedString("tomorrow-events", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(tomorrowListViewController, animated: true)
     }
     
@@ -115,7 +115,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      */
     @objc func seeAllEventsButtonPressed(_ sender: UIButton){
         let seeAllEventsListViewController = EventListViewController()
-        seeAllEventsListViewController.setup(with: popularEvents, title: "All Events", withFilterBar: true)
+        seeAllEventsListViewController.setup(with: popularEvents, title: NSLocalizedString("all-events", comment: ""), withFilterBar: true)
         navigationController?.pushViewController(seeAllEventsListViewController, animated: true)
     }
 
@@ -172,28 +172,32 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         switch section {
         case popularEventsSection:
             if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-                popularHeader.setMainTitle("POPULAR EVENTS")
-                popularHeader.setButtonTitle("See More")
+                popularHeader.setMainTitle(NSLocalizedString("popular-events", comment: "").uppercased())
+                popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
+                popularHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                 popularHeader.editButton.addTarget(self, action:#selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
                 header = popularHeader
             }
         case todayEventsSection:
             if let todayHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-                todayHeader.setMainTitle("TODAY'S EVENTS")
-                todayHeader.setButtonTitle("See More")
+                todayHeader.setMainTitle(NSLocalizedString("today-events", comment: "").uppercased())
+                todayHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
+                todayHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                 todayHeader.editButton.addTarget(self, action:#selector(todaySeeMoreButtonPressed(_:)), for: .touchUpInside)
                 header = todayHeader
             }
         case tomorrowEventsSection:
             if let tomorrowHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-                tomorrowHeader.setMainTitle("TOMORROW'S EVENTS")
-                tomorrowHeader.setButtonTitle("See More")
+                tomorrowHeader.setMainTitle(NSLocalizedString("tomorrow-events", comment: "").uppercased())
+                tomorrowHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
+                tomorrowHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                 tomorrowHeader.editButton.addTarget(self, action:#selector(tomorrowSeeMoreButtonPressed(_:)), for: .touchUpInside)
                 header = tomorrowHeader
             }
         case seeAllEventSection:
             if let seeAllEventsHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: SeeAllEventsHeaderFooterView.identifier) as? SeeAllEventsHeaderFooterView {
-                seeAllEventsHeader.setButtonTitle("See All >")
+                seeAllEventsHeader.setButtonTitle(NSLocalizedString("see-all-button", comment: ""))
+                seeAllEventsHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                 seeAllEventsHeader.editButton.addTarget(self, action:#selector(seeAllEventsButtonPressed(_:)), for: .touchUpInside)
                 header = seeAllEventsHeader
             }

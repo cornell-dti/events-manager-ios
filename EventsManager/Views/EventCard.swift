@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Ethan Hu on 4/23/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit
@@ -56,8 +56,8 @@ class EventCard: UIView {
      * - event: The event object that this card should populate with
      */
     func configure(with event:Event) {
-        goingLabel.text = "Going"
-        startLabel.text = "Starts"
+        goingLabel.text = NSLocalizedString("going", comment: "")
+        startLabel.text = NSLocalizedString("starts", comment: "")
         self.event = event
         monthLabel.text = DateFormatHelper.month(from: event.startTime)
         dayLabel.text = DateFormatHelper.day(from: event.startTime)

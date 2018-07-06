@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Amanda Ong on 3/15/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit
@@ -29,9 +29,9 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     }
     
     private func setUpViewControllers() {
-        discoverNavVC = makeNavVC(viewController: EventsDiscoveryController(), title: "Discovery", tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
-        myEventsNavVC = makeNavVC(viewController: MyEventsViewController(), title: "My Events", tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
-        myProfileNavVC = makeNavVC(viewController: MyProfileViewController(), title: "My Profile", tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
+        discoverNavVC = makeNavVC(viewController: EventsDiscoveryController(), title: NSLocalizedString("discover", comment: ""), tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
+        myEventsNavVC = makeNavVC(viewController: MyEventsViewController(), title: NSLocalizedString("my-events", comment: ""), tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
+        myProfileNavVC = makeNavVC(viewController: MyProfileViewController(), title: NSLocalizedString("my-profile", comment: ""), tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
         
         let controllers = [discoverNavVC, myEventsNavVC, myProfileNavVC]
         self.viewControllers = controllers

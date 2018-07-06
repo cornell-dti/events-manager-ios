@@ -3,7 +3,7 @@
 //  EventsManagerUITests
 //
 //  Created by Jagger Brulato on 1/28/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import XCTest

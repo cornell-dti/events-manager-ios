@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Ethan Hu on 4/9/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit
@@ -80,7 +80,7 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventsDiscoveryCell", for: indexPath) as! EventsDiscoveryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: EventsDiscoveryTableViewCell.identifer, for: indexPath) as! EventsDiscoveryTableViewCell
         // Configure the cell...
         cell.configure(event: events[indexPath.row])
         

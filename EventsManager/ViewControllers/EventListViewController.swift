@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Ethan Hu on 4/9/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit
@@ -134,9 +134,9 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
         toolBar.sizeToFit()
         
         //add button to tool bar
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(toolBarDoneClicked))
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("tool-bar-done-button", comment: ""), style: .plain, target: self, action: #selector(toolBarDoneClicked))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(toolBarCancelClicked))
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("tool-bar-cancel-button", comment: ""), style: .plain, target: self, action: #selector(toolBarCancelClicked))
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
         toolBar.isUserInteractionEnabled = true
         
@@ -272,7 +272,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventsDiscoveryCell", for: indexPath) as! EventsDiscoveryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: EventsDiscoveryTableViewCell.identifer, for: indexPath) as! EventsDiscoveryTableViewCell
         // Configure the cell...
         cell.configure(event: filteredEvents[indexPath.row])
         

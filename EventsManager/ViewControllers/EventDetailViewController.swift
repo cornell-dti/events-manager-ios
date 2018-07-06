@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Ethan Hu on 3/20/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit
@@ -181,7 +181,7 @@ class EventDetailViewController: UIViewController {
         
         
         let tagLabel = UILabel()
-        tagLabel.text = "TAGS"
+        tagLabel.text = NSLocalizedString("tag-button", comment: "")
         tagLabel.font = UIFont.boldSystemFont(ofSize: tagLabelFontSize)
         tagStack.insertArrangedSubview(tagLabel, at: 0)
         tagStack.alignment = .center
@@ -257,11 +257,11 @@ class EventDetailViewController: UIViewController {
         self.event = event
         
         eventImage.kf.setImage(with: event.eventImage)
-        interestedButton.setTitle("INTERESTED", for: .normal)
-        goingButton.setTitle("GOING", for: .normal)
+        interestedButton.setTitle(NSLocalizedString("interested-button", comment: ""), for: .normal)
+        goingButton.setTitle(NSLocalizedString("going-button", comment: ""), for: .normal)
         
         eventDiscription.text = event.eventDescription
-        eventTime.text = "From \(DateFormatHelper.hourMinute(from: event.startTime)) to \(DateFormatHelper.hourMinute(from: event.endTime))"
+        eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
         eventOrganizer.text = event.eventOrganizer
         eventLocation.text = event.eventLocation
         eventParticipants.text = event.eventParticipant

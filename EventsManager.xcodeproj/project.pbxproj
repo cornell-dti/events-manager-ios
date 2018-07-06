@@ -17,6 +17,7 @@
 		AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03DC272061B8220059EE1B /* EventDetailViewController.swift */; };
 		AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF97208ED460007A5E5C /* EventCard.swift */; };
 		AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */; };
+		AA3828F920EFEC800079C7E4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3828F720EFEC800079C7E4 /* Localizable.strings */; };
 		AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
@@ -79,6 +80,7 @@
 		AA03DC272061B8220059EE1B /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventDetailViewController.swift; path = EventsManager/ViewControllers/EventDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA1FFF97208ED460007A5E5C /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCard.swift; path = EventsManager/Views/EventCard.swift; sourceTree = SOURCE_ROOT; };
 		AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCardCell.swift; path = EventsManager/Views/EventCardCell.swift; sourceTree = SOURCE_ROOT; };
+		AA3828F820EFEC800079C7E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */,
 				A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */,
 				A40E37DA201E91CA00B3AFA4 /* Info.plist */,
+				AA3828F720EFEC800079C7E4 /* Localizable.strings */,
 			);
 			path = EventsManager;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
+				AA3828F920EFEC800079C7E4 /* Localizable.strings in Resources */,
 				A40E37D6201E91CA00B3AFA4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -626,6 +630,14 @@
 				A40E37D8201E91CA00B3AFA4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		AA3828F720EFEC800079C7E4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA3828F820EFEC800079C7E4 /* Base */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

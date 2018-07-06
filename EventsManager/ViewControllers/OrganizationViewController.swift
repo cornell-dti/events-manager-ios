@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Ethan Hu on 6/19/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit
@@ -65,9 +65,14 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let tagHorizontalSpacing:CGFloat = 8
 
     
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = false
         setLayouts()
     }
     
@@ -75,6 +80,13 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
      Allow client to configure the event detail page by passing in an organization object
      */
     public func configure(organization:Organization){
+        memberButton.setTitle(NSLocalizedString("is-member-button", comment: ""), for: .normal)
+        followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
+        aboutLabel.text = NSLocalizedString("about", comment: "")
+        websiteLabel.text = NSLocalizedString("website", comment: "")
+        emailLabel.text = NSLocalizedString("email", comment: "")
+        bioLabel.text = NSLocalizedString("bio", comment: "")
+
         orgNameLabel.text = organization.name
         orgAvatar.kf.setImage(with: organization.avatar)
         websiteContentLabel.text = organization.website
@@ -150,14 +162,12 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         rightLowerStack.distribution = .fill
         rightLowerStack.spacing = memberToFollowButtonSpacing
         
-        memberButton.setTitle("  I am a member  ", for: .normal)
         memberButton.setTitleColor(UIColor.black, for: .normal)
         memberButton.layer.borderWidth = 1
         memberButton.layer.borderColor = UIColor.black.cgColor
         memberButton.layer.cornerRadius = buttonBorderRadius
         memberButton.titleLabel?.font = UIFont.systemFont(ofSize: headerButtonFontSize)
         
-        followButton.setTitle("  Follow  ", for: .normal)
         followButton.setTitleColor(UIColor.black, for: .normal)
         followButton.layer.borderWidth = 1
         followButton.layer.borderColor = UIColor.black.cgColor
@@ -220,7 +230,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             make.height.equalTo(utilButtonSideLength)
         }
         
-        aboutLabel.text = "ABOUT"
         aboutLabel.font = UIFont.boldSystemFont(ofSize: sectionHeaderFontSize)
         
         let websiteStack = UIStackView(arrangedSubviews: [websiteLabel, websiteContentLabel])
@@ -229,7 +238,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         websiteStack.alignment = .center
         websiteStack.spacing = 0
         websiteLabel.font = UIFont.boldSystemFont(ofSize: contentFontSize)
-        websiteLabel.text = "Website: "
         websiteContentLabel.font = UIFont.systemFont(ofSize: contentFontSize)
         
         let emailStack = UIStackView(arrangedSubviews: [emailLabel, emailContentLabel])
@@ -238,7 +246,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         emailStack.alignment = .center
         emailStack.spacing = 0
         emailLabel.font = UIFont.boldSystemFont(ofSize: contentFontSize)
-        emailLabel.text = "Email: "
         emailContentLabel.font = UIFont.systemFont(ofSize: contentFontSize)
         
         let bioStack = UIStackView(arrangedSubviews: [bioLabel, bioContentLabel])
@@ -247,7 +254,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         bioStack.alignment = .top
         bioStack.spacing = 0
         bioLabel.font = UIFont.boldSystemFont(ofSize: contentFontSize)
-        bioLabel.text = "Bio: "
         bioContentLabel.numberOfLines = 0
         bioContentLabel.font = UIFont.systemFont(ofSize: contentFontSize)
         bioContentLabel.preferredMaxLayoutWidth = orgDescriptionPreferredWidth
@@ -308,7 +314,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         //Tag View
         contentView.addSubview(tagScrollView)
         let tagLabel = UILabel()
-        tagLabel.text = "TAGS"
+        tagLabel.text = NSLocalizedString("tag-button", comment: "")
         tagLabel.font = UIFont.boldSystemFont(ofSize: tagLabelFontSize)
         tagStack.insertArrangedSubview(tagLabel, at: 0)
         tagStack.alignment = .center
@@ -365,8 +371,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var header = UITableViewHeaderFooterView()
         if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-            popularHeader.setMainTitle("Popular Events")
-            popularHeader.setButtonTitle("See More...")
+            popularHeader.setMainTitle(NSLocalizedString("popular-events", comment: "").uppercased())
+            popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
             popularHeader.editButton.addTarget(self, action:#selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
             header = popularHeader
         }
@@ -383,7 +389,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
      */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton){
         let popularListViewController = EventListViewController()
-        popularListViewController.setup(with: popularEvents, title: "All Popular Events", withFilterBar: false)
+        popularListViewController.setup(with: popularEvents, title: NSLocalizedString("popular-events", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
     

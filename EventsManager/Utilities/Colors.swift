@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Amanda Ong on 3/15/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import Foundation

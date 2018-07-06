@@ -3,7 +3,7 @@
 //  EventsManager
 //
 //  Created by Ethan Hu on 4/26/18.
-//  Copyright © 2018 Jagger Brulato. All rights reserved.
+//
 //
 
 import UIKit
@@ -67,7 +67,7 @@ class DatePickerTagView: UIView {
         displayLabel.textColor = UIColor.black
         dateLabel.textAlignment = .center
         displayLabel.textAlignment = .center
-        dateLabel.text = " Date"
+        dateLabel.text = NSLocalizedString("date-picker-date", comment: "")
         
         self.addSubview(dateLabel)
         self.addSubview(displayLabel)
