@@ -16,7 +16,7 @@ class EventCardCell: UITableViewCell {
     private var events = [Event]()
     
     //Constants
-    private let scrollViewHeight:CGFloat = 270 //Should be cardHeight + 2 * cardMargins
+    private let scrollViewHeight:CGFloat = 320 //Should be cardHeight + 2 * cardMargins
     private let eventCardMargins:CGFloat = 10
     private let cardLimit = 10
     

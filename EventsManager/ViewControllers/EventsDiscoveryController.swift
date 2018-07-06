@@ -11,7 +11,7 @@ import UIKit
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
     
     //Constants
-    let headerHeight:CGFloat = 40
+    let headerHeight:CGFloat = 35
     
     let popularEventsSection = 0
     let todayEventsSection = 1
@@ -42,7 +42,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         let date1 = "2018-06-20 16:39:57"
         let date2 = "2018-06-20 18:39:57"
         for _ in 1...20 {
-            events.append(Event(id:1, startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
+            events.append(Event(id:1, startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting Meeting Meeting Meeting!", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/jaggerb.JPG")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
         }
         popularEvents = events
         todayEvents = events
@@ -59,6 +59,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         tableView.backgroundColor = UIColor(named: "tableViewBackground")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
         tableView.register(EventCardCell.self, forCellReuseIdentifier: EventCardCell.identifer)
         tableView.register(EventTableHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: EventTableHeaderFooterView.identifier)
@@ -167,22 +168,22 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         switch section {
         case popularEventsSection:
             if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-                popularHeader.setMainTitle("Popular Events")
-                popularHeader.setButtonTitle("See More...")
+                popularHeader.setMainTitle("POPULAR EVENTS")
+                popularHeader.setButtonTitle("See More")
                 popularHeader.editButton.addTarget(self, action:#selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
                 header = popularHeader
             }
         case todayEventsSection:
             if let todayHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-                todayHeader.setMainTitle("Today's Events")
-                todayHeader.setButtonTitle("See More...")
+                todayHeader.setMainTitle("TODAY'S EVENTS")
+                todayHeader.setButtonTitle("See More")
                 todayHeader.editButton.addTarget(self, action:#selector(todaySeeMoreButtonPressed(_:)), for: .touchUpInside)
                 header = todayHeader
             }
         case tomorrowEventsSection:
             if let tomorrowHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-                tomorrowHeader.setMainTitle("Tomorrow's Events")
-                tomorrowHeader.setButtonTitle("See More...")
+                tomorrowHeader.setMainTitle("TOMORROW'S EVENTS")
+                tomorrowHeader.setButtonTitle("See More")
                 tomorrowHeader.editButton.addTarget(self, action:#selector(tomorrowSeeMoreButtonPressed(_:)), for: .touchUpInside)
                 header = tomorrowHeader
             }

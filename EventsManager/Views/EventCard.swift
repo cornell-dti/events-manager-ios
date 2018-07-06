@@ -18,23 +18,31 @@ class EventCard: UIView {
     let eventPicture = UIImageView()
     let monthLabel = UILabel()
     let dayLabel = UILabel()
+    let startLabel = UILabel()
+    let startContentLabel = UILabel()
+    let goingLabel = UILabel()
+    let goingContentLabel = UILabel()
     let eventNameLabel = UILabel()
-    let eventTimeLocationLabel = UILabel()
-    let eventParticipantCountLabel = UILabel()
+    let locationLabel = UILabel()
     
     //Constants
     let cardWidth:CGFloat = 300
-    let cardHeight:CGFloat = 250
-    let eventPicHeight:CGFloat = 150
-    let eventDateFontSize:CGFloat = 22
-    let eventInfoFontSize:CGFloat = 14
-    let eventinfoSpacing:CGFloat = 4
-    let eventDateSpacing:CGFloat = 8
-    let bottomStackPaddingSpacing:CGFloat = 15
-    let eventBottomStackHeight:CGFloat = 100
+    let cardHeight:CGFloat = 300
+    let eventPicHeight:CGFloat = 140
+    let eventInfoHeaderFontSize:CGFloat = 16
+    let eventInfoContentFontSize:CGFloat = 18
+    let eventTitleFontSize:CGFloat = 18
+    let eventLocationFontSize:CGFloat = 16
+    let eventInfoStackInnerSpacing:CGFloat = 5
+    let bottomStackInnerSpacing:CGFloat = 30
+    let topStackInnerSpacing:CGFloat = 5
+    let infoStackInnerSpacing:CGFloat = 8
+    let cardStackInnerSpacing:CGFloat = 15
+    let topStackLeftRightSpacing:CGFloat = 20;
     let shadowOpacity:Float = 0.3
-    let shadowRadius:CGFloat = 2
+    let shadowRadius:CGFloat = 3
     let shadowOffset = CGSize(width: 1, height: 1)
+    let cardRadius:CGFloat = 20
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
     
@@ -48,12 +56,15 @@ class EventCard: UIView {
      * - event: The event object that this card should populate with
      */
     func configure(with event:Event) {
+        goingLabel.text = "Going"
+        startLabel.text = "Starts"
         self.event = event
         monthLabel.text = DateFormatHelper.month(from: event.startTime)
         dayLabel.text = DateFormatHelper.day(from: event.startTime)
+        startContentLabel.text = DateFormatHelper.hourMinute(from: event.startTime)
+        goingContentLabel.text = "\(event.eventParticipantCount)"
+        locationLabel.text = event.eventLocation
         eventNameLabel.text = event.eventName
-        eventTimeLocationLabel.text = "\(DateFormatHelper.hourMinute(from: event.startTime)) - \(DateFormatHelper.hourMinute(from: event.endTime)) | \(event.eventLocation)"
-        eventParticipantCountLabel.text = "\(event.eventParticipantCount) Going"
         eventPicture.kf.setImage(with: event.eventImage)
     }
     
@@ -66,49 +77,83 @@ class EventCard: UIView {
         self.layer.shadowOpacity = shadowOpacity
         self.layer.shadowRadius = shadowRadius
         self.layer.shadowOffset = shadowOffset
+        self.layer.cornerRadius = cardRadius
+        
         
         
         self.snp.makeConstraints { make in
             make.width.equalTo(cardWidth)
             make.height.equalTo(cardHeight)
         }
+        eventPicture.clipsToBounds = true
+        eventPicture.layer.cornerRadius = cardRadius
+        eventPicture.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         eventPicture.snp.makeConstraints { make in
             make.width.equalTo(cardWidth)
             make.height.equalTo(eventPicHeight)
         }
         
-        let eventInfoLabels = [eventNameLabel, eventTimeLocationLabel, eventParticipantCountLabel]
-        let eventInfoStack = UIStackView(arrangedSubviews: eventInfoLabels)
-        eventInfoStack.alignment = .leading
+        let eventInfoHeaderLabels = [monthLabel, startLabel, goingLabel]
+        eventInfoHeaderLabels.forEach{ $0.font = UIFont.boldSystemFont(ofSize: eventInfoHeaderFontSize) }
+        let eventInfoContentLabels = [dayLabel, startContentLabel, goingContentLabel]
+        eventInfoContentLabels.forEach{ $0.font = UIFont.systemFont(ofSize: eventInfoContentFontSize)}
+        
+        let dateStack = UIStackView(arrangedSubviews: [monthLabel, dayLabel])
+        dateStack.distribution = .fill
+        dateStack.alignment = .center
+        dateStack.axis = .vertical
+        dateStack.spacing = eventInfoStackInnerSpacing
+        
+        let startTimeStack = UIStackView(arrangedSubviews: [startLabel, startContentLabel])
+        startTimeStack.distribution = .fill
+        startTimeStack.alignment = .center
+        startTimeStack.axis = .vertical
+        startTimeStack.spacing = eventInfoStackInnerSpacing
+        
+        let goingStack = UIStackView(arrangedSubviews: [goingLabel, goingContentLabel])
+        goingStack.distribution = .fill
+        goingStack.alignment = .center
+        goingStack.axis = .vertical
+        goingStack.spacing = eventInfoStackInnerSpacing
+        
+        let bottomStack = UIStackView(arrangedSubviews: [dateStack, startTimeStack, goingStack])
+        bottomStack.distribution = .fillEqually
+        bottomStack.alignment = .center
+        bottomStack.axis = .horizontal
+        bottomStack.spacing = bottomStackInnerSpacing
+        
+        eventNameLabel.font = UIFont.boldSystemFont(ofSize: eventTitleFontSize)
+        eventNameLabel.numberOfLines = 2
+        
+        locationLabel.font = UIFont.systemFont(ofSize: eventLocationFontSize)
+        locationLabel.textColor = UIColor.gray
+        
+        let topStack = UIStackView(arrangedSubviews: [eventNameLabel, locationLabel])
+        topStack.distribution = .fill
+        topStack.axis = .vertical
+        topStack.alignment = .center
+        topStack.spacing = topStackInnerSpacing
+        
+        let eventInfoStack = UIStackView(arrangedSubviews: [topStack, bottomStack])
         eventInfoStack.distribution = .fill
         eventInfoStack.axis = .vertical
-        eventInfoStack.spacing = eventinfoSpacing
+        eventInfoStack.alignment = .center
+        eventInfoStack.spacing = eventInfoStackInnerSpacing
         
-        eventInfoLabels.forEach{ $0.font = UIFont.systemFont(ofSize: eventInfoFontSize) }
-        
-        monthLabel.font = UIFont.boldSystemFont(ofSize: eventDateFontSize)
-        dayLabel.font = UIFont.boldSystemFont(ofSize: eventDateFontSize)
-        let eventDateStack = UIStackView(arrangedSubviews: [monthLabel, dayLabel])
-        eventDateStack.alignment = .center
-        eventDateStack.distribution = .fill
-        eventDateStack.axis = .vertical
-        eventDateStack.spacing = eventDateSpacing
-        
-        //the first element is a place holder to create a spacing to the left.
-        let bottomStack = UIStackView(arrangedSubviews: [UIView(), eventDateStack, eventInfoStack])
-        bottomStack.alignment = .center
-        bottomStack.distribution = .fill
-        bottomStack.axis = .horizontal
-        bottomStack.spacing = bottomStackPaddingSpacing
-        
-        let cardStack = UIStackView(arrangedSubviews: [eventPicture, bottomStack])
-        cardStack.alignment = .leading
+        let cardStack = UIStackView(arrangedSubviews: [eventPicture, eventInfoStack])
         cardStack.distribution = .fill
+        cardStack.alignment = .center
         cardStack.axis = .vertical
+        cardStack.spacing = cardStackInnerSpacing
         
         self.addSubview(cardStack)
-        cardStack.snp.makeConstraints { make in
+        cardStack.snp.makeConstraints{ make in
             make.edges.equalTo(self)
         }
+        topStack.snp.makeConstraints{ make in
+            make.left.equalTo(self).offset(topStackLeftRightSpacing)
+            make.right.equalTo(self).offset(-topStackLeftRightSpacing)
+        }
+        
     }
 }

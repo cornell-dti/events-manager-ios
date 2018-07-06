@@ -59,7 +59,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let infoViewInnerStackSpacing:CGFloat = 8
     let orgDescriptionPreferredWidth:CGFloat = 300
     let headerHeight:CGFloat = 40
-    let popularEventsTableViewHeight:CGFloat = 40 + 250 + 20
+    let popularEventsTableViewHeight:CGFloat = 35 + 320 + 20//HeaderHeight + CardHeight + CardMargins
     let tagLabelFontSize:CGFloat = 22
     let tagScrollViewHeight:CGFloat = 50
     let tagHorizontalSpacing:CGFloat = 8
@@ -288,6 +288,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         popularEventsTableView.backgroundColor = UIColor(named: "tableViewBackground")
         popularEventsTableView.dataSource = self
         popularEventsTableView.delegate = self
+        popularEventsTableView.separatorStyle = .none
         popularEventsTableView.register(EventCardCell.self, forCellReuseIdentifier: EventCardCell.identifer)
         popularEventsTableView.register(EventTableHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: EventTableHeaderFooterView.identifier)
         popularEventsTableView.rowHeight = UITableViewAutomaticDimension

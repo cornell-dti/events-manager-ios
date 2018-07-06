@@ -54,15 +54,13 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
         //datasource settings
         self.events = events
         filteredEvents = events
-        getTags()
-        //set default date to today
-        datePickerTag.setDate(Date())
-        filterEvents(by: Date())
-        
         view.backgroundColor = UIColor.white
-        
         //Recommended TagView
         if withFilterBar {
+            getTags()
+            //set default date to today
+            datePickerTag.setDate(Date())
+            filterEvents(by: Date())
             recommendedTagView.backgroundColor = UIColor(named: "tableViewBackground")
             let tagStackView = UIStackView()
             tagStackView.alignment = .center

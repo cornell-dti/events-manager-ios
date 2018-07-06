@@ -15,8 +15,8 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
     
     let sideMargins:CGFloat = 15
     let bottomMargins:CGFloat = 5
-    let titleFontSize:CGFloat = 20
-    let buttonFontSize:CGFloat = 16
+    let titleFontSize:CGFloat = 17
+    let buttonFontSize:CGFloat = 14
     
     var title = UILabel()
     let editButton = UIButton()
@@ -33,18 +33,19 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
         editButton.titleLabel?.font = UIFont.systemFont(ofSize: buttonFontSize)
         
         title.font = UIFont.boldSystemFont(ofSize: titleFontSize)
+        title.textColor = UIColor.gray
         
         self.addSubview(title)
         self.addSubview(editButton)
         
         title.snp.makeConstraints{ make in
             make.left.equalTo(self).offset(sideMargins)
-            make.bottom.equalTo(self).offset(-bottomMargins)
+            make.bottom.equalTo(self)
         }
         
         editButton.snp.makeConstraints{ make in
             make.right.equalTo(self).offset(-sideMargins)
-            make.bottom.equalTo(self)
+            make.bottom.equalTo(self).offset(bottomMargins)
         }
         
     }
