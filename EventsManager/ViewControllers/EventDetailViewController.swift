@@ -16,7 +16,7 @@ class EventDetailViewController: UIViewController {
     let buttonHeight:CGFloat = 40
     let buttonImageViewOffSet = CGFloat(integerLiteral: 20)
     let standardEdgeSpacing = CGFloat(integerLiteral: 20)
-    let imageViewHeight = CGFloat(integerLiteral: 200)
+    let imageViewHeight:CGFloat = 250
     let infoStackEdgeSpacing = CGFloat(integerLiteral: 40)
     let iconSideLength = CGFloat(integerLiteral: 20)
     let infoStackIconLabelSpacing = CGFloat(integerLiteral: 15)
@@ -28,6 +28,19 @@ class EventDetailViewController: UIViewController {
     let tagScrollViewHeight = CGFloat(integerLiteral: 50)
     let tagHorizontalSpacing = CGFloat(integerLiteral: 8)
     let tagLabelFontSize = CGFloat(integerLiteral: 22)
+    let eventImageGradientOpcaity:Float = 0.3
+    let eventImageGradientStartPoint = CGPoint(x: 0.5, y: 0.0)
+    let eventImageGradientEndPoint = CGPoint(x: 0.5, y: 1.0)
+    let floatingButtonSideLength:CGFloat = 35
+    let floatingButtonSideSpacing:CGFloat = 20
+    let floatingButtonTopSpacing:CGFloat = 8
+    let backButtonLeftInset:CGFloat = 10
+    let backButtonTopBottomInset:CGFloat = 7
+    let backButtonRightInset:CGFloat = 0
+    let shareButtonInset:CGFloat = 7
+    let shadowOpacity:Float = 0.6
+    let shadowRadius:CGFloat = 5
+    let shadowOffset = CGSize(width: 1.5, height: 1.5)
     
     
     //datasource
@@ -47,7 +60,23 @@ class EventDetailViewController: UIViewController {
     var eventMapView = MKMapView()
     var tagScrollView = UIScrollView()
     var tagStack = UIStackView()
+    let backButton = UIButton()
+    let shareButton = UIButton()
     
+    
+    //Hide and show the nav bar on entering and exiting the details page.
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,15 +87,54 @@ class EventDetailViewController: UIViewController {
     func setLayouts(){
         navigationItem.title = event?.eventName ?? ""
         view.addSubview(scrollView)
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
         scrollView.backgroundColor = UIColor.white
         scrollView.snp.makeConstraints { (make) -> Void in
-            make.edges.equalTo(view)
+            make.top.equalTo(view).offset(-statusBarHeight)
+            make.right.equalTo(view)
+            make.left.equalTo(view)
+            make.bottom.equalTo(view)
         }
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) -> Void in
             make.edges.equalTo(scrollView)
             make.width.equalTo(view.frame.width)
         }
+        
+        //Image gradient
+        let eventImageGradient = CAGradientLayer()
+        eventImageGradient.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: imageViewHeight)
+        eventImageGradient.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
+        eventImageGradient.opacity = eventImageGradientOpcaity
+        eventImageGradient.startPoint = eventImageGradientStartPoint
+        eventImageGradient.endPoint = eventImageGradientEndPoint
+        eventImage.layer.insertSublayer(eventImageGradient, at: 0)
+        
+        //floating Buttons
+        backButton.backgroundColor = UIColor.white
+        var backButtonIcon = #imageLiteral(resourceName: "back")
+        backButtonIcon = backButtonIcon.withRenderingMode(.alwaysTemplate)
+        backButton.setImage(backButtonIcon, for: .normal)
+        backButton.imageEdgeInsets = UIEdgeInsets(top: backButtonTopBottomInset, left: backButtonLeftInset, bottom: backButtonTopBottomInset, right: backButtonRightInset)
+        backButton.tintColor = UIColor(named: "primaryBlue")
+        backButton.layer.cornerRadius = floatingButtonSideLength / 2
+        backButton.layer.shadowColor = UIColor.gray.cgColor
+        backButton.layer.shadowOpacity = shadowOpacity
+        backButton.layer.shadowRadius = shadowRadius
+        backButton.layer.shadowOffset = shadowOffset
+        backButton.addTarget(self, action: #selector(self.backButtonPressed(_:)), for: .touchUpInside)
+        
+        shareButton.backgroundColor = UIColor.white
+        var shareButtonIcon = #imageLiteral(resourceName: "share")
+        shareButtonIcon = shareButtonIcon.withRenderingMode(.alwaysTemplate)
+        shareButton.setImage(shareButtonIcon, for: .normal)
+        shareButton.tintColor = UIColor(named: "primaryBlue")
+        shareButton.imageEdgeInsets = UIEdgeInsets(top: shareButtonInset, left: shareButtonInset, bottom: shareButtonInset, right: shareButtonInset)
+        shareButton.layer.cornerRadius = floatingButtonSideLength / 2
+        shareButton.layer.shadowColor = UIColor.gray.cgColor
+        shareButton.layer.shadowOpacity = shadowOpacity
+        shareButton.layer.shadowRadius = shadowRadius
+        shareButton.layer.shadowOffset = shadowOffset
         
         //interested and going buttons
         let buttonStackBackground = UIView()
@@ -199,9 +267,25 @@ class EventDetailViewController: UIViewController {
         contentView.addSubview(infoTableStack)
         contentView.addSubview(eventMapView)
         contentView.addSubview(tagScrollView)
+        view.addSubview(backButton)
+        view.addSubview(shareButton)
         
         
         //Constraints for UI elements
+        backButton.snp.makeConstraints{ make in
+            make.width.equalTo(floatingButtonSideLength)
+            make.height.equalTo(floatingButtonSideLength)
+            make.left.equalTo(view).offset(floatingButtonSideSpacing)
+            make.top.equalTo(view).offset(floatingButtonTopSpacing + statusBarHeight)
+        }
+        
+        shareButton.snp.makeConstraints{ make in
+            make.width.equalTo(floatingButtonSideLength)
+            make.height.equalTo(floatingButtonSideLength)
+            make.right.equalTo(view).offset(-floatingButtonSideSpacing)
+            make.top.equalTo(view).offset(floatingButtonTopSpacing + statusBarHeight)
+        }
+        
         eventImage.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(contentView)
             make.left.equalTo(contentView)
@@ -242,7 +326,7 @@ class EventDetailViewController: UIViewController {
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
             make.height.equalTo(tagScrollViewHeight)
-            make.bottom.equalTo(contentView).offset(-standardEdgeSpacing)
+            make.bottom.equalTo(contentView)
         }
         
         tagStack.snp.makeConstraints{ (make) -> Void in
@@ -286,9 +370,9 @@ class EventDetailViewController: UIViewController {
         navigationController?.pushViewController(orgController, animated: true)
     }
     
-    /*
-     * Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
-     * - sender: the sender of the action.
+    /**
+      Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
+      - sender: the sender of the action.
      */
     @objc func tagButtonPressed(_ sender: UIButton) {
         let tagViewController = TagViewController()
@@ -299,6 +383,13 @@ class EventDetailViewController: UIViewController {
                 navigationController?.pushViewController(tagViewController, animated: true)
             }
         }
+    }
+    
+    /**
+     Handler for the pressing action of the back button floating at the top left of the page. Should navigate back to the previous page.
+    */
+    @objc func backButtonPressed(_ sender: UIButton){
+        navigationController?.popViewController(animated: true)
     }
 
 }
