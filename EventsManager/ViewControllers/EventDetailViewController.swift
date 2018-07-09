@@ -49,6 +49,7 @@ class EventDetailViewController: UIViewController {
     //view elements
     var scrollView = UIScrollView()
     var contentView = UIView()
+    let eventImageContainerView = UIView();
     var eventImage = UIImageView()
     var interestedButton = UIButton()
     var goingButton = UIButton()
@@ -83,6 +84,7 @@ class EventDetailViewController: UIViewController {
         setLayouts()
     }
     
+    
     /* Sets all the layout elements in the details view */
     func setLayouts(){
         navigationItem.title = event?.eventName ?? ""
@@ -90,7 +92,7 @@ class EventDetailViewController: UIViewController {
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         scrollView.backgroundColor = UIColor.white
         scrollView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(view).offset(-statusBarHeight)
+            make.top.equalTo(view)
             make.right.equalTo(view)
             make.left.equalTo(view)
             make.bottom.equalTo(view)
@@ -108,7 +110,10 @@ class EventDetailViewController: UIViewController {
         eventImageGradient.opacity = eventImageGradientOpcaity
         eventImageGradient.startPoint = eventImageGradientStartPoint
         eventImageGradient.endPoint = eventImageGradientEndPoint
-        eventImage.layer.insertSublayer(eventImageGradient, at: 0)
+        eventImageContainerView.layer.insertSublayer(eventImageGradient, at: 0)
+        
+        eventImage.clipsToBounds = true
+        eventImage.contentMode = .scaleAspectFill
         
         //floating Buttons
         backButton.backgroundColor = UIColor.white
@@ -261,7 +266,8 @@ class EventDetailViewController: UIViewController {
         
         
         
-        contentView.addSubview(eventImage)
+        contentView.addSubview(eventImageContainerView)
+        eventImageContainerView.addSubview(eventImage)
         contentView.addSubview(buttonStack)
         contentView.addSubview(eventDiscription)
         contentView.addSubview(infoTableStack)
@@ -286,15 +292,23 @@ class EventDetailViewController: UIViewController {
             make.top.equalTo(view).offset(floatingButtonTopSpacing + statusBarHeight)
         }
         
-        eventImage.snp.makeConstraints { (make) -> Void in
+        eventImageContainerView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(contentView)
             make.left.equalTo(contentView)
             make.right.equalTo(contentView)
             make.height.equalTo(imageViewHeight)
         }
         
+        eventImage.snp.makeConstraints{make in
+            make.top.equalTo(view)
+            make.left.equalTo(eventImageContainerView)
+            make.right.equalTo(eventImageContainerView)
+            make.bottom.equalTo(eventImageContainerView)
+        }
+        
+        
         buttonStack.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(eventImage.snp.bottom).offset(-buttonImageViewOffSet)
+            make.top.equalTo(eventImageContainerView.snp.bottom).offset(-buttonImageViewOffSet)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
         }

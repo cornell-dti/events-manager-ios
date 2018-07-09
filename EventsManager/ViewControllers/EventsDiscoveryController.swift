@@ -17,6 +17,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     let todayEventsSection = 1
     let tomorrowEventsSection = 2
     let seeAllEventSection = 3
+    var cells = [Int:EventCardCell]()
     
     //View Elements
     let tableView = UITableView(frame: CGRect(), style: .grouped)
@@ -31,22 +32,47 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        preloadCells()
         setup()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    /**
+     Preload cells, including the popular, today, tomorrow card cells.
+     This action is to prevent active loading the cells during user scroll.
+     The auto layout work is quite heavy in these card cells (lots of cards per cell), therefore generating it actively causes lagging.
+     Since there will be only 3 cells, it is legit to preload cells instead of generating them dynmically during scroll.
+     Cells are loaded into the @cells dictionary
+    */
+    func preloadCells(){
+        //for testing
+        let date1 = "2018-06-20 16:39:57"
+        let date2 = "2018-06-20 18:39:57"
+        for _ in 1...20 {
+            events.append(Event(id:1, startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting Meeting Meeting Meeting!", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
+        }
+        popularEvents = events
+        todayEvents = events
+        tomorrowEvents = events
+        
+        let popularEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
+        let todayEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
+        let tomorrowEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
+        popularEventsCell.configure(with: popularEvents)
+        todayEventsCell.configure(with: todayEvents)
+        tomorrowEventsCell.configure(with: tomorrowEvents)
+        cells[popularEventsSection] = popularEventsCell
+        cells[todayEventsSection] = todayEventsCell
+        cells[tomorrowEventsSection] = tomorrowEventsCell
     }
     
     /**
     * View initial setups
     */
     func setup(){
-        //for testing
-        let date1 = "2018-06-20 16:39:57"
-        let date2 = "2018-06-20 18:39:57"
-        for _ in 1...20 {
-            events.append(Event(id:1, startTime: DateFormatHelper.date(from: date1)!, endTime: DateFormatHelper.date(from: date2)!, eventName: "Cornell DTI Meeting Meeting Meeting Meeting!", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
-        }
-        popularEvents = events
-        todayEvents = events
-        tomorrowEvents = events
         
         view.backgroundColor = UIColor.white
         
@@ -134,27 +160,11 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        switch indexPath.section {
-            case popularEventsSection:
-                if let popularCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
-                    popularCardCell.configure(with: popularEvents)
-                    cell = popularCardCell
-                }
-            case todayEventsSection:
-                if let todayCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
-                    todayCardCell.configure(with: todayEvents)
-                    cell = todayCardCell
-                }
-            case tomorrowEventsSection:
-                if let tomorrowCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
-                    tomorrowCardCell.configure(with: tomorrowEvents)
-                    cell = tomorrowCardCell
-            }
-            default: break
+        if let cell = cells[indexPath.section]{
+            cell.selectionStyle = .none
+            return cell
         }
-        cell.selectionStyle = .none
-        return cell
+        return UITableViewCell()
     }
     
     /*

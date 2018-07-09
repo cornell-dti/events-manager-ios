@@ -70,7 +70,7 @@ class EventCardCell: UITableViewCell {
         self.events = events
         var count = 0
         for event in events {
-            if count >= 10 {
+            if count >= cardLimit {
                 break
             }
             let card = EventCard()
