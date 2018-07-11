@@ -87,6 +87,7 @@ class EventCard: UIView {
         }
         eventPicture.clipsToBounds = true
         eventPicture.layer.cornerRadius = cardRadius
+        eventPicture.contentMode = .scaleAspectFill
         eventPicture.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         eventPicture.snp.makeConstraints { make in
             make.width.equalTo(cardWidth)

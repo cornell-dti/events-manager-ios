@@ -10,20 +10,18 @@ import UIKit
 import MapKit
 import Kingfisher
 
-class EventDetailViewController: UIViewController {
+class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     //Constants
-    let buttonHeight:CGFloat = 40
-    let buttonImageViewOffSet = CGFloat(integerLiteral: 20)
-    let standardEdgeSpacing = CGFloat(integerLiteral: 20)
-    let imageViewHeight:CGFloat = 250
-    let infoStackEdgeSpacing = CGFloat(integerLiteral: 40)
-    let iconSideLength = CGFloat(integerLiteral: 20)
-    let infoStackIconLabelSpacing = CGFloat(integerLiteral: 15)
-    let avatarSpacing = CGFloat(integerLiteral: 5)
-    let infoTableSpacing = CGFloat(integerLiteral: 5)
-    let buttonDividerTopBottomSpacing = CGFloat(integerLiteral: 5)
-    let eventDiscriptionFontSize = CGFloat(integerLiteral: 16)
+    let buttonHeight:CGFloat = 45
+    let standardEdgeSpacing:CGFloat = 20
+    let imageViewHeight:CGFloat = 260
+    let buttonStackInnerSpacing:CGFloat = 15
+    let infoStackEdgeSpacing:CGFloat = 40
+    let iconSideLength:CGFloat = 25
+    let infoStackIconLabelSpacing:CGFloat = 20
+    let infoTableSpacing:CGFloat = 12
+    let eventDescriptionFontSize = CGFloat(integerLiteral: 16)
     let mapViewHeight = CGFloat(integerLiteral: 140)
     let tagScrollViewHeight = CGFloat(integerLiteral: 50)
     let tagHorizontalSpacing = CGFloat(integerLiteral: 8)
@@ -41,7 +39,9 @@ class EventDetailViewController: UIViewController {
     let shadowOpacity:Float = 0.6
     let shadowRadius:CGFloat = 5
     let shadowOffset = CGSize(width: 1.5, height: 1.5)
-    
+    let eventTitleFontSize:CGFloat = 18
+    let defaultDescriptionLines = 3
+    let defaultTitleLines = 2
     
     //datasource
     var event:Event?
@@ -53,9 +53,11 @@ class EventDetailViewController: UIViewController {
     var eventImage = UIImageView()
     var interestedButton = UIButton()
     var goingButton = UIButton()
-    var eventDiscription = UILabel()
+    let eventName = UILabel()
+    let eventDescription = UILabel()
+    let eventDescriptionShowMoreButton = UIButton()
     var eventTime = UILabel()
-    var eventParticipants = UILabel()
+    var eventParticipantCount = UILabel()
     var eventOrganizer = UILabel()
     var eventLocation = UILabel()
     var eventMapView = MKMapView()
@@ -64,16 +66,21 @@ class EventDetailViewController: UIViewController {
     let backButton = UIButton()
     let shareButton = UIButton()
     
+    var statusBarHeight:CGFloat = 0
+    var statusBarHidden:Bool = false
+    
     
     //Hide and show the nav bar on entering and exiting the details page.
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -81,18 +88,18 @@ class EventDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
         setLayouts()
     }
     
     
     /* Sets all the layout elements in the details view */
     func setLayouts(){
-        navigationItem.title = event?.eventName ?? ""
         view.addSubview(scrollView)
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        statusBarHeight = UIApplication.shared.statusBarFrame.height
         scrollView.backgroundColor = UIColor.white
         scrollView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(view)
+            make.top.equalTo(view).offset(-statusBarHeight)
             make.right.equalTo(view)
             make.left.equalTo(view)
             make.bottom.equalTo(view)
@@ -110,7 +117,7 @@ class EventDetailViewController: UIViewController {
         eventImageGradient.opacity = eventImageGradientOpcaity
         eventImageGradient.startPoint = eventImageGradientStartPoint
         eventImageGradient.endPoint = eventImageGradientEndPoint
-        eventImageContainerView.layer.insertSublayer(eventImageGradient, at: 0)
+        eventImage.layer.insertSublayer(eventImageGradient, at: 0)
         
         eventImage.clipsToBounds = true
         eventImage.contentMode = .scaleAspectFill
@@ -142,10 +149,16 @@ class EventDetailViewController: UIViewController {
         shareButton.layer.shadowOffset = shadowOffset
         
         //interested and going buttons
-        let buttonStackBackground = UIView()
-        buttonStackBackground.backgroundColor = UIColor.darkSkyBlue
-        buttonStackBackground.layer.cornerRadius = buttonHeight / 2
-        buttonStackBackground.translatesAutoresizingMaskIntoConstraints = false
+        interestedButton.layer.shadowColor = UIColor.gray.cgColor
+        interestedButton.layer.shadowOpacity = shadowOpacity
+        interestedButton.layer.shadowRadius = shadowRadius
+        interestedButton.layer.shadowOffset = shadowOffset
+        interestedButton.backgroundColor = UIColor.white
+        interestedButton.setTitleColor(UIColor(named: "primaryBlue"), for: .normal)
+        goingButton.backgroundColor = UIColor(named: "primaryBlue")
+        goingButton.setTitleColor(UIColor.white, for: .normal)
+        interestedButton.layer.cornerRadius = buttonHeight / 2
+        goingButton.layer.cornerRadius = buttonHeight / 2
         interestedButton.snp.makeConstraints{ (make) -> Void in
             make.height.equalTo(buttonHeight)
         }
@@ -156,23 +169,29 @@ class EventDetailViewController: UIViewController {
         buttonStack.alignment = .center
         buttonStack.axis = .horizontal
         buttonStack.distribution = .fillEqually
-        let buttonDivider = UIView()
-        buttonDivider.backgroundColor = UIColor.white
-        buttonStack.insertSubview(buttonDivider, at: 1)
-        buttonDivider.snp.makeConstraints{ (make) -> Void in
-            make.width.equalTo(1)
-            make.top.equalTo(buttonStack).offset(buttonDividerTopBottomSpacing)
-            make.bottom.equalTo(buttonStack).offset(-buttonDividerTopBottomSpacing)
-            make.left.equalTo(interestedButton.snp.right).offset(-0.5)
-        }
-        buttonStack.insertSubview(buttonStackBackground, at: 0)
-        buttonStackBackground.snp.makeConstraints{ (make) -> Void in
-            make.edges.equalTo(buttonStack)
-        }
+        buttonStack.spacing = buttonStackInnerSpacing
+        
+        //Name and description
+        eventName.numberOfLines = defaultTitleLines
+        eventName.font = UIFont.boldSystemFont(ofSize: eventTitleFontSize)
+        eventName.textAlignment = .center
+        
+        eventDescriptionShowMoreButton.setTitleColor(UIColor(named: "primaryBlue"), for: .normal)
+        eventDescriptionShowMoreButton.titleLabel?.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
+        eventDescriptionShowMoreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0.01, bottom: 0, right: 0.01)
+        eventDescriptionShowMoreButton.addTarget(self, action: #selector(detailsMoreButtonPressed(_:)), for: .touchUpInside)
+        eventDescription.numberOfLines = defaultDescriptionLines
+        eventDescription.textColor = UIColor.gray
+        eventDescription.textAlignment = .justified
+        eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
         
         //table of info
         let calendarIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        calendarIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
+        calendarIcon.image = #imageLiteral(resourceName: "calender")
+        calendarIcon.snp.makeConstraints{make in
+            make.height.equalTo(iconSideLength)
+            make.width.equalTo(iconSideLength)
+        }
         let calendarStack = UIStackView(arrangedSubviews: [calendarIcon, eventTime])
         calendarStack.alignment = .center
         calendarStack.axis = .horizontal
@@ -180,38 +199,23 @@ class EventDetailViewController: UIViewController {
         calendarStack.spacing = infoStackIconLabelSpacing
         
         let participantIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        participantIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
-        let participantImageAndStringStack = UIStackView(arrangedSubviews: [eventParticipants])
-        var avatars:[UIImageView] = []
-        for _ in event?.avatars ?? []{
-            if avatars.count < 3 {  //support maximum 3 avatars, if more than 3, only add first three to the array
-                avatars.append(UIImageView(frame:CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength)))
-            }
+        participantIcon.image = #imageLiteral(resourceName: "friends")
+        participantIcon.snp.makeConstraints{make in
+            make.height.equalTo(iconSideLength)
+            make.width.equalTo(iconSideLength)
         }
-        for index in 0..<avatars.count {
-            avatars[index].snp.makeConstraints{ (make) -> Void in
-                make.width.equalTo(iconSideLength)
-                make.height.equalTo(iconSideLength)
-            }
-            avatars[index].layer.cornerRadius = avatars[index].frame.height/2
-            avatars[index].clipsToBounds = true
-            avatars[index].kf.setImage(with: event?.avatars[index])
-        }
-        for index in (0...avatars.count - 1).reversed() {
-            participantImageAndStringStack.insertArrangedSubview(avatars[index], at: 0)
-        }
-        participantImageAndStringStack.axis = .horizontal
-        participantImageAndStringStack.distribution = .fill
-        participantImageAndStringStack.alignment = .center
-        participantImageAndStringStack.spacing = avatarSpacing
-        let participantStack = UIStackView(arrangedSubviews: [participantIcon, participantImageAndStringStack])
+        let participantStack = UIStackView(arrangedSubviews: [participantIcon, eventParticipantCount])
         participantStack.alignment = .center
         participantStack.axis = .horizontal
         participantStack.distribution = .fill
         participantStack.spacing = infoStackIconLabelSpacing
         
         let organizerIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        organizerIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
+        organizerIcon.image = #imageLiteral(resourceName: "building")
+        organizerIcon.snp.makeConstraints{make in
+            make.height.equalTo(iconSideLength)
+            make.width.equalTo(iconSideLength)
+        }
         let organizerStack = UIStackView(arrangedSubviews: [organizerIcon, eventOrganizer])
         organizerStack.alignment = .center
         organizerStack.axis = .horizontal
@@ -224,7 +228,11 @@ class EventDetailViewController: UIViewController {
         
         
         let locationIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        locationIcon.image = #imageLiteral(resourceName: "magnifyingGlass")
+        locationIcon.image = #imageLiteral(resourceName: "location")
+        locationIcon.snp.makeConstraints{make in
+            make.height.equalTo(iconSideLength)
+            make.width.equalTo(iconSideLength)
+        }
         let locationStack = UIStackView(arrangedSubviews: [locationIcon, eventLocation])
         locationStack.alignment = .center
         locationStack.axis = .horizontal
@@ -238,21 +246,6 @@ class EventDetailViewController: UIViewController {
         infoTableStack.spacing = infoTableSpacing
         
         
-        
-        
-        //Add three dividers between the elements of infoTableStack
-        for index in stride(from: 1, through: 5, by: 2){
-            let divider = UIView()
-            divider.backgroundColor = UIColor.lightGray
-            infoTableStack.insertArrangedSubview(divider, at: index)
-            divider.snp.makeConstraints { (make) -> Void in
-                make.left.equalTo(infoTableStack)
-                make.right.equalTo(infoTableStack)
-                make.height.equalTo(1)
-            }
-        }
-        
-        
         let tagLabel = UILabel()
         tagLabel.text = NSLocalizedString("tag-button", comment: "")
         tagLabel.font = UIFont.boldSystemFont(ofSize: tagLabelFontSize)
@@ -264,18 +257,17 @@ class EventDetailViewController: UIViewController {
         tagScrollView.addSubview(tagStack)
         
         
-        
-        
         contentView.addSubview(eventImageContainerView)
         eventImageContainerView.addSubview(eventImage)
         contentView.addSubview(buttonStack)
-        contentView.addSubview(eventDiscription)
+        contentView.addSubview(eventName)
+        contentView.addSubview(eventDescription)
+        contentView.addSubview(eventDescriptionShowMoreButton)
         contentView.addSubview(infoTableStack)
         contentView.addSubview(eventMapView)
         contentView.addSubview(tagScrollView)
         view.addSubview(backButton)
         view.addSubview(shareButton)
-        
         
         //Constraints for UI elements
         backButton.snp.makeConstraints{ make in
@@ -296,7 +288,7 @@ class EventDetailViewController: UIViewController {
             make.top.equalTo(contentView)
             make.left.equalTo(contentView)
             make.right.equalTo(contentView)
-            make.height.equalTo(imageViewHeight)
+            make.height.equalTo(imageViewHeight).priority(.required)
         }
         
         eventImage.snp.makeConstraints{make in
@@ -308,22 +300,29 @@ class EventDetailViewController: UIViewController {
         
         
         buttonStack.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(eventImageContainerView.snp.bottom).offset(-buttonImageViewOffSet)
+            make.top.equalTo(eventImageContainerView.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
         }
         
-        eventDiscription.numberOfLines = 0
-        eventDiscription.textAlignment = .justified
-        eventDiscription.font = UIFont.systemFont(ofSize: eventDiscriptionFontSize)
-        eventDiscription.snp.makeConstraints { (make) -> Void in
+        eventName.snp.makeConstraints{ make in
             make.top.equalTo(buttonStack.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
         }
         
+        eventDescription.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(eventName.snp.bottom).offset(standardEdgeSpacing)
+            make.left.equalTo(contentView).offset(standardEdgeSpacing)
+            make.right.equalTo(contentView).offset(-standardEdgeSpacing)
+        }
+        eventDescriptionShowMoreButton.snp.makeConstraints{ make in
+            make.top.equalTo(eventDescription.snp.bottom)
+            make.right.equalTo(eventDescription.snp.right)
+        }
+        
         infoTableStack.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(eventDiscription.snp.bottom).offset(standardEdgeSpacing)
+            make.top.equalTo(eventDescriptionShowMoreButton.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(infoStackEdgeSpacing)
             make.right.equalTo(contentView).offset(-infoStackEdgeSpacing)
         }
@@ -358,11 +357,13 @@ class EventDetailViewController: UIViewController {
         interestedButton.setTitle(NSLocalizedString("interested-button", comment: ""), for: .normal)
         goingButton.setTitle(NSLocalizedString("going-button", comment: ""), for: .normal)
         
-        eventDiscription.text = event.eventDescription
+        eventName.text = event.eventName
+        eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
+        eventDescription.text = event.eventDescription
         eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
         eventOrganizer.text = event.eventOrganizer
         eventLocation.text = event.eventLocation
-        eventParticipants.text = event.eventParticipant
+        eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
         
         for tag in event.eventTags {
             let tagButton = EventTagButton()
@@ -405,5 +406,39 @@ class EventDetailViewController: UIViewController {
     @objc func backButtonPressed(_ sender: UIButton){
         navigationController?.popViewController(animated: true)
     }
+    
+    /**
+     Handler for the pressing action of the "more" button under event description. Should extend event description or shrink.
+     */
+    @objc func detailsMoreButtonPressed(_ sender:UIButton){
+        eventDescription.numberOfLines = eventDescription.numberOfLines == 0 ? defaultDescriptionLines : 0
+        eventDescriptionShowMoreButton.setTitle(eventDescription.numberOfLines == 0 ? NSLocalizedString("description-less-button", comment: "") : NSLocalizedString("description-more-button", comment: ""), for: .normal)
+
+    }
+    
+    //scrollview delegate method. Will be triggered when scrollview scrolled.
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if statusBarHidden != shouldHideStatusBar {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.setNeedsStatusBarAppearanceUpdate()
+            })
+            statusBarHidden = shouldHideStatusBar
+        }
+    }
+    
+    //hide status bar when the image is scrolled over
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return shouldHideStatusBar
+    }
+    
+    private var shouldHideStatusBar:Bool {
+        let height = scrollView.contentOffset.y + statusBarHeight * 2
+        return height >= imageViewHeight
+    }
+    
 
 }
