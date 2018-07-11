@@ -10,12 +10,12 @@ import UIKit
 import MapKit
 import Kingfisher
 
-class EventDetailViewController: UIViewController, UIScrollViewDelegate {
+class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate{
     
     //Constants
     let buttonHeight:CGFloat = 45
     let standardEdgeSpacing:CGFloat = 20
-    let imageViewHeight:CGFloat = 260
+    let imageViewHeight:CGFloat = 220
     let buttonStackInnerSpacing:CGFloat = 15
     let infoStackEdgeSpacing:CGFloat = 40
     let iconSideLength:CGFloat = 25
@@ -73,14 +73,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     //Hide and show the nav bar on entering and exiting the details page.
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -413,7 +414,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     @objc func detailsMoreButtonPressed(_ sender:UIButton){
         eventDescription.numberOfLines = eventDescription.numberOfLines == 0 ? defaultDescriptionLines : 0
         eventDescriptionShowMoreButton.setTitle(eventDescription.numberOfLines == 0 ? NSLocalizedString("description-less-button", comment: "") : NSLocalizedString("description-more-button", comment: ""), for: .normal)
-
     }
     
     //scrollview delegate method. Will be triggered when scrollview scrolled.
@@ -440,5 +440,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         return height >= imageViewHeight
     }
     
+    //Delegate method of UIGestureRecognizer. Used to enable swipe left to return
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 
 }
