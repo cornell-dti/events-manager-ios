@@ -68,6 +68,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     
     var statusBarHeight:CGFloat = 0
     var statusBarHidden:Bool = false
+    var navigationControllerInteractivePopGestureRecognizerDelegate:UIGestureRecognizerDelegate?
     
     
     //Hide and show the nav bar on entering and exiting the details page.
@@ -75,12 +76,14 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = navigationControllerInteractivePopGestureRecognizerDelegate ?? nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationControllerInteractivePopGestureRecognizerDelegate = navigationController?.interactivePopGestureRecognizer?.delegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
