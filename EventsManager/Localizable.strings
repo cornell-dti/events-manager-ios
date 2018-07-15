@@ -1,0 +1,50 @@
+/*
+ Localizable.strings
+ EventsManager
+ 
+ Created by Ethan Hu on 7/6/18.
+ */
+//Events Discover Page
+"discover"="Discover";
+"search" = "Search";
+"popular-events" = "Popular Events";
+"today-events" = "Today's Events";
+"tomorrow-events" = "Tomorrow's Events";
+"all-events" = "All Events";
+"see-more-button" = "see more";
+"see-all-button" = "see all >";
+
+//Event Detail
+"tag-button" = "Tags";
+"interested-button" = "INTERESTED";
+"going-button" = "GOING";
+"from" = "From";
+"to" = "to";
+"description-more-button" = "MORE";
+"description-less-button" = "LESS";
+"participant-going" = "Going";
+
+//Event List View
+"tool-bar-cancel-button" = "Cancel";
+"tool-bar-done-button" = "Done";
+
+//Organizaiton page
+"is-member-button" = "  I am a member  ";
+"follow-button" = "  Follow  ";
+"about" = "ABOUT";
+"website" = "Website: ";
+"email" = "Email: ";
+"bio" = "Bio: ";
+
+//Event Card
+"going" = "Going";
+"starts" = "Starts";
+
+//Date Picker tag
+"date-picker-date" = " Date";
+
+//My Events
+"my-events" = "My Events";
+
+//My Profile
+"my-profile" = "My Profile";
