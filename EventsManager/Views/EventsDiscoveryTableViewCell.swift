@@ -16,15 +16,21 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
     
     private var event:Event?
     
+    private let sideSpacing:CGFloat = 15
+    private let eventInfoFontSize:CGFloat = 13
+    private let eventNameFontSize:CGFloat = 15
+    private let lineSpacingLeftStack:CGFloat = 12
+    private let lineSpacingRightStack:CGFloat = 9
+    private let iconSideLength:CGFloat = 18
+    private let separatorHeight:CGFloat = 15
+    private let leftToRightStackSpacing:CGFloat = 8
+    private let eventParticipantCountAndLocationStackInnerSpacing:CGFloat = 6
+    
     private let startTime = UILabel()
     private let endTime = UILabel()
     private let eventName = UILabel()
     private let eventLocation = UILabel()
-    private let eventParticipant = UILabel()
-    private var avatars: [UIImageView] = []
-    private var eventParticipantStack:UIStackView = UIStackView()
-    
-    
+    private let eventParticipantCount = UILabel()
     
     
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
@@ -37,17 +43,17 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         endTime.textColor = UIColor.gray
         startTime.textAlignment = .center
         endTime.textAlignment = .center
-        let timeFont = UIFont.systemFont(ofSize: 13)
-        startTime.font = timeFont
-        endTime.font = timeFont
+        startTime.font = UIFont.systemFont(ofSize: eventInfoFontSize)
+        endTime.font = UIFont.systemFont(ofSize: eventInfoFontSize)
         
         eventName.numberOfLines = 0
-        eventName.font = UIFont.boldSystemFont(ofSize: 16)
+        eventName.font = UIFont.boldSystemFont(ofSize: eventNameFontSize)
         
-        eventLocation.font = UIFont.systemFont(ofSize: 15)
+        eventLocation.font = UIFont.systemFont(ofSize: eventInfoFontSize)
+        eventLocation.textColor = UIColor.gray
         
-        eventParticipant.font = UIFont.systemFont(ofSize: 13)
-        eventParticipant.textColor = UIColor.gray
+        eventParticipantCount.font = UIFont.systemFont(ofSize: eventInfoFontSize)
+        eventParticipantCount.textColor = UIColor.gray
         
         startTime.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(80)
@@ -60,41 +66,52 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         eventTimeStack.axis = .vertical
         eventTimeStack.distribution = .fill
         eventTimeStack.alignment = .center
+        eventTimeStack.spacing = lineSpacingLeftStack
         eventTimeStack.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(80)
         }
         
-        let eventInfoStack:UIStackView = UIStackView(arrangedSubviews: [eventName, eventLocation])
+        let eventParticipantCountAndLocationStack = UIStackView()
+        eventParticipantCountAndLocationStack.alignment = .center
+        eventParticipantCountAndLocationStack.distribution = .fill
+        eventParticipantCountAndLocationStack.axis = .horizontal
+        eventParticipantCountAndLocationStack.spacing = eventParticipantCountAndLocationStackInnerSpacing
+        let eventParticipantIcon = UIImageView(image: #imageLiteral(resourceName: "person"))
+        eventParticipantIcon.snp.makeConstraints{ make in
+            make.width.equalTo(iconSideLength)
+            make.height.equalTo(iconSideLength)
+        }
+        eventParticipantCountAndLocationStack.addArrangedSubview(eventParticipantIcon)
+        eventParticipantCountAndLocationStack.addArrangedSubview(eventParticipantCount)
+        let eventParticipantSeparator = UIView()
+        eventParticipantSeparator.backgroundColor = UIColor.gray
+        eventParticipantCountAndLocationStack.addArrangedSubview(eventParticipantSeparator)
+        eventParticipantSeparator.snp.makeConstraints{ make in
+            make.width.equalTo(1)
+            make.height.equalTo(separatorHeight)
+        }
+        eventParticipantCountAndLocationStack.addArrangedSubview(eventLocation)
+        
+        let eventInfoStack:UIStackView = UIStackView(arrangedSubviews: [eventName, eventParticipantCountAndLocationStack])
         eventInfoStack.axis = .vertical
-        eventTimeStack.distribution = .fill
-        eventTimeStack.alignment = .leading
+        eventInfoStack.distribution = .fill
+        eventInfoStack.alignment = .leading
+        eventInfoStack.spacing = lineSpacingRightStack
         
-        eventParticipantStack.addArrangedSubview(eventParticipant)
-        eventParticipantStack.axis = .horizontal
-        eventParticipantStack.distribution = .fill
-        eventParticipantStack.alignment = .center
-        eventParticipantStack.spacing = 5.0
-        
-        let eventRightStack:UIStackView = UIStackView(arrangedSubviews: [eventInfoStack, eventParticipantStack])
-        eventRightStack.axis = .vertical
-        eventRightStack.distribution = .fill
-        eventRightStack.alignment = .leading
-        eventRightStack.spacing = 6
-        
-        let eventStack:UIStackView = UIStackView(arrangedSubviews: [eventTimeStack, eventRightStack])
+        let eventStack:UIStackView = UIStackView(arrangedSubviews: [eventTimeStack, eventInfoStack])
         eventStack.axis = .horizontal
         eventStack.distribution = .fill
         eventStack.alignment = .center
-        eventStack.spacing = 8.0
+        eventStack.spacing = leftToRightStackSpacing
         
         
         contentView.addSubview(eventStack)
         
         eventStack.snp.makeConstraints{ (make) -> Void in
-            make.leading.equalTo(contentView).offset(10)
-            make.trailing.equalTo(contentView).offset(-10)
-            make.top.equalTo(contentView).offset(5)
-            make.bottom.equalTo(contentView).offset(-5)
+            make.top.equalTo(contentView).offset(sideSpacing)
+            make.left.equalTo(contentView).offset(sideSpacing)
+            make.right.equalTo(contentView).offset(-sideSpacing)
+            make.bottom.equalTo(contentView).offset(-sideSpacing)
         }
     }
     
@@ -108,34 +125,7 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         endTime.text = DateFormatHelper.hourMinute(from: event?.endTime ?? Date())
         eventLocation.text = event?.eventLocation
         eventName.text = event?.eventName
-        eventParticipant.text = event?.eventParticipant
-        
-        //remove the imageviews in eventParticipantStack on updateUI to prevent error caused by the resuing of cells
-        for imageView in avatars {
-            imageView.removeFromSuperview()
-        }
-        avatars = []
-        
-        for _ in event?.avatars ?? []{
-            if avatars.count < 3 {  //support maximum 3 avatars, if more than 3, only add first three to the array
-                avatars.append(UIImageView(frame:CGRect(x: 0, y: 0, width: 20, height: 20)))
-            }
-        }
-        
-        for index in 0..<avatars.count {
-            avatars[index].snp.makeConstraints{ (make) -> Void in
-                make.width.equalTo(20.0)
-                make.height.equalTo(20.0)
-            }
-            avatars[index].layer.cornerRadius = avatars[index].frame.height/2
-            avatars[index].clipsToBounds = true
-            avatars[index].kf.setImage(with: event?.avatars[index])
-        }
-        
-        for index in (0...avatars.count - 1).reversed() {
-            eventParticipantStack.insertArrangedSubview(avatars[index], at: 0)
-        }
-        
+        eventParticipantCount.text = String(event?.eventParticipantCount ?? 0)
     }
 
 }
