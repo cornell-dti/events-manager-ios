@@ -9,7 +9,7 @@
 import Foundation
 
 class DateFormatHelper {
-    private static let dateFromStringFormatter:DateFormatter = {
+    private static let datetimeFromStringFormatter:DateFormatter = {
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US_POSIX")
             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -41,9 +41,26 @@ class DateFormatHelper {
         return formatter
     }()
     
+    private static let dateFromStringFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(abbreviation: "EST")
+        return formatter
+    }()
     
+    
+    public static func datetime(from string:String) -> Date?{
+        return datetimeFromStringFormatter.date(from: string)
+    }
+    public static func datetime(from date:Date) -> String{
+        return datetimeFromStringFormatter.string(from: date)
+    }
     public static func date(from string:String) -> Date?{
         return dateFromStringFormatter.date(from: string)
+    }
+    public static func date(from date:Date) -> String {
+        return dateFromStringFormatter.string(from:date)
     }
     public static func hourMinute(from date:Date) -> String {
         return hourMinuteFromDateFormatter.string(from: date)
@@ -58,13 +75,13 @@ class DateFormatHelper {
         let myCalendar = Calendar(identifier: .gregorian)
         let weekDay = myCalendar.component(.weekday, from: date)
         switch weekDay {
-            case 1: return "Mon"
-            case 2: return "Tue"
-            case 3: return "Wed"
-            case 4: return "Thu"
-            case 5: return "Fri"
-            case 6: return "Sat"
-            case 7: return "Sun"
+            case 1: return "M"
+            case 2: return "Tu"
+            case 3: return "W"
+            case 4: return "Th"
+            case 5: return "F"
+            case 6: return "Sa"
+            case 7: return "Su"
             default: return "ERR"
         }
     }

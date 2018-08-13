@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		619CEBFEB4045BE61841259B /* Pods_EventsManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 203EF1ECAA23F1DF15B70B81 /* Pods_EventsManager.framework */; };
 		87D045C51B04D8A2013C80FB /* Pods_EventsManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */; };
+		A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A11D265E20FAF0D9001712E6 /* Localizable.strings */; };
 		A40E37CF201E91CA00B3AFA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37CE201E91CA00B3AFA4 /* AppDelegate.swift */; };
 		A40E37D6201E91CA00B3AFA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */; };
 		A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */; };
@@ -17,7 +18,6 @@
 		AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03DC272061B8220059EE1B /* EventDetailViewController.swift */; };
 		AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF97208ED460007A5E5C /* EventCard.swift */; };
 		AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */; };
-		AA3828F920EFEC800079C7E4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3828F720EFEC800079C7E4 /* Localizable.strings */; };
 		AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
@@ -66,6 +66,7 @@
 		4AF47980A8E89AE42E0C0DE5 /* Pods_EventsManagerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BA597F01357890B27CC5332 /* Pods-EventsManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManager/Pods-EventsManager.release.xcconfig"; sourceTree = "<group>"; };
 		A104FEAB92912BC2D8036A27 /* Pods-EventsManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerTests/Pods-EventsManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A11D265E20FAF0D9001712E6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		A40E37CB201E91CA00B3AFA4 /* EventsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40E37CE201E91CA00B3AFA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,14 +81,13 @@
 		AA03DC272061B8220059EE1B /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventDetailViewController.swift; path = EventsManager/ViewControllers/EventDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA1FFF97208ED460007A5E5C /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCard.swift; path = EventsManager/Views/EventCard.swift; sourceTree = SOURCE_ROOT; };
 		AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCardCell.swift; path = EventsManager/Views/EventCardCell.swift; sourceTree = SOURCE_ROOT; };
-		AA3828F820EFEC800079C7E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
 		AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerTagView.swift; path = EventsManager/Views/DatePickerTagView.swift; sourceTree = SOURCE_ROOT; };
-		AABA674D20C6E5D500363899 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Organization.swift; path = EventsManager/Model/Organization.swift; sourceTree = SOURCE_ROOT; };
-		AABA674F20C6E5DD00363899 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = EventsManager/Model/User.swift; sourceTree = SOURCE_ROOT; };
-		AABA675120C6E5E400363899 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = EventsManager/Model/Category.swift; sourceTree = SOURCE_ROOT; };
+		AABA674D20C6E5D500363899 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Organization.swift; path = EventsManager/Models/Organization.swift; sourceTree = SOURCE_ROOT; };
+		AABA674F20C6E5DD00363899 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = EventsManager/Models/User.swift; sourceTree = SOURCE_ROOT; };
+		AABA675120C6E5E400363899 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = EventsManager/Models/Category.swift; sourceTree = SOURCE_ROOT; };
 		AABA675320C7244600363899 /* MyEventsDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyEventsDatePickerView.swift; path = EventsManager/Views/MyEventsDatePickerView.swift; sourceTree = SOURCE_ROOT; };
 		AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrganizationViewController.swift; path = EventsManager/ViewControllers/OrganizationViewController.swift; sourceTree = SOURCE_ROOT; };
 		AAE10F4820AF42530070F515 /* Internet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Internet.swift; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		CB2AB3B6C27F698CDD077DDC /* Pods-EventsManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsDiscoveryTableViewCell.swift; path = EventsManager/Views/EventsDiscoveryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsDiscoveryController.swift; path = EventsManager/ViewControllers/EventsDiscoveryController.swift; sourceTree = SOURCE_ROOT; };
-		DA75C21C205ABDCD00C1822C /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = EventsManager/Model/Event.swift; sourceTree = SOURCE_ROOT; };
+		DA75C21C205ABDCD00C1822C /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = EventsManager/Models/Event.swift; sourceTree = SOURCE_ROOT; };
 		DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = EventsManager/ViewControllers/TabBarViewController.swift; sourceTree = SOURCE_ROOT; };
 		DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyEventsViewController.swift; path = EventsManager/ViewControllers/MyEventsViewController.swift; sourceTree = SOURCE_ROOT; };
 		DA75C222205ABF0400C1822C /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewController.swift; path = EventsManager/ViewControllers/MyProfileViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -184,14 +184,14 @@
 			isa = PBXGroup;
 			children = (
 				A40E37CE201E91CA00B3AFA4 /* AppDelegate.swift */,
+				AAFE2FD7212222C500779FA1 /* Models */,
 				DA75C224205ABF3C00C1822C /* Utilities */,
-				DA75C213205ABD2300C1822C /* Model */,
-				DA75C214205ABD4E00C1822C /* ViewControllers */,
-				DA75C215205ABD6000C1822C /* Views */,
+				AAFE2FD52122226E00779FA1 /* Views */,
+				AAFE2FD32122224400779FA1 /* ViewControllers */,
 				A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */,
 				A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */,
+				A11D265E20FAF0D9001712E6 /* Localizable.strings */,
 				A40E37DA201E91CA00B3AFA4 /* Info.plist */,
-				AA3828F720EFEC800079C7E4 /* Localizable.strings */,
 			);
 			path = EventsManager;
 			sourceTree = "<group>";
@@ -214,19 +214,7 @@
 			path = EventsManagerUITests;
 			sourceTree = "<group>";
 		};
-		DA75C213205ABD2300C1822C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				AABA675120C6E5E400363899 /* Category.swift */,
-				AABA674F20C6E5DD00363899 /* User.swift */,
-				AABA674D20C6E5D500363899 /* Organization.swift */,
-				DA75C21C205ABDCD00C1822C /* Event.swift */,
-			);
-			name = Model;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		DA75C214205ABD4E00C1822C /* ViewControllers */ = {
+		AAFE2FD32122224400779FA1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */,
@@ -238,11 +226,10 @@
 				AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */,
 				AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */,
 			);
-			name = ViewControllers;
-			path = "New Group/New Group1";
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		DA75C215205ABD6000C1822C /* Views */ = {
+		AAFE2FD52122226E00779FA1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */,
@@ -254,8 +241,18 @@
 				AAF8FC6C209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift */,
 				AABA675320C7244600363899 /* MyEventsDatePickerView.swift */,
 			);
-			name = Views;
-			path = "New Group2";
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AAFE2FD7212222C500779FA1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AABA675120C6E5E400363899 /* Category.swift */,
+				AABA674F20C6E5DD00363899 /* User.swift */,
+				AABA674D20C6E5D500363899 /* Organization.swift */,
+				DA75C21C205ABDCD00C1822C /* Event.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		DA75C224205ABF3C00C1822C /* Utilities */ = {
@@ -386,7 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
-				AA3828F920EFEC800079C7E4 /* Localizable.strings in Resources */,
+				A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */,
 				A40E37D6201E91CA00B3AFA4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,14 +627,6 @@
 				A40E37D8201E91CA00B3AFA4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		AA3828F720EFEC800079C7E4 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AA3828F820EFEC800079C7E4 /* Base */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
