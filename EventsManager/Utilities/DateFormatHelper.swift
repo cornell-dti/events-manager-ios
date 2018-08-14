@@ -71,18 +71,33 @@ class DateFormatHelper {
     public static func day(from date:Date) -> String {
         return dayFromDateFormatter.string(from: date)
     }
+    public static func dayAbbreviationOfWeek(from date:Date) -> String {
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: date)
+        switch weekDay {
+            case 1: return NSLocalizedString("date-format-week-day-abbr-mon", comment: "")
+            case 2: return NSLocalizedString("date-format-week-day-abbr-tue", comment: "")
+            case 3: return NSLocalizedString("date-format-week-day-abbr-wed", comment: "")
+            case 4: return NSLocalizedString("date-format-week-day-abbr-thu", comment: "")
+            case 5: return NSLocalizedString("date-format-week-day-abbr-fri", comment: "")
+            case 6: return NSLocalizedString("date-format-week-day-abbr-sat", comment: "")
+            case 7: return NSLocalizedString("date-format-week-day-abbr-sun", comment: "")
+            default: return "ERR"
+        }
+    }
+    
     public static func dayOfWeek(from date:Date) -> String {
         let myCalendar = Calendar(identifier: .gregorian)
         let weekDay = myCalendar.component(.weekday, from: date)
         switch weekDay {
-            case 1: return "M"
-            case 2: return "Tu"
-            case 3: return "W"
-            case 4: return "Th"
-            case 5: return "F"
-            case 6: return "Sa"
-            case 7: return "Su"
-            default: return "ERR"
+        case 1: return NSLocalizedString("date-format-week-day-full-mon", comment: "")
+        case 2: return NSLocalizedString("date-format-week-day-full-tue", comment: "")
+        case 3: return NSLocalizedString("date-format-week-day-full-wed", comment: "")
+        case 4: return NSLocalizedString("date-format-week-day-full-thu", comment: "")
+        case 5: return NSLocalizedString("date-format-week-day-full-fri", comment: "")
+        case 6: return NSLocalizedString("date-format-week-day-full-sat", comment: "")
+        case 7: return NSLocalizedString("date-format-week-day-full-sun", comment: "")
+        default: return "ERR"
         }
     }
     

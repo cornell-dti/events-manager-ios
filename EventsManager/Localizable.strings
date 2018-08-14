@@ -48,3 +48,19 @@
 
 //My Profile
 "my-profile" = "My Profile";
+
+//DateFormatHelper
+"date-format-week-day-full-mon" = "Monday";
+"date-format-week-day-full-tue" = "Tuesday"
+"date-format-week-day-full-wed" = "Wednesday"
+"date-format-week-day-full-thu" =  "Thursday"
+"date-format-week-day-full-fri" = "Friday"
+"date-format-week-day-full-sat" = "Saturday"
+"date-format-week-day-full-sun" = "Sunday"
+"date-format-week-day-abbr-mon" = "M";
+"date-format-week-day-abbr-tue" = "Tu"
+"date-format-week-day-abbr-wed" = "W"
+"date-format-week-day-abbr-thu" =  "Th"
+"date-format-week-day-abbr-fri" = "F"
+"date-format-week-day-abbr-sat" = "Sa"
+"date-format-week-day-abbr-sun" = "Su"

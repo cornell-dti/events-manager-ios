@@ -40,7 +40,13 @@ class MyEventsDatePickerView: UIView {
      * View Element setup and positioning for this event card.
      */
     func layoutUI() {
+        self.backgroundColor = UIColor.white
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = shadowOpacity
+        self.layer.shadowRadius = shadowRadius
+        self.layer.shadowOffset = shadowOffset
         self.addSubview(dateScrollView)
+        
         dateScrollView.addSubview(contentView)
         contentView.addSubview(dateStack)
         
@@ -84,7 +90,7 @@ class MyEventsDatePickerView: UIView {
             dateButton.titleLabel?.font = UIFont.systemFont(ofSize: dateFontSize)
             dateButton.isUserInteractionEnabled = false
             let displayDate = Calendar.current.date(byAdding: .day, value: index - 1, to: today)!
-            day.text = DateFormatHelper.dayOfWeek(from: displayDate)
+            day.text = DateFormatHelper.dayAbbreviationOfWeek(from: displayDate)
             dateButton.setTitle(DateFormatHelper.day(from: displayDate), for: .normal)
             dateButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
             
@@ -138,7 +144,7 @@ class MyEventsDatePickerView: UIView {
     */
     func getDate(selectedView: UIStackView) -> Date? {
         if let index = dateStack.arrangedSubviews.index(of: selectedView) {
-            let today = Date()
+            let today = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
             return Calendar.current.date(byAdding: .day, value: index - 1, to: today)!
         }
         return nil
