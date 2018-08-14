@@ -11,7 +11,7 @@ import SnapKit
 
 class MyEventsDatePickerView: UIView {
     //Data source
-    var events:[Event] = []
+    var dates:[Date] = []
     
     //Constants
     let datePickerViewHeight:CGFloat = 100
@@ -75,9 +75,9 @@ class MyEventsDatePickerView: UIView {
      Configures the date picker view with events. The date picker view will find the latest event in the list and determines the time range for date picking.
      - events: the list of events that the date picker should be picking from.
      */
-    func configure(with events: [Event]){
-        self.events = events
-        let lastDateInEvents = getLastDate(in: events)
+    func configure(with dates:[Date]){
+        self.dates = dates
+        let lastDateInEvents = getLastDate(in: dates)
         let today = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
         var numOfDates = (Calendar.current.dateComponents([.day], from: today, to: lastDateInEvents).day ?? 0) + 1
         numOfDates = numOfDates < 1 ? 1 : numOfDates
@@ -114,24 +114,29 @@ class MyEventsDatePickerView: UIView {
             individualDateStack.spacing = dayToDateMargin
             dateStack.addArrangedSubview(individualDateStack)
         }
-        setSelected(selectedView: dateStack.arrangedSubviews[0] as! UIStackView)
+        setSelected(date: getFirstDate(in: dates))
     }
     
     /**
-        Set the given date picker stack as the selected one
-    */
-    func setSelected(selectedView: UIStackView){
-        for subView in dateStack.arrangedSubviews {
-            if let individualDateStackView = subView as? UIStackView {
-                for element in individualDateStackView.arrangedSubviews {
-                    if let button = element as? UIButton {
-                        if selectedView != subView {
-                            button.backgroundColor = UIColor.white
-                            button.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
-                        }
-                        else {
-                            button.backgroundColor = UIColor(named: "MyEventsDatePickerSelected")
-                            button.setTitleColor(UIColor.white, for: .normal)
+     Set the given date picker stack as the selected one
+     */
+    func setSelected(date: Date){
+        let today = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
+        if let indexOfSelectedStack = Calendar.current.dateComponents([.day], from: today, to: date).day{
+            if(indexOfSelectedStack >= 0 && indexOfSelectedStack < dateStack.arrangedSubviews.count) {
+                for (index,subView) in dateStack.arrangedSubviews.enumerated() {
+                    if let individualDateStackView = subView as? UIStackView {
+                        for element in individualDateStackView.arrangedSubviews {
+                            if let button = element as? UIButton {
+                                if index != indexOfSelectedStack {
+                                    button.backgroundColor = UIColor.white
+                                    button.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
+                                }
+                                else {
+                                    button.backgroundColor = UIColor(named: "MyEventsDatePickerSelected")
+                                    button.setTitleColor(UIColor.white, for: .normal)
+                                }
+                            }
                         }
                     }
                 }
@@ -145,24 +150,31 @@ class MyEventsDatePickerView: UIView {
     func getDate(selectedView: UIStackView) -> Date? {
         if let index = dateStack.arrangedSubviews.index(of: selectedView) {
             let today = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
-            return Calendar.current.date(byAdding: .day, value: index - 1, to: today)!
+            return Calendar.current.date(byAdding: .day, value: index, to: today)!
         }
         return nil
     }
     
     
     /**
-     Find and return the last date
-     - events: the list of events that this function should look into and find the last date.
+     Find and return the first date
+     - dates: the array of dates to search the first date in
+     - returns: the first date if the array is not empty; today if the array is empty
      */
-    func getLastDate(in events: [Event]) -> Date{
-        var dates:Set<Date> = []
-        for event in events {
-            let startTime = event.startTime
-            let startDateString = DateFormatHelper.date(from: startTime) //convert starttime to yyyy-mm-dd strings to remove time from date
-            let startDate = DateFormatHelper.date(from: startDateString) ?? DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
-            dates.insert(startDate)
+    func getFirstDate(in dates: [Date]) -> Date{
+        if dates.count > 0 {
+            return dates.sorted()[0]
         }
+        return DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
+    }
+    
+    
+    /**
+     Find and return the last date
+     - dates
+     - returns: the last date
+     */
+    func getLastDate(in dates: [Date]) -> Date{
         var latestDate = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
         for date in dates {
             if date > latestDate {
