@@ -15,6 +15,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     var myEvents:[Event] = [] //all my events
     var sectionDates:[Date] = [] //valid date sections, sorted from small date to large date, unique
     var eventsOnDate:[[Event]] = [] //array whose row represents index in sectionDates, column represents events on that date
+    var scrollEventCalledByDatePickerClicking = false //when user clicks on date picker, it triggers didscroll and sets the datepicker selected date as well. To prevent this, set this to true when user clicks a date, and to false again in scrollviewdidfinishanimations. Only when this is set to false, will the date picker adjust selection based on the position of the tableview.
     
     //Constants
     let datePickerHeight:CGFloat = 100
@@ -115,12 +116,14 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
             if let dateSelected = datePicker.getDate(selectedView: individualDateStack) {
                 let dateSelectedWithoutTime = DateFormatHelper.date(from: DateFormatHelper.date(from: dateSelected))! //strip time off(if exist)
                 if let sectionToScrollTo = sectionDates.index(of: dateSelectedWithoutTime) {
+                    scrollEventCalledByDatePickerClicking = true
                     datePicker.setSelected(date: dateSelected)
                     tableView.scrollToRow(at: IndexPath(row: 0, section: sectionToScrollTo), at: .top, animated: true)
                 }
                 else {
                     if let nextDate = getNextDate(in: sectionDates, for: dateSelected) {
                         if let sectionToScrollTo = sectionDates.index(of: nextDate) {
+                            scrollEventCalledByDatePickerClicking = true
                             datePicker.setSelected(date: nextDate)
                             tableView.scrollToRow(at: IndexPath(row: 0, section: sectionToScrollTo), at: .top, animated: true)
                         }
@@ -228,11 +231,15 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
         header.textLabel?.font = UIFont.boldSystemFont(ofSize: headerFontSize)
     }
     
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        scrollEventCalledByDatePickerClicking = false
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let indexPaths = tableView.indexPathsForVisibleRows {
             if let sectionOnTop = indexPaths.first?.section,
                 let rowOnTop = indexPaths.first?.row{
-                if rowOnTop == 0 {
+                if rowOnTop == 0 && !scrollEventCalledByDatePickerClicking{
                     datePicker.setSelected(date: sectionDates[sectionOnTop])
                 }
             }
