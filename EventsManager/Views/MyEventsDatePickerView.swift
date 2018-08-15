@@ -15,6 +15,7 @@ class MyEventsDatePickerView: UIView {
     
     //Constants
     let datePickerViewHeight:CGFloat = 100
+    let individualDatePickerStackWidth:CGFloat = 45
     let dateFontSize:CGFloat = 18
     let dateButtonSideLength:CGFloat = 45
     let dayToDateMargin:CGFloat = 8
@@ -23,6 +24,7 @@ class MyEventsDatePickerView: UIView {
     let shadowOpacity:Float = 0.2
     let shadowRadius:CGFloat = 2
     let shadowOffset = CGSize(width: 0, height: 2)
+    let scrollingAnimationDuration = 0.3
     
     //View Elements
     let dateStack = UIStackView()
@@ -112,6 +114,9 @@ class MyEventsDatePickerView: UIView {
             individualDateStack.alignment = .center
             individualDateStack.distribution = .fill
             individualDateStack.spacing = dayToDateMargin
+            individualDateStack.snp.makeConstraints{ make in
+                make.width.equalTo(individualDatePickerStackWidth)
+            }
             dateStack.addArrangedSubview(individualDateStack)
         }
         setSelected(date: getFirstDate(in: dates))
@@ -124,6 +129,9 @@ class MyEventsDatePickerView: UIView {
         let today = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
         if let indexOfSelectedStack = Calendar.current.dateComponents([.day], from: today, to: date).day{
             if(indexOfSelectedStack >= 0 && indexOfSelectedStack < dateStack.arrangedSubviews.count) {
+                if !isDatePickerInContentView(index: indexOfSelectedStack) {
+                    scroll(to: indexOfSelectedStack)
+                }
                 for (index,subView) in dateStack.arrangedSubviews.enumerated() {
                     if let individualDateStackView = subView as? UIStackView {
                         for element in individualDateStackView.arrangedSubviews {
@@ -141,6 +149,32 @@ class MyEventsDatePickerView: UIView {
                     }
                 }
             }
+        }
+    }
+    
+    /**
+     Check if an individual date picker is in the scroll view's content view
+     - index: the index of the date picker in the stack's arranged subviews
+     - returns: true is the date picker is in the contentview, false if not, or index is out of range
+     */
+    private func isDatePickerInContentView(index:Int) -> Bool {
+        let contentViewStartingPosition = dateScrollView.contentOffset.x
+        let contentViewEndingPosition = contentViewStartingPosition + UIScreen.main.bounds.width
+        let datePickerStartingPosition = Int(sideMargins) + index * Int(individualDatePickerStackWidth + dateToDateMargin) - Int(dateToDateMargin / 2)
+        let datePickerEndingPosition = datePickerStartingPosition + Int(individualDatePickerStackWidth) + Int(dateToDateMargin)
+        return (CGFloat(datePickerStartingPosition) >= contentViewStartingPosition && CGFloat(datePickerEndingPosition) <= contentViewEndingPosition)
+    }
+    
+    /**
+     Scroll to date picker corresponding to the index in the scroll view's stack's arranged subviews
+     - index: the index of the individual date picker stack
+     */
+    private func scroll(to index: Int) {
+        let datePickerStartingPosition = Int(sideMargins) + index * Int(individualDatePickerStackWidth + dateToDateMargin) - Int(dateToDateMargin / 2)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: self.scrollingAnimationDuration, animations: {
+                self.dateScrollView.contentOffset.x = CGFloat(datePickerStartingPosition)
+            })
         }
     }
     

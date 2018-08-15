@@ -228,6 +228,17 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
         header.textLabel?.font = UIFont.boldSystemFont(ofSize: headerFontSize)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let indexPaths = tableView.indexPathsForVisibleRows {
+            if let sectionOnTop = indexPaths.first?.section,
+                let rowOnTop = indexPaths.first?.row{
+                if rowOnTop == 0 {
+                    datePicker.setSelected(date: sectionDates[sectionOnTop])
+                }
+            }
+        }
+    }
+    
     /*
      segue to the selected eventsDetailController
      */
