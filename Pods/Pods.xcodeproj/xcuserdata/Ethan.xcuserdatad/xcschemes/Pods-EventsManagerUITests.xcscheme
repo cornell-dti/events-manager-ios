@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "639966D3ED1589E9BFE0CA8BF3132EBB"
+               BlueprintIdentifier = "CEE415570D7BBA3771625EEA6B3AA603"
                BuildableName = "Pods_EventsManagerUITests.framework"
                BlueprintName = "Pods-EventsManagerUITests"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "639966D3ED1589E9BFE0CA8BF3132EBB"
+            BlueprintIdentifier = "CEE415570D7BBA3771625EEA6B3AA603"
             BuildableName = "Pods_EventsManagerUITests.framework"
             BlueprintName = "Pods-EventsManagerUITests"
             ReferencedContainer = "container:Pods.xcodeproj">

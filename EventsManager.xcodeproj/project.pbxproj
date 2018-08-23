@@ -278,7 +278,6 @@
 				A40E37C8201E91CA00B3AFA4 /* Frameworks */,
 				A40E37C9201E91CA00B3AFA4 /* Resources */,
 				7127048394CCB00E2ED84C0F /* [CP] Embed Pods Frameworks */,
-				4C677F0346D94733DE03FDE0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -297,8 +296,6 @@
 				A40E37DB201E91CA00B3AFA4 /* Sources */,
 				A40E37DC201E91CA00B3AFA4 /* Frameworks */,
 				A40E37DD201E91CA00B3AFA4 /* Resources */,
-				1EBA70443199D96E5B432C87 /* [CP] Embed Pods Frameworks */,
-				2527B5C3F7CFB200D939A088 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -318,8 +315,6 @@
 				A40E37E6201E91CA00B3AFA4 /* Sources */,
 				A40E37E7201E91CA00B3AFA4 /* Frameworks */,
 				A40E37E8201E91CA00B3AFA4 /* Resources */,
-				786A9F3A1696C73E9E41F161 /* [CP] Embed Pods Frameworks */,
-				C9D59CD0869C3DE1FC50D5D7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -405,21 +400,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1EBA70443199D96E5B432C87 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventsManagerTests/Pods-EventsManagerTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		24D89CEBF8205D7A1B7E2C47 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -436,36 +416,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2527B5C3F7CFB200D939A088 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventsManagerTests/Pods-EventsManagerTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4C677F0346D94733DE03FDE0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventsManager/Pods-EventsManager-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		666EC4872CB74C87AE88A292 /* [CP] Check Pods Manifest.lock */ = {
@@ -504,36 +454,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventsManager/Pods-EventsManager-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		786A9F3A1696C73E9E41F161 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C9D59CD0869C3DE1FC50D5D7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EC34332FF7928582725932F6 /* [CP] Check Pods Manifest.lock */ = {
