@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import Kingfisher
+import GoogleMaps
+import GooglePlaces
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate{
     
@@ -45,6 +47,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     
     //datasource
     var event:Event?
+    let placesClient = GMSPlacesClient.shared()
+    var mapLocation:CLLocationCoordinate2D?
     
     //view elements
     var scrollView = UIScrollView()
@@ -60,7 +64,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var eventParticipantCount = UILabel()
     var eventOrganizer = UILabel()
     var eventLocation = UILabel()
-    var eventMapView = MKMapView()
+    var eventMapView = GMSMapView()
     var tagScrollView = UIScrollView()
     var tagStack = UIStackView()
     let backButton = UIButton()
@@ -368,6 +372,17 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventOrganizer.text = event.eventOrganizer
         eventLocation.text = event.eventLocation
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
+        
+        placesClient.lookUpPlaceID(event.eventLocationID, callback: { result, error in
+            guard result != nil else {
+                return
+            }
+            self.mapLocation = result?.coordinate
+            self.eventMapView.moveCamera(GMSCameraUpdate.fit(result!.viewport!))
+            let mapMarker = GMSMarker(position: result!.coordinate)
+            mapMarker.map = self.eventMapView
+            self.eventMapView.selectedMarker = mapMarker
+        })
         
         for tag in event.eventTags {
             let tagButton = EventTagButton()

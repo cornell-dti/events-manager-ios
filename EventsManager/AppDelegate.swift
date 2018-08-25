@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         UITabBar.appearance().barTintColor = UIColor.white
+        
+        GMSServices.provideAPIKey("AIzaSyABs4C2LzrrU4m6LVQ2Ef7ZoNoVn6NIzr8")
+        GMSPlacesClient.provideAPIKey("AIzaSyABs4C2LzrrU4m6LVQ2Ef7ZoNoVn6NIzr8")
 
         return true
     }
