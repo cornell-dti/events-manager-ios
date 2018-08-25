@@ -10,6 +10,8 @@ import Foundation
 
 struct User {
     let netID:String
+    let name:String
+    let avatar:URL //temporary
     let interestedEvents:[Int]
     let goingEvents:[Int]
     let followingOrganizations:[Int]
