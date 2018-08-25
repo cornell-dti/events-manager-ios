@@ -9,6 +9,8 @@ target 'EventsManager' do
   # Pods for EventsManager
 	pod 'SnapKit', '~> 4.0.0'
 	pod 'Kingfisher', '~> 4.0'
+	pod 'GoogleMaps'
+  	pod 'GooglePlaces'
 
   target 'EventsManagerTests' do
     inherit! :search_paths
