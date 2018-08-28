@@ -48,6 +48,8 @@
 
 //My Profile
 "my-profile" = "My Profile";
+"my-profile-following" = "FOLLOWING";
+"my-profile-more-button" = "MORE";
 
 //DateFormatHelper
 "date-format-week-day-full-mon" = "Monday";

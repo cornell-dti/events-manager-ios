@@ -9,9 +9,12 @@
 import UIKit
 import Kingfisher
 
-class MyProfileViewController: UIViewController {
+class MyProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //constants
+    let followingOrganizationsSetion = 0
+    
+    let headerHeight:CGFloat = 60
     let topBarHeight:CGFloat = 90
     let personalAvatarSideLength:CGFloat = 60
     let settingsButtonSideLength:CGFloat = 30
@@ -26,7 +29,7 @@ class MyProfileViewController: UIViewController {
     let topBar = UIView()
     let userAvatar = UIImageView()
     let userName = UILabel()
-    let settingButton = UIButton()
+    let tableView = UITableView(frame:CGRect(), style: .grouped)
     
     //data source
     var user:User?
@@ -44,15 +47,17 @@ class MyProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
-        configure(with: User(netID: "qh75", name:"John Appleseed" , avatar: URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, interestedEvents: [], goingEvents: [], followingOrganizations: [], joinedOrganizations: [], preferredCategories: []))
+        configure(with: User(netID: "qh75", name:"John Appleseed" , avatar: URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, interestedEvents: [], goingEvents: [], followingOrganizations: [Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")], joinedOrganizations: [], preferredCategories: []))
     }
     
     /**
       Configures the personal profile view controller with a user model
      */
     func configure(with user: User){
+        self.user = user
         userAvatar.kf.setImage(with: user.avatar)
         userName.text = user.name
+        tableView.reloadData()
     }
     
     /* Sets all the layout elements in the details view */
@@ -62,11 +67,9 @@ class MyProfileViewController: UIViewController {
         view.backgroundColor = UIColor.white
         topBar.addSubview(userAvatar)
         topBar.addSubview(userName)
-        topBar.addSubview(settingButton)
         userAvatar.layer.cornerRadius = personalAvatarSideLength/2
         userAvatar.clipsToBounds = true
         userName.font = UIFont.boldSystemFont(ofSize: userNameFontSize)
-        settingButton.setBackgroundImage(#imageLiteral(resourceName: "settings"), for: .normal)
         
         topBar.backgroundColor = UIColor.white
         topBar.layer.shadowColor = UIColor.gray.cgColor
@@ -89,14 +92,61 @@ class MyProfileViewController: UIViewController {
         userName.snp.makeConstraints{ make in
             make.left.equalTo(userAvatar.snp.right).offset(topBarSideMargins)
             make.centerY.equalTo(topBar)
-        }
-        settingButton.snp.makeConstraints{ make in
-            make.left.equalTo(userName.snp.right).offset(topBarSideMargins)
-            make.width.equalTo(settingsButtonSideLength)
-            make.height.equalTo(settingsButtonSideLength)
             make.right.equalTo(topBar).offset(-topBarSideMargins)
-            make.centerY.equalTo(topBar)
         }
+        //tableview
+        view.addSubview(tableView)
+        view.bringSubview(toFront: topBar)
+        tableView.snp.makeConstraints{ make in
+            make.top.equalTo(topBar.snp.bottom)
+            make.left.equalTo(view)
+            make.right.equalTo(view)
+            make.bottom.equalTo(view)
+        }
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(PersonalProfileFollowingTableViewCell.self, forCellReuseIdentifier: PersonalProfileFollowingTableViewCell.identifier)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.backgroundColor = UIColor.white
+        tableView.separatorStyle = .none
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeader = MyProfileHeaderFooterView()
+        switch section {
+        case followingOrganizationsSetion:
+            sectionHeader.setMainTitle(NSLocalizedString("my-profile-following", comment: ""))
+            sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
+        default:
+            return sectionHeader
+        }
+        return sectionHeader
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerHeight
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return user?.followingOrganizations.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        if let user = user {
+            switch indexPath.section {
+            case followingOrganizationsSetion:
+                let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: PersonalProfileFollowingTableViewCell.identifier) as! PersonalProfileFollowingTableViewCell
+                followingOrgCell.configure(with: user.followingOrganizations[indexPath.row])
+                return followingOrgCell
+            default: return cell
+            }
+        }
+        return cell
         
     }
 

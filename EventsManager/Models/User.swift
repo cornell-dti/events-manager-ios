@@ -14,7 +14,7 @@ struct User {
     let avatar:URL //temporary
     let interestedEvents:[Int]
     let goingEvents:[Int]
-    let followingOrganizations:[Int]
+    let followingOrganizations:[Organization]
     let joinedOrganizations:[Int]
     let preferredCategories:[Int]
 }
