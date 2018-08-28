@@ -16,8 +16,9 @@
 		A40E37E4201E91CA00B3AFA4 /* EventsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37E3201E91CA00B3AFA4 /* EventsManagerTests.swift */; };
 		A40E37EF201E91CA00B3AFA4 /* EventsManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37EE201E91CA00B3AFA4 /* EventsManagerUITests.swift */; };
 		AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03DC272061B8220059EE1B /* EventDetailViewController.swift */; };
-		AA04DEFA2134DFCB00FA0507 /* PersonalProfileFollowingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEF92134DFCB00FA0507 /* PersonalProfileFollowingTableViewCell.swift */; };
+		AA04DEFA2134DFCB00FA0507 /* MyProfileFollowingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEF92134DFCB00FA0507 /* MyProfileFollowingTableViewCell.swift */; };
 		AA04DEFC2134E8C500FA0507 /* MyProfileHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEFB2134E8C500FA0507 /* MyProfileHeaderFooterView.swift */; };
+		AA04DEFE2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */; };
 		AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF97208ED460007A5E5C /* EventCard.swift */; };
 		AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */; };
 		AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
@@ -81,8 +82,9 @@
 		A40E37EE201E91CA00B3AFA4 /* EventsManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerUITests.swift; sourceTree = "<group>"; };
 		A40E37F0201E91CA00B3AFA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA03DC272061B8220059EE1B /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventDetailViewController.swift; path = EventsManager/ViewControllers/EventDetailViewController.swift; sourceTree = SOURCE_ROOT; };
-		AA04DEF92134DFCB00FA0507 /* PersonalProfileFollowingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalProfileFollowingTableViewCell.swift; sourceTree = "<group>"; };
+		AA04DEF92134DFCB00FA0507 /* MyProfileFollowingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileFollowingTableViewCell.swift; sourceTree = "<group>"; };
 		AA04DEFB2134E8C500FA0507 /* MyProfileHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileHeaderFooterView.swift; sourceTree = "<group>"; };
+		AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTagsTableViewCell.swift; sourceTree = "<group>"; };
 		AA1FFF97208ED460007A5E5C /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCard.swift; path = EventsManager/Views/EventCard.swift; sourceTree = SOURCE_ROOT; };
 		AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCardCell.swift; path = EventsManager/Views/EventCardCell.swift; sourceTree = SOURCE_ROOT; };
 		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -244,8 +246,9 @@
 				AAF8FC6A209AA69900BF8277 /* EventTableHeaderFooterView.swift */,
 				AAF8FC6C209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift */,
 				AABA675320C7244600363899 /* MyEventsDatePickerView.swift */,
-				AA04DEF92134DFCB00FA0507 /* PersonalProfileFollowingTableViewCell.swift */,
+				AA04DEF92134DFCB00FA0507 /* MyProfileFollowingTableViewCell.swift */,
 				AA04DEFB2134E8C500FA0507 /* MyProfileHeaderFooterView.swift */,
+				AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				DA75C226205ABF6F00C1822C /* Colors.swift in Sources */,
 				DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */,
 				DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */,
+				AA04DEFE2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift in Sources */,
 				AABA674E20C6E5D500363899 /* Organization.swift in Sources */,
 				AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */,
 				AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */,
@@ -522,7 +526,7 @@
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
 				AABA675020C6E5DD00363899 /* User.swift in Sources */,
 				AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */,
-				AA04DEFA2134DFCB00FA0507 /* PersonalProfileFollowingTableViewCell.swift in Sources */,
+				AA04DEFA2134DFCB00FA0507 /* MyProfileFollowingTableViewCell.swift in Sources */,
 				AAF8FC6D209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift in Sources */,
 				AAE10F4920AF42530070F515 /* Internet.swift in Sources */,
 				AABA675220C6E5E400363899 /* Category.swift in Sources */,

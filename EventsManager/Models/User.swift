@@ -15,6 +15,6 @@ struct User {
     let interestedEvents:[Int]
     let goingEvents:[Int]
     let followingOrganizations:[Organization]
-    let joinedOrganizations:[Int]
     let preferredCategories:[Int]
+    let followingTags:[String]
 }

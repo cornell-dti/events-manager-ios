@@ -50,6 +50,7 @@
 "my-profile" = "My Profile";
 "my-profile-following" = "FOLLOWING";
 "my-profile-more-button" = "MORE";
+"my-profile-following-tags" = "TAGS";
 
 //DateFormatHelper
 "date-format-week-day-full-mon" = "Monday";

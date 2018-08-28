@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class PersonalProfileFollowingTableViewCell: UITableViewCell {
+class MyProfileFollowingTableViewCell: UITableViewCell {
     
-    static let identifier = "PersonalProfileFollowingTableViewCell"
+    static let identifier = "MyProfileFollowingTableViewCell"
     
     //constants
     let avatarSideLength:CGFloat = 60

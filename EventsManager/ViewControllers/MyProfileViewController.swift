@@ -13,8 +13,10 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //constants
     let followingOrganizationsSetion = 0
+    let followingTagsSecgtion = 1
+    let follwingOrganizationRowLimit = 3
     
-    let headerHeight:CGFloat = 60
+    let headerHeight:CGFloat = 55
     let topBarHeight:CGFloat = 90
     let personalAvatarSideLength:CGFloat = 60
     let settingsButtonSideLength:CGFloat = 30
@@ -47,7 +49,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
-        configure(with: User(netID: "qh75", name:"John Appleseed" , avatar: URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, interestedEvents: [], goingEvents: [], followingOrganizations: [Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")], joinedOrganizations: [], preferredCategories: []))
+        configure(with: User(netID: "qh75", name:"John Appleseed" , avatar: URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, interestedEvents: [], goingEvents: [], followingOrganizations: [Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")], preferredCategories: [], followingTags: ["#Kornell", "#LOLOL", "#Cornel", "#Can't get into CS Courses", "#omgggggg"]))
     }
     
     /**
@@ -105,18 +107,21 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PersonalProfileFollowingTableViewCell.self, forCellReuseIdentifier: PersonalProfileFollowingTableViewCell.identifier)
+        tableView.register(MyProfileFollowingTableViewCell.self, forCellReuseIdentifier: MyProfileFollowingTableViewCell.identifier)
+        tableView.register(MyProfileHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: MyProfileHeaderFooterView.identifier)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeader = MyProfileHeaderFooterView()
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyProfileHeaderFooterView.identifier) as! MyProfileHeaderFooterView
         switch section {
         case followingOrganizationsSetion:
             sectionHeader.setMainTitle(NSLocalizedString("my-profile-following", comment: ""))
             sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
+        case followingTagsSecgtion:
+            sectionHeader.setMainTitle(NSLocalizedString("my-profile-following-tags", comment: ""))
         default:
             return sectionHeader
         }
@@ -128,11 +133,17 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return user?.followingOrganizations.count ?? 0
+        switch section {
+            case followingOrganizationsSetion:
+                return (user?.followingOrganizations.count ?? 0) <= follwingOrganizationRowLimit ? (user?.followingOrganizations.count ?? 0) : follwingOrganizationRowLimit
+            case followingTagsSecgtion:
+                return 1
+            default: return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -140,9 +151,13 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         if let user = user {
             switch indexPath.section {
             case followingOrganizationsSetion:
-                let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: PersonalProfileFollowingTableViewCell.identifier) as! PersonalProfileFollowingTableViewCell
+                let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: MyProfileFollowingTableViewCell.identifier) as! MyProfileFollowingTableViewCell
                 followingOrgCell.configure(with: user.followingOrganizations[indexPath.row])
                 return followingOrgCell
+            case followingTagsSecgtion:
+                let followingTagCell = MyProfileTagsTableViewCell()
+                followingTagCell.configure(with: user.followingTags)
+                return followingTagCell
             default: return cell
             }
         }
