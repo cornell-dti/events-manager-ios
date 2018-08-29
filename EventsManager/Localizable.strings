@@ -51,6 +51,15 @@
 "my-profile-following" = "FOLLOWING";
 "my-profile-more-button" = "MORE";
 "my-profile-following-tags" = "TAGS";
+"my-profile-event-reminders" = "Event Reminders";
+"my-profile-notify-me" = "Notify Me";
+"my-profile-settings" = "SETTINGS";
+"my-profile-reminder-one-hour-before" = "1 hour before";
+"my-profile-reminder-half-an-hour-before" = "30 min before";
+"my-profile-reminder-15min-before" = "15 min before";
+"my-profile-reminder-none" = "none";
+"my-profile-logout-button" = "Log Out";
+"my-profile-net-id" = "netID";
 
 //DateFormatHelper
 "date-format-week-day-full-mon" = "Monday";

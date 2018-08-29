@@ -29,6 +29,8 @@
 		AABA675020C6E5DD00363899 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674F20C6E5DD00363899 /* User.swift */; };
 		AABA675220C6E5E400363899 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675120C6E5E400363899 /* Category.swift */; };
 		AABA675420C7244600363899 /* MyEventsDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675320C7244600363899 /* MyEventsDatePickerView.swift */; };
+		AAC2C7FC21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */; };
+		AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */; };
 		AADAFB2920DA019D000F72E3 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */; };
 		AAE10F4920AF42530070F515 /* Internet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4820AF42530070F515 /* Internet.swift */; };
 		AAE10F4B20AF42D50070F515 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4A20AF42D50070F515 /* UserData.swift */; };
@@ -95,6 +97,8 @@
 		AABA674F20C6E5DD00363899 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = EventsManager/Models/User.swift; sourceTree = SOURCE_ROOT; };
 		AABA675120C6E5E400363899 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = EventsManager/Models/Category.swift; sourceTree = SOURCE_ROOT; };
 		AABA675320C7244600363899 /* MyEventsDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyEventsDatePickerView.swift; path = EventsManager/Views/MyEventsDatePickerView.swift; sourceTree = SOURCE_ROOT; };
+		AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTimeOptions.swift; sourceTree = "<group>"; };
 		AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrganizationViewController.swift; path = EventsManager/ViewControllers/OrganizationViewController.swift; sourceTree = SOURCE_ROOT; };
 		AAE10F4820AF42530070F515 /* Internet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Internet.swift; sourceTree = "<group>"; };
 		AAE10F4A20AF42D50070F515 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -249,6 +253,7 @@
 				AA04DEF92134DFCB00FA0507 /* MyProfileFollowingTableViewCell.swift */,
 				AA04DEFB2134E8C500FA0507 /* MyProfileHeaderFooterView.swift */,
 				AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */,
+				AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				AABA674F20C6E5DD00363899 /* User.swift */,
 				AABA674D20C6E5D500363899 /* Organization.swift */,
 				DA75C21C205ABDCD00C1822C /* Event.swift */,
+				AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -526,6 +532,7 @@
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
 				AABA675020C6E5DD00363899 /* User.swift in Sources */,
 				AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */,
+				AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */,
 				AA04DEFA2134DFCB00FA0507 /* MyProfileFollowingTableViewCell.swift in Sources */,
 				AAF8FC6D209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift in Sources */,
 				AAE10F4920AF42530070F515 /* Internet.swift in Sources */,
@@ -537,6 +544,7 @@
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,
 				DA75C21D205ABDCD00C1822C /* Event.swift in Sources */,
+				AAC2C7FC21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift in Sources */,
 				AAE10F4B20AF42D50070F515 /* UserData.swift in Sources */,
 				AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */,
 			);

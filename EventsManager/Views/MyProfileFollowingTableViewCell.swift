@@ -16,7 +16,7 @@ class MyProfileFollowingTableViewCell: UITableViewCell {
     //constants
     let avatarSideLength:CGFloat = 60
     let orgNameFontSize:CGFloat = 18
-    let topBottomSideMargins:CGFloat = 13
+    let topBottomSideMargins:CGFloat = 10
     let leftRightSideMargins:CGFloat = 20
 
     

@@ -13,7 +13,7 @@ class MyProfileTagsTableViewCell: UITableViewCell {
     
     //constants
     let sideMargins:CGFloat = 20
-    let scrollViewHeight:CGFloat = 80
+    let scrollViewHeight:CGFloat = 70
     let tagSpacing:CGFloat = 12
     
     //view elements
@@ -32,6 +32,7 @@ class MyProfileTagsTableViewCell: UITableViewCell {
     /** Sets the basic layout of the cell */
     func setLayouts() {
         self.addSubview(tagScrollView)
+        tagScrollView.showsHorizontalScrollIndicator = false
         tagScrollView.snp.makeConstraints{ make in
             make.edges.equalTo(self)
             make.height.equalTo(scrollViewHeight)
