@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
+class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, EventCardCellDelegate {
     
     //Constants
     let headerHeight:CGFloat = 35
@@ -67,6 +67,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         cells[popularEventsSection] = popularEventsCell
         cells[todayEventsSection] = todayEventsCell
         cells[tomorrowEventsSection] = tomorrowEventsCell
+        for (_, cell) in cells {
+            cell.delegate = self
+        }
     }
     
     /**
@@ -218,6 +221,10 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight
+    }
+    
+    func push(detailsViewController: EventDetailViewController) {
+        navigationController?.pushViewController(detailsViewController, animated: true)
     }
     
     /*

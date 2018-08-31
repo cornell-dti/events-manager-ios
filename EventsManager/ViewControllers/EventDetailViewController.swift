@@ -24,7 +24,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let infoStackIconLabelSpacing:CGFloat = 20
     let infoTableSpacing:CGFloat = 12
     let eventDescriptionFontSize = CGFloat(integerLiteral: 16)
-    let mapViewHeight = CGFloat(integerLiteral: 140)
+    let mapViewHeight:CGFloat = 220
+    let mapViewDirectionsBarHeight:CGFloat = 35
+    let mapViewDirectionsBarOpacity:Float = 0.7
     let tagScrollViewHeight = CGFloat(integerLiteral: 50)
     let tagHorizontalSpacing = CGFloat(integerLiteral: 8)
     let tagLabelFontSize = CGFloat(integerLiteral: 22)
@@ -44,6 +46,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let eventTitleFontSize:CGFloat = 18
     let defaultDescriptionLines = 3
     let defaultTitleLines = 2
+    let directionsButtonRightSpacing:CGFloat = 10
     
     //datasource
     var event:Event?
@@ -64,6 +67,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var eventParticipantCount = UILabel()
     var eventOrganizer = UILabel()
     var eventLocation = UILabel()
+    let eventMapViewWrapper = UIView()
+    let eventMapDirectionsBar = UIView()
+    let eventMapViewDirectionsButton = UIButton()
     var eventMapView = GMSMapView()
     var tagScrollView = UIScrollView()
     var tagStack = UIStackView()
@@ -272,7 +278,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         contentView.addSubview(eventDescription)
         contentView.addSubview(eventDescriptionShowMoreButton)
         contentView.addSubview(infoTableStack)
-        contentView.addSubview(eventMapView)
+        contentView.addSubview(eventMapViewWrapper)
         contentView.addSubview(tagScrollView)
         view.addSubview(backButton)
         view.addSubview(shareButton)
@@ -335,15 +341,36 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.right.equalTo(contentView).offset(-infoStackEdgeSpacing)
         }
         
-        eventMapView.snp.makeConstraints{ (make) -> Void in
+        eventMapViewWrapper.snp.makeConstraints{ (make) -> Void in
             make.top.equalTo(infoTableStack.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
             make.height.equalTo(mapViewHeight)
         }
+        eventMapViewWrapper.addSubview(eventMapView)
+        eventMapView.snp.makeConstraints{ make in
+            make.edges.equalTo(eventMapViewWrapper)
+        }
+        eventMapDirectionsBar.backgroundColor = UIColor.white
+        eventMapDirectionsBar.layer.opacity = mapViewDirectionsBarOpacity
+        eventMapViewWrapper.addSubview(eventMapDirectionsBar)
+        eventMapDirectionsBar.snp.makeConstraints{ make in
+            make.height.equalTo(mapViewDirectionsBarHeight)
+            make.bottom.equalTo(eventMapViewWrapper)
+            make.left.equalTo(eventMapViewWrapper)
+            make.right.equalTo(eventMapViewWrapper)
+        }
+        eventMapDirectionsBar.addSubview(eventMapViewDirectionsButton)
+        eventMapViewDirectionsButton.setTitleColor(view.tintColor, for: .normal)
+        eventMapViewDirectionsButton.setTitle(NSLocalizedString("event-details-directions-button", comment: ""), for: .normal)
+        eventMapViewDirectionsButton.snp.makeConstraints{ make in
+            make.right.equalTo(eventMapDirectionsBar).offset(-directionsButtonRightSpacing)
+            make.centerY.equalTo(eventMapDirectionsBar)
+        }
+        eventMapViewDirectionsButton.addTarget(self, action: #selector(self.directionsButtonPressed(_:)), for: .touchUpInside)
         
         tagScrollView.snp.makeConstraints{ (make) -> Void in
-            make.top.equalTo(eventMapView.snp.bottom).offset(standardEdgeSpacing)
+            make.top.equalTo(eventMapViewWrapper.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
             make.height.equalTo(tagScrollViewHeight)
@@ -391,6 +418,25 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             tagStack.addArrangedSubview(tagButton)
         }
         
+    }
+    
+    /**
+     Handler for pressing the directions button in the map. Should open google maps (if installed) or apple maps and shows the desired location.
+     - sender: the sender of the action
+     */
+    @objc func directionsButtonPressed(_ sender: UIButton) {
+        if let mapLocation = mapLocation {
+            let url:URL
+            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!))
+            {
+                url = URL(string: "comgooglemaps://center=?q=\(mapLocation.latitude),\(mapLocation.longitude)")!
+            }
+            else
+            {
+                url = URL(string: "http://maps.apple.com/?q=\(mapLocation.latitude),\(mapLocation.longitude)")!
+            }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     /**

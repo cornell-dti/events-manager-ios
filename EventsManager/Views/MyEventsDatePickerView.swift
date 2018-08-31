@@ -50,6 +50,7 @@ class MyEventsDatePickerView: UIView {
         self.addSubview(dateScrollView)
         
         dateScrollView.addSubview(contentView)
+        dateScrollView.showsHorizontalScrollIndicator = false
         contentView.addSubview(dateStack)
         
         dateScrollView.snp.makeConstraints{ make in

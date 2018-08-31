@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class OrganizationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class OrganizationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
     
     var organization:Organization?
     var popularEvents = [Event]()
@@ -366,6 +366,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         var cell = UITableViewCell()
         if let popularCardCell = tableView.dequeueReusableCell(withIdentifier: EventCardCell.identifer, for: indexPath) as? EventCardCell {
             popularCardCell.configure(with: popularEvents)
+            popularCardCell.delegate = self
             cell = popularCardCell
         }
         cell.selectionStyle = .none
@@ -410,6 +411,10 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
                 navigationController?.pushViewController(tagViewController, animated: true)
             }
         }
+    }
+    
+    func push(detailsViewController: EventDetailViewController) {
+        navigationController?.pushViewController(detailsViewController, animated: true)
     }
     
 

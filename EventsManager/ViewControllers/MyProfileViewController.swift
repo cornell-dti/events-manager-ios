@@ -14,7 +14,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     //constants
     let sectionCount = 3
     let followingOrganizationsSetion = 0
-    let followingTagsSecgtion = 1
+    let followingTagsSection = 1
     let followingTagRowCount = 1
     let follwingOrganizationRowLimit = 3
     let settingsSection = 2
@@ -39,8 +39,12 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //data source
     var user:User?
+    var showingAllFollowingOrganizations = false
     
     override func viewWillAppear(_ animated: Bool) {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: animated)
+        }
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
     }
@@ -53,7 +57,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
-        configure(with: User(netID: "qh75@cornell.edu", name:"John Appleseed" , avatar: URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, interestedEvents: [], goingEvents: [], followingOrganizations: [Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")], preferredCategories: [], followingTags: ["#Kornell", "#LOLOL", "#Cornel", "#Can't get into CS Courses", "#omgggggg"]))
+        configure(with: User(netID: "qh75@cornell.edu", name:"John Appleseed" , avatar: URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, interestedEvents: [], goingEvents: [], followingOrganizations: [Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org"), Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")], preferredCategories: [], followingTags: ["#Kornell", "#LOLOL", "#Cornel", "#Can't get into CS Courses", "#omgggggg"]))
     }
     
     /**
@@ -118,13 +122,38 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.separatorStyle = .none
     }
     
+    
+    /**
+     Handles pressing of the "MORE" button above following organizations. Should display all possible organizations.
+     */
+    @objc func showAllOrganizations(_ sender: UIButton){
+        if let user = user {
+            if user.followingOrganizations.count > follwingOrganizationRowLimit && !showingAllFollowingOrganizations{
+                var indexPathsToInsert:[IndexPath] = []
+                for rowIndex in follwingOrganizationRowLimit ..< user.followingOrganizations.count {
+                    let newIndexPath = IndexPath(row: rowIndex, section: followingOrganizationsSetion)
+                    indexPathsToInsert.append(newIndexPath)
+                }
+                showingAllFollowingOrganizations = true
+                tableView.insertRows(at: indexPathsToInsert, with: .fade)
+                sender.isHidden = true
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyProfileHeaderFooterView.identifier) as! MyProfileHeaderFooterView
         switch section {
         case followingOrganizationsSetion:
             sectionHeader.setMainTitle(NSLocalizedString("my-profile-following", comment: ""))
-            sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
-        case followingTagsSecgtion:
+            if (user?.followingOrganizations.count ?? follwingOrganizationRowLimit) > follwingOrganizationRowLimit {
+                sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
+                sectionHeader.editButton.addTarget(self, action: #selector(self.showAllOrganizations(_:)), for: .touchUpInside)
+            }
+            else {
+                sectionHeader.editButton.isHidden = true
+            }
+        case followingTagsSection:
             sectionHeader.setMainTitle(NSLocalizedString("my-profile-following-tags", comment: ""))
         case settingsSection:
             sectionHeader.setMainTitle(NSLocalizedString("my-profile-settings", comment: ""))
@@ -145,8 +174,13 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
             case followingOrganizationsSetion:
-                return (user?.followingOrganizations.count ?? 0) <= follwingOrganizationRowLimit ? (user?.followingOrganizations.count ?? 0) : follwingOrganizationRowLimit
-            case followingTagsSecgtion:
+                if showingAllFollowingOrganizations {
+                    return user?.followingOrganizations.count ?? 0
+                }
+                else {
+                    return (user?.followingOrganizations.count) ?? 0 <= follwingOrganizationRowLimit ? (user?.followingOrganizations.count) ?? 0 : follwingOrganizationRowLimit
+                }
+            case followingTagsSection:
                 return followingTagRowCount
             case settingsSection:
                 return settingsRowCount
@@ -162,7 +196,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
                 let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: MyProfileFollowingTableViewCell.identifier) as! MyProfileFollowingTableViewCell
                 followingOrgCell.configure(with: user.followingOrganizations[indexPath.row])
                 return followingOrgCell
-            case followingTagsSecgtion:
+            case followingTagsSection:
                 let followingTagCell = MyProfileTagsTableViewCell()
                 followingTagCell.configure(with: user.followingTags)
                 return followingTagCell
@@ -176,6 +210,20 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         return cell
         
+    }
+    
+    /**
+     Handles selection of organzations in the tableview. Should segue to an org page.
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == followingOrganizationsSetion {
+            if let user = user {
+                let orgSelected = user.followingOrganizations[indexPath.row]
+                let orgViewController = OrganizationViewController()
+                orgViewController.configure(organization: orgSelected)
+                navigationController?.pushViewController(orgViewController, animated: true)
+            }
+        }
     }
 
 }

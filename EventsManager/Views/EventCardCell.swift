@@ -10,9 +10,14 @@ import UIKit
 import SnapKit
 import Foundation
 
+protocol EventCardCellDelegate {
+    func push(detailsViewController:EventDetailViewController)
+}
+
 class EventCardCell: UITableViewCell {
     static let identifer = "EventsCardCell"
     
+    var delegate:EventCardCellDelegate?
     private var events = [Event]()
     
     //Constants
@@ -44,6 +49,7 @@ class EventCardCell: UITableViewCell {
         
         self.addSubview(eventsScrollView)
         eventsScrollView.addSubview(eventsCardStack)
+        eventsScrollView.showsHorizontalScrollIndicator = false
         
         eventsCardStack.snp.makeConstraints { make in
             make.top.equalTo(eventsScrollView).offset(eventCardMargins)
@@ -91,9 +97,7 @@ class EventCardCell: UITableViewCell {
             if let event = senderCard.event {
                 let detailsViewController = EventDetailViewController()
                 detailsViewController.configure(with: event)
-                if let tabBarViewController = self.window?.rootViewController as? TabBarViewController {
-                    tabBarViewController.discoverNavVC.pushViewController(detailsViewController, animated: true)
-                }
+                delegate?.push(detailsViewController: detailsViewController)
             }
         }
     }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MyProfileSettingsTableViewCell: UITableViewCell {
     
     //datasource
@@ -54,6 +55,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
             make.right.equalTo(reminderSwitchWrapperView)
             make.centerY.equalTo(reminderSwitchWrapperView)
         }
+        eventRemindersSwitch.addTarget(self, action: #selector(self.eventReminderSwitcherSwitched(_:)), for: .allEvents)
         reminderSwitchWrapperView.snp.makeConstraints{ make in
             make.top.equalTo(self).offset(verticalSideMargins)
             make.left.equalTo(self).offset(horizontalSideMargins)
@@ -140,5 +142,29 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
     */
     func configure(with user: User){
         netIdDisplayLabel.text = user.netID
+        if !eventRemindersSwitch.isOn {
+            toggleNotifyMeSelectorDisabled()
+        }
+    }
+    
+    /**
+     Enable the notify me selection if it's disabled, enable it if it's not.
+    */
+    func toggleNotifyMeSelectorDisabled() {
+        if notifyTimePickerButton.isEnabled == true {
+            notifyTimePickerButton.isEnabled = false
+            notifyTimePickerButton.setTitleColor(UIColor.gray, for: .normal)
+        }
+        else {
+            notifyTimePickerButton.isEnabled = true
+            notifyTimePickerButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
+        }
+    }
+    
+    /**
+     Handler for the event reminder switch.
+     */
+    @objc func eventReminderSwitcherSwitched(_ sender: UISwitch){
+       self.toggleNotifyMeSelectorDisabled()
     }
 }

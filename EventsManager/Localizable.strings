@@ -23,6 +23,7 @@
 "description-more-button" = "MORE";
 "description-less-button" = "LESS";
 "participant-going" = "Going";
+"event-details-directions-button" = "Directions";
 
 //Event List View
 "tool-bar-cancel-button" = "Cancel";
