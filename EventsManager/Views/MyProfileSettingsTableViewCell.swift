@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol MyProfileSettingsTableViewCellDelegate {
+    func reminderTimeSelectionButtonDidClick()
+}
+
 
 class MyProfileSettingsTableViewCell: UITableViewCell {
     
     //datasource
+    var delegate:MyProfileSettingsTableViewCellDelegate?
     
     //constants
     let wrapperViewHeight:CGFloat = 30
@@ -70,6 +75,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-one-hour-before", comment: ""), for: .normal)
         notifyTimePickerButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
         notifyTimePickerButton.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        notifyTimePickerButton.addTarget(self, action: #selector(self.remindersSelectionButtonPressed(_:)), for: .touchUpInside)
         notifyMeLabel.snp.makeConstraints{ make in
             make.left.equalTo(notificationWrapperView)
             make.centerY.equalTo(notificationWrapperView)
@@ -154,9 +160,11 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         if notifyTimePickerButton.isEnabled == true {
             notifyTimePickerButton.isEnabled = false
             notifyTimePickerButton.setTitleColor(UIColor.gray, for: .normal)
+            notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-none", comment: ""), for: .normal)
         }
         else {
             notifyTimePickerButton.isEnabled = true
+            notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-one-hour-before", comment: ""), for: .normal)
             notifyTimePickerButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
         }
     }
@@ -166,5 +174,12 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
      */
     @objc func eventReminderSwitcherSwitched(_ sender: UISwitch){
        self.toggleNotifyMeSelectorDisabled()
+    }
+    
+    /**
+     Handler for the reminder selection button.
+     */
+    @objc func remindersSelectionButtonPressed(_ sender: UIButton){
+        delegate?.reminderTimeSelectionButtonDidClick()
     }
 }

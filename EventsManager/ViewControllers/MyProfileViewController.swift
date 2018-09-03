@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class MyProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MyProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, MyProfileSettingsTableViewCellDelegate {
     
     //constants
     let sectionCount = 3
@@ -30,12 +30,19 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     let shadowRadius:CGFloat = 2
     let shadowOffset = CGSize(width: 0, height: 2)
     let scrollingAnimationDuration = 0.3
+    let animationDuration = 0.3
+    let reminderTimePickerHeight:CGFloat = 160
+    let toolBarHeigt:CGFloat = 35
     
     //view elements
     let topBar = UIView()
     let userAvatar = UIImageView()
     let userName = UILabel()
     let tableView = UITableView(frame:CGRect(), style: .grouped)
+    let reminderTimePickerContainerView = UIView()
+    let reminderTimePicker = UIPickerView()
+    let reminderTimePickerToolBar = UIToolbar()
+    let settingsCell = MyProfileSettingsTableViewCell()
     
     //data source
     var user:User?
@@ -120,6 +127,109 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none
+        
+        
+        //reminder time selector
+        view.addSubview(reminderTimePickerContainerView)
+        reminderTimePickerContainerView.addSubview(reminderTimePicker)
+        reminderTimePickerContainerView.addSubview(reminderTimePickerToolBar)
+        reminderTimePickerContainerView.backgroundColor = UIColor.white
+        
+        reminderTimePicker.center = view.center
+        reminderTimePicker.dataSource = self
+        reminderTimePicker.delegate = self
+        
+        //tool bar
+        reminderTimePickerToolBar.barStyle = .default
+        reminderTimePickerToolBar.isTranslucent = true
+        reminderTimePickerToolBar.tintColor = view.tintColor
+        reminderTimePickerToolBar.sizeToFit()
+        
+        //add button to tool bar
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("tool-bar-done-button", comment: ""), style: .plain, target: self, action: #selector(toolBarDoneClicked))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("tool-bar-cancel-button", comment: ""), style: .plain, target: self, action: #selector(toolBarCancelClicked))
+        reminderTimePickerToolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
+        reminderTimePickerToolBar.isUserInteractionEnabled = true
+        
+        reminderTimePicker.snp.makeConstraints{ make in
+            make.top.equalTo(reminderTimePickerToolBar.snp.bottom)
+            make.left.equalTo(reminderTimePickerContainerView)
+            make.right.equalTo(reminderTimePickerContainerView)
+            make.bottom.equalTo(reminderTimePickerContainerView)
+        }
+        reminderTimePickerToolBar.snp.makeConstraints{ make in
+            make.bottom.equalTo(reminderTimePicker.snp.top)
+            make.right.equalTo(reminderTimePickerContainerView)
+            make.left.equalTo(reminderTimePickerContainerView)
+            make.top.equalTo(reminderTimePickerContainerView)
+            make.height.equalTo(toolBarHeigt)
+        }
+        
+        reminderTimePickerContainerView.snp.makeConstraints{ make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.left.equalTo(view)
+            make.right.equalTo(view)
+            make.height.equalTo(0)
+        }
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return ReminderTimeOptions.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch ReminderTimeOptions.getCase(by: row) {
+            case .fifteenMinutesBefore: return NSLocalizedString("my-profile-reminder-15min-before", comment: "")
+            case .halfAnHourBefore: return NSLocalizedString("my-profile-reminder-half-an-hour-before", comment: "")
+            case .oneHourBefore: return NSLocalizedString("my-profile-reminder-one-hour-before", comment: "")
+            case .none: return NSLocalizedString("my-profile-reminder-none", comment: "")
+        }
+    }
+    
+    
+    /**
+     Handles the action of pressing done on the reminder time picker tool bar
+     */
+    @objc func toolBarDoneClicked() {
+        let selectedTimeOption = ReminderTimeOptions.getCase(by: reminderTimePicker.selectedRow(inComponent: 0))
+        switch selectedTimeOption {
+            case .fifteenMinutesBefore: settingsCell.notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-15min-before", comment: ""), for: .normal)
+            case .halfAnHourBefore: settingsCell.notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-half-an-hour-before", comment: ""), for: .normal)
+            case .oneHourBefore: settingsCell.notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-one-hour-before", comment: ""), for: .normal)
+            case .none: settingsCell.notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-none", comment: ""), for: .normal)
+        }
+        UIView.animate(withDuration: animationDuration, animations: {
+            if let constraint = (self.reminderTimePickerContainerView.constraints.filter{$0.firstAttribute == .height}.first) {
+                constraint.constant = 0
+                self.view.layoutIfNeeded()
+            }
+        })
+    }
+    
+    /**
+     Handles the action of pressing cancel on the reminder time picker tool bar
+     */
+    @objc func toolBarCancelClicked() {
+        UIView.animate(withDuration: animationDuration, animations: {
+            if let constraint = (self.reminderTimePickerContainerView.constraints.filter{$0.firstAttribute == .height}.first) {
+                constraint.constant = 0
+                self.view.layoutIfNeeded()
+            }
+        })
+    }
+    
+    func reminderTimeSelectionButtonDidClick() {
+        UIView.animate(withDuration: animationDuration, animations: {
+            if let constraint = (self.reminderTimePickerContainerView.constraints.filter{$0.firstAttribute == .height}.first) {
+                constraint.constant = self.reminderTimePickerHeight
+                self.view.layoutIfNeeded()
+            }
+        })
     }
     
     
@@ -201,7 +311,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
                 followingTagCell.configure(with: user.followingTags)
                 return followingTagCell
             case settingsSection:
-                let settingsCell = MyProfileSettingsTableViewCell()
+                settingsCell.delegate = self
                 settingsCell.configure(with: user)
                 settingsCell.selectionStyle = .none
                 return settingsCell
