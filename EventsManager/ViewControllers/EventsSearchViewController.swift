@@ -26,6 +26,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     
     //view element
     let tableView = UITableView(frame: CGRect(), style: .grouped)
+    let emptyState = SearchEmtpyStateView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +90,17 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         tableView.snp.makeConstraints{ make in
             make.edges.equalTo(view)
         }
+        
+        //empty state
+        view.addSubview(emptyState)
+        view.bringSubview(toFront: emptyState)
+        emptyState.snp.makeConstraints{ make in
+            make.edges.equalTo(view)
+        }
+        if searchBarIsEmpty() {
+            enableEmptyState()
+            emptyState.setInfoLabel(with: NSLocalizedString("search-empty-state-did-not-search", comment: ""))
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -127,10 +139,21 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     
     //search bar stuffs
     
+    
+    func enableEmptyState() {
+        emptyState.isHidden = false
+        tableView.isHidden = true
+    }
+    
+    func disableEmptyState() {
+        emptyState.isHidden = true
+        tableView.isHidden = false
+    }
+    
     /**
      Determines if the search controller is active
      */
-    func isFiltering() -> Bool {
+    func isSearching() -> Bool {
         return searchController.isActive && !searchBarIsEmpty()
     }
     
@@ -143,19 +166,37 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         filteredEvents = events.filter({ (event: Event) -> Bool in
             return event.eventName.lowercased().contains(searchText.lowercased())
         })
+        if filteredEvents.isEmpty == false {
+            disableEmptyState()
+        }
+        else {
+            enableEmptyState()
+            emptyState.setInfoLabel(with: NSLocalizedString("search-empty-state-no-result", comment: ""))
+        }
         updateDataSource()
         tableView.reloadData()
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        print("executed********")
         let searchBar = searchController.searchBar
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+        if !isSearching() {
+            enableEmptyState()
+            emptyState.setInfoLabel(with: NSLocalizedString("search-empty-state-did-not-search", comment: ""))
+        }
+        else {
+            filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+        if !isSearching() {
+            enableEmptyState()
+            emptyState.setInfoLabel(with: NSLocalizedString("search-empty-state-did-not-search", comment: ""))
+        }
+        else {
+            filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+        }
     }
     
     

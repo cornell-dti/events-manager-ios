@@ -67,6 +67,8 @@
 "search-segment-events" = "Events";
 "search-segment-organizations" = "Organizations";
 "search-segment-tags" = "Tags";
+"search-empty-state-no-result" = "No Results Found";
+"search-empty-state-did-not-search" = "Search for Contents";
 
 //DateFormatHelper
 "date-format-week-day-full-mon" = "Monday";
