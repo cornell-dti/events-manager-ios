@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, EventCardCellDelegate {
+class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
     
     //Constants
     let headerHeight:CGFloat = 35
@@ -21,15 +21,16 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     
     //View Elements
     let tableView = UITableView(frame: CGRect(), style: .grouped)
-    
+    lazy var searchBarButton: UIBarButtonItem = {
+        UIBarButtonItem(image: #imageLiteral(resourceName: "magnifyingGlass"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
+    }()
+
     //Models
     var events = [Event]()
     var popularEvents = [Event]()
     var todayEvents = [Event]()
     var tomorrowEvents = [Event] ()
     
-    var searchController = UISearchController(searchResultsController: nil)
-
     override func viewDidLoad() {
         super.viewDidLoad()
         preloadCells()
@@ -80,9 +81,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         view.backgroundColor = UIColor.white
         
         //NAVIGATION STUFFS
-        searchController.delegate = self
-        searchController.searchBar.placeholder = NSLocalizedString("search", comment: "")
-        navigationItem.searchController = searchController
+        navigationItem.rightBarButtonItem = searchBarButton
         if #available(iOS 11, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true;
             self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
@@ -146,6 +145,13 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         let seeAllEventsListViewController = EventListViewController()
         seeAllEventsListViewController.setup(with: popularEvents, title: NSLocalizedString("all-events", comment: ""), withFilterBar: true)
         navigationController?.pushViewController(seeAllEventsListViewController, animated: true)
+    }
+    
+    /**
+     Handles user tap on the search button on top right corner, should segue to the search page.
+     */
+    @objc func searchButtonPressed(_ sender: UIBarButtonItem) {
+        navigationController?.pushViewController(EventsSearchViewController(), animated: true)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -226,6 +232,8 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     func push(detailsViewController: EventDetailViewController) {
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
+    
+    
     
     /*
     // Override to support conditional editing of the table view.

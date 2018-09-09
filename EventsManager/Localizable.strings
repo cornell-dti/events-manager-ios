@@ -62,6 +62,12 @@
 "my-profile-logout-button" = "Log Out";
 "my-profile-net-id" = "netID";
 
+//Search
+"search-navigation-title" = "Search";
+"search-segment-events" = "Events";
+"search-segment-organizations" = "Organizations";
+"search-segment-tags" = "Tags";
+
 //DateFormatHelper
 "date-format-week-day-full-mon" = "Monday";
 "date-format-week-day-full-tue" = "Tuesday";

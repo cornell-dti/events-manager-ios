@@ -31,6 +31,8 @@
 		AABA675420C7244600363899 /* MyEventsDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675320C7244600363899 /* MyEventsDatePickerView.swift */; };
 		AAC2C7FC21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */; };
 		AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */; };
+		AAD3E05021444461000B5000 /* EventsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */; };
+		AAD3E0522144B34F000B5000 /* EventDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E0512144B34F000B5000 /* EventDateHelper.swift */; };
 		AADAFB2920DA019D000F72E3 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */; };
 		AAE10F4920AF42530070F515 /* Internet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4820AF42530070F515 /* Internet.swift */; };
 		AAE10F4B20AF42D50070F515 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4A20AF42D50070F515 /* UserData.swift */; };
@@ -99,6 +101,8 @@
 		AABA675320C7244600363899 /* MyEventsDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyEventsDatePickerView.swift; path = EventsManager/Views/MyEventsDatePickerView.swift; sourceTree = SOURCE_ROOT; };
 		AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTimeOptions.swift; sourceTree = "<group>"; };
+		AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsSearchViewController.swift; sourceTree = "<group>"; };
+		AAD3E0512144B34F000B5000 /* EventDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateHelper.swift; sourceTree = "<group>"; };
 		AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrganizationViewController.swift; path = EventsManager/ViewControllers/OrganizationViewController.swift; sourceTree = SOURCE_ROOT; };
 		AAE10F4820AF42530070F515 /* Internet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Internet.swift; sourceTree = "<group>"; };
 		AAE10F4A20AF42D50070F515 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 				AA58DE66207BF6F700CDC38E /* TagViewController.swift */,
 				AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */,
 				AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */,
+				AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				AA873B4B207D616900BD413B /* DateFormatHelper.swift */,
 				AAE10F4820AF42530070F515 /* Internet.swift */,
 				AAE10F4A20AF42D50070F515 /* UserData.swift */,
+				AAD3E0512144B34F000B5000 /* EventDateHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -528,10 +534,12 @@
 				AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */,
 				AAF8FC6B209AA69900BF8277 /* EventTableHeaderFooterView.swift in Sources */,
 				AA04DEFC2134E8C500FA0507 /* MyProfileHeaderFooterView.swift in Sources */,
+				AAD3E05021444461000B5000 /* EventsSearchViewController.swift in Sources */,
 				AABA675420C7244600363899 /* MyEventsDatePickerView.swift in Sources */,
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
 				AABA675020C6E5DD00363899 /* User.swift in Sources */,
 				AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */,
+				AAD3E0522144B34F000B5000 /* EventDateHelper.swift in Sources */,
 				AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */,
 				AA04DEFA2134DFCB00FA0507 /* MyProfileFollowingTableViewCell.swift in Sources */,
 				AAF8FC6D209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift in Sources */,

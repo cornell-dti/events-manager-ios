@@ -57,13 +57,9 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
             myEvents.append(Event(id:1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
         }
         //Setting up data source
-        var sectionDateSet = getUniqueDates(in: myEvents)
-        sectionDateSet = removePastDates(from: sectionDateSet)
-        sectionDates = sectionDateSet.sorted()
-        for date in sectionDates {
-            eventsOnDate.append(getEvents(on: date, for: myEvents))
-        }
-        assert(sectionDates.count == eventsOnDate.count, "MyEventsVC: num of date sections doesn't match num of date section index keys in eventsOnDate")
+        let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: myEvents)
+        sectionDates = eventsDateData.0
+        eventsOnDate = eventsDateData.1
         
         
         //Nav Bar and date picker
@@ -150,56 +146,6 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         return nil
-    }
-    
-    /**
-     Get all unique dates
-     - events: the array of events this function should search dates from
-     - returns: a set of dates, retrieved from @events
-     */
-    private func getUniqueDates(in events: [Event]) -> Set<Date> {
-        var dates:Set<Date> = []
-        for event in events {
-            let startTime = event.startTime
-            let startDateString = DateFormatHelper.date(from: startTime) //convert starttime to yyyy-mm-dd strings to remove time from date
-            let startDate = DateFormatHelper.date(from: startDateString) ?? DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
-            dates.insert(startDate)
-        }
-        return dates
-    }
-    
-    /**
-     Removes dates prior to today
-     - dates: the set of dates to perform the operation on
-     - returns: a set of dates without dates prior to today
-     */
-    private func removePastDates(from dates: Set<Date>) -> Set<Date> {
-        var dates = dates
-        let today = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
-        for date in dates {
-            if date < today {
-                dates.remove(date)
-            }
-        }
-        return dates
-    }
-    
-    /**
-     Gets events whose start time is on a given date
-     - date
-     - events
-     - returns: array of events on that date
-     */
-    private func getEvents(on date:Date, for events: [Event]) -> [Event] {
-        var eventsOnDate:[Event] = []
-        let dateString = DateFormatHelper.date(from: date)
-        for event in events {
-            let eventDateString = DateFormatHelper.date(from: event.startTime)
-            if dateString == eventDateString {
-                eventsOnDate.append(event)
-            }
-        }
-        return eventsOnDate
     }
     
     
