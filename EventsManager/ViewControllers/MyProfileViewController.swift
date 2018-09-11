@@ -122,7 +122,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(MyProfileFollowingTableViewCell.self, forCellReuseIdentifier: MyProfileFollowingTableViewCell.identifier)
+        tableView.register(OrganizationTableViewCell.self, forCellReuseIdentifier: OrganizationTableViewCell.identifier)
         tableView.register(MyProfileHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: MyProfileHeaderFooterView.identifier)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = UIColor.white
@@ -303,7 +303,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         if let user = user {
             switch indexPath.section {
             case followingOrganizationsSetion:
-                let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: MyProfileFollowingTableViewCell.identifier) as! MyProfileFollowingTableViewCell
+                let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: OrganizationTableViewCell.identifier) as! OrganizationTableViewCell
                 followingOrgCell.configure(with: user.followingOrganizations[indexPath.row])
                 return followingOrgCell
             case followingTagsSection:
