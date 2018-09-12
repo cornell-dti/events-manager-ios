@@ -18,6 +18,9 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     var organizations:[Organization] = []
     var filteredOrganizations:[Organization] = []
     
+    var tags:[String] = []
+    var filteredTags:[String] = []
+    
     var currentSearchScope = SearchOptions.events
     
     let searchSegments = [NSLocalizedString("search-segment-events", comment: ""), NSLocalizedString("search-segment-organizations", comment: ""), NSLocalizedString("search-segment-tags", comment: "")];
@@ -64,9 +67,11 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
             events.append(Event(id:1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo","#heheh","#oooof"], eventParticipantCount: 166))
         }
         organizations = [Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")]
+        tags = ["#lololo","#heheh","#oooof"]
         //Setting up data source
         filteredEvents = events
         filteredOrganizations = organizations
+        filteredTags = tags
         updateDataSource()
         
         view.backgroundColor = UIColor.white
@@ -122,7 +127,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
             case .organization:
                 return 1
             case .tags:
-                return 0
+                return 1
         }
     }
     
@@ -133,7 +138,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
             case .organization:
                 return filteredOrganizations.count
             case .tags:
-                return 0
+                return filteredTags.count
         }
     }
     
@@ -158,7 +163,14 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
             cell.configure(with: filteredOrganizations[indexPath.row])
             return cell;
         case .tags:
-            return UITableViewCell()
+            let cellIdentifier = "tagCell"
+            var cell : UITableViewCell!
+            cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
+            if cell == nil {
+                cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+            }
+            cell.textLabel?.text = filteredTags[indexPath.row]
+            return cell
         }
         
     }
@@ -173,9 +185,22 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
      segue to the selected eventsDetailController
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailsViewController = EventDetailViewController()
-        detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row])
-        navigationController?.pushViewController(detailsViewController, animated: true)
+        switch currentSearchScope {
+            case .events:
+                let detailsViewController = EventDetailViewController()
+                detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row])
+                navigationController?.pushViewController(detailsViewController, animated: true)
+            case .organization:
+                let orgViewController = OrganizationViewController()
+                orgViewController.configure(organization: filteredOrganizations[indexPath.row])
+                navigationController?.pushViewController(orgViewController, animated: true)
+            case .tags:
+                let tagViewController = TagViewController()
+                tagViewController.setup(with: events, for: tags[indexPath.row])
+                navigationController?.pushViewController(tagViewController, animated: true)
+            
+        }
+        
     }
     
     //search bar stuffs
@@ -222,7 +247,11 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                         return organization.name.lowercased().contains(searchText.lowercased())
                     })
                     filteredResults = filteredOrganizations
-                case .tags: break
+                case .tags:
+                    filteredTags = tags.filter { (tag: String) -> Bool in
+                        return tag.lowercased().contains(searchText.lowercased())
+                    }
+                    filteredResults = filteredTags
             }
             if !filteredResults.isEmpty {
                 disableEmptyState()
