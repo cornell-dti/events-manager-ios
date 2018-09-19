@@ -85,3 +85,9 @@
 "date-format-week-day-abbr-fri" = "F";
 "date-format-week-day-abbr-sat" = "Sa";
 "date-format-week-day-abbr-sun" = "Su";
+
+//Login
+"app-name" = "cue";
+"app-intro" = "A new way to discover events at Cornell University.";
+"app-powered-by" = "Powered By";
+"app-signature" = "Cornell Design and Tech Initiative";

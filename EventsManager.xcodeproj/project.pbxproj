@@ -34,6 +34,9 @@
 		AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */; };
 		AAD334EA2151E83100312F31 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD334E92151E83100312F31 /* LoginViewController.swift */; };
 		AAD334EC215204C600312F31 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD334EB215204C600312F31 /* AppData.swift */; };
+		AAD334F2215232AA00312F31 /* dosis.semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAD334F12152327B00312F31 /* dosis.semibold.ttf */; };
+		AAD334F3215232AA00312F31 /* dosis.medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAD334F02152327600312F31 /* dosis.medium.ttf */; };
+		AAD334F4215232AA00312F31 /* dosis.book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAD334EF2152327100312F31 /* dosis.book.ttf */; };
 		AAD3E05021444461000B5000 /* EventsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */; };
 		AAD3E0522144B34F000B5000 /* EventDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E0512144B34F000B5000 /* EventDateHelper.swift */; };
 		AAD3E054214500D5000B5000 /* SearchEmtpyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E053214500D5000B5000 /* SearchEmtpyStateView.swift */; };
@@ -107,6 +110,9 @@
 		AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTimeOptions.swift; sourceTree = "<group>"; };
 		AAD334E92151E83100312F31 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AAD334EB215204C600312F31 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		AAD334EF2152327100312F31 /* dosis.book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.book.ttf; sourceTree = "<group>"; };
+		AAD334F02152327600312F31 /* dosis.medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.medium.ttf; sourceTree = "<group>"; };
+		AAD334F12152327B00312F31 /* dosis.semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.semibold.ttf; sourceTree = "<group>"; };
 		AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsSearchViewController.swift; sourceTree = "<group>"; };
 		AAD3E0512144B34F000B5000 /* EventDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateHelper.swift; sourceTree = "<group>"; };
 		AAD3E053214500D5000B5000 /* SearchEmtpyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmtpyStateView.swift; sourceTree = "<group>"; };
@@ -208,6 +214,7 @@
 				DA75C224205ABF3C00C1822C /* Utilities */,
 				AAFE2FD52122226E00779FA1 /* Views */,
 				AAFE2FD32122224400779FA1 /* ViewControllers */,
+				AAD334EE2152325500312F31 /* Fonts */,
 				A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */,
 				A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */,
 				A11D265E20FAF0D9001712E6 /* Localizable.strings */,
@@ -232,6 +239,16 @@
 				A40E37F0201E91CA00B3AFA4 /* Info.plist */,
 			);
 			path = EventsManagerUITests;
+			sourceTree = "<group>";
+		};
+		AAD334EE2152325500312F31 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AAD334F12152327B00312F31 /* dosis.semibold.ttf */,
+				AAD334F02152327600312F31 /* dosis.medium.ttf */,
+				AAD334EF2152327100312F31 /* dosis.book.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		AAFE2FD32122224400779FA1 /* ViewControllers */ = {
@@ -408,6 +425,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAD334F2215232AA00312F31 /* dosis.semibold.ttf in Resources */,
+				AAD334F3215232AA00312F31 /* dosis.medium.ttf in Resources */,
+				AAD334F4215232AA00312F31 /* dosis.book.ttf in Resources */,
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
 				A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */,
 				A40E37D6201E91CA00B3AFA4 /* Assets.xcassets in Resources */,

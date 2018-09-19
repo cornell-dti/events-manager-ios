@@ -11,7 +11,7 @@ import GoogleSignIn
 
 class UserData {
     static let USER_INFO_KEY = "user info"
-    static let USER_IMAGE_DIMENTION:UInt = 100
+    static let USER_IMAGE_DIMENTION:UInt = 500
     
     /** Check if user logged in */
     static func didLogin() -> Bool {
