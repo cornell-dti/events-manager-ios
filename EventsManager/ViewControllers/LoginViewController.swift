@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     }
     
     //constants
-    let iconSpacingFromTop:CGFloat = 200
+    let iconSpacingFromTop:CGFloat = 130
     let iconSideLength:CGFloat = 120
     let stackInnerSpacing:CGFloat = 0
     let appLabelFontSize:CGFloat = 50
@@ -27,7 +27,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     let poweredByFontSize:CGFloat = 16
     let signatureFontSize:CGFloat = 18
     let signatureLeftSpacing:CGFloat = 20
-    let signatureVerticleSpacing:CGFloat = 8
+    let signatureVerticleSpacing:CGFloat = 5
+    let signatureBottomSpacing:CGFloat = 15
     
     //view elements
     let signinButton = GIDSignInButton()
@@ -97,7 +98,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         signatureLabel.font = UIFont(name: "Dosis-Medium", size: signatureFontSize)
         
         signatureLabel.snp.makeConstraints{ make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-signatureVerticleSpacing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-signatureBottomSpacing)
             make.left.equalTo(view).offset(signatureLeftSpacing)
         }
         
