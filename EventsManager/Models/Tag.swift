@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Category {
+struct Tag {
     let id:Int
     let name:String
 }

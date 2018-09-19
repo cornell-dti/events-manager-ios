@@ -22,7 +22,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     //View Elements
     let tableView = UITableView(frame: CGRect(), style: .grouped)
     lazy var searchBarButton: UIBarButtonItem = {
-        UIBarButtonItem(image: #imageLiteral(resourceName: "magnifyingGlass"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "magnifyingGlass"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
+        button.tintColor = UIColor(named: "primaryPink")
+        return button
     }()
 
     //Models
@@ -81,6 +83,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         view.backgroundColor = UIColor.white
         
         //NAVIGATION STUFFS
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
         navigationItem.rightBarButtonItem = searchBarButton
         if #available(iOS 11, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true;

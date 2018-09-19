@@ -55,13 +55,13 @@ class MyProfileTagsTableViewCell: UITableViewCell {
      Populate this cell with tags
      - tags: the tags used to populate this cell
      */
-    func configure(with tags: [String]) {
+    func configure(with tags: [Int]) {
         for view in tagStack.arrangedSubviews {
             tagStack.removeArrangedSubview(view)
         }
         for tag in tags {
             let tagButton = EventTagButton()
-            tagButton.setTitle(tag, for: .normal)
+            tagButton.setTitle(AppData.getTag(by: tag), for: .normal)
             tagStack.addArrangedSubview(tagButton)
         }
     }

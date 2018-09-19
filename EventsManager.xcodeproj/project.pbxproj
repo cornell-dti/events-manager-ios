@@ -28,10 +28,12 @@
 		AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */; };
 		AABA674E20C6E5D500363899 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674D20C6E5D500363899 /* Organization.swift */; };
 		AABA675020C6E5DD00363899 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674F20C6E5DD00363899 /* User.swift */; };
-		AABA675220C6E5E400363899 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675120C6E5E400363899 /* Category.swift */; };
+		AABA675220C6E5E400363899 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675120C6E5E400363899 /* Tag.swift */; };
 		AABA675420C7244600363899 /* MyEventsDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675320C7244600363899 /* MyEventsDatePickerView.swift */; };
 		AAC2C7FC21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */; };
 		AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */; };
+		AAD334EA2151E83100312F31 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD334E92151E83100312F31 /* LoginViewController.swift */; };
+		AAD334EC215204C600312F31 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD334EB215204C600312F31 /* AppData.swift */; };
 		AAD3E05021444461000B5000 /* EventsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */; };
 		AAD3E0522144B34F000B5000 /* EventDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E0512144B34F000B5000 /* EventDateHelper.swift */; };
 		AAD3E054214500D5000B5000 /* SearchEmtpyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E053214500D5000B5000 /* SearchEmtpyStateView.swift */; };
@@ -48,7 +50,6 @@
 		DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */; };
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
-		DA75C226205ABF6F00C1822C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C225205ABF6F00C1822C /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,10 +101,12 @@
 		AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerTagView.swift; path = EventsManager/Views/DatePickerTagView.swift; sourceTree = SOURCE_ROOT; };
 		AABA674D20C6E5D500363899 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Organization.swift; path = EventsManager/Models/Organization.swift; sourceTree = SOURCE_ROOT; };
 		AABA674F20C6E5DD00363899 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = EventsManager/Models/User.swift; sourceTree = SOURCE_ROOT; };
-		AABA675120C6E5E400363899 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = EventsManager/Models/Category.swift; sourceTree = SOURCE_ROOT; };
+		AABA675120C6E5E400363899 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tag.swift; path = EventsManager/Models/Tag.swift; sourceTree = SOURCE_ROOT; };
 		AABA675320C7244600363899 /* MyEventsDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyEventsDatePickerView.swift; path = EventsManager/Views/MyEventsDatePickerView.swift; sourceTree = SOURCE_ROOT; };
 		AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTimeOptions.swift; sourceTree = "<group>"; };
+		AAD334E92151E83100312F31 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		AAD334EB215204C600312F31 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsSearchViewController.swift; sourceTree = "<group>"; };
 		AAD3E0512144B34F000B5000 /* EventDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateHelper.swift; sourceTree = "<group>"; };
 		AAD3E053214500D5000B5000 /* SearchEmtpyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmtpyStateView.swift; sourceTree = "<group>"; };
@@ -120,7 +123,6 @@
 		DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = EventsManager/ViewControllers/TabBarViewController.swift; sourceTree = SOURCE_ROOT; };
 		DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyEventsViewController.swift; path = EventsManager/ViewControllers/MyEventsViewController.swift; sourceTree = SOURCE_ROOT; };
 		DA75C222205ABF0400C1822C /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewController.swift; path = EventsManager/ViewControllers/MyProfileViewController.swift; sourceTree = SOURCE_ROOT; };
-		DA75C225205ABF6F00C1822C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -244,6 +246,7 @@
 				AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */,
 				AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */,
 				AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */,
+				AAD334E92151E83100312F31 /* LoginViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -271,7 +274,7 @@
 		AAFE2FD7212222C500779FA1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AABA675120C6E5E400363899 /* Category.swift */,
+				AABA675120C6E5E400363899 /* Tag.swift */,
 				AABA674F20C6E5DD00363899 /* User.swift */,
 				AABA674D20C6E5D500363899 /* Organization.swift */,
 				DA75C21C205ABDCD00C1822C /* Event.swift */,
@@ -284,11 +287,11 @@
 		DA75C224205ABF3C00C1822C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				DA75C225205ABF6F00C1822C /* Colors.swift */,
 				AA873B4B207D616900BD413B /* DateFormatHelper.swift */,
 				AAE10F4820AF42530070F515 /* Internet.swift */,
 				AAE10F4A20AF42D50070F515 /* UserData.swift */,
 				AAD3E0512144B34F000B5000 /* EventDateHelper.swift */,
+				AAD334EB215204C600312F31 /* AppData.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -437,11 +440,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-EventsManager/Pods-EventsManager-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -491,11 +496,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EventsManager/Pods-EventsManager-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
@@ -530,7 +541,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A40E37CF201E91CA00B3AFA4 /* AppDelegate.swift in Sources */,
-				DA75C226205ABF6F00C1822C /* Colors.swift in Sources */,
 				DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */,
 				DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */,
 				AA04DEFE2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift in Sources */,
@@ -551,18 +561,20 @@
 				AA04DEFA2134DFCB00FA0507 /* OrganizationTableViewCell.swift in Sources */,
 				AAF8FC6D209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift in Sources */,
 				AAE10F4920AF42530070F515 /* Internet.swift in Sources */,
-				AABA675220C6E5E400363899 /* Category.swift in Sources */,
+				AABA675220C6E5E400363899 /* Tag.swift in Sources */,
 				DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */,
 				AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */,
 				AADAFB2920DA019D000F72E3 /* OrganizationViewController.swift in Sources */,
 				AAF8FC6F209AAF3500BF8277 /* EventListViewController.swift in Sources */,
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
+				AAD334EA2151E83100312F31 /* LoginViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,
 				DA75C21D205ABDCD00C1822C /* Event.swift in Sources */,
 				AAD3E054214500D5000B5000 /* SearchEmtpyStateView.swift in Sources */,
 				AAC2C7FC21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift in Sources */,
 				AAE10F4B20AF42D50070F515 /* UserData.swift in Sources */,
 				AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */,
+				AAD334EC215204C600312F31 /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

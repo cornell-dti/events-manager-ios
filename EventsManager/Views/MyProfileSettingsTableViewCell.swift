@@ -73,7 +73,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         notifyMeLabel.text = NSLocalizedString("my-profile-notify-me", comment: "")
         notifyMeLabel.font = UIFont.systemFont(ofSize: fontSize)
         notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-one-hour-before", comment: ""), for: .normal)
-        notifyTimePickerButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
+        notifyTimePickerButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         notifyTimePickerButton.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
         notifyTimePickerButton.addTarget(self, action: #selector(self.remindersSelectionButtonPressed(_:)), for: .touchUpInside)
         notifyMeLabel.snp.makeConstraints{ make in
@@ -126,8 +126,9 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         
         self.addSubview(logoutWrapperView)
         logoutWrapperView.addSubview(logoutButton)
+        logoutButton.addTarget(self, action: #selector(self.logout(_:)), for: .touchUpInside)
         logoutButton.setTitle(NSLocalizedString("my-profile-logout-button", comment: ""), for: .normal)
-        logoutButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
+        logoutButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         logoutButton.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
         logoutButton.snp.makeConstraints{ make in
             make.centerY.equalTo(logoutWrapperView)
@@ -165,8 +166,15 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         else {
             notifyTimePickerButton.isEnabled = true
             notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-one-hour-before", comment: ""), for: .normal)
-            notifyTimePickerButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
+            notifyTimePickerButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         }
+    }
+    
+    /**
+     Handler for the log out button
+     */
+    @objc func logout(_ sender: UIButton) {
+       UserData.logOut()
     }
     
     /**

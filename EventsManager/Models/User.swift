@@ -8,13 +8,37 @@
 
 import Foundation
 
-struct User {
+struct User:Codable {
     let netID:String
+    let userID:String
+    let idToken:String
     let name:String
-    let avatar:URL //temporary
-    let interestedEvents:[Int]
-    let goingEvents:[Int]
-    let followingOrganizations:[Organization]
-    let preferredCategories:[Int]
-    let followingTags:[String]
+    let avatar:URL
+    let bookmarkedEvents:[Int]
+    let followingOrganizations:[Int]
+    let followingTags:[Int]
+    
+    
+    private enum CodingKeys : String, CodingKey {
+        case netID = "net_id"
+        case userID = "user_id"
+        case idToken = "id_token"
+        case name = "name"
+        case avatar = "avatar"
+        case bookmarkedEvents = "bookmarked_events"
+        case followingOrganizations = "following_organizations"
+        case followingTags = "following_tags"
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(netID, forKey: .netID)
+        try container.encode(userID, forKey: .userID)
+        try container.encode(idToken, forKey: .idToken)
+        try container.encode(name, forKey: .name)
+        try container.encode(avatar, forKey: .avatar)
+        try container.encode(bookmarkedEvents, forKey: .bookmarkedEvents)
+        try container.encode(followingOrganizations, forKey: .followingOrganizations)
+        try container.encode(followingTags, forKey: .followingTags)
+    }
 }

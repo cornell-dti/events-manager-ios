@@ -28,7 +28,7 @@ class MyProfileHeaderFooterView: UITableViewHeaderFooterView {
     }
     
     func setLayouts(){
-        editButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
+        editButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         editButton.titleLabel?.font = UIFont.systemFont(ofSize: titleFontSize)
         
         title.font = UIFont.boldSystemFont(ofSize: titleFontSize)

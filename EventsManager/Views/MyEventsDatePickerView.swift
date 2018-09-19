@@ -89,13 +89,13 @@ class MyEventsDatePickerView: UIView {
             let day = UILabel()
             let dateButton = UIButton()
             day.font = UIFont.systemFont(ofSize: dateFontSize)
-            day.textColor = UIColor(named: "MyEventsDatePickerSelected")
+            day.textColor = UIColor(named: "primaryPink")
             dateButton.titleLabel?.font = UIFont.systemFont(ofSize: dateFontSize)
             dateButton.isUserInteractionEnabled = false
             let displayDate = Calendar.current.date(byAdding: .day, value: index - 1, to: today)!
             day.text = DateFormatHelper.dayAbbreviationOfWeek(from: displayDate)
             dateButton.setTitle(DateFormatHelper.day(from: displayDate), for: .normal)
-            dateButton.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
+            dateButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
             
             dateButton.snp.makeConstraints{ make in
                 make.width.equalTo(dateButtonSideLength)
@@ -139,10 +139,10 @@ class MyEventsDatePickerView: UIView {
                             if let button = element as? UIButton {
                                 if index != indexOfSelectedStack {
                                     button.backgroundColor = UIColor.white
-                                    button.setTitleColor(UIColor(named: "MyEventsDatePickerSelected"), for: .normal)
+                                    button.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                                 }
                                 else {
-                                    button.backgroundColor = UIColor(named: "MyEventsDatePickerSelected")
+                                    button.backgroundColor = UIColor(named: "primaryPink")
                                     button.setTitleColor(UIColor.white, for: .normal)
                                 }
                             }

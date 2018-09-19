@@ -11,8 +11,8 @@
 "today-events" = "Today's Events";
 "tomorrow-events" = "Tomorrow's Events";
 "all-events" = "All Events";
-"see-more-button" = "see more";
-"see-all-button" = "see all >";
+"see-more-button" = "SEE MORE";
+"see-all-button" = "SEE ALL >";
 
 //Event Detail
 "tag-button" = "Tags";

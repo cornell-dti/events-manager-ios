@@ -20,8 +20,8 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         setUpViewControllers()
         
         // Tab Bar
-        self.tabBar.tintColor = UIColor.darkSkyBlue // Icon color of Active tab
-        self.tabBar.unselectedItemTintColor = UIColor.black // Icon color of Inactive tab
+        tabBar.tintColor = UIColor(named: "primaryPink") // Icon color of Active tab
+        tabBar.unselectedItemTintColor = UIColor.gray // Icon color of Inactive tab
 
     }
     override func viewWillAppear(_ animated: Bool) {

@@ -11,6 +11,7 @@ target 'EventsManager' do
 	pod 'Kingfisher', '~> 4.0'
 	pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'GoogleSignIn'
 
   target 'EventsManagerTests' do
     inherit! :search_paths
