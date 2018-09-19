@@ -13,7 +13,7 @@ class UserData {
     static let USER_INFO_KEY = "user info"
     static let USER_IMAGE_DIMENTION:UInt = 100
     
-    
+    /** Check if user logged in */
     static func didLogin() -> Bool {
         if UserDefaults.standard.data(forKey: USER_INFO_KEY) == nil {
             return false
@@ -21,6 +21,7 @@ class UserData {
         return true
     }
     
+    /** Log out the user from the app */
     static func logOut() {
         UserDefaults.standard.removeObject(forKey: USER_INFO_KEY)
         GIDSignIn.sharedInstance()?.signOut()
@@ -28,6 +29,7 @@ class UserData {
         (UIApplication.shared.delegate as! AppDelegate).window?.makeKeyAndVisible()
     }
     
+    /** Gets the current loggined user */
     static func getLoggedInUser() -> User?{
         if didLogin() {
             if let jsonData = UserDefaults.standard.data(forKey: USER_INFO_KEY) {
@@ -43,6 +45,7 @@ class UserData {
         return nil
     }
     
+    /** Creates a new user based on google login information */
     static func newUser(from googleUser: GIDGoogleUser) -> User? {
         if let userId = googleUser.userID,
             let idToken = googleUser.authentication.idToken,
@@ -64,6 +67,7 @@ class UserData {
         return nil
     }
     
+    /** Logs a user into the app */
     static func login(for user:User) -> Bool{
         do {
             let jsonData = try JSONEncoder().encode(user)

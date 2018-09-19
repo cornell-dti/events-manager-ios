@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ AppData contains helper functions that deals with app data like organization, tags, and events.
+ */
 class AppData {
     
     /**
