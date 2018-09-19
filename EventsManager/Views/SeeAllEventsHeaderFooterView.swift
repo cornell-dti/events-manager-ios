@@ -28,7 +28,7 @@ class SeeAllEventsHeaderFooterView: UITableViewHeaderFooterView {
     
     func setLayouts(){
         editButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
-        editButton.titleLabel?.font = UIFont.systemFont(ofSize: buttonFontSize)
+        editButton.titleLabel?.font = UIFont(name: "Dosis-SemiBold", size: buttonFontSize)
         
         self.addSubview(editButton)
         

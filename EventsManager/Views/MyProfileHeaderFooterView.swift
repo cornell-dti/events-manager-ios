@@ -29,7 +29,7 @@ class MyProfileHeaderFooterView: UITableViewHeaderFooterView {
     
     func setLayouts(){
         editButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
-        editButton.titleLabel?.font = UIFont.systemFont(ofSize: titleFontSize)
+        editButton.titleLabel?.font = UIFont(name: "Dosis-Bold", size: titleFontSize)
         
         title.font = UIFont.boldSystemFont(ofSize: titleFontSize)
         title.textColor = UIColor.black

@@ -83,9 +83,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         view.backgroundColor = UIColor.white
         
         //NAVIGATION STUFFS
-        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
-        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
         navigationItem.rightBarButtonItem = searchBarButton
         if #available(iOS 11, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true;

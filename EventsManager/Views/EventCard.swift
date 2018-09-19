@@ -95,9 +95,9 @@ class EventCard: UIView {
         }
         
         let eventInfoHeaderLabels = [monthLabel, startLabel, goingLabel]
-        eventInfoHeaderLabels.forEach{ $0.font = UIFont.boldSystemFont(ofSize: eventInfoHeaderFontSize) }
+        eventInfoHeaderLabels.forEach{ $0.font = UIFont(name: "Dosis-SemiBold", size: eventInfoHeaderFontSize) }
         let eventInfoContentLabels = [dayLabel, startContentLabel, goingContentLabel]
-        eventInfoContentLabels.forEach{ $0.font = UIFont.systemFont(ofSize: eventInfoContentFontSize)}
+        eventInfoContentLabels.forEach{ $0.font = UIFont(name: "Dosis-Book", size: eventInfoContentFontSize)}
         
         let dateStack = UIStackView(arrangedSubviews: [monthLabel, dayLabel])
         dateStack.distribution = .fill
@@ -123,10 +123,10 @@ class EventCard: UIView {
         bottomStack.axis = .horizontal
         bottomStack.spacing = bottomStackInnerSpacing
         
-        eventNameLabel.font = UIFont.boldSystemFont(ofSize: eventTitleFontSize)
+        eventNameLabel.font = UIFont(name: "Dosis-SemiBold", size: eventTitleFontSize)
         eventNameLabel.numberOfLines = 2
         
-        locationLabel.font = UIFont.systemFont(ofSize: eventLocationFontSize)
+        locationLabel.font = UIFont(name: "Dosis-Book", size: eventLocationFontSize)
         locationLabel.textColor = UIColor.gray
         
         let topStack = UIStackView(arrangedSubviews: [eventNameLabel, locationLabel])

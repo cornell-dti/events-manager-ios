@@ -24,6 +24,7 @@
 		AA4B5FC3214818E8005B5879 /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4B5FC2214818E8005B5879 /* SearchOptions.swift */; };
 		AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
+		AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
 		AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */; };
 		AABA674E20C6E5D500363899 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674D20C6E5D500363899 /* Organization.swift */; };
@@ -100,6 +101,7 @@
 		AA4B5FC2214818E8005B5879 /* SearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptions.swift; sourceTree = "<group>"; };
 		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
+		AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.bold.ttf; sourceTree = "<group>"; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
 		AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerTagView.swift; path = EventsManager/Views/DatePickerTagView.swift; sourceTree = SOURCE_ROOT; };
 		AABA674D20C6E5D500363899 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Organization.swift; path = EventsManager/Models/Organization.swift; sourceTree = SOURCE_ROOT; };
@@ -244,6 +246,7 @@
 		AAD334EE2152325500312F31 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */,
 				AAD334F12152327B00312F31 /* dosis.semibold.ttf */,
 				AAD334F02152327600312F31 /* dosis.medium.ttf */,
 				AAD334EF2152327100312F31 /* dosis.book.ttf */,
@@ -427,6 +430,7 @@
 			files = (
 				AAD334F2215232AA00312F31 /* dosis.semibold.ttf in Resources */,
 				AAD334F3215232AA00312F31 /* dosis.medium.ttf in Resources */,
+				AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */,
 				AAD334F4215232AA00312F31 /* dosis.book.ttf in Resources */,
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
 				A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */,
