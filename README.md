@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/cue_text_red.png" width="100" height="50"> (Cornell University Events) v1.0
+# <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/cue_text_red.png" width="80" height="35"> (Cornell University Events) v1.0
 
 #### Contents
   - [About](#about)
@@ -44,8 +44,10 @@ _Screenshots showing major parts of app_
  * **[Qichen Hu](https://github.com/wsjnohyeah)** - **Front-end Developer**
 
 **2017**
- * **[Qichen Hu](https://github.com/wsjnohyeah)** - **Front-end Developer**
+ * **[Amadan Ong](https://github.com/amandaong) - **Front-end Developers**
  * **[David Chu](https://github.com/cornell-dti/events-site/commits?author=davidchuyayah)** - **Front-end Developer**
+ * **[Jagger Brulato](https://github.com/JBoss925)** - **Front-end Developer**
+ * **[Qichen Hu](https://github.com/wsjnohyeah)** - **Front-end Developer**
 
 We are a team within **Cornell Design & Tech Initiative**. For more information, see our website [here](https://cornelldti.org/).
 <img src="https://raw.githubusercontent.com/cornell-dti/design/master/Branding/Wordmark/Dark%20Text/Transparent/Wordmark-Dark%20Text-Transparent%403x.png">
