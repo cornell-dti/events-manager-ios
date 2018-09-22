@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/cue_text_red.png" width="80" height="40"> (Cornell University Events) v1.0
+# <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/cue_text_red.png" width="100" height="50"> (Cornell University Events) v1.0
 
 #### Contents
   - [About](#about)
