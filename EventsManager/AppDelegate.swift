@@ -31,15 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         GIDSignIn.sharedInstance()?.clientID = "498336876169-c0tedkl028ga401h2qj4g4gelnr68pen.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.hostedDomain = "cornell.edu"
         
-        /*
         //check if logged in
         if UserData.didLogin() {
             window?.rootViewController = tabBarVC
         }
         else {
             window?.rootViewController = LoginViewController()
-        }*/
-        window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController())
+        }
+        //window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController())
         
         window?.makeKeyAndVisible()
         

@@ -42,6 +42,9 @@
 		AAD3E0522144B34F000B5000 /* EventDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E0512144B34F000B5000 /* EventDateHelper.swift */; };
 		AAD3E054214500D5000B5000 /* SearchEmtpyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E053214500D5000B5000 /* SearchEmtpyStateView.swift */; };
 		AAD7D1CA2156C71D003C58E6 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD7D1C92156C71D003C58E6 /* OnBoardingViewController.swift */; };
+		AAD7D1CE2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD7D1CB2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png */; };
+		AAD7D1CF2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD7D1CC2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png */; };
+		AAD7D1D02156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD7D1CD2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png */; };
 		AADAFB2920DA019D000F72E3 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */; };
 		AAE10F4920AF42530070F515 /* Internet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4820AF42530070F515 /* Internet.swift */; };
 		AAE10F4B20AF42D50070F515 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4A20AF42D50070F515 /* UserData.swift */; };
@@ -120,6 +123,9 @@
 		AAD3E0512144B34F000B5000 /* EventDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateHelper.swift; sourceTree = "<group>"; };
 		AAD3E053214500D5000B5000 /* SearchEmtpyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmtpyStateView.swift; sourceTree = "<group>"; };
 		AAD7D1C92156C71D003C58E6 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		AAD7D1CB2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png"; sourceTree = "<group>"; };
+		AAD7D1CC2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png"; sourceTree = "<group>"; };
+		AAD7D1CD2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png"; sourceTree = "<group>"; };
 		AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrganizationViewController.swift; path = EventsManager/ViewControllers/OrganizationViewController.swift; sourceTree = SOURCE_ROOT; };
 		AAE10F4820AF42530070F515 /* Internet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Internet.swift; sourceTree = "<group>"; };
 		AAE10F4A20AF42D50070F515 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -218,7 +224,7 @@
 				DA75C224205ABF3C00C1822C /* Utilities */,
 				AAFE2FD52122226E00779FA1 /* Views */,
 				AAFE2FD32122224400779FA1 /* ViewControllers */,
-				AAD334EE2152325500312F31 /* Fonts */,
+				AAD334EE2152325500312F31 /* Resources */,
 				A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */,
 				A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */,
 				A11D265E20FAF0D9001712E6 /* Localizable.strings */,
@@ -245,15 +251,18 @@
 			path = EventsManagerUITests;
 			sourceTree = "<group>";
 		};
-		AAD334EE2152325500312F31 /* Fonts */ = {
+		AAD334EE2152325500312F31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AAD7D1CD2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png */,
+				AAD7D1CC2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png */,
+				AAD7D1CB2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png */,
 				AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */,
 				AAD334F12152327B00312F31 /* dosis.semibold.ttf */,
 				AAD334F02152327600312F31 /* dosis.medium.ttf */,
 				AAD334EF2152327100312F31 /* dosis.book.ttf */,
 			);
-			path = Fonts;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		AAFE2FD32122224400779FA1 /* ViewControllers */ = {
@@ -431,12 +440,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAD7D1CF2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png in Resources */,
 				AAD334F2215232AA00312F31 /* dosis.semibold.ttf in Resources */,
 				AAD334F3215232AA00312F31 /* dosis.medium.ttf in Resources */,
 				AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */,
+				AAD7D1CE2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png in Resources */,
 				AAD334F4215232AA00312F31 /* dosis.book.ttf in Resources */,
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
 				A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */,
+				AAD7D1D02156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png in Resources */,
 				A40E37D6201E91CA00B3AFA4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
