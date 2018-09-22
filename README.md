@@ -44,7 +44,7 @@ _Screenshots showing major parts of app_
  * **[Qichen Hu](https://github.com/wsjnohyeah)** - **Front-end Developer**
 
 **2017**
- * **[Amadan Ong](https://github.com/amandaong) - **Front-end Developers**
+ * **[Amadan Ong](https://github.com/amandaong)** - **Front-end Developers**
  * **[David Chu](https://github.com/cornell-dti/events-site/commits?author=davidchuyayah)** - **Front-end Developer**
  * **[Jagger Brulato](https://github.com/JBoss925)** - **Front-end Developer**
  * **[Qichen Hu](https://github.com/wsjnohyeah)** - **Front-end Developer**
