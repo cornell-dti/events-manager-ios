@@ -91,3 +91,6 @@
 "app-intro" = "A new way to discover events at Cornell University.";
 "app-powered-by" = "Powered By";
 "app-signature" = "Cornell Design and Tech Initiative";
+
+//On Boarding
+"onboarding-interact-title" = "Interact";

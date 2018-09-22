@@ -9,14 +9,14 @@
 import Foundation
 
 struct User:Codable {
-    let netID:String
-    let userID:String
-    let idToken:String
-    let name:String
-    let avatar:URL
-    let bookmarkedEvents:[Int]
-    let followingOrganizations:[Int]
-    let followingTags:[Int]
+    var netID:String
+    var userID:String
+    var idToken:String
+    var name:String
+    var avatar:URL
+    var bookmarkedEvents:[Int]
+    var followingOrganizations:[Int]
+    var followingTags:[Int]
     
     
     private enum CodingKeys : String, CodingKey {
@@ -41,4 +41,5 @@ struct User:Codable {
         try container.encode(followingOrganizations, forKey: .followingOrganizations)
         try container.encode(followingTags, forKey: .followingTags)
     }
+    
 }

@@ -79,4 +79,31 @@ class UserData {
             return false
         }
     }
+    
+    /**
+     Add an organization into a user's followed organizations.
+     Returns true if operation is successful, false otherwise.
+     Requires: user is logged in.
+     */
+    static func follow(organization: Organization) -> Bool{
+        if var user = UserData.getLoggedInUser() {
+            user.followingOrganizations.append(organization.id)
+            return UserData.login(for: user)
+        }
+        return false
+    }
+    
+    
+    /**
+     Add a tag into a user's followed tags.
+     Returns true if operation is successful, false otherwise.
+     Requires: user is logged in.
+     */
+    static func follow(tag: Tag) -> Bool {
+        if var user = UserData.getLoggedInUser() {
+            user.followingTags.append(tag.id)
+            return UserData.login(for: user)
+        }
+        return false
+    }
 }

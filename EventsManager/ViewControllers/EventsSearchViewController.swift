@@ -54,8 +54,8 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     func setLayouts(){
         
         //For testing
-        var date1 = "2018-08-12 16:39:57"
-        var date2 = "2018-08-12 18:39:57"
+        var date1 = "2018-09-22 16:39:57"
+        var date2 = "2018-09-22 18:39:57"
         for _ in 1...20 {
             var date1Date = DateFormatHelper.datetime(from: date1)!
             date1Date = Calendar.current.date(byAdding: .day, value: 2, to: date1Date)!
