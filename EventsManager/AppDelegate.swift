@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let tabBarVC = TabBarViewController()
-        
+       
         //Initialize google maps
         GMSServices.provideAPIKey("AIzaSyABs4C2LzrrU4m6LVQ2Ef7ZoNoVn6NIzr8")
         GMSPlacesClient.provideAPIKey("AIzaSyABs4C2LzrrU4m6LVQ2Ef7ZoNoVn6NIzr8")
@@ -32,13 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         GIDSignIn.sharedInstance()?.hostedDomain = "cornell.edu"
         
         //check if logged in
-        if UserData.didLogin() {
-            window?.rootViewController = tabBarVC
-        }
-        else {
-            window?.rootViewController = LoginViewController()
-        }
-        //window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController())
+//        if UserData.didLogin() {
+//            window?.rootViewController = tabBarVC
+//        }
+//        else {
+//            window?.rootViewController = LoginViewController()
+//        }
+        window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController())
         
         window?.makeKeyAndVisible()
         
