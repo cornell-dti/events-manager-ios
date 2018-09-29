@@ -58,6 +58,7 @@
 		DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */; };
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
+		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		DA75C222205ABF0400C1822C /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewController.swift; path = EventsManager/ViewControllers/MyProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +301,7 @@
 				AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */,
 				AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */,
 				AAD3E053214500D5000B5000 /* SearchEmtpyStateView.swift */,
+				FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -560,11 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-			);
-			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
@@ -628,6 +627,7 @@
 				AAD334EA2151E83100312F31 /* LoginViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,
 				DA75C21D205ABDCD00C1822C /* Event.swift in Sources */,
+				FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */,
 				AAD3E054214500D5000B5000 /* SearchEmtpyStateView.swift in Sources */,
 				AAC2C7FC21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift in Sources */,
 				AAE10F4B20AF42D50070F515 /* UserData.swift in Sources */,

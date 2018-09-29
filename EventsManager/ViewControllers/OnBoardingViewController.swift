@@ -71,8 +71,10 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(OrganizationTableViewCell.self, forCellReuseIdentifier: OrganizationTableViewCell.identifier)
+        tableView.register(CheckableTableViewCell.self, forCellReuseIdentifier: CheckableTableViewCell.identifier)
         tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.allowsMultipleSelection = true
+        self.tableView.allowsMultipleSelectionDuringEditing = true
 
         tableView.snp.makeConstraints { make in
             make.top.equalTo(placeHolderView.snp.bottom)
@@ -149,8 +151,9 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: OrganizationTableViewCell.identifier) as! OrganizationTableViewCell
-        cell.configure(with: organizations[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: CheckableTableViewCell.identifier) as! CheckableTableViewCell
+            cell.configure(with: organizations[indexPath.row].name)
+        cell.selectionStyle = .none
         return cell
     }
 
