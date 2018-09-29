@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class MyProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, MyProfileSettingsTableViewCellDelegate {
-    
+
     //constants
     let sectionCount = 3
     let followingOrganizationsSetion = 0
@@ -19,7 +19,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     let follwingOrganizationRowLimit = 3
     let settingsSection = 2
     let settingsRowCount = 1
-    
+
     let headerHeight:CGFloat = 55
     let topBarHeight:CGFloat = 90
     let personalAvatarSideLength:CGFloat = 60
@@ -33,7 +33,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     let animationDuration = 0.3
     let reminderTimePickerHeight:CGFloat = 160
     let toolBarHeigt:CGFloat = 35
-    
+
     //view elements
     let topBar = UIView()
     let userAvatar = UIImageView()
@@ -43,11 +43,11 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     let reminderTimePicker = UIPickerView()
     let reminderTimePickerToolBar = UIToolbar()
     let settingsCell = MyProfileSettingsTableViewCell()
-    
+
     //data source
     var user:User?
     var showingAllFollowingOrganizations = false
-    
+
     override func viewWillAppear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: animated)
@@ -55,7 +55,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -68,19 +68,19 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             configure(with: UserData.getLoggedInUser()!)
         }
     }
-    
+
     /**
       Configures the personal profile view controller with a user model
      */
-    func configure(with user: User){
+    func configure(with user: User) {
         self.user = user
         userAvatar.kf.setImage(with: user.avatar)
         userName.text = user.name
         tableView.reloadData()
     }
-    
+
     /* Sets all the layout elements in the details view */
-    func setLayouts(){
+    func setLayouts() {
         //top bar
         view.addSubview(topBar)
         view.backgroundColor = UIColor.white
@@ -89,26 +89,26 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         userAvatar.layer.cornerRadius = personalAvatarSideLength/2
         userAvatar.clipsToBounds = true
         userName.font = UIFont.boldSystemFont(ofSize: userNameFontSize)
-        
+
         topBar.backgroundColor = UIColor.white
         topBar.layer.shadowColor = UIColor.gray.cgColor
         topBar.layer.shadowOpacity = shadowOpacity
         topBar.layer.shadowRadius = shadowRadius
         topBar.layer.shadowOffset = shadowOffset
-        
-        topBar.snp.makeConstraints{ make in
+
+        topBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.right.equalTo(view)
             make.left.equalTo(view)
             make.height.equalTo(topBarHeight)
         }
-        userAvatar.snp.makeConstraints{ make in
+        userAvatar.snp.makeConstraints { make in
             make.left.equalTo(topBar).offset(topBarSideMargins)
             make.height.equalTo(personalAvatarSideLength)
             make.width.equalTo(personalAvatarSideLength)
             make.centerY.equalTo(topBar)
         }
-        userName.snp.makeConstraints{ make in
+        userName.snp.makeConstraints { make in
             make.left.equalTo(userAvatar.snp.right).offset(topBarSideMargins)
             make.centerY.equalTo(topBar)
             make.right.equalTo(topBar).offset(-topBarSideMargins)
@@ -116,7 +116,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         //tableview
         view.addSubview(tableView)
         view.bringSubview(toFront: topBar)
-        tableView.snp.makeConstraints{ make in
+        tableView.snp.makeConstraints { make in
             make.top.equalTo(topBar.snp.bottom)
             make.left.equalTo(view)
             make.right.equalTo(view)
@@ -129,61 +129,60 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none
-        
-        
+
         //reminder time selector
         view.addSubview(reminderTimePickerContainerView)
         reminderTimePickerContainerView.addSubview(reminderTimePicker)
         reminderTimePickerContainerView.addSubview(reminderTimePickerToolBar)
         reminderTimePickerContainerView.backgroundColor = UIColor.white
-        
+
         reminderTimePicker.center = view.center
         reminderTimePicker.dataSource = self
         reminderTimePicker.delegate = self
-        
+
         //tool bar
         reminderTimePickerToolBar.barStyle = .default
         reminderTimePickerToolBar.isTranslucent = true
         reminderTimePickerToolBar.tintColor = view.tintColor
         reminderTimePickerToolBar.sizeToFit()
-        
+
         //add button to tool bar
         let doneButton = UIBarButtonItem(title: NSLocalizedString("tool-bar-done-button", comment: ""), style: .plain, target: self, action: #selector(toolBarDoneClicked))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: NSLocalizedString("tool-bar-cancel-button", comment: ""), style: .plain, target: self, action: #selector(toolBarCancelClicked))
         reminderTimePickerToolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
         reminderTimePickerToolBar.isUserInteractionEnabled = true
-        
-        reminderTimePicker.snp.makeConstraints{ make in
+
+        reminderTimePicker.snp.makeConstraints { make in
             make.top.equalTo(reminderTimePickerToolBar.snp.bottom)
             make.left.equalTo(reminderTimePickerContainerView)
             make.right.equalTo(reminderTimePickerContainerView)
             make.bottom.equalTo(reminderTimePickerContainerView)
         }
-        reminderTimePickerToolBar.snp.makeConstraints{ make in
+        reminderTimePickerToolBar.snp.makeConstraints { make in
             make.bottom.equalTo(reminderTimePicker.snp.top)
             make.right.equalTo(reminderTimePickerContainerView)
             make.left.equalTo(reminderTimePickerContainerView)
             make.top.equalTo(reminderTimePickerContainerView)
             make.height.equalTo(toolBarHeigt)
         }
-        
-        reminderTimePickerContainerView.snp.makeConstraints{ make in
+
+        reminderTimePickerContainerView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.left.equalTo(view)
             make.right.equalTo(view)
             make.height.equalTo(0)
         }
     }
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return ReminderTimeOptions.count
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch ReminderTimeOptions.getCase(by: row) {
             case .fifteenMinutesBefore: return NSLocalizedString("my-profile-reminder-15min-before", comment: "")
@@ -192,8 +191,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             case .none: return NSLocalizedString("my-profile-reminder-none", comment: "")
         }
     }
-    
-    
+
     /**
      Handles the action of pressing done on the reminder time picker tool bar
      */
@@ -206,40 +204,40 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             case .none: settingsCell.notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-none", comment: ""), for: .normal)
         }
         UIView.animate(withDuration: animationDuration, animations: {
-            if let constraint = (self.reminderTimePickerContainerView.constraints.filter{$0.firstAttribute == .height}.first) {
+            if let constraint = (self.reminderTimePickerContainerView.constraints.filter {$0.firstAttribute == .height}.first) {
                 constraint.constant = 0
                 self.view.layoutIfNeeded()
             }
         })
     }
-    
+
     /**
      Handles the action of pressing cancel on the reminder time picker tool bar
      */
     @objc func toolBarCancelClicked() {
         UIView.animate(withDuration: animationDuration, animations: {
-            if let constraint = (self.reminderTimePickerContainerView.constraints.filter{$0.firstAttribute == .height}.first) {
+            if let constraint = (self.reminderTimePickerContainerView.constraints.filter {$0.firstAttribute == .height}.first) {
                 constraint.constant = 0
                 self.view.layoutIfNeeded()
             }
         })
     }
-    
+
     func reminderTimeSelectionButtonDidClick() {
         UIView.animate(withDuration: animationDuration, animations: {
-            if let constraint = (self.reminderTimePickerContainerView.constraints.filter{$0.firstAttribute == .height}.first) {
+            if let constraint = (self.reminderTimePickerContainerView.constraints.filter {$0.firstAttribute == .height}.first) {
                 constraint.constant = self.reminderTimePickerHeight
                 self.view.layoutIfNeeded()
             }
         })
     }
-    
+
     /**
      Handles pressing of the "MORE" button above following organizations. Should display all possible organizations.
      */
-    @objc func showAllOrganizations(_ sender: UIButton){
+    @objc func showAllOrganizations(_ sender: UIButton) {
         if let user = user {
-            if user.followingOrganizations.count > follwingOrganizationRowLimit && !showingAllFollowingOrganizations{
+            if user.followingOrganizations.count > follwingOrganizationRowLimit && !showingAllFollowingOrganizations {
                 var indexPathsToInsert:[IndexPath] = []
                 for rowIndex in follwingOrganizationRowLimit ..< user.followingOrganizations.count {
                     let newIndexPath = IndexPath(row: rowIndex, section: followingOrganizationsSetion)
@@ -251,44 +249,42 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyProfileHeaderFooterView.identifier) as! MyProfileHeaderFooterView
         switch section {
-        case followingOrganizationsSetion:
-            sectionHeader.setMainTitle(NSLocalizedString("my-profile-following", comment: ""))
-            if (user?.followingOrganizations.count ?? follwingOrganizationRowLimit) > follwingOrganizationRowLimit {
-                sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
-                sectionHeader.editButton.addTarget(self, action: #selector(self.showAllOrganizations(_:)), for: .touchUpInside)
+            case followingOrganizationsSetion:
+                sectionHeader.setMainTitle(NSLocalizedString("my-profile-following", comment: ""))
+                if (user?.followingOrganizations.count ?? follwingOrganizationRowLimit) > follwingOrganizationRowLimit {
+                    sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
+                    sectionHeader.editButton.addTarget(self, action: #selector(self.showAllOrganizations(_:)), for: .touchUpInside)
+                } else {
+                    sectionHeader.editButton.isHidden = true
+                }
+            case followingTagsSection:
+                sectionHeader.setMainTitle(NSLocalizedString("my-profile-following-tags", comment: ""))
+            case settingsSection:
+                sectionHeader.setMainTitle(NSLocalizedString("my-profile-settings", comment: ""))
+            default:
+                return sectionHeader
             }
-            else {
-                sectionHeader.editButton.isHidden = true
-            }
-        case followingTagsSection:
-            sectionHeader.setMainTitle(NSLocalizedString("my-profile-following-tags", comment: ""))
-        case settingsSection:
-            sectionHeader.setMainTitle(NSLocalizedString("my-profile-settings", comment: ""))
-        default:
-            return sectionHeader
-        }
         return sectionHeader
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionCount
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
             case followingOrganizationsSetion:
                 if showingAllFollowingOrganizations {
                     return user?.followingOrganizations.count ?? 0
-                }
-                else {
+                } else {
                     return (user?.followingOrganizations.count) ?? 0 <= follwingOrganizationRowLimit ? (user?.followingOrganizations.count) ?? 0 : follwingOrganizationRowLimit
                 }
             case followingTagsSection:
@@ -298,31 +294,31 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             default: return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         if let user = user {
             switch indexPath.section {
-            case followingOrganizationsSetion:
-                let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: OrganizationTableViewCell.identifier) as! OrganizationTableViewCell
-                followingOrgCell.configure(with: AppData.getOrganization(by: user.followingOrganizations[indexPath.row]))
-                return followingOrgCell
-            case followingTagsSection:
-                let followingTagCell = MyProfileTagsTableViewCell()
-                followingTagCell.configure(with: user.followingTags)
-                return followingTagCell
-            case settingsSection:
-                settingsCell.delegate = self
-                settingsCell.configure(with: user)
-                settingsCell.selectionStyle = .none
-                return settingsCell
-            default: return cell
+                case followingOrganizationsSetion:
+                    let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: OrganizationTableViewCell.identifier) as! OrganizationTableViewCell
+                    followingOrgCell.configure(with: AppData.getOrganization(by: user.followingOrganizations[indexPath.row]))
+                    return followingOrgCell
+                case followingTagsSection:
+                    let followingTagCell = MyProfileTagsTableViewCell()
+                    followingTagCell.configure(with: user.followingTags)
+                    return followingTagCell
+                case settingsSection:
+                    settingsCell.delegate = self
+                    settingsCell.configure(with: user)
+                    settingsCell.selectionStyle = .none
+                    return settingsCell
+                default: return cell
             }
         }
         return cell
-        
+
     }
-    
+
     /**
      Handles selection of organzations in the tableview. Should segue to an org page.
      */

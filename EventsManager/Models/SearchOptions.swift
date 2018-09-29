@@ -11,15 +11,18 @@ enum SearchOptions {
     case events
     case organization
     case tags
-    
+
     func toString() -> String {
         switch self {
-            case .events: return NSLocalizedString("search-segment-events", comment: "")
-            case .organization: return NSLocalizedString("search-segment-organizations", comment: "")
-            case .tags: return NSLocalizedString("search-segment-tags", comment: "")
+            case .events:
+                return NSLocalizedString("search-segment-events", comment: "")
+            case .organization:
+                return NSLocalizedString("search-segment-organizations", comment: "")
+            case .tags:
+                return NSLocalizedString("search-segment-tags", comment: "")
         }
     }
-    
+
     static func fromString(_ string: String) -> SearchOptions {
         switch string {
             case NSLocalizedString("search-segment-events", comment: ""): return .events

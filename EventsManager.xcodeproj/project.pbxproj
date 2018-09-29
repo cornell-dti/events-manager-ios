@@ -341,6 +341,7 @@
 				A40E37C9201E91CA00B3AFA4 /* Resources */,
 				7127048394CCB00E2ED84C0F /* [CP] Embed Pods Frameworks */,
 				23B9C4027DA9E64295476E12 /* [CP] Copy Pods Resources */,
+				AA3CE536215FDC9C000251E5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -553,6 +554,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventsManager/Pods-EventsManager-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		AA3CE536215FDC9C000251E5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		EC34332FF7928582725932F6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -16,7 +16,7 @@ class DateFormatHelper {
             formatter.timeZone = TimeZone(abbreviation: "EST")
             return formatter
     }()
-    
+
     private static let hourMinuteFromDateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -24,7 +24,7 @@ class DateFormatHelper {
         formatter.timeZone = TimeZone(abbreviation: "EST")
         return formatter
     }()
-    
+
     private static let monthFromDateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -32,7 +32,7 @@ class DateFormatHelper {
         formatter.timeZone = TimeZone(abbreviation: "EST")
         return formatter
     }()
-    
+
     private static let dayFromDateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -40,7 +40,7 @@ class DateFormatHelper {
         formatter.timeZone = TimeZone(abbreviation: "EST")
         return formatter
     }()
-    
+
     private static let dateFromStringFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -48,15 +48,14 @@ class DateFormatHelper {
         formatter.timeZone = TimeZone(abbreviation: "EST")
         return formatter
     }()
-    
-    
-    public static func datetime(from string:String) -> Date?{
+
+    public static func datetime(from string:String) -> Date? {
         return datetimeFromStringFormatter.date(from: string)
     }
-    public static func datetime(from date:Date) -> String{
+    public static func datetime(from date:Date) -> String {
         return datetimeFromStringFormatter.string(from: date)
     }
-    public static func date(from string:String) -> Date?{
+    public static func date(from string:String) -> Date? {
         return dateFromStringFormatter.date(from: string)
     }
     public static func date(from date:Date) -> String {
@@ -85,21 +84,20 @@ class DateFormatHelper {
             default: return "ERR"
         }
     }
-    
+
     public static func dayOfWeek(from date:Date) -> String {
         let myCalendar = Calendar(identifier: .gregorian)
         let weekDay = myCalendar.component(.weekday, from: date)
         switch weekDay {
-        case 1: return NSLocalizedString("date-format-week-day-full-mon", comment: "")
-        case 2: return NSLocalizedString("date-format-week-day-full-tue", comment: "")
-        case 3: return NSLocalizedString("date-format-week-day-full-wed", comment: "")
-        case 4: return NSLocalizedString("date-format-week-day-full-thu", comment: "")
-        case 5: return NSLocalizedString("date-format-week-day-full-fri", comment: "")
-        case 6: return NSLocalizedString("date-format-week-day-full-sat", comment: "")
-        case 7: return NSLocalizedString("date-format-week-day-full-sun", comment: "")
-        default: return "ERR"
+            case 1: return NSLocalizedString("date-format-week-day-full-mon", comment: "")
+            case 2: return NSLocalizedString("date-format-week-day-full-tue", comment: "")
+            case 3: return NSLocalizedString("date-format-week-day-full-wed", comment: "")
+            case 4: return NSLocalizedString("date-format-week-day-full-thu", comment: "")
+            case 5: return NSLocalizedString("date-format-week-day-full-fri", comment: "")
+            case 6: return NSLocalizedString("date-format-week-day-full-sat", comment: "")
+            case 7: return NSLocalizedString("date-format-week-day-full-sun", comment: "")
+            default: return "ERR"
         }
     }
-    
-    
+
 }

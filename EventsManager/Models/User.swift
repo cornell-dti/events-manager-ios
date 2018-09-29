@@ -17,8 +17,7 @@ struct User:Codable {
     var bookmarkedEvents:[Int]
     var followingOrganizations:[Int]
     var followingTags:[Int]
-    
-    
+
     private enum CodingKeys : String, CodingKey {
         case netID = "net_id"
         case userID = "user_id"
@@ -29,7 +28,7 @@ struct User:Codable {
         case followingOrganizations = "following_organizations"
         case followingTags = "following_tags"
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(netID, forKey: .netID)
@@ -41,5 +40,5 @@ struct User:Codable {
         try container.encode(followingOrganizations, forKey: .followingOrganizations)
         try container.encode(followingTags, forKey: .followingTags)
     }
-    
+
 }

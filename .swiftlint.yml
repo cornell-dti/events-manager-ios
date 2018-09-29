@@ -1,0 +1,13 @@
+disabled_rules:
+  - colon
+  - identifier_name
+  - line_length
+  - function_body_length
+  - type_body_length
+  - force_cast
+  - for_where
+  - file_length
+excluded:
+  - Pods
+switch_case_alignment:
+  indented_cases: true

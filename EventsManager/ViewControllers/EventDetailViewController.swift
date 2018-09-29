@@ -12,8 +12,8 @@ import Kingfisher
 import GoogleMaps
 import GooglePlaces
 
-class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate{
-    
+class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+
     //Constants
     let buttonHeight:CGFloat = 45
     let standardEdgeSpacing:CGFloat = 20
@@ -47,16 +47,16 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let defaultDescriptionLines = 3
     let defaultTitleLines = 2
     let directionsButtonRightSpacing:CGFloat = 10
-    
+
     //datasource
     var event:Event?
     let placesClient = GMSPlacesClient.shared()
     var mapLocation:CLLocationCoordinate2D?
-    
+
     //view elements
     var scrollView = UIScrollView()
     var contentView = UIView()
-    let eventImageContainerView = UIView();
+    let eventImageContainerView = UIView()
     var eventImage = UIImageView()
     var interestedButton = UIButton()
     var goingButton = UIButton()
@@ -75,12 +75,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var tagStack = UIStackView()
     let backButton = UIButton()
     let shareButton = UIButton()
-    
+
     var statusBarHeight:CGFloat = 0
     var statusBarHidden:Bool = false
-    var navigationControllerInteractivePopGestureRecognizerDelegate:UIGestureRecognizerDelegate?
-    
-    
+    weak var navigationControllerInteractivePopGestureRecognizerDelegate:UIGestureRecognizerDelegate?
+
     //Hide and show the nav bar on entering and exiting the details page.
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -88,7 +87,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationControllerInteractivePopGestureRecognizerDelegate ?? nil
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
@@ -105,10 +104,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         scrollView.delegate = self
         setLayouts()
     }
-    
-    
+
     /* Sets all the layout elements in the details view */
-    func setLayouts(){
+    func setLayouts() {
         view.addSubview(scrollView)
         statusBarHeight = UIApplication.shared.statusBarFrame.height
         scrollView.backgroundColor = UIColor.white
@@ -123,7 +121,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.edges.equalTo(scrollView)
             make.width.equalTo(view.frame.width)
         }
-        
+
         //Image gradient
         let eventImageGradient = CAGradientLayer()
         eventImageGradient.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: imageViewHeight)
@@ -132,10 +130,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventImageGradient.startPoint = eventImageGradientStartPoint
         eventImageGradient.endPoint = eventImageGradientEndPoint
         eventImage.layer.insertSublayer(eventImageGradient, at: 0)
-        
+
         eventImage.clipsToBounds = true
         eventImage.contentMode = .scaleAspectFill
-        
+
         //floating Buttons
         backButton.backgroundColor = UIColor.white
         var backButtonIcon = #imageLiteral(resourceName: "back")
@@ -149,7 +147,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         backButton.layer.shadowRadius = shadowRadius
         backButton.layer.shadowOffset = shadowOffset
         backButton.addTarget(self, action: #selector(self.backButtonPressed(_:)), for: .touchUpInside)
-        
+
         shareButton.backgroundColor = UIColor.white
         var shareButtonIcon = #imageLiteral(resourceName: "share")
         shareButtonIcon = shareButtonIcon.withRenderingMode(.alwaysTemplate)
@@ -161,7 +159,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         shareButton.layer.shadowOpacity = shadowOpacity
         shareButton.layer.shadowRadius = shadowRadius
         shareButton.layer.shadowOffset = shadowOffset
-        
+
         //interested and going buttons
         interestedButton.layer.shadowColor = UIColor.gray.cgColor
         interestedButton.layer.shadowOpacity = shadowOpacity
@@ -173,10 +171,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         goingButton.setTitleColor(UIColor.white, for: .normal)
         interestedButton.layer.cornerRadius = buttonHeight / 2
         goingButton.layer.cornerRadius = buttonHeight / 2
-        interestedButton.snp.makeConstraints{ (make) -> Void in
+        interestedButton.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(buttonHeight)
         }
-        goingButton.snp.makeConstraints{ (make) -> Void in
+        goingButton.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(buttonHeight)
         }
         let buttonStack = UIStackView(arrangedSubviews: [interestedButton, goingButton])
@@ -184,12 +182,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         buttonStack.axis = .horizontal
         buttonStack.distribution = .fillEqually
         buttonStack.spacing = buttonStackInnerSpacing
-        
+
         //Name and description
         eventName.numberOfLines = defaultTitleLines
         eventName.font = UIFont.boldSystemFont(ofSize: eventTitleFontSize)
         eventName.textAlignment = .center
-        
+
         eventDescriptionShowMoreButton.setTitleColor(UIColor(named: "primaryBlue"), for: .normal)
         eventDescriptionShowMoreButton.titleLabel?.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
         eventDescriptionShowMoreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0.01, bottom: 0, right: 0.01)
@@ -198,11 +196,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.textColor = UIColor.gray
         eventDescription.textAlignment = .justified
         eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
-        
+
         //table of info
         let calendarIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
         calendarIcon.image = #imageLiteral(resourceName: "calender")
-        calendarIcon.snp.makeConstraints{make in
+        calendarIcon.snp.makeConstraints {make in
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
@@ -211,10 +209,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         calendarStack.axis = .horizontal
         calendarStack.distribution = .fill
         calendarStack.spacing = infoStackIconLabelSpacing
-        
+
         let participantIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
         participantIcon.image = #imageLiteral(resourceName: "friends")
-        participantIcon.snp.makeConstraints{make in
+        participantIcon.snp.makeConstraints {make in
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
@@ -223,10 +221,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         participantStack.axis = .horizontal
         participantStack.distribution = .fill
         participantStack.spacing = infoStackIconLabelSpacing
-        
+
         let organizerIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
         organizerIcon.image = #imageLiteral(resourceName: "building")
-        organizerIcon.snp.makeConstraints{make in
+        organizerIcon.snp.makeConstraints {make in
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
@@ -235,15 +233,14 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         organizerStack.axis = .horizontal
         organizerStack.distribution = .fill
         organizerStack.spacing = infoStackIconLabelSpacing
-        
+
         let organzationTapGesture = UITapGestureRecognizer(target: self, action: #selector(orgNamePressed(_:)))
         eventOrganizer.addGestureRecognizer(organzationTapGesture)
         eventOrganizer.isUserInteractionEnabled = true
-        
-        
+
         let locationIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
         locationIcon.image = #imageLiteral(resourceName: "location")
-        locationIcon.snp.makeConstraints{make in
+        locationIcon.snp.makeConstraints {make in
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
@@ -252,14 +249,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         locationStack.axis = .horizontal
         locationStack.distribution = .fill
         locationStack.spacing = infoStackIconLabelSpacing
-        
+
         let infoTableStack = UIStackView(arrangedSubviews: [calendarStack, participantStack, organizerStack, locationStack])
         infoTableStack.alignment = .leading
         infoTableStack.axis = .vertical
         infoTableStack.distribution = .fill
         infoTableStack.spacing = infoTableSpacing
-        
-        
+
         let tagLabel = UILabel()
         tagLabel.text = NSLocalizedString("tag-button", comment: "")
         tagLabel.font = UIFont.boldSystemFont(ofSize: tagLabelFontSize)
@@ -269,8 +265,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         tagStack.distribution = .fill
         tagStack.spacing = tagHorizontalSpacing
         tagScrollView.addSubview(tagStack)
-        
-        
+
         contentView.addSubview(eventImageContainerView)
         eventImageContainerView.addSubview(eventImage)
         contentView.addSubview(buttonStack)
@@ -282,79 +277,78 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         contentView.addSubview(tagScrollView)
         view.addSubview(backButton)
         view.addSubview(shareButton)
-        
+
         //Constraints for UI elements
-        backButton.snp.makeConstraints{ make in
+        backButton.snp.makeConstraints { make in
             make.width.equalTo(floatingButtonSideLength)
             make.height.equalTo(floatingButtonSideLength)
             make.left.equalTo(view).offset(floatingButtonSideSpacing)
             make.top.equalTo(view).offset(floatingButtonTopSpacing + statusBarHeight)
         }
-        
-        shareButton.snp.makeConstraints{ make in
+
+        shareButton.snp.makeConstraints { make in
             make.width.equalTo(floatingButtonSideLength)
             make.height.equalTo(floatingButtonSideLength)
             make.right.equalTo(view).offset(-floatingButtonSideSpacing)
             make.top.equalTo(view).offset(floatingButtonTopSpacing + statusBarHeight)
         }
-        
+
         eventImageContainerView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(contentView)
             make.left.equalTo(contentView)
             make.right.equalTo(contentView)
             make.height.equalTo(imageViewHeight).priority(.required)
         }
-        
-        eventImage.snp.makeConstraints{make in
+
+        eventImage.snp.makeConstraints {make in
             make.top.equalTo(view)
             make.left.equalTo(eventImageContainerView)
             make.right.equalTo(eventImageContainerView)
             make.bottom.equalTo(eventImageContainerView)
         }
-        
-        
+
         buttonStack.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(eventImageContainerView.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
         }
-        
-        eventName.snp.makeConstraints{ make in
+
+        eventName.snp.makeConstraints { make in
             make.top.equalTo(buttonStack.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
         }
-        
+
         eventDescription.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(eventName.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
         }
-        eventDescriptionShowMoreButton.snp.makeConstraints{ make in
+        eventDescriptionShowMoreButton.snp.makeConstraints { make in
             make.top.equalTo(eventDescription.snp.bottom)
             make.right.equalTo(eventDescription.snp.right)
         }
-        
+
         infoTableStack.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(eventDescriptionShowMoreButton.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(infoStackEdgeSpacing)
             make.right.equalTo(contentView).offset(-infoStackEdgeSpacing)
         }
-        
-        eventMapViewWrapper.snp.makeConstraints{ (make) -> Void in
+
+        eventMapViewWrapper.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(infoTableStack.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
             make.height.equalTo(mapViewHeight)
         }
         eventMapViewWrapper.addSubview(eventMapView)
-        eventMapView.snp.makeConstraints{ make in
+        eventMapView.snp.makeConstraints { make in
             make.edges.equalTo(eventMapViewWrapper)
         }
         eventMapDirectionsBar.backgroundColor = UIColor.white
         eventMapDirectionsBar.layer.opacity = mapViewDirectionsBarOpacity
         eventMapViewWrapper.addSubview(eventMapDirectionsBar)
-        eventMapDirectionsBar.snp.makeConstraints{ make in
+        eventMapDirectionsBar.snp.makeConstraints { make in
             make.height.equalTo(mapViewDirectionsBarHeight)
             make.bottom.equalTo(eventMapViewWrapper)
             make.left.equalTo(eventMapViewWrapper)
@@ -363,35 +357,34 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventMapDirectionsBar.addSubview(eventMapViewDirectionsButton)
         eventMapViewDirectionsButton.setTitleColor(view.tintColor, for: .normal)
         eventMapViewDirectionsButton.setTitle(NSLocalizedString("event-details-directions-button", comment: ""), for: .normal)
-        eventMapViewDirectionsButton.snp.makeConstraints{ make in
+        eventMapViewDirectionsButton.snp.makeConstraints { make in
             make.right.equalTo(eventMapDirectionsBar).offset(-directionsButtonRightSpacing)
             make.centerY.equalTo(eventMapDirectionsBar)
         }
         eventMapViewDirectionsButton.addTarget(self, action: #selector(self.directionsButtonPressed(_:)), for: .touchUpInside)
-        
-        tagScrollView.snp.makeConstraints{ (make) -> Void in
+
+        tagScrollView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(eventMapViewWrapper.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
             make.height.equalTo(tagScrollViewHeight)
             make.bottom.equalTo(contentView)
         }
-        
-        tagStack.snp.makeConstraints{ (make) -> Void in
+
+        tagStack.snp.makeConstraints { (make) -> Void in
             make.edges.equalTo(tagScrollView)
         }
-        
-        
+
 }
-    
+
     /* Allow client to configure the event detail page by passing in an event object */
-    func configure(with event:Event){
+    func configure(with event:Event) {
         self.event = event
-        
+
         eventImage.kf.setImage(with: event.eventImage)
         interestedButton.setTitle(NSLocalizedString("interested-button", comment: ""), for: .normal)
         goingButton.setTitle(NSLocalizedString("going-button", comment: ""), for: .normal)
-        
+
         eventName.text = event.eventName
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
         eventDescription.text = event.eventDescription
@@ -399,8 +392,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventOrganizer.text = event.eventOrganizer
         eventLocation.text = event.eventLocation
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
-        
-        placesClient.lookUpPlaceID(event.eventLocationID, callback: { result, error in
+
+        placesClient.lookUpPlaceID(event.eventLocationID, callback: { result, _ in
             guard result != nil else {
                 return
             }
@@ -410,16 +403,16 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             mapMarker.map = self.eventMapView
             self.eventMapView.selectedMarker = mapMarker
         })
-        
+
         for tag in event.eventTags {
             let tagButton = EventTagButton()
             tagButton.setTitle(tag, for: .normal)
             tagButton.addTarget(self, action: #selector(self.tagButtonPressed(_:)), for: .touchUpInside)
             tagStack.addArrangedSubview(tagButton)
         }
-        
+
     }
-    
+
     /**
      Handler for pressing the directions button in the map. Should open google maps (if installed) or apple maps and shows the desired location.
      - sender: the sender of the action
@@ -427,29 +420,26 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     @objc func directionsButtonPressed(_ sender: UIButton) {
         if let mapLocation = mapLocation {
             let url:URL
-            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!))
-            {
+            if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
                 url = URL(string: "comgooglemaps://center=?q=\(mapLocation.latitude),\(mapLocation.longitude)")!
-            }
-            else
-            {
+            } else {
                 url = URL(string: "http://maps.apple.com/?q=\(mapLocation.latitude),\(mapLocation.longitude)")!
             }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-    
+
     /**
      Handler for the pressing action of the organization name. Should segue to the correct organization page.
      - sender: the sender of the action
      */
-    @objc func orgNamePressed(_ sender: UITapGestureRecognizer){
+    @objc func orgNamePressed(_ sender: UITapGestureRecognizer) {
         let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")
         let orgController = OrganizationViewController()
         orgController.configure(organization: testOrg)
         navigationController?.pushViewController(orgController, animated: true)
     }
-    
+
     /**
       Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
       - sender: the sender of the action.
@@ -464,22 +454,22 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             }
         }
     }
-    
+
     /**
      Handler for the pressing action of the back button floating at the top left of the page. Should navigate back to the previous page.
     */
-    @objc func backButtonPressed(_ sender: UIButton){
+    @objc func backButtonPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
-    
+
     /**
      Handler for the pressing action of the "more" button under event description. Should extend event description or shrink.
      */
-    @objc func detailsMoreButtonPressed(_ sender:UIButton){
+    @objc func detailsMoreButtonPressed(_ sender:UIButton) {
         eventDescription.numberOfLines = eventDescription.numberOfLines == 0 ? defaultDescriptionLines : 0
         eventDescriptionShowMoreButton.setTitle(eventDescription.numberOfLines == 0 ? NSLocalizedString("description-less-button", comment: "") : NSLocalizedString("description-more-button", comment: ""), for: .normal)
     }
-    
+
     //scrollview delegate method. Will be triggered when scrollview scrolled.
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if statusBarHidden != shouldHideStatusBar {
@@ -489,21 +479,21 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             statusBarHidden = shouldHideStatusBar
         }
     }
-    
+
     //hide status bar when the image is scrolled over
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .slide
     }
-    
+
     override var prefersStatusBarHidden: Bool {
         return shouldHideStatusBar
     }
-    
+
     private var shouldHideStatusBar:Bool {
         let height = scrollView.contentOffset.y + statusBarHeight * 2
         return height >= imageViewHeight
     }
-    
+
     //Delegate method of UIGestureRecognizer. Used to enable swipe left to return
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

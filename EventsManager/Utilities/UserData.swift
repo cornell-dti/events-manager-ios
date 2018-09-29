@@ -12,7 +12,7 @@ import GoogleSignIn
 class UserData {
     static let USER_INFO_KEY = "user info"
     static let USER_IMAGE_DIMENTION:UInt = 500
-    
+
     /** Check if user logged in */
     static func didLogin() -> Bool {
         if UserDefaults.standard.data(forKey: USER_INFO_KEY) == nil {
@@ -20,7 +20,7 @@ class UserData {
         }
         return true
     }
-    
+
     /** Log out the user from the app */
     static func logOut() {
         UserDefaults.standard.removeObject(forKey: USER_INFO_KEY)
@@ -28,15 +28,14 @@ class UserData {
         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = LoginViewController()
         (UIApplication.shared.delegate as! AppDelegate).window?.makeKeyAndVisible()
     }
-    
+
     /** Gets the current loggined user */
-    static func getLoggedInUser() -> User?{
+    static func getLoggedInUser() -> User? {
         if didLogin() {
             if let jsonData = UserDefaults.standard.data(forKey: USER_INFO_KEY) {
                 do {
                     return try JSONDecoder().decode(User.self, from: jsonData)
-                }
-                catch {
+                } catch {
                     print(error)
                     return nil
                 }
@@ -44,7 +43,7 @@ class UserData {
         }
         return nil
     }
-    
+
     /** Creates a new user based on google login information */
     static func newUser(from googleUser: GIDGoogleUser) -> User? {
         if let userId = googleUser.userID,
@@ -66,34 +65,32 @@ class UserData {
         }
         return nil
     }
-    
+
     /** Logs a user into the app */
-    static func login(for user:User) -> Bool{
+    static func login(for user:User) -> Bool {
         do {
             let jsonData = try JSONEncoder().encode(user)
             UserDefaults.standard.set(jsonData, forKey:USER_INFO_KEY)
             return true
-        }
-        catch {
+        } catch {
             print (error)
             return false
         }
     }
-    
+
     /**
      Add an organization into a user's followed organizations.
      Returns true if operation is successful, false otherwise.
      Requires: user is logged in.
      */
-    static func follow(organization: Organization) -> Bool{
+    static func follow(organization: Organization) -> Bool {
         if var user = UserData.getLoggedInUser() {
             user.followingOrganizations.append(organization.id)
             return UserData.login(for: user)
         }
         return false
     }
-    
-    
+
     /**
      Add a tag into a user's followed tags.
      Returns true if operation is successful, false otherwise.

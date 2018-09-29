@@ -25,7 +25,7 @@ class EventDateHelper {
         assert(sectionDates.count == eventsOnDate.count, "MyEventsVC: num of date sections doesn't match num of date section index keys in eventsOnDate")
         return (sectionDates, eventsOnDate)
     }
-    
+
     /**
      Get all unique dates
      - events: the array of events this function should search dates from
@@ -41,7 +41,7 @@ class EventDateHelper {
         }
         return dates
     }
-    
+
     /**
      Removes dates prior to today
      - dates: the set of dates to perform the operation on
@@ -57,7 +57,7 @@ class EventDateHelper {
         }
         return dates
     }
-    
+
     /**
      Gets events whose start time is on a given date
      - date

@@ -11,9 +11,9 @@ import SnapKit
 
 //The view class for the event card in details page.
 class EventCard: UIView {
-    
+
     var event:Event?
-    
+
     //View Elements
     let eventPicture = UIImageView()
     let monthLabel = UILabel()
@@ -24,7 +24,7 @@ class EventCard: UIView {
     let goingContentLabel = UILabel()
     let eventNameLabel = UILabel()
     let locationLabel = UILabel()
-    
+
     //Constants
     let cardWidth:CGFloat = 300
     let cardHeight:CGFloat = 300
@@ -38,19 +38,19 @@ class EventCard: UIView {
     let topStackInnerSpacing:CGFloat = 5
     let infoStackInnerSpacing:CGFloat = 8
     let cardStackInnerSpacing:CGFloat = 15
-    let topStackLeftRightSpacing:CGFloat = 20;
+    let topStackLeftRightSpacing:CGFloat = 20
     let shadowOpacity:Float = 0.3
     let shadowRadius:CGFloat = 3
     let shadowOffset = CGSize(width: 1, height: 1)
     let cardRadius:CGFloat = 20
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layoutUI()
     }
-    
+
     /**
      * Populate the event card with an event object
      * - event: The event object that this card should populate with
@@ -67,7 +67,7 @@ class EventCard: UIView {
         eventNameLabel.text = event.eventName
         eventPicture.kf.setImage(with: event.eventImage)
     }
-    
+
     /*
      * View Element setup and positioning for this event card.
      */
@@ -78,9 +78,7 @@ class EventCard: UIView {
         self.layer.shadowRadius = shadowRadius
         self.layer.shadowOffset = shadowOffset
         self.layer.cornerRadius = cardRadius
-        
-        
-        
+
         self.snp.makeConstraints { make in
             make.width.equalTo(cardWidth)
             make.height.equalTo(cardHeight)
@@ -93,68 +91,68 @@ class EventCard: UIView {
             make.width.equalTo(cardWidth)
             make.height.equalTo(eventPicHeight)
         }
-        
+
         let eventInfoHeaderLabels = [monthLabel, startLabel, goingLabel]
-        eventInfoHeaderLabels.forEach{ $0.font = UIFont(name: "Dosis-SemiBold", size: eventInfoHeaderFontSize) }
+        eventInfoHeaderLabels.forEach { $0.font = UIFont(name: "Dosis-SemiBold", size: eventInfoHeaderFontSize) }
         let eventInfoContentLabels = [dayLabel, startContentLabel, goingContentLabel]
-        eventInfoContentLabels.forEach{ $0.font = UIFont(name: "Dosis-Book", size: eventInfoContentFontSize)}
-        
+        eventInfoContentLabels.forEach { $0.font = UIFont(name: "Dosis-Book", size: eventInfoContentFontSize)}
+
         let dateStack = UIStackView(arrangedSubviews: [monthLabel, dayLabel])
         dateStack.distribution = .fill
         dateStack.alignment = .center
         dateStack.axis = .vertical
         dateStack.spacing = eventInfoStackInnerSpacing
-        
+
         let startTimeStack = UIStackView(arrangedSubviews: [startLabel, startContentLabel])
         startTimeStack.distribution = .fill
         startTimeStack.alignment = .center
         startTimeStack.axis = .vertical
         startTimeStack.spacing = eventInfoStackInnerSpacing
-        
+
         let goingStack = UIStackView(arrangedSubviews: [goingLabel, goingContentLabel])
         goingStack.distribution = .fill
         goingStack.alignment = .center
         goingStack.axis = .vertical
         goingStack.spacing = eventInfoStackInnerSpacing
-        
+
         let bottomStack = UIStackView(arrangedSubviews: [dateStack, startTimeStack, goingStack])
         bottomStack.distribution = .fillEqually
         bottomStack.alignment = .center
         bottomStack.axis = .horizontal
         bottomStack.spacing = bottomStackInnerSpacing
-        
+
         eventNameLabel.font = UIFont(name: "Dosis-SemiBold", size: eventTitleFontSize)
         eventNameLabel.numberOfLines = 2
-        
+
         locationLabel.font = UIFont(name: "Dosis-Book", size: eventLocationFontSize)
         locationLabel.textColor = UIColor.gray
-        
+
         let topStack = UIStackView(arrangedSubviews: [eventNameLabel, locationLabel])
         topStack.distribution = .fill
         topStack.axis = .vertical
         topStack.alignment = .center
         topStack.spacing = topStackInnerSpacing
-        
+
         let eventInfoStack = UIStackView(arrangedSubviews: [topStack, bottomStack])
         eventInfoStack.distribution = .fill
         eventInfoStack.axis = .vertical
         eventInfoStack.alignment = .center
         eventInfoStack.spacing = eventInfoStackInnerSpacing
-        
+
         let cardStack = UIStackView(arrangedSubviews: [eventPicture, eventInfoStack])
         cardStack.distribution = .fill
         cardStack.alignment = .center
         cardStack.axis = .vertical
         cardStack.spacing = cardStackInnerSpacing
-        
+
         self.addSubview(cardStack)
-        cardStack.snp.makeConstraints{ make in
+        cardStack.snp.makeConstraints { make in
             make.edges.equalTo(self)
         }
-        topStack.snp.makeConstraints{ make in
+        topStack.snp.makeConstraints { make in
             make.left.equalTo(self).offset(topStackLeftRightSpacing)
             make.right.equalTo(self).offset(-topStackLeftRightSpacing)
         }
-        
+
     }
 }

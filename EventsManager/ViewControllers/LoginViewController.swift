@@ -10,11 +10,11 @@ import GoogleSignIn
 import UIKit
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     //constants
     let iconSpacingFromTop:CGFloat = 130
     let iconSideLength:CGFloat = 120
@@ -29,7 +29,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     let signatureLeftSpacing:CGFloat = 20
     let signatureVerticleSpacing:CGFloat = 5
     let signatureBottomSpacing:CGFloat = 15
-    
+
     //view elements
     let signinButton = GIDSignInButton()
     let appIcon = UIImageView()
@@ -37,7 +37,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     let appIntro = UILabel()
     let powerByLabel = UILabel()
     let signatureLabel = UILabel()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,11 +45,11 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         setLayouts()
         configure()
     }
-    
+
     /**
      Sets the basic layout of the view
      */
-    func setLayouts(){
+    func setLayouts() {
         view.backgroundColor = UIColor(named: "primaryPink")
         view.addSubview(signinButton)
         let appIconAndNameStack = UIStackView(arrangedSubviews: [appIcon, appLabel])
@@ -58,8 +57,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         appIconAndNameStack.distribution = .fill
         appIconAndNameStack.axis = .horizontal
         appIconAndNameStack.spacing = stackInnerSpacing
-        
-        appIcon.snp.makeConstraints{ make in
+
+        appIcon.snp.makeConstraints { make in
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
@@ -69,45 +68,45 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         appIntro.textColor = UIColor.white
         appIntro.textAlignment = .center
         appIntro.numberOfLines = 0
-        
+
         view.addSubview(appIconAndNameStack)
         view.addSubview(appIntro)
-        
-        appIconAndNameStack.snp.makeConstraints{ make in
+
+        appIconAndNameStack.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.top.equalTo(view).offset(iconSpacingFromTop)
         }
-        
-        appIntro.snp.makeConstraints{ make in
+
+        appIntro.snp.makeConstraints { make in
             make.top.equalTo(appIconAndNameStack.snp.bottom).offset(introIconSpacing)
             make.left.equalTo(view).offset(sideSpacing)
             make.right.equalTo(view).offset(-sideSpacing)
         }
-        
+
         signinButton.snp.makeConstraints { make in
             make.top.equalTo(appIntro.snp.bottom).offset(buttonIntroSpacing)
             make.left.equalTo(view).offset(sideSpacing)
             make.right.equalTo(view).offset(-sideSpacing)
         }
-        
+
         view.addSubview(powerByLabel)
         view.addSubview(signatureLabel)
         powerByLabel.textColor = UIColor.white
         powerByLabel.font = UIFont(name: "Dosis-Book", size: poweredByFontSize)
         signatureLabel.textColor = UIColor.white
         signatureLabel.font = UIFont(name: "Dosis-Medium", size: signatureFontSize)
-        
-        signatureLabel.snp.makeConstraints{ make in
+
+        signatureLabel.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-signatureBottomSpacing)
             make.left.equalTo(view).offset(signatureLeftSpacing)
         }
-        
-        powerByLabel.snp.makeConstraints{ make in
+
+        powerByLabel.snp.makeConstraints { make in
             make.bottom.equalTo(signatureLabel.snp.top).offset(-signatureVerticleSpacing)
             make.left.equalTo(view).offset(signatureLeftSpacing)
         }
     }
-    
+
     /** Set values for view elements */
     func configure() {
         appIcon.image = UIImage(named: "logo")
@@ -116,7 +115,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         powerByLabel.text = NSLocalizedString("app-powered-by", comment: "")
         signatureLabel.text = NSLocalizedString("app-signature", comment: "")
     }
-    
+
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
               withError error: Error!) {
         if let error = error {
@@ -130,14 +129,11 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             }
         }
     }
-    
+
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
-        
+
     }
-    
-    
-    
 
 }
