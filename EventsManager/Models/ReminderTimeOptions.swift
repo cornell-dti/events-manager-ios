@@ -19,7 +19,7 @@ enum ReminderTimeOptions {
      Gets the reminder time option by its index in the enum
      - index: The index of the time option to fetch
     */
-    static func getCase(by index:Int) -> ReminderTimeOptions {
+    static func getCase(by index: Int) -> ReminderTimeOptions {
         switch index {
             case 0:
                 return .oneHourBefore

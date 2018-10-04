@@ -15,43 +15,43 @@ import GooglePlaces
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
     //Constants
-    let buttonHeight:CGFloat = 45
-    let standardEdgeSpacing:CGFloat = 20
-    let imageViewHeight:CGFloat = 220
-    let buttonStackInnerSpacing:CGFloat = 15
-    let infoStackEdgeSpacing:CGFloat = 40
-    let iconSideLength:CGFloat = 25
-    let infoStackIconLabelSpacing:CGFloat = 20
-    let infoTableSpacing:CGFloat = 12
+    let buttonHeight: CGFloat = 45
+    let standardEdgeSpacing: CGFloat = 20
+    let imageViewHeight: CGFloat = 220
+    let buttonStackInnerSpacing: CGFloat = 15
+    let infoStackEdgeSpacing: CGFloat = 40
+    let iconSideLength: CGFloat = 25
+    let infoStackIconLabelSpacing: CGFloat = 20
+    let infoTableSpacing: CGFloat = 12
     let eventDescriptionFontSize = CGFloat(integerLiteral: 16)
-    let mapViewHeight:CGFloat = 220
-    let mapViewDirectionsBarHeight:CGFloat = 35
-    let mapViewDirectionsBarOpacity:Float = 0.7
+    let mapViewHeight: CGFloat = 220
+    let mapViewDirectionsBarHeight: CGFloat = 35
+    let mapViewDirectionsBarOpacity: Float = 0.7
     let tagScrollViewHeight = CGFloat(integerLiteral: 50)
     let tagHorizontalSpacing = CGFloat(integerLiteral: 8)
     let tagLabelFontSize = CGFloat(integerLiteral: 22)
-    let eventImageGradientOpcaity:Float = 0.3
+    let eventImageGradientOpcaity: Float = 0.3
     let eventImageGradientStartPoint = CGPoint(x: 0.5, y: 0.0)
     let eventImageGradientEndPoint = CGPoint(x: 0.5, y: 1.0)
-    let floatingButtonSideLength:CGFloat = 35
-    let floatingButtonSideSpacing:CGFloat = 20
-    let floatingButtonTopSpacing:CGFloat = 8
-    let backButtonLeftInset:CGFloat = 10
-    let backButtonTopBottomInset:CGFloat = 7
-    let backButtonRightInset:CGFloat = 0
-    let shareButtonInset:CGFloat = 7
-    let shadowOpacity:Float = 0.6
-    let shadowRadius:CGFloat = 5
+    let floatingButtonSideLength: CGFloat = 35
+    let floatingButtonSideSpacing: CGFloat = 20
+    let floatingButtonTopSpacing: CGFloat = 8
+    let backButtonLeftInset: CGFloat = 10
+    let backButtonTopBottomInset: CGFloat = 7
+    let backButtonRightInset: CGFloat = 0
+    let shareButtonInset: CGFloat = 7
+    let shadowOpacity: Float = 0.6
+    let shadowRadius: CGFloat = 5
     let shadowOffset = CGSize(width: 1.5, height: 1.5)
-    let eventTitleFontSize:CGFloat = 18
+    let eventTitleFontSize: CGFloat = 18
     let defaultDescriptionLines = 3
     let defaultTitleLines = 2
-    let directionsButtonRightSpacing:CGFloat = 10
+    let directionsButtonRightSpacing: CGFloat = 10
 
     //datasource
-    var event:Event?
+    var event: Event?
     let placesClient = GMSPlacesClient.shared()
-    var mapLocation:CLLocationCoordinate2D?
+    var mapLocation: CLLocationCoordinate2D?
 
     //view elements
     var scrollView = UIScrollView()
@@ -76,9 +76,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let backButton = UIButton()
     let shareButton = UIButton()
 
-    var statusBarHeight:CGFloat = 0
-    var statusBarHidden:Bool = false
-    weak var navigationControllerInteractivePopGestureRecognizerDelegate:UIGestureRecognizerDelegate?
+    var statusBarHeight: CGFloat = 0
+    var statusBarHidden: Bool = false
+    weak var navigationControllerInteractivePopGestureRecognizerDelegate: UIGestureRecognizerDelegate?
 
     //Hide and show the nav bar on entering and exiting the details page.
     override func viewWillDisappear(_ animated: Bool) {
@@ -378,7 +378,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 }
 
     /* Allow client to configure the event detail page by passing in an event object */
-    func configure(with event:Event) {
+    func configure(with event: Event) {
         self.event = event
 
         eventImage.kf.setImage(with: event.eventImage)
@@ -419,7 +419,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      */
     @objc func directionsButtonPressed(_ sender: UIButton) {
         if let mapLocation = mapLocation {
-            let url:URL
+            let url: URL
             if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
                 url = URL(string: "comgooglemaps://center=?q=\(mapLocation.latitude),\(mapLocation.longitude)")!
             } else {
@@ -434,7 +434,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      - sender: the sender of the action
      */
     @objc func orgNamePressed(_ sender: UITapGestureRecognizer) {
-        let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")
+        let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email: "connect@cornelldti.org")
         let orgController = OrganizationViewController()
         orgController.configure(organization: testOrg)
         navigationController?.pushViewController(orgController, animated: true)
@@ -465,7 +465,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     /**
      Handler for the pressing action of the "more" button under event description. Should extend event description or shrink.
      */
-    @objc func detailsMoreButtonPressed(_ sender:UIButton) {
+    @objc func detailsMoreButtonPressed(_ sender: UIButton) {
         eventDescription.numberOfLines = eventDescription.numberOfLines == 0 ? defaultDescriptionLines : 0
         eventDescriptionShowMoreButton.setTitle(eventDescription.numberOfLines == 0 ? NSLocalizedString("description-less-button", comment: "") : NSLocalizedString("description-more-button", comment: ""), for: .normal)
     }
@@ -489,7 +489,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         return shouldHideStatusBar
     }
 
-    private var shouldHideStatusBar:Bool {
+    private var shouldHideStatusBar: Bool {
         let height = scrollView.contentOffset.y + statusBarHeight * 2
         return height >= imageViewHeight
     }

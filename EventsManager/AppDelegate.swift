@@ -31,14 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance()?.hostedDomain = "cornell.edu"
 
         //check if logged in
-//        if UserData.didLogin() {
-//            window?.rootViewController = tabBarVC
-//        }
-//        else {
-//            window?.rootViewController = LoginViewController()
-//        }
-        window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController())
-
+        if UserData.didLogin() {
+            if UserData.didCompleteOnboarding() {
+                window?.rootViewController = tabBarVC
+            } else {
+                 window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController())
+            }
+        } else {
+            window?.rootViewController = LoginViewController()
+        }
         window?.makeKeyAndVisible()
 
         // Set global appearance attributes
@@ -72,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url as URL?,
                                                  sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                                  annotation: options[UIApplicationOpenURLOptionsKey.annotation])

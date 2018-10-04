@@ -11,7 +11,7 @@ import SnapKit
 
 class OrganizationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
 
-    var organization:Organization?
+    var organization: Organization?
     var popularEvents = [Event]()
     var tags = [String]()
 
@@ -21,11 +21,11 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let contentView = UIView()
 
     let orgHeaderView = UIView()
-    let orgAvatar:UIImageView = UIImageView()
-    let orgNameLabel:UILabel = UILabel()
-    let orgSettingsButton:UIButton = UIButton()
-    let memberButton:UIButton = UIButton()
-    let followButton:UIButton = UIButton()
+    let orgAvatar: UIImageView = UIImageView()
+    let orgNameLabel: UILabel = UILabel()
+    let orgSettingsButton: UIButton = UIButton()
+    let memberButton: UIButton = UIButton()
+    let followButton: UIButton = UIButton()
 
     let orgInfoView = UIView()
     let infoViewEditButton = UIButton()
@@ -43,26 +43,26 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let tagStack = UIStackView()
 
     //Constants
-    let sectionViewPadding:CGFloat = 15
-    let orgNameFontSize:CGFloat = 22
-    let orgNameToSettingSpacing:CGFloat = 20
-    let orgNamePreferredWidth:CGFloat = 250
-    let memberToFollowButtonSpacing:CGFloat = 20
-    let buttonBorderRadius:CGFloat = 5
-    let utilButtonSideLength:CGFloat = 25
-    let orgAvatarSideLength:CGFloat = 70
-    let rightStackInternalSpacing:CGFloat = 10
-    let orgAvatarToRightStackSpacing:CGFloat = 20
-    let headerButtonFontSize:CGFloat = 16
-    let sectionHeaderFontSize:CGFloat = 20
-    let contentFontSize:CGFloat = 16
-    let infoViewInnerStackSpacing:CGFloat = 8
-    let orgDescriptionPreferredWidth:CGFloat = 300
-    let headerHeight:CGFloat = 40
-    let popularEventsTableViewHeight:CGFloat = 35 + 320 + 20//HeaderHeight + CardHeight + CardMargins
-    let tagLabelFontSize:CGFloat = 22
-    let tagScrollViewHeight:CGFloat = 50
-    let tagHorizontalSpacing:CGFloat = 8
+    let sectionViewPadding: CGFloat = 15
+    let orgNameFontSize: CGFloat = 22
+    let orgNameToSettingSpacing: CGFloat = 20
+    let orgNamePreferredWidth: CGFloat = 250
+    let memberToFollowButtonSpacing: CGFloat = 20
+    let buttonBorderRadius: CGFloat = 5
+    let utilButtonSideLength: CGFloat = 25
+    let orgAvatarSideLength: CGFloat = 70
+    let rightStackInternalSpacing: CGFloat = 10
+    let orgAvatarToRightStackSpacing: CGFloat = 20
+    let headerButtonFontSize: CGFloat = 16
+    let sectionHeaderFontSize: CGFloat = 20
+    let contentFontSize: CGFloat = 16
+    let infoViewInnerStackSpacing: CGFloat = 8
+    let orgDescriptionPreferredWidth: CGFloat = 300
+    let headerHeight: CGFloat = 40
+    let popularEventsTableViewHeight: CGFloat = 35 + 320 + 20//HeaderHeight + CardHeight + CardMargins
+    let tagLabelFontSize: CGFloat = 22
+    let tagScrollViewHeight: CGFloat = 50
+    let tagHorizontalSpacing: CGFloat = 8
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -82,7 +82,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     /**
      Allow client to configure the event detail page by passing in an organization object
      */
-    public func configure(organization:Organization) {
+    public func configure(organization: Organization) {
         memberButton.setTitle(NSLocalizedString("is-member-button", comment: ""), for: .normal)
         followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
         aboutLabel.text = NSLocalizedString("about", comment: "")
@@ -100,7 +100,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         let date1 = "2018-06-20 16:39:57"
         let date2 = "2018-06-20 18:39:57"
         for _ in 1...20 {
-            popularEvents.append(Event(id:1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo", "#heheh", "#oooof"], eventParticipantCount: 166))
+            popularEvents.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, URL(string: "http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: ["#lololo", "#heheh", "#oooof"], eventParticipantCount: 166))
         }
 
         getTags()
@@ -375,7 +375,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
             popularHeader.setMainTitle(NSLocalizedString("popular-events", comment: "").uppercased())
             popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
-            popularHeader.editButton.addTarget(self, action:#selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
+            popularHeader.editButton.addTarget(self, action: #selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
             header = popularHeader
         }
         return header

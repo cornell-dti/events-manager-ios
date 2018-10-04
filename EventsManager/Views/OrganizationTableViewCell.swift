@@ -14,17 +14,17 @@ class OrganizationTableViewCell: UITableViewCell {
     static let identifier = "organizationTableViewCell"
 
     //constants
-    let avatarSideLength:CGFloat = 60
-    let orgNameFontSize:CGFloat = 18
-    let topBottomSideMargins:CGFloat = 10
-    let leftRightSideMargins:CGFloat = 20
+    let avatarSideLength: CGFloat = 60
+    let orgNameFontSize: CGFloat = 18
+    let topBottomSideMargins: CGFloat = 10
+    let leftRightSideMargins: CGFloat = 20
 
     //view elements
     let orgAvatar = UIImageView()
     let orgName = UILabel()
 
     //data source
-    var org:Organization?
+    var org: Organization?
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
 
@@ -60,7 +60,7 @@ class OrganizationTableViewCell: UITableViewCell {
      Configures the cell
      - org: the organization the cell should be configured with
      */
-    func configure(with org:Organization) {
+    func configure(with org: Organization) {
         self.org = org
         orgAvatar.kf.setImage(with: org.avatar)
         orgName.text = org.name

@@ -11,13 +11,13 @@ import UIKit
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
 
     //Constants
-    let headerHeight:CGFloat = 35
+    let headerHeight: CGFloat = 35
 
     let popularEventsSection = 0
     let todayEventsSection = 1
     let tomorrowEventsSection = 2
     let seeAllEventSection = 3
-    var cells = [Int:EventCardCell]()
+    var cells = [Int: EventCardCell]()
 
     //View Elements
     let tableView = UITableView(frame: CGRect(), style: .grouped)
@@ -55,7 +55,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         let date1 = "2018-06-20 16:39:57"
         let date2 = "2018-06-20 18:39:57"
         for _ in 1...20 {
-            events.append(Event(id:1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Info Sessions!", eventLocation: "Goldwin Smith Hall B02", eventLocationID: "ChIJZ3LpY4yB0IkRFZfk9Xybyys", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string:"http://cornelldti.org/img/team/davidc.jpg")!, URL(string:"http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string:"http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags:["#lololo", "#heheh", "#oooof"], eventParticipantCount: 166))
+            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Info Sessions!", eventLocation: "Goldwin Smith Hall B02", eventLocationID: "ChIJZ3LpY4yB0IkRFZfk9Xybyys", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, URL(string: "http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: ["#lololo", "#heheh", "#oooof"], eventParticipantCount: 166))
         }
         popularEvents = events
         todayEvents = events
@@ -195,7 +195,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
                     popularHeader.setMainTitle(NSLocalizedString("popular-events", comment: "").uppercased())
                     popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     popularHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
-                    popularHeader.editButton.addTarget(self, action:#selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
+                    popularHeader.editButton.addTarget(self, action: #selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
                     header = popularHeader
                 }
             case todayEventsSection:
@@ -203,7 +203,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
                     todayHeader.setMainTitle(NSLocalizedString("today-events", comment: "").uppercased())
                     todayHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     todayHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
-                    todayHeader.editButton.addTarget(self, action:#selector(todaySeeMoreButtonPressed(_:)), for: .touchUpInside)
+                    todayHeader.editButton.addTarget(self, action: #selector(todaySeeMoreButtonPressed(_:)), for: .touchUpInside)
                     header = todayHeader
                 }
             case tomorrowEventsSection:
@@ -211,14 +211,14 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
                     tomorrowHeader.setMainTitle(NSLocalizedString("tomorrow-events", comment: "").uppercased())
                     tomorrowHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     tomorrowHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
-                    tomorrowHeader.editButton.addTarget(self, action:#selector(tomorrowSeeMoreButtonPressed(_:)), for: .touchUpInside)
+                    tomorrowHeader.editButton.addTarget(self, action: #selector(tomorrowSeeMoreButtonPressed(_:)), for: .touchUpInside)
                     header = tomorrowHeader
                 }
             case seeAllEventSection:
                 if let seeAllEventsHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: SeeAllEventsHeaderFooterView.identifier) as? SeeAllEventsHeaderFooterView {
                     seeAllEventsHeader.setButtonTitle(NSLocalizedString("see-all-button", comment: ""))
                     seeAllEventsHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
-                    seeAllEventsHeader.editButton.addTarget(self, action:#selector(seeAllEventsButtonPressed(_:)), for: .touchUpInside)
+                    seeAllEventsHeader.editButton.addTarget(self, action: #selector(seeAllEventsButtonPressed(_:)), for: .touchUpInside)
                     header = seeAllEventsHeader
                 }
             default: break

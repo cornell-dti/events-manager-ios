@@ -9,6 +9,6 @@
 import Foundation
 
 struct Tag {
-    let id:Int
-    let name:String
+    let id: Int
+    let name: String
 }

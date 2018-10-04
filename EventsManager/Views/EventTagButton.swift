@@ -12,7 +12,7 @@ import SnapKit
 class EventTagButton: UIButton {
     //Constants
     let tagHeight = CGFloat(integerLiteral: 30)
-    let tagFontSize:CGFloat = 14
+    let tagFontSize: CGFloat = 14
 
     private var tagName = ""
 

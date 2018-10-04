@@ -13,9 +13,9 @@ import SnapKit
 class SeeAllEventsHeaderFooterView: UITableViewHeaderFooterView {
     static let identifier = "seeAllEventsHeader"
 
-    let sideMargins:CGFloat = 15
-    let bottomMargins:CGFloat = 5
-    let buttonFontSize:CGFloat = 16
+    let sideMargins: CGFloat = 15
+    let bottomMargins: CGFloat = 5
+    let buttonFontSize: CGFloat = 16
 
     let editButton = UIButton()
 
@@ -40,7 +40,7 @@ class SeeAllEventsHeaderFooterView: UITableViewHeaderFooterView {
 
     }
 
-    func setButtonTitle(_ title:String) {
+    func setButtonTitle(_ title: String) {
         editButton.setTitle(title, for: .normal)
     }
 }

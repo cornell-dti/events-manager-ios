@@ -16,19 +16,19 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     }
 
     //constants
-    let iconSpacingFromTop:CGFloat = 130
-    let iconSideLength:CGFloat = 120
-    let stackInnerSpacing:CGFloat = 0
-    let appLabelFontSize:CGFloat = 50
-    let appIntroFontSize:CGFloat = 22
-    let introIconSpacing:CGFloat = 30
-    let buttonIntroSpacing:CGFloat = 70
-    let sideSpacing:CGFloat = 50
-    let poweredByFontSize:CGFloat = 16
-    let signatureFontSize:CGFloat = 18
-    let signatureLeftSpacing:CGFloat = 20
-    let signatureVerticleSpacing:CGFloat = 5
-    let signatureBottomSpacing:CGFloat = 15
+    let iconSpacingFromTop: CGFloat = 130
+    let iconSideLength: CGFloat = 120
+    let stackInnerSpacing: CGFloat = 0
+    let appLabelFontSize: CGFloat = 50
+    let appIntroFontSize: CGFloat = 22
+    let introIconSpacing: CGFloat = 30
+    let buttonIntroSpacing: CGFloat = 70
+    let sideSpacing: CGFloat = 50
+    let poweredByFontSize: CGFloat = 16
+    let signatureFontSize: CGFloat = 18
+    let signatureLeftSpacing: CGFloat = 20
+    let signatureVerticleSpacing: CGFloat = 5
+    let signatureBottomSpacing: CGFloat = 15
 
     //view elements
     let signinButton = GIDSignInButton()
@@ -123,8 +123,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         } else {
             if let user = UserData.newUser(from: user) {
                 if UserData.login(for: user) {
-                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = TabBarViewController()
-                    (UIApplication.shared.delegate as! AppDelegate).window?.makeKeyAndVisible()
+                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
                 }
             }
         }

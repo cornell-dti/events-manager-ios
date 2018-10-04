@@ -11,9 +11,9 @@ import UIKit
 class SearchEmtpyStateView: UIView {
 
     //constants
-    let searchIconSideLength:CGFloat = 40
-    let searchLabelFontSize:CGFloat = 18
-    let stackSpacing:CGFloat = 10
+    let searchIconSideLength: CGFloat = 40
+    let searchLabelFontSize: CGFloat = 18
+    let stackSpacing: CGFloat = 10
 
     let searchIconView = UIImageView(image: #imageLiteral(resourceName: "magnifyingGlass"))
     let infoLabel = UILabel()

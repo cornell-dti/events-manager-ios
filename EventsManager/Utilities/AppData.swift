@@ -17,14 +17,14 @@ class AppData {
      Requires: pk is a valid organization id. If no existing organizations match pk, any organization might be returned.
      */
     static func getOrganization(by pk: Int) -> Organization {
-        return Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email:"connect@cornelldti.org")
+        return Organization(id: pk, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email: "connect@cornelldti.org")
     }
 
     /**
      Returns the tag with id pk.
      Requires: pk is a valid tag id. If no existing tags match pk, an empty string will be returned.
      */
-    static func getTag(by pk: Int) -> String {
-        return "lolol"
+    static func getTag(by pk: Int) -> Tag {
+        return Tag(id: pk, name: "#lolololol")
     }
 }

@@ -11,18 +11,18 @@ import SnapKit
 
 class MyEventsDatePickerView: UIView {
     //Data source
-    var dates:[Date] = []
+    var dates: [Date] = []
 
     //Constants
-    let datePickerViewHeight:CGFloat = 100
-    let individualDatePickerStackWidth:CGFloat = 45
-    let dateFontSize:CGFloat = 18
-    let dateButtonSideLength:CGFloat = 45
-    let dayToDateMargin:CGFloat = 8
-    let dateToDateMargin:CGFloat = 20
-    let sideMargins:CGFloat = 15
-    let shadowOpacity:Float = 0.2
-    let shadowRadius:CGFloat = 2
+    let datePickerViewHeight: CGFloat = 100
+    let individualDatePickerStackWidth: CGFloat = 45
+    let dateFontSize: CGFloat = 18
+    let dateButtonSideLength: CGFloat = 45
+    let dayToDateMargin: CGFloat = 8
+    let dateToDateMargin: CGFloat = 20
+    let sideMargins: CGFloat = 15
+    let shadowOpacity: Float = 0.2
+    let shadowRadius: CGFloat = 2
     let shadowOffset = CGSize(width: 0, height: 2)
     let scrollingAnimationDuration = 0.3
 
@@ -78,7 +78,7 @@ class MyEventsDatePickerView: UIView {
      Configures the date picker view with events. The date picker view will find the latest event in the list and determines the time range for date picking.
      - events: the list of events that the date picker should be picking from.
      */
-    func configure(with dates:[Date]) {
+    func configure(with dates: [Date]) {
         self.dates = dates
         let lastDateInEvents = getLastDate(in: dates)
         let today = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
@@ -156,7 +156,7 @@ class MyEventsDatePickerView: UIView {
      - index: the index of the date picker in the stack's arranged subviews
      - returns: true is the date picker is in the contentview, false if not, or index is out of range
      */
-    private func isDatePickerInContentView(index:Int) -> Bool {
+    private func isDatePickerInContentView(index: Int) -> Bool {
         let contentViewStartingPosition = dateScrollView.contentOffset.x
         let contentViewEndingPosition = contentViewStartingPosition + UIScreen.main.bounds.width
         let datePickerStartingPosition = Int(sideMargins) + index * Int(individualDatePickerStackWidth + dateToDateMargin) - Int(dateToDateMargin / 2)

@@ -15,13 +15,13 @@ protocol MyProfileSettingsTableViewCellDelegate: class {
 class MyProfileSettingsTableViewCell: UITableViewCell {
 
     //datasource
-    weak var delegate:MyProfileSettingsTableViewCellDelegate?
+    weak var delegate: MyProfileSettingsTableViewCellDelegate?
 
     //constants
-    let wrapperViewHeight:CGFloat = 30
-    let horizontalSideMargins:CGFloat = 20
-    let verticalSideMargins:CGFloat = 10
-    let fontSize:CGFloat = 15
+    let wrapperViewHeight: CGFloat = 30
+    let horizontalSideMargins: CGFloat = 20
+    let verticalSideMargins: CGFloat = 10
+    let fontSize: CGFloat = 15
 
     //view elemtents
     let reminderSwitchWrapperView = UIView()

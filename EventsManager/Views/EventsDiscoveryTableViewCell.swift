@@ -14,17 +14,17 @@ import Foundation
 class EventsDiscoveryTableViewCell: UITableViewCell {
     static let identifer = "EventsDiscoveryCell"
 
-    private var event:Event?
+    private var event: Event?
 
-    private let sideSpacing:CGFloat = 15
-    private let eventInfoFontSize:CGFloat = 13
-    private let eventNameFontSize:CGFloat = 15
-    private let lineSpacingLeftStack:CGFloat = 12
-    private let lineSpacingRightStack:CGFloat = 9
-    private let iconSideLength:CGFloat = 18
-    private let separatorHeight:CGFloat = 15
-    private let leftToRightStackSpacing:CGFloat = 8
-    private let eventParticipantCountAndLocationStackInnerSpacing:CGFloat = 6
+    private let sideSpacing: CGFloat = 15
+    private let eventInfoFontSize: CGFloat = 13
+    private let eventNameFontSize: CGFloat = 15
+    private let lineSpacingLeftStack: CGFloat = 12
+    private let lineSpacingRightStack: CGFloat = 9
+    private let iconSideLength: CGFloat = 18
+    private let separatorHeight: CGFloat = 15
+    private let leftToRightStackSpacing: CGFloat = 8
+    private let eventParticipantCountAndLocationStackInnerSpacing: CGFloat = 6
 
     private let startTime = UILabel()
     private let endTime = UILabel()
@@ -61,7 +61,7 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
             make.width.equalTo(80)
         }
 
-        let eventTimeStack:UIStackView = UIStackView(arrangedSubviews: [startTime, endTime])
+        let eventTimeStack: UIStackView = UIStackView(arrangedSubviews: [startTime, endTime])
         eventTimeStack.axis = .vertical
         eventTimeStack.distribution = .fill
         eventTimeStack.alignment = .center
@@ -91,13 +91,13 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         }
         eventParticipantCountAndLocationStack.addArrangedSubview(eventLocation)
 
-        let eventInfoStack:UIStackView = UIStackView(arrangedSubviews: [eventName, eventParticipantCountAndLocationStack])
+        let eventInfoStack: UIStackView = UIStackView(arrangedSubviews: [eventName, eventParticipantCountAndLocationStack])
         eventInfoStack.axis = .vertical
         eventInfoStack.distribution = .fill
         eventInfoStack.alignment = .leading
         eventInfoStack.spacing = lineSpacingRightStack
 
-        let eventStack:UIStackView = UIStackView(arrangedSubviews: [eventTimeStack, eventInfoStack])
+        let eventStack: UIStackView = UIStackView(arrangedSubviews: [eventTimeStack, eventInfoStack])
         eventStack.axis = .horizontal
         eventStack.distribution = .fill
         eventStack.alignment = .center
@@ -113,7 +113,7 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         }
     }
 
-    func configure(event:Event) {
+    func configure(event: Event) {
         self.event = event
         updateUI()
     }

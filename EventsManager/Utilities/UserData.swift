@@ -11,7 +11,7 @@ import GoogleSignIn
 
 class UserData {
     static let USER_INFO_KEY = "user info"
-    static let USER_IMAGE_DIMENTION:UInt = 500
+    static let USER_IMAGE_DIMENTION: UInt = 500
 
     /** Check if user logged in */
     static func didLogin() -> Bool {
@@ -60,17 +60,17 @@ class UserData {
                 avatar: avatar,
                 bookmarkedEvents: [],
                 followingOrganizations: [],
-                followingTags:[]
+                followingTags: []
             )
         }
         return nil
     }
 
     /** Logs a user into the app */
-    static func login(for user:User) -> Bool {
+    static func login(for user: User) -> Bool {
         do {
             let jsonData = try JSONEncoder().encode(user)
-            UserDefaults.standard.set(jsonData, forKey:USER_INFO_KEY)
+            UserDefaults.standard.set(jsonData, forKey: USER_INFO_KEY)
             return true
         } catch {
             print (error)
@@ -100,6 +100,18 @@ class UserData {
         if var user = UserData.getLoggedInUser() {
             user.followingTags.append(tag.id)
             return UserData.login(for: user)
+        }
+        return false
+    }
+
+    /**
+     Check if user has completed the onboarding process.
+     */
+    static func didCompleteOnboarding() -> Bool {
+        if let user = UserData.getLoggedInUser() {
+            if user.followingTags.count > 0 && user.followingOrganizations.count > 0 {
+                return true
+            }
         }
         return false
     }

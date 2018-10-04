@@ -18,7 +18,7 @@ class EventDateHelper {
         var sectionDateSet = getUniqueDates(in: events)
         sectionDateSet = removePastDates(from: sectionDateSet)
         let sectionDates = sectionDateSet.sorted()
-        var eventsOnDate:[[Event]] = []
+        var eventsOnDate: [[Event]] = []
         for date in sectionDates {
             eventsOnDate.append(getEvents(on: date, for: events))
         }
@@ -32,7 +32,7 @@ class EventDateHelper {
      - returns: a set of dates, retrieved from @events
      */
     private static func getUniqueDates(in events: [Event]) -> Set<Date> {
-        var dates:Set<Date> = []
+        var dates: Set<Date> = []
         for event in events {
             let startTime = event.startTime
             let startDateString = DateFormatHelper.date(from: startTime) //convert starttime to yyyy-mm-dd strings to remove time from date
@@ -64,8 +64,8 @@ class EventDateHelper {
      - events
      - returns: array of events on that date
      */
-    private static func getEvents(on date:Date, for events: [Event]) -> [Event] {
-        var eventsOnDate:[Event] = []
+    private static func getEvents(on date: Date, for events: [Event]) -> [Event] {
+        var eventsOnDate: [Event] = []
         let dateString = DateFormatHelper.date(from: date)
         for event in events {
             let eventDateString = DateFormatHelper.date(from: event.startTime)

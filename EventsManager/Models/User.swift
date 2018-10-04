@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct User:Codable {
-    var netID:String
-    var userID:String
-    var idToken:String
-    var name:String
-    var avatar:URL
-    var bookmarkedEvents:[Int]
-    var followingOrganizations:[Int]
-    var followingTags:[Int]
+struct User: Codable {
+    var netID: String
+    var userID: String
+    var idToken: String
+    var name: String
+    var avatar: URL
+    var bookmarkedEvents: [Int]
+    var followingOrganizations: [Int]
+    var followingTags: [Int]
 
-    private enum CodingKeys : String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case netID = "net_id"
         case userID = "user_id"
         case idToken = "id_token"

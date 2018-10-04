@@ -13,10 +13,10 @@ import SnapKit
 class EventTableHeaderFooterView: UITableViewHeaderFooterView {
     static let identifier = "eventTableHeader"
 
-    let sideMargins:CGFloat = 15
-    let bottomMargins:CGFloat = 5
-    let titleFontSize:CGFloat = 17
-    let buttonFontSize:CGFloat = 14
+    let sideMargins: CGFloat = 15
+    let bottomMargins: CGFloat = 5
+    let titleFontSize: CGFloat = 17
+    let buttonFontSize: CGFloat = 14
 
     var title = UILabel()
     let editButton = UIButton()
@@ -50,11 +50,11 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
 
     }
 
-    func setMainTitle(_ title:String) {
+    func setMainTitle(_ title: String) {
         self.title.text = title
     }
 
-    func setButtonTitle(_ title:String) {
+    func setButtonTitle(_ title: String) {
         editButton.setTitle(title, for: .normal)
     }
 }

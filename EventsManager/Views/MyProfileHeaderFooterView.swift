@@ -12,10 +12,10 @@ import SnapKit
 class MyProfileHeaderFooterView: UITableViewHeaderFooterView {
     static let identifier = "myProfileHeader"
 
-    let sideMargins:CGFloat = 15
-    let bottomMargins:CGFloat = 10
-    let buttonBottomMargins:CGFloat = 3
-    let titleFontSize:CGFloat = 17
+    let sideMargins: CGFloat = 15
+    let bottomMargins: CGFloat = 10
+    let buttonBottomMargins: CGFloat = 3
+    let titleFontSize: CGFloat = 17
 
     var title = UILabel()
     let editButton = UIButton()
@@ -60,11 +60,11 @@ class MyProfileHeaderFooterView: UITableViewHeaderFooterView {
 
     }
 
-    func setMainTitle(_ title:String) {
+    func setMainTitle(_ title: String) {
         self.title.text = title
     }
 
-    func setButtonTitle(_ title:String) {
+    func setButtonTitle(_ title: String) {
         editButton.setTitle(title, for: .normal)
     }
 }

@@ -12,15 +12,15 @@ class MyProfileTagsTableViewCell: UITableViewCell {
     static let identifier = "myProfileTagsTableViewCell"
 
     //constants
-    let sideMargins:CGFloat = 20
-    let scrollViewHeight:CGFloat = 70
-    let tagSpacing:CGFloat = 12
+    let sideMargins: CGFloat = 20
+    let scrollViewHeight: CGFloat = 70
+    let tagSpacing: CGFloat = 12
 
     //view elements
     let tagScrollView = UIScrollView()
     let tagStack = UIStackView()
 
-    var tags:[String] = []
+    var tags: [String] = []
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
 
@@ -61,7 +61,7 @@ class MyProfileTagsTableViewCell: UITableViewCell {
         }
         for tag in tags {
             let tagButton = EventTagButton()
-            tagButton.setTitle(AppData.getTag(by: tag), for: .normal)
+            tagButton.setTitle(AppData.getTag(by: tag).name, for: .normal)
             tagStack.addArrangedSubview(tagButton)
         }
     }

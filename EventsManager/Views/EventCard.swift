@@ -12,7 +12,7 @@ import SnapKit
 //The view class for the event card in details page.
 class EventCard: UIView {
 
-    var event:Event?
+    var event: Event?
 
     //View Elements
     let eventPicture = UIImageView()
@@ -26,23 +26,23 @@ class EventCard: UIView {
     let locationLabel = UILabel()
 
     //Constants
-    let cardWidth:CGFloat = 300
-    let cardHeight:CGFloat = 300
-    let eventPicHeight:CGFloat = 140
-    let eventInfoHeaderFontSize:CGFloat = 16
-    let eventInfoContentFontSize:CGFloat = 18
-    let eventTitleFontSize:CGFloat = 18
-    let eventLocationFontSize:CGFloat = 16
-    let eventInfoStackInnerSpacing:CGFloat = 5
-    let bottomStackInnerSpacing:CGFloat = 30
-    let topStackInnerSpacing:CGFloat = 5
-    let infoStackInnerSpacing:CGFloat = 8
-    let cardStackInnerSpacing:CGFloat = 15
-    let topStackLeftRightSpacing:CGFloat = 20
-    let shadowOpacity:Float = 0.3
-    let shadowRadius:CGFloat = 3
+    let cardWidth: CGFloat = 300
+    let cardHeight: CGFloat = 300
+    let eventPicHeight: CGFloat = 140
+    let eventInfoHeaderFontSize: CGFloat = 16
+    let eventInfoContentFontSize: CGFloat = 18
+    let eventTitleFontSize: CGFloat = 18
+    let eventLocationFontSize: CGFloat = 16
+    let eventInfoStackInnerSpacing: CGFloat = 5
+    let bottomStackInnerSpacing: CGFloat = 30
+    let topStackInnerSpacing: CGFloat = 5
+    let infoStackInnerSpacing: CGFloat = 8
+    let cardStackInnerSpacing: CGFloat = 15
+    let topStackLeftRightSpacing: CGFloat = 20
+    let shadowOpacity: Float = 0.3
+    let shadowRadius: CGFloat = 3
     let shadowOffset = CGSize(width: 1, height: 1)
-    let cardRadius:CGFloat = 20
+    let cardRadius: CGFloat = 20
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
 
@@ -55,7 +55,7 @@ class EventCard: UIView {
      * Populate the event card with an event object
      * - event: The event object that this card should populate with
      */
-    func configure(with event:Event) {
+    func configure(with event: Event) {
         goingLabel.text = NSLocalizedString("going", comment: "")
         startLabel.text = NSLocalizedString("starts", comment: "")
         self.event = event

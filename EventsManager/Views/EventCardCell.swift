@@ -11,18 +11,18 @@ import SnapKit
 import Foundation
 
 protocol EventCardCellDelegate: class {
-    func push(detailsViewController:EventDetailViewController)
+    func push(detailsViewController: EventDetailViewController)
 }
 
 class EventCardCell: UITableViewCell {
     static let identifer = "EventsCardCell"
 
-    weak var delegate:EventCardCellDelegate?
+    weak var delegate: EventCardCellDelegate?
     private var events = [Event]()
 
     //Constants
-    private let scrollViewHeight:CGFloat = 320 //Should be cardHeight + 2 * cardMargins
-    private let eventCardMargins:CGFloat = 10
+    private let scrollViewHeight: CGFloat = 320 //Should be cardHeight + 2 * cardMargins
+    private let eventCardMargins: CGFloat = 10
     private let cardLimit = 10
 
     private var eventsScrollView = UIScrollView()
@@ -91,7 +91,7 @@ class EventCardCell: UITableViewCell {
      * Action Handler for the pressing of a event card. Should segue to a proper event details page
      * - sender: the eventcard that is pressed.
      */
-    @objc func onCardPressed(_ sender:UITapGestureRecognizer) {
+    @objc func onCardPressed(_ sender: UITapGestureRecognizer) {
         if let senderCard = sender.view as? EventCard {
             if let event = senderCard.event {
                 let detailsViewController = EventDetailViewController()

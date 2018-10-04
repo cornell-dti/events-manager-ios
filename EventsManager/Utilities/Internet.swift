@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum Internet:String {
+enum Internet: String {
     case database = "https://google.com"
 }

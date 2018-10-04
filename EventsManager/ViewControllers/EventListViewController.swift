@@ -20,10 +20,10 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     let datePickerTag = DatePickerTagView()
 
     //constants
-    let reccommendedTagViewHeight:CGFloat = 50
-    let tagSideMargins:CGFloat = 10
-    let tagSpacing:CGFloat = 12
-    let datePickerHeight:CGFloat = 300
+    let reccommendedTagViewHeight: CGFloat = 50
+    let tagSideMargins: CGFloat = 10
+    let tagSpacing: CGFloat = 12
+    let datePickerHeight: CGFloat = 300
     let animationDuration = 0.2
 
     //datasource
@@ -46,7 +46,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
      * - events: an events array that tha tag view should filter events from
      * - tag: the tag that should be displayed in this tag view
      */
-    func setup(with events:[Event], title: String, withFilterBar: Bool) {
+    func setup(with events: [Event], title: String, withFilterBar: Bool) {
         //NAVIGATION STUFFS
         navigationItem.title = title
 
@@ -201,7 +201,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
      Loads a date picker at the bottom of the screen, with the inital date to be
      - currentTime: the initial date displayed on the date picker
     */
-    func loadDatePicker(with currentTime:Date) {
+    func loadDatePicker(with currentTime: Date) {
 
         //date picker
         datePicker.setDate(currentTime, animated: false)

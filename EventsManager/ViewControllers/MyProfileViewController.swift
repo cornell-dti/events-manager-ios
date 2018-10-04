@@ -20,32 +20,32 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     let settingsSection = 2
     let settingsRowCount = 1
 
-    let headerHeight:CGFloat = 55
-    let topBarHeight:CGFloat = 90
-    let personalAvatarSideLength:CGFloat = 60
-    let settingsButtonSideLength:CGFloat = 30
-    let topBarSideMargins:CGFloat = 20
-    let userNameFontSize:CGFloat = 18
-    let shadowOpacity:Float = 0.2
-    let shadowRadius:CGFloat = 2
+    let headerHeight: CGFloat = 55
+    let topBarHeight: CGFloat = 90
+    let personalAvatarSideLength: CGFloat = 60
+    let settingsButtonSideLength: CGFloat = 30
+    let topBarSideMargins: CGFloat = 20
+    let userNameFontSize: CGFloat = 18
+    let shadowOpacity: Float = 0.2
+    let shadowRadius: CGFloat = 2
     let shadowOffset = CGSize(width: 0, height: 2)
     let scrollingAnimationDuration = 0.3
     let animationDuration = 0.3
-    let reminderTimePickerHeight:CGFloat = 160
-    let toolBarHeigt:CGFloat = 35
+    let reminderTimePickerHeight: CGFloat = 160
+    let toolBarHeigt: CGFloat = 35
 
     //view elements
     let topBar = UIView()
     let userAvatar = UIImageView()
     let userName = UILabel()
-    let tableView = UITableView(frame:CGRect(), style: .grouped)
+    let tableView = UITableView(frame: CGRect(), style: .grouped)
     let reminderTimePickerContainerView = UIView()
     let reminderTimePicker = UIPickerView()
     let reminderTimePickerToolBar = UIToolbar()
     let settingsCell = MyProfileSettingsTableViewCell()
 
     //data source
-    var user:User?
+    var user: User?
     var showingAllFollowingOrganizations = false
 
     override func viewWillAppear(_ animated: Bool) {
@@ -238,7 +238,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     @objc func showAllOrganizations(_ sender: UIButton) {
         if let user = user {
             if user.followingOrganizations.count > follwingOrganizationRowLimit && !showingAllFollowingOrganizations {
-                var indexPathsToInsert:[IndexPath] = []
+                var indexPathsToInsert: [IndexPath] = []
                 for rowIndex in follwingOrganizationRowLimit ..< user.followingOrganizations.count {
                     let newIndexPath = IndexPath(row: rowIndex, section: followingOrganizationsSetion)
                     indexPathsToInsert.append(newIndexPath)
