@@ -16,7 +16,8 @@
 
 //Event Detail
 "tag-button" = "Tags";
-"interested-button" = "INTERESTED";
+"details-bookmark-button" = "BOOKMARK      ";
+"details-share-button" = "SHARE      ";
 "going-button" = "GOING";
 "from" = "From";
 "to" = "to";

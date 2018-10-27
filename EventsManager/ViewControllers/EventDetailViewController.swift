@@ -15,7 +15,7 @@ import GooglePlaces
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
     //Constants
-    let buttonHeight: CGFloat = 45
+    let buttonHeight: CGFloat = 40
     let standardEdgeSpacing: CGFloat = 20
     let imageViewHeight: CGFloat = 220
     let buttonStackInnerSpacing: CGFloat = 15
@@ -39,7 +39,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let backButtonLeftInset: CGFloat = 10
     let backButtonTopBottomInset: CGFloat = 7
     let backButtonRightInset: CGFloat = 0
-    let shareButtonInset: CGFloat = 7
+    let buttonImageWidth:CGFloat = 23
+    let buttonImageHeight:CGFloat = 26
+    let buttonImageTopSpacing:CGFloat = 7
+    let buttonImageLeftSpacing:CGFloat = 15
+    let buttonFontSize:CGFloat = 16
     let shadowOpacity: Float = 0.6
     let shadowRadius: CGFloat = 5
     let shadowOffset = CGSize(width: 1.5, height: 1.5)
@@ -58,11 +62,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var contentView = UIView()
     let eventImageContainerView = UIView()
     var eventImage = UIImageView()
-    var interestedButton = UIButton()
-    var goingButton = UIButton()
     let eventName = UILabel()
     let eventDescription = UILabel()
     let eventDescriptionShowMoreButton = UIButton()
+    let shareButton = UIButton()
+    let bookmarkedButton = UIButton()
     var eventTime = UILabel()
     var eventParticipantCount = UILabel()
     var eventOrganizer = UILabel()
@@ -74,7 +78,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var tagScrollView = UIScrollView()
     var tagStack = UIStackView()
     let backButton = UIButton()
-    let shareButton = UIButton()
 
     var statusBarHeight: CGFloat = 0
     var statusBarHidden: Bool = false
@@ -139,49 +142,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         var backButtonIcon = #imageLiteral(resourceName: "back")
         backButtonIcon = backButtonIcon.withRenderingMode(.alwaysTemplate)
         backButton.setImage(backButtonIcon, for: .normal)
-        backButton.imageEdgeInsets = UIEdgeInsets(top: backButtonTopBottomInset, left: backButtonLeftInset, bottom: backButtonTopBottomInset, right: backButtonRightInset)
-        backButton.tintColor = UIColor(named: "primaryBlue")
+        //backButton.imageEdgeInsets = UIEdgeInsets(top: backButtonTopBottomInset, left: backButtonLeftInset, bottom: backButtonTopBottomInset, right: backButtonRightInset)
+        backButton.contentEdgeInsets = UIEdgeInsets(top: backButtonTopBottomInset, left: backButtonLeftInset, bottom: backButtonTopBottomInset, right: backButtonRightInset)
+        backButton.tintColor = UIColor(named: "primaryPink")
         backButton.layer.cornerRadius = floatingButtonSideLength / 2
         backButton.layer.shadowColor = UIColor.gray.cgColor
         backButton.layer.shadowOpacity = shadowOpacity
         backButton.layer.shadowRadius = shadowRadius
         backButton.layer.shadowOffset = shadowOffset
         backButton.addTarget(self, action: #selector(self.backButtonPressed(_:)), for: .touchUpInside)
-
-        shareButton.backgroundColor = UIColor.white
-        var shareButtonIcon = #imageLiteral(resourceName: "share")
-        shareButtonIcon = shareButtonIcon.withRenderingMode(.alwaysTemplate)
-        shareButton.setImage(shareButtonIcon, for: .normal)
-        shareButton.tintColor = UIColor(named: "primaryBlue")
-        shareButton.imageEdgeInsets = UIEdgeInsets(top: shareButtonInset, left: shareButtonInset, bottom: shareButtonInset, right: shareButtonInset)
-        shareButton.layer.cornerRadius = floatingButtonSideLength / 2
-        shareButton.layer.shadowColor = UIColor.gray.cgColor
-        shareButton.layer.shadowOpacity = shadowOpacity
-        shareButton.layer.shadowRadius = shadowRadius
-        shareButton.layer.shadowOffset = shadowOffset
-
-        //interested and going buttons
-        interestedButton.layer.shadowColor = UIColor.gray.cgColor
-        interestedButton.layer.shadowOpacity = shadowOpacity
-        interestedButton.layer.shadowRadius = shadowRadius
-        interestedButton.layer.shadowOffset = shadowOffset
-        interestedButton.backgroundColor = UIColor.white
-        interestedButton.setTitleColor(UIColor(named: "primaryBlue"), for: .normal)
-        goingButton.backgroundColor = UIColor(named: "primaryBlue")
-        goingButton.setTitleColor(UIColor.white, for: .normal)
-        interestedButton.layer.cornerRadius = buttonHeight / 2
-        goingButton.layer.cornerRadius = buttonHeight / 2
-        interestedButton.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(buttonHeight)
-        }
-        goingButton.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(buttonHeight)
-        }
-        let buttonStack = UIStackView(arrangedSubviews: [interestedButton, goingButton])
-        buttonStack.alignment = .center
-        buttonStack.axis = .horizontal
-        buttonStack.distribution = .fillEqually
-        buttonStack.spacing = buttonStackInnerSpacing
 
         //Name and description
         eventName.numberOfLines = defaultTitleLines
@@ -196,6 +165,60 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.textColor = UIColor.gray
         eventDescription.textAlignment = .justified
         eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
+        
+        //buttons
+        bookmarkedButton.backgroundColor = UIColor.white
+        bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
+        bookmarkedButton.tintColor = UIColor(named: "primaryPink")
+        bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
+        bookmarkedButton.layer.cornerRadius = buttonHeight / 2
+        bookmarkedButton.layer.shadowColor = UIColor.gray.cgColor
+        bookmarkedButton.layer.shadowOpacity = shadowOpacity
+        bookmarkedButton.layer.shadowRadius = shadowRadius
+        bookmarkedButton.layer.shadowOffset = shadowOffset
+        bookmarkedButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
+        
+        bookmarkedButton.snp.makeConstraints{ make in
+            make.height.equalTo(buttonHeight)
+        }
+        
+        bookmarkedButton.imageView?.snp.makeConstraints{ make in
+            make.top.equalTo(bookmarkedButton).offset(buttonImageTopSpacing)
+            make.left.equalTo(bookmarkedButton).offset(buttonImageLeftSpacing)
+            make.width.equalTo(buttonImageWidth)
+            make.height.equalTo(buttonImageHeight)
+        }
+        
+        shareButton.backgroundColor = UIColor.white
+        shareButton.setImage(UIImage(named: "share")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        shareButton.setTitle(NSLocalizedString("details-share-button", comment: ""), for: .normal)
+        shareButton.tintColor = UIColor(named: "primaryPink")
+        shareButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
+        shareButton.layer.cornerRadius = buttonHeight / 2
+        shareButton.layer.shadowColor = UIColor.gray.cgColor
+        shareButton.layer.shadowOpacity = shadowOpacity
+        shareButton.layer.shadowRadius = shadowRadius
+        shareButton.layer.shadowOffset = shadowOffset
+        shareButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
+        
+        shareButton.snp.makeConstraints{ make in
+            make.height.equalTo(buttonHeight)
+        }
+        
+        shareButton.imageView?.snp.makeConstraints{ make in
+            make.top.equalTo(shareButton).offset(buttonImageTopSpacing)
+            make.left.equalTo(shareButton).offset(buttonImageLeftSpacing)
+            make.width.equalTo(buttonImageWidth)
+            make.height.equalTo(buttonImageHeight)
+        }
+        
+        
+        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
+        buttonStack.alignment = .center
+        buttonStack.axis = .horizontal
+        buttonStack.distribution = .fill
+        buttonStack.spacing = buttonStackInnerSpacing
 
         //table of info
         let calendarIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
@@ -268,28 +291,20 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 
         contentView.addSubview(eventImageContainerView)
         eventImageContainerView.addSubview(eventImage)
-        contentView.addSubview(buttonStack)
         contentView.addSubview(eventName)
         contentView.addSubview(eventDescription)
         contentView.addSubview(eventDescriptionShowMoreButton)
+        contentView.addSubview(buttonStack)
         contentView.addSubview(infoTableStack)
         contentView.addSubview(eventMapViewWrapper)
         contentView.addSubview(tagScrollView)
         view.addSubview(backButton)
-        view.addSubview(shareButton)
 
         //Constraints for UI elements
         backButton.snp.makeConstraints { make in
             make.width.equalTo(floatingButtonSideLength)
             make.height.equalTo(floatingButtonSideLength)
             make.left.equalTo(view).offset(floatingButtonSideSpacing)
-            make.top.equalTo(view).offset(floatingButtonTopSpacing + statusBarHeight)
-        }
-
-        shareButton.snp.makeConstraints { make in
-            make.width.equalTo(floatingButtonSideLength)
-            make.height.equalTo(floatingButtonSideLength)
-            make.right.equalTo(view).offset(-floatingButtonSideSpacing)
             make.top.equalTo(view).offset(floatingButtonTopSpacing + statusBarHeight)
         }
 
@@ -307,14 +322,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.bottom.equalTo(eventImageContainerView)
         }
 
-        buttonStack.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(eventImageContainerView.snp.bottom).offset(standardEdgeSpacing)
-            make.left.equalTo(contentView).offset(standardEdgeSpacing)
-            make.right.equalTo(contentView).offset(-standardEdgeSpacing)
-        }
-
         eventName.snp.makeConstraints { make in
-            make.top.equalTo(buttonStack.snp.bottom).offset(standardEdgeSpacing)
+            make.top.equalTo(eventImage.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)
         }
@@ -328,9 +337,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.top.equalTo(eventDescription.snp.bottom)
             make.right.equalTo(eventDescription.snp.right)
         }
+        
+        buttonStack.snp.makeConstraints{ make in
+            make.top.equalTo(eventDescriptionShowMoreButton.snp.bottom).offset(standardEdgeSpacing)
+            make.left.equalTo(contentView).offset(standardEdgeSpacing)
+            make.right.equalTo(contentView).offset(-standardEdgeSpacing)
+        }
 
         infoTableStack.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(eventDescriptionShowMoreButton.snp.bottom).offset(standardEdgeSpacing)
+            make.top.equalTo(buttonStack.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(infoStackEdgeSpacing)
             make.right.equalTo(contentView).offset(-infoStackEdgeSpacing)
         }
@@ -382,8 +397,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         self.event = event
 
         eventImage.kf.setImage(with: event.eventImage)
-        interestedButton.setTitle(NSLocalizedString("interested-button", comment: ""), for: .normal)
-        goingButton.setTitle(NSLocalizedString("going-button", comment: ""), for: .normal)
 
         eventName.text = event.eventName
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)

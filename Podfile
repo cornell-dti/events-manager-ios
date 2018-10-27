@@ -12,6 +12,8 @@ target 'EventsManager' do
 	pod 'GoogleMaps'
   	pod 'GooglePlaces'
   	pod 'GoogleSignIn'
+	pod 'Alamofire', '~> 4.7'
+	pod 'SwiftyJSON', '~> 4.0'
 
   target 'EventsManagerTests' do
     inherit! :search_paths
