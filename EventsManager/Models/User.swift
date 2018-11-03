@@ -11,7 +11,8 @@ import Foundation
 struct User: Codable {
     var netID: String
     var userID: String
-    var idToken: String
+    var googleIdToken: String
+    var serverAuthToken: String?
     var name: String
     var avatar: URL
     var bookmarkedEvents: [Int]
@@ -21,7 +22,8 @@ struct User: Codable {
     private enum CodingKeys: String, CodingKey {
         case netID = "net_id"
         case userID = "user_id"
-        case idToken = "id_token"
+        case googleIdToken = "google_id_token"
+        case serverAuthToken = "server_auth_token"
         case name = "name"
         case avatar = "avatar"
         case bookmarkedEvents = "bookmarked_events"
@@ -33,7 +35,8 @@ struct User: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(netID, forKey: .netID)
         try container.encode(userID, forKey: .userID)
-        try container.encode(idToken, forKey: .idToken)
+        try container.encode(googleIdToken, forKey: .googleIdToken)
+        try container.encode(serverAuthToken, forKey: .serverAuthToken)
         try container.encode(name, forKey: .name)
         try container.encode(avatar, forKey: .avatar)
         try container.encode(bookmarkedEvents, forKey: .bookmarkedEvents)

@@ -39,11 +39,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let backButtonLeftInset: CGFloat = 10
     let backButtonTopBottomInset: CGFloat = 7
     let backButtonRightInset: CGFloat = 0
-    let buttonImageWidth:CGFloat = 23
-    let buttonImageHeight:CGFloat = 26
-    let buttonImageTopSpacing:CGFloat = 7
-    let buttonImageLeftSpacing:CGFloat = 15
-    let buttonFontSize:CGFloat = 16
+    let buttonImageWidth: CGFloat = 23
+    let buttonImageHeight: CGFloat = 26
+    let buttonImageTopSpacing: CGFloat = 7
+    let buttonImageLeftSpacing: CGFloat = 15
+    let buttonFontSize: CGFloat = 16
     let shadowOpacity: Float = 0.6
     let shadowRadius: CGFloat = 5
     let shadowOffset = CGSize(width: 1.5, height: 1.5)
@@ -165,7 +165,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.textColor = UIColor.gray
         eventDescription.textAlignment = .justified
         eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
-        
+
         //buttons
         bookmarkedButton.backgroundColor = UIColor.white
         bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -178,18 +178,18 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         bookmarkedButton.layer.shadowRadius = shadowRadius
         bookmarkedButton.layer.shadowOffset = shadowOffset
         bookmarkedButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
-        
-        bookmarkedButton.snp.makeConstraints{ make in
+
+        bookmarkedButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
         }
-        
-        bookmarkedButton.imageView?.snp.makeConstraints{ make in
+
+        bookmarkedButton.imageView?.snp.makeConstraints { make in
             make.top.equalTo(bookmarkedButton).offset(buttonImageTopSpacing)
             make.left.equalTo(bookmarkedButton).offset(buttonImageLeftSpacing)
             make.width.equalTo(buttonImageWidth)
             make.height.equalTo(buttonImageHeight)
         }
-        
+
         shareButton.backgroundColor = UIColor.white
         shareButton.setImage(UIImage(named: "share")?.withRenderingMode(.alwaysTemplate), for: .normal)
         shareButton.setTitle(NSLocalizedString("details-share-button", comment: ""), for: .normal)
@@ -201,19 +201,18 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         shareButton.layer.shadowRadius = shadowRadius
         shareButton.layer.shadowOffset = shadowOffset
         shareButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
-        
-        shareButton.snp.makeConstraints{ make in
+
+        shareButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
         }
-        
-        shareButton.imageView?.snp.makeConstraints{ make in
+
+        shareButton.imageView?.snp.makeConstraints { make in
             make.top.equalTo(shareButton).offset(buttonImageTopSpacing)
             make.left.equalTo(shareButton).offset(buttonImageLeftSpacing)
             make.width.equalTo(buttonImageWidth)
             make.height.equalTo(buttonImageHeight)
         }
-        
-        
+
         let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
         buttonStack.alignment = .center
         buttonStack.axis = .horizontal
@@ -337,8 +336,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.top.equalTo(eventDescription.snp.bottom)
             make.right.equalTo(eventDescription.snp.right)
         }
-        
-        buttonStack.snp.makeConstraints{ make in
+
+        buttonStack.snp.makeConstraints { make in
             make.top.equalTo(eventDescriptionShowMoreButton.snp.bottom).offset(standardEdgeSpacing)
             make.left.equalTo(contentView).offset(standardEdgeSpacing)
             make.right.equalTo(contentView).offset(-standardEdgeSpacing)

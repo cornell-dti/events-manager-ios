@@ -55,7 +55,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         setLayouts()
     }
-    
+
     /**
      Sets the basic layout of the view
      */
@@ -69,8 +69,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         //setup datasource
         filteredTags = tags
         filteredOrganizations = organizations
-        
-        
+
         //navigation stuffs
         if #available(iOS 11, *) {
             navigationItem.hidesSearchBarWhenScrolling = false
@@ -304,7 +303,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                 checkedTags.remove(at: checkedTags.index(of: selectedTagID)!)
                 setNavigatorFowardButtonStatus()
             }
-        
+
     }
 
     //search bar stuffs
@@ -333,25 +332,23 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
             filteredOrganizations = organizations
             filteredTags = tags
             tableView.reloadData()
-        }
-        else {
+        } else {
             var filteredResults: [Any] = []
             switch currentOnBoardingProcess {
-            case .chooseOrganization:
-                filteredOrganizations = organizations.filter({ (organization: Organization) -> Bool in
-                    return organization.name.lowercased().contains(searchText.lowercased())
-                })
-                filteredResults = filteredOrganizations
-            case .chooseTags:
-                filteredTags = tags.filter ({ (tag: Tag) -> Bool in
-                    return tag.name.lowercased().contains(searchText.lowercased())
-                })
-                filteredResults = filteredTags
+                case .chooseOrganization:
+                    filteredOrganizations = organizations.filter({ (organization: Organization) -> Bool in
+                        return organization.name.lowercased().contains(searchText.lowercased())
+                    })
+                    filteredResults = filteredOrganizations
+                case .chooseTags:
+                    filteredTags = tags.filter ({ (tag: Tag) -> Bool in
+                        return tag.name.lowercased().contains(searchText.lowercased())
+                    })
+                    filteredResults = filteredTags
             }
             if !filteredResults.isEmpty {
                 disableEmptyState()
-            }
-            else {
+            } else {
                 enableEmptyState()
                 emptyState.setInfoLabel(with: NSLocalizedString("search-empty-state-no-result", comment: ""))
             }

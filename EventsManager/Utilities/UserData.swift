@@ -8,6 +8,7 @@
 
 import Foundation
 import GoogleSignIn
+import Alamofire
 
 class UserData {
     static let USER_INFO_KEY = "user info"
@@ -52,10 +53,12 @@ class UserData {
             let email = googleUser.profile.email,
             let avatar = googleUser.profile.imageURL(withDimension: USER_IMAGE_DIMENTION),
             let netID = email.split(separator: "@").first {
+
             return User(
                 netID: String(netID),
                 userID: userId,
-                idToken: idToken,
+                googleIdToken: idToken,
+                serverAuthToken: nil,
                 name: fullName,
                 avatar: avatar,
                 bookmarkedEvents: [],

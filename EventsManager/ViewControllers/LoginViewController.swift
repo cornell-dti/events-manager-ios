@@ -116,16 +116,32 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         signatureLabel.text = NSLocalizedString("app-signature", comment: "")
     }
 
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-              withError error: Error!) {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
+            Alert.informative(with: NSLocalizedString("google-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: self)
             print("\(error.localizedDescription)")
         } else {
-            if let user = UserData.newUser(from: user) {
-                if UserData.login(for: user) {
-                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+            let loadingViewController = LoadingViewController()
+            loadingViewController.configure(with: "Logging You In...")
+            present(loadingViewController, animated: true, completion: {
+                if var user = UserData.newUser(from: user) {
+                    Internet.getServerAuthToken(for: user.googleIdToken, { (serverAuthToken) in
+                        if serverAuthToken == nil {
+                            loadingViewController.dismiss(animated: true, completion: {
+                                UserData.logOut()
+                                Alert.informative(with: NSLocalizedString("backend-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: (UIApplication.shared.delegate as! AppDelegate).window!.rootViewController!)
+                            })
+                        } else {
+                            user.serverAuthToken = serverAuthToken!
+                            loadingViewController.dismiss(animated: true, completion: {
+                                if UserData.login(for: user) {
+                                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                                }
+                            })
+                        }
+                    })
                 }
-            }
+            })
         }
     }
 
@@ -134,5 +150,4 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         // Perform any operations when the user disconnects from app here.
 
     }
-
 }
