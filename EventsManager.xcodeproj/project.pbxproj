@@ -59,6 +59,8 @@
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
+		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
+		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +145,8 @@
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
+		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		FF76428D218E228F00ED7A11 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +274,7 @@
 		AAFE2FD32122224400779FA1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				FF76428D218E228F00ED7A11 /* LoadingViewController.swift */,
 				DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */,
 				DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */,
 				DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */,
@@ -322,6 +327,7 @@
 		DA75C224205ABF3C00C1822C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FF76428B218E227900ED7A11 /* Alert.swift */,
 				AA873B4B207D616900BD413B /* DateFormatHelper.swift */,
 				AAE10F4820AF42530070F515 /* Internet.swift */,
 				AAE10F4A20AF42D50070F515 /* UserData.swift */,
@@ -611,6 +617,7 @@
 				AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */,
 				AAF8FC6B209AA69900BF8277 /* EventTableHeaderFooterView.swift in Sources */,
 				AA04DEFC2134E8C500FA0507 /* MyProfileHeaderFooterView.swift in Sources */,
+				FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */,
 				AAD3E05021444461000B5000 /* EventsSearchViewController.swift in Sources */,
 				AABA675420C7244600363899 /* MyEventsDatePickerView.swift in Sources */,
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
@@ -624,6 +631,7 @@
 				AAE10F4920AF42530070F515 /* Internet.swift in Sources */,
 				AABA675220C6E5E400363899 /* Tag.swift in Sources */,
 				DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */,
+				FF76428C218E227900ED7A11 /* Alert.swift in Sources */,
 				AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */,
 				AADAFB2920DA019D000F72E3 /* OrganizationViewController.swift in Sources */,
 				AAF8FC6F209AAF3500BF8277 /* EventListViewController.swift in Sources */,

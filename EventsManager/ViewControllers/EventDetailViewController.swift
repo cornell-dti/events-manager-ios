@@ -56,6 +56,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var event: Event?
     let placesClient = GMSPlacesClient.shared()
     var mapLocation: CLLocationCoordinate2D?
+    var user: User?
 
     //view elements
     var scrollView = UIScrollView()
@@ -167,6 +168,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
 
         //buttons
+        
+        
         bookmarkedButton.backgroundColor = UIColor.white
         bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
@@ -178,6 +181,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         bookmarkedButton.layer.shadowRadius = shadowRadius
         bookmarkedButton.layer.shadowOffset = shadowOffset
         bookmarkedButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
+        bookmarkedButton.addTarget(self, action: #selector(self.bookmarkedButtonPressed(_:)), for: .touchUpInside)
 
         bookmarkedButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
@@ -189,7 +193,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.width.equalTo(buttonImageWidth)
             make.height.equalTo(buttonImageHeight)
         }
-
+        
         shareButton.backgroundColor = UIColor.white
         shareButton.setImage(UIImage(named: "share")?.withRenderingMode(.alwaysTemplate), for: .normal)
         shareButton.setTitle(NSLocalizedString("details-share-button", comment: ""), for: .normal)
@@ -472,6 +476,23 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     */
     @objc func backButtonPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+    /**
+     Handler for the pressing action of the bookmark button. Should change the color of the button and add it to the user's bookmarked list.
+     */
+    @objc func bookmarkedButtonPressed(_ sender: UIButton) {
+        if bookmarkedButton.backgroundColor == UIColor.white {
+            bookmarkedButton.backgroundColor = UIColor(named: "primaryPink")
+            bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
+            bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
+            bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+//            user?.bookmarkedEvents.append(event)
+        }
+        else {
+            bookmarkedButton.backgroundColor = UIColor.white
+            bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
+            bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
+        }
     }
 
     /**
