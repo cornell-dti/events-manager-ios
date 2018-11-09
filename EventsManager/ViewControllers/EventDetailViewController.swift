@@ -486,12 +486,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
             bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
             bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-//            user?.bookmarkedEvents.append(event)
+            user?.bookmarkedEvents.append((event?.id)!)
         }
         else {
             bookmarkedButton.backgroundColor = UIColor.white
             bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
             bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
+            if let index = user?.bookmarkedEvents.index(of: (event?.id)!) {
+                user?.bookmarkedEvents.remove(at: index)
+            }
         }
     }
 
