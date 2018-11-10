@@ -205,6 +205,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         shareButton.layer.shadowRadius = shadowRadius
         shareButton.layer.shadowOffset = shadowOffset
         shareButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
+        shareButton.addTarget(self, action: #selector(self.shareButtonPressed(_:)), for: .touchUpInside)
 
         shareButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
@@ -498,6 +499,14 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 user?.bookmarkedEvents.remove(at: index)
             }
         }
+    }
+    
+    @objc func shareButtonPressed(_ sender: UIButton) {
+        let eventText = event?.eventDescription
+        let textToShare = [eventText]
+        let activityVC = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = sender
+        self.present(activityVC, animated: true, completion: nil)
     }
 
     /**

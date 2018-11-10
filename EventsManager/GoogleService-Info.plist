@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>985539362757-kf9e14rs98eftnr6ksgm8hf63ftr1elt.apps.googleusercontent.com</string>
+	<string>498336876169-c0tedkl028ga401h2qj4g4gelnr68pen.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.985539362757-kf9e14rs98eftnr6ksgm8hf63ftr1elt</string>
+	<string>com.googleusercontent.apps.498336876169-c0tedkl028ga401h2qj4g4gelnr68pen</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDhdqXNylLttEb0RjT8tu205UPB5RWoHXo</string>
+	<string>AIzaSyA8IuxX8MI39hgPfa8CJLa0GeqLtQXHdXo</string>
 	<key>GCM_SENDER_ID</key>
-	<string>985539362757</string>
+	<string>498336876169</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>cornell.dti.com.EventsManager</string>
 	<key>PROJECT_ID</key>
-	<string>cuecornell</string>
+	<string>propane-melody-209519</string>
 	<key>STORAGE_BUCKET</key>
-	<string>cuecornell.appspot.com</string>
+	<string>propane-melody-209519.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:985539362757:ios:8230c88e2b1f60c4</string>
+	<string>1:498336876169:ios:8230c88e2b1f60c4</string>
 	<key>DATABASE_URL</key>
-	<string>https://cuecornell.firebaseio.com</string>
+	<string>https://propane-melody-209519.firebaseio.com</string>
 </dict>
 </plist>
