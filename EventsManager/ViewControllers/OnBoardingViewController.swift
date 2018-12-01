@@ -35,6 +35,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     var filteredTags: [Tag] = []
     var checkedTags: [Int] = []
     var currentOnBoardingProcess = OnBoardingProcess.chooseOrganization
+    var user: User?
 
     //search
     var searchController = UISearchController(searchResultsController: nil)
@@ -283,10 +284,12 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
             case .chooseOrganization:
                 let selectedOrganizationID = filteredOrganizations[indexPath.row].id
                 checkedOrganizationIDs.append(selectedOrganizationID)
+                user?.followingOrganizations.append(selectedOrganizationID)
                 setNavigatorFowardButtonStatus()
             case .chooseTags:
                 let selectedTagID = filteredTags[indexPath.row].id
                 checkedTags.append(selectedTagID)
+                user?.followingTags.append(selectedTagID)
                 setNavigatorFowardButtonStatus()
             }
     }
@@ -297,10 +300,12 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
             case .chooseOrganization:
                 let selectedOrganizationID = filteredOrganizations[indexPath.row].id
                 checkedOrganizationIDs.remove(at: checkedOrganizationIDs.index(of: selectedOrganizationID)!)
+                user?.followingOrganizations.remove(at: (user?.followingOrganizations.index(of:selectedOrganizationID)!)!)
                 setNavigatorFowardButtonStatus()
             case .chooseTags:
                 let selectedTagID = filteredTags[indexPath.row].id
                 checkedTags.remove(at: checkedTags.index(of: selectedTagID)!)
+                user?.followingTags.remove(at: (user?.followingTags.index(of:selectedTagID)!)!)
                 setNavigatorFowardButtonStatus()
             }
 
