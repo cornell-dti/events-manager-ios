@@ -126,7 +126,9 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             present(loadingViewController, animated: true, completion: {
                 if var user = UserData.newUser(from: user) {
                     if UserData.login(for: user) {
-                        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                        loadingViewController.dismiss(animated: true, completion: {
+                            self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                        })
                     }
 //                    Internet.getServerAuthToken(for: user.googleIdToken, { (serverAuthToken) in
 //                        if serverAuthToken == nil {
