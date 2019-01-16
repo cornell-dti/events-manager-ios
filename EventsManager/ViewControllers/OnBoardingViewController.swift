@@ -236,9 +236,11 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
             case .chooseTags:
                 for orgId in checkedOrganizationIDs {
                     _ = UserData.follow(organization: AppData.getOrganization(by: orgId))
+                    _ = UserData.addClickForOrganization(pk: orgId)
                 }
                 for tagId in checkedOrganizationIDs {
                     _ = UserData.follow(tag: AppData.getTag(by: tagId))
+                    _ = UserData.addClickForTag(pk: tagId)
                 }
                 self.present(TabBarViewController(), animated: true, completion: {
                     (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = TabBarViewController()

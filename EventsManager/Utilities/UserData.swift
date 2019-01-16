@@ -63,7 +63,9 @@ class UserData {
                 avatar: avatar,
                 bookmarkedEvents: [],
                 followingOrganizations: [],
-                followingTags: []
+                followingTags: [],
+                organizationClicks: [:],
+                tagClicks: [:]
             )
         }
         return nil
@@ -117,5 +119,65 @@ class UserData {
             }
         }
         return false
+    }
+    
+    /**
+     Add a click count to the organization specified by parameter pk
+     */
+    static func addClickForOrganization(pk: Int) -> Bool{
+        if var user = UserData.getLoggedInUser() {
+            if user.organizationClicks[pk] != nil {
+                user.organizationClicks[pk] = user.organizationClicks[pk]! + 1
+            }
+            else {
+                user.organizationClicks[pk] = 1
+            }
+            return UserData.login(for: user)
+        }
+        return false
+    }
+    
+    /**
+     Add a click count to the organization specified by parameter pk
+     */
+    static func addClickForTag(pk: Int) -> Bool{
+        if var user = UserData.getLoggedInUser() {
+            if user.tagClicks[pk] != nil {
+                user.tagClicks[pk] = user.tagClicks[pk]! + 1
+            }
+            else {
+                user.tagClicks[pk] = 1
+            }
+            return UserData.login(for: user)
+        }
+        return false
+    }
+    
+    /**
+     Retrieve an array of tuples containing labels indicating recommended type (e.g. "Based on #Cornell DTI"), and
+     events that belongs to this type.
+     */
+    static func getRecommendedLabelAndEvents() -> [(String, [Event])] {
+        enum RecommendedType {
+            case tag
+            case organization
+        }
+        if let user = UserData.getLoggedInUser() {
+            var recommendedData:[(Int, Int, RecommendedType)] = []
+            for (orgPk, clicks) in user.organizationClicks {
+                recommendedData.append((orgPk, clicks, .organization))
+            }
+            for (tagPk, clicks) in user.tagClicks {
+                recommendedData.append((tagPk, clicks, .tag))
+            }
+            recommendedData = recommendedData.sorted(by: {$0.1 > $1.1})
+            var recommendedLabelEventsPairs: [(String, [Event])] = []
+            for (pk, _, type) in recommendedData {
+                let label = type == .organization ? "Based on \(AppData.getOrganization(by: pk))" : "Based on \(AppData.getTag(by: pk))"
+                recommendedLabelEventsPairs.append((label, type == .organization ? AppData.getEventsAssociatedWith(organization: pk) : AppData.getEventsAssociatedWith(tag: pk)))
+            }
+            return recommendedLabelEventsPairs
+        }
+        return []
     }
 }
