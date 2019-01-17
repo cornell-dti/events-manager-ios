@@ -18,8 +18,8 @@ struct Event {
     let eventParticipant: String
     let avatars: [URL] //id
     let eventImage: URL //id
-    let eventOrganizer: String
+    let eventOrganizer: Int
     let eventDescription: String
-    let eventTags: [String]
+    let eventTags: [Int]
     let eventParticipantCount: Int
 }

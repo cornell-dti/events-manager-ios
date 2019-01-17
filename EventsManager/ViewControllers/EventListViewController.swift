@@ -29,7 +29,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     //datasource
     var events = [Event]()
     var filteredEvents = [Event]()
-    var recommendedTags = [String]()
+    var recommendedTags = [Int]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +72,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
             datePickerTag.addGestureRecognizer(datePickerPressedGesture)
             for tag in recommendedTags {
                 let eventTagButton = EventTagButton()
-                eventTagButton.setTitle(tag, for: .normal)
+                eventTagButton.setTag(with: tag)
                 eventTagButton.addTarget(self, action: #selector(tagButtonPressed(_:)), for: .touchUpInside)
                 tagStackView.addArrangedSubview(eventTagButton)
             }
@@ -251,7 +251,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     @objc func tagButtonPressed(_ sender: UIButton) {
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
-            let tag = tagButton.getTagName()
+            let tag = tagButton.getTagPk()
             if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
                 tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
                 navigationController?.pushViewController(tagViewController, animated: true)

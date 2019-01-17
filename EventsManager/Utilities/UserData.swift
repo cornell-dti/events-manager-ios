@@ -154,6 +154,29 @@ class UserData {
     }
     
     /**
+     Add a click for all tags associated with this event and the organization associated with this event.
+     */
+    static func addClickForEvent(event: Event) -> Bool {
+        if var user = UserData.getLoggedInUser() {
+            if user.organizationClicks[event.eventOrganizer] != nil {
+                user.organizationClicks[event.eventOrganizer] = user.organizationClicks[event.eventOrganizer]! + 1
+            }
+            else {
+                user.organizationClicks[event.eventOrganizer] = 1
+            }
+            for tag in event.eventTags {
+                if user.tagClicks[tag] != nil {
+                    user.tagClicks[tag] = user.tagClicks[tag]! + 1
+                }
+                else {
+                    user.tagClicks[tag] = 1
+                }
+            }
+        }
+        return false
+    }
+    
+    /**
      Retrieve an array of tuples containing labels indicating recommended type (e.g. "Based on #Cornell DTI"), and
      events that belongs to this type.
      */
@@ -173,7 +196,7 @@ class UserData {
             recommendedData = recommendedData.sorted(by: {$0.1 > $1.1})
             var recommendedLabelEventsPairs: [(String, [Event])] = []
             for (pk, _, type) in recommendedData {
-                let label = type == .organization ? "Based on \(AppData.getOrganization(by: pk))" : "Based on \(AppData.getTag(by: pk))"
+                let label = type == .organization ? "Based on \(AppData.getOrganization(by: pk).name)" : "Based on \(AppData.getTag(by: pk).name)"
                 recommendedLabelEventsPairs.append((label, type == .organization ? AppData.getEventsAssociatedWith(organization: pk) : AppData.getEventsAssociatedWith(tag: pk)))
             }
             return recommendedLabelEventsPairs

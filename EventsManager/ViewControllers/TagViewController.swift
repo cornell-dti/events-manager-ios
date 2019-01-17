@@ -15,7 +15,7 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     //constants
 
     //datasource
-    var tagName: String = ""
+    var tag: Int = 0
     var events: [Event] = []
 
     override func viewDidLoad() {
@@ -33,13 +33,13 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
      * - events: an events array that tha tag view should filter events from
      * - tag: the tag that should be displayed in this tag view
      */
-    func setup(with events: [Event], for tag: String) {
+    func setup(with events: [Event], for tag: Int) {
         //NAVIGATION STUFFS
-        navigationItem.title = tag
+        navigationItem.title = AppData.getTag(by: tag).name
 
         //assign dataSource
         self.events = events
-        self.tagName = tag
+        self.tag = tag
         filterDataSource()
 
         //Tableview stuffs
@@ -61,7 +61,7 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     private func filterDataSource() {
         var filteredEvents: [Event] = []
         for event in events {
-            if event.eventTags.contains(tagName) {
+            if event.eventTags.contains(tag) {
                 filteredEvents.append(event)
             }
         }

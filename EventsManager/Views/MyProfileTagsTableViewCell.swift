@@ -61,7 +61,7 @@ class MyProfileTagsTableViewCell: UITableViewCell {
         }
         for tag in tags {
             let tagButton = EventTagButton()
-            tagButton.setTitle(AppData.getTag(by: tag).name, for: .normal)
+            tagButton.setTag(with: tag)
             tagStack.addArrangedSubview(tagButton)
         }
     }

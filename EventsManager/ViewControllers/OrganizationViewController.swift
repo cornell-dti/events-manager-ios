@@ -13,7 +13,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
 
     var organization: Organization?
     var popularEvents = [Event]()
-    var tags = [String]()
+    var tags = [Int]()
 
     //View Elements
 
@@ -100,13 +100,13 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         let date1 = "2018-06-20 16:39:57"
         let date2 = "2018-06-20 18:39:57"
         for _ in 1...20 {
-            popularEvents.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, URL(string: "http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: "Cornell DTI", eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: ["#lololo", "#heheh", "#oooof"], eventParticipantCount: 166))
+            popularEvents.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventParticipant: "David, Jagger, and 10 others", avatars: [URL(string: "http://cornelldti.org/img/team/davidc.jpg")!, URL(string: "http://cornelldti.org/img/team/arnavg.jpg")!], eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
         }
 
         getTags()
         for tag in tags {
             let tagButton = EventTagButton()
-            tagButton.setTitle(tag, for: .normal)
+            tagButton.setTag(with: tag)
             tagButton.addTarget(self, action: #selector(self.tagButtonPressed(_:)), for: .touchUpInside)
             tagStack.addArrangedSubview(tagButton)
         }
@@ -402,7 +402,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     @objc func tagButtonPressed(_ sender: UIButton) {
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
-            let tag = tagButton.getTagName()
+            let tag = tagButton.getTagPk()
             if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
                 tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
                 navigationController?.pushViewController(tagViewController, animated: true)

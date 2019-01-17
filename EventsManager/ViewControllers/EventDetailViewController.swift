@@ -399,14 +399,14 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     /* Allow client to configure the event detail page by passing in an event object */
     func configure(with event: Event) {
         self.event = event
-
+        let _ = UserData.addClickForEvent(event: event)
         eventImage.kf.setImage(with: event.eventImage)
 
         eventName.text = event.eventName
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
         eventDescription.text = event.eventDescription
         eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
-        eventOrganizer.text = event.eventOrganizer
+        eventOrganizer.text = AppData.getOrganization(by: event.eventOrganizer).name
         eventLocation.text = event.eventLocation
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
 
@@ -421,9 +421,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             self.eventMapView.selectedMarker = mapMarker
         })
 
-        for tag in event.eventTags {
+        for tagPk in event.eventTags {
             let tagButton = EventTagButton()
-            tagButton.setTitle(tag, for: .normal)
+            tagButton.setTag(with: tagPk)
             tagButton.addTarget(self, action: #selector(self.tagButtonPressed(_:)), for: .touchUpInside)
             tagStack.addArrangedSubview(tagButton)
         }
@@ -464,7 +464,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     @objc func tagButtonPressed(_ sender: UIButton) {
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
-            let tag = tagButton.getTagName()
+            let tag = tagButton.getTagPk()
             if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
                 tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
                 navigationController?.pushViewController(tagViewController, animated: true)
@@ -502,7 +502,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     }
     
     @objc func shareButtonPressed(_ sender: UIButton) {
-        let eventText = event?.eventDescription
+        let eventText = event?.eventDescription ?? ""
         let textToShare = [eventText]
         let activityVC = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = sender

@@ -25,6 +25,7 @@
 		AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */; };
+		AA7C451F21EEA74300B3241F /* ForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7C451E21EEA74300B3241F /* ForYouViewController.swift */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
 		AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */; };
 		AABA674E20C6E5D500363899 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674D20C6E5D500363899 /* Organization.swift */; };
@@ -58,7 +59,6 @@
 		DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */; };
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
-		FF0A68C321975F3A0066CFDE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF0A68C221975F3A0066CFDE /* GoogleService-Info.plist */; };
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
@@ -110,6 +110,7 @@
 		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.bold.ttf; sourceTree = "<group>"; };
+		AA7C451E21EEA74300B3241F /* ForYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForYouViewController.swift; sourceTree = "<group>"; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
 		AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerTagView.swift; path = EventsManager/Views/DatePickerTagView.swift; sourceTree = SOURCE_ROOT; };
 		AABA674D20C6E5D500363899 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Organization.swift; path = EventsManager/Models/Organization.swift; sourceTree = SOURCE_ROOT; };
@@ -145,7 +146,6 @@
 		DA75C222205ABF0400C1822C /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewController.swift; path = EventsManager/ViewControllers/MyProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		FF0A68C221975F3A0066CFDE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FF76428D218E228F00ED7A11 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -227,7 +227,6 @@
 		A40E37CD201E91CA00B3AFA4 /* EventsManager */ = {
 			isa = PBXGroup;
 			children = (
-				FF0A68C221975F3A0066CFDE /* GoogleService-Info.plist */,
 				A40E37CE201E91CA00B3AFA4 /* AppDelegate.swift */,
 				AAFE2FD7212222C500779FA1 /* Models */,
 				DA75C224205ABF3C00C1822C /* Utilities */,
@@ -289,6 +288,7 @@
 				AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */,
 				AAD334E92151E83100312F31 /* LoginViewController.swift */,
 				AAD7D1C92156C71D003C58E6 /* OnBoardingViewController.swift */,
+				AA7C451E21EEA74300B3241F /* ForYouViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -461,7 +461,6 @@
 				AAD334F4215232AA00312F31 /* dosis.book.ttf in Resources */,
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
 				A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */,
-				FF0A68C321975F3A0066CFDE /* GoogleService-Info.plist in Resources */,
 				AAD7D1D02156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png in Resources */,
 				A40E37D6201E91CA00B3AFA4 /* Assets.xcassets in Resources */,
 			);
@@ -583,7 +582,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "
+";
 		};
 		EC34332FF7928582725932F6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -618,6 +618,7 @@
 				AABA674E20C6E5D500363899 /* Organization.swift in Sources */,
 				AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */,
 				AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */,
+				AA7C451F21EEA74300B3241F /* ForYouViewController.swift in Sources */,
 				AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */,
 				AAF8FC6B209AA69900BF8277 /* EventTableHeaderFooterView.swift in Sources */,
 				AA04DEFC2134E8C500FA0507 /* MyProfileHeaderFooterView.swift in Sources */,
