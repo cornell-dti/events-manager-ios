@@ -8,18 +8,45 @@
 
 import Foundation
 
-struct Event {
+struct Event:Codable {
     let id: Int
     let startTime: Date
     let endTime: Date
     let eventName: String
     let eventLocation: String
     let eventLocationID: String
-    let eventParticipant: String
-    let avatars: [URL] //id
     let eventImage: URL //id
     let eventOrganizer: Int
     let eventDescription: String
     let eventTags: [Int]
     let eventParticipantCount: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case startTime = "start_time"
+        case endTime = "end_time"
+        case eventName = "event_name"
+        case eventLocation = "event_location"
+        case eventLocationID = "event_location_id"
+        case eventImage = "event_image"
+        case eventOrganizer = "event_organizer"
+        case eventDescription = "event_description"
+        case eventTags = "event_tags"
+        case eventParticipantCount = "event_participant_count"
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(startTime, forKey: .startTime)
+        try container.encode(endTime, forKey: .endTime)
+        try container.encode(eventName, forKey: .eventName)
+        try container.encode(eventLocation, forKey: .eventLocation)
+        try container.encode(eventLocationID, forKey: .eventLocationID)
+        try container.encode(eventImage, forKey: .eventImage)
+        try container.encode(eventOrganizer, forKey: .eventOrganizer)
+        try container.encode(eventDescription, forKey: .eventDescription)
+        try container.encode(eventTags, forKey: .eventTags)
+        try container.encode(eventParticipantCount, forKey: .eventParticipantCount)
+    }
 }

@@ -75,4 +75,5 @@ class EventDateHelper {
         }
         return eventsOnDate
     }
+    
 }
