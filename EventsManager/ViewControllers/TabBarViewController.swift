@@ -13,6 +13,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     var discoverNavVC = UINavigationController()
     var myEventsNavVC = UINavigationController()
     var myProfileNavVC = UINavigationController()
+    var forYouNavVC = UINavigationController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         myEventsNavVC = makeNavVC(viewController: MyEventsViewController(), title: NSLocalizedString("my-events", comment: ""), tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
         myProfileNavVC = makeNavVC(viewController: MyProfileViewController(), title: NSLocalizedString("my-profile", comment: ""), tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
 
-        let controllers = [discoverNavVC, myEventsNavVC, myProfileNavVC]
+        let controllers = [discoverNavVC, forYouNavVC, myEventsNavVC, myProfileNavVC]
         self.viewControllers = controllers
     }
 

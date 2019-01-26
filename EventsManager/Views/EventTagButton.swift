@@ -14,7 +14,7 @@ class EventTagButton: UIButton {
     let tagHeight = CGFloat(integerLiteral: 30)
     let tagFontSize: CGFloat = 14
 
-    private var tagName = ""
+    private var tagPk = -1
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
 
@@ -22,14 +22,14 @@ class EventTagButton: UIButton {
         super.init(frame: frame)
         layoutUI()
     }
-
-    override func setTitle(_ title: String?, for state: UIControlState) {
-        super.setTitle("    \(title ?? "")    ", for: state)
-        tagName = title ?? ""
+    
+    func setTag(with pk: Int) {
+        tagPk = pk
+        setTitle("    \(AppData.getTag(by: pk).name)    ", for: state)
     }
 
-    func getTagName() -> String {
-        return tagName
+    func getTagPk() -> Int {
+        return tagPk
     }
 
     /**

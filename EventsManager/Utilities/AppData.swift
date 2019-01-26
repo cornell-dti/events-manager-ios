@@ -11,6 +11,8 @@ import Foundation
  AppData contains helper functions that deals with app data like organization, tags, and events.
  */
 class AppData {
+    static let EVENT_DATA_KEY = "event data"
+    static let EVENT_IMAGE_DIMENTION: UInt = 1500
 
     /**
      Returns the organization struct with id pk.
@@ -26,5 +28,56 @@ class AppData {
      */
     static func getTag(by pk: Int) -> Tag {
         return Tag(id: pk, name: "#lolololol")
+    }
+    
+    /**
+     Retrieves all events that are saved locally.
+     */
+    static func getEvents() -> [Event]{
+        //for testing
+        var events:[Event] = []
+        let date1 = "2019-01-20 16:39:57"
+        let date2 = "2019-01-20 18:39:57"
+        for _ in 1...20 {
+            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
+        }
+        return events
+    }
+    
+    /**
+     Retrieves all events associated with tag tag.
+     */
+    static func getEventsAssociatedWith(tag: Int) -> [Event] {
+        let events = getEvents()
+        var filteredEvents:[Event] = []
+        for event in events {
+            if event.eventTags.contains(tag) {
+                filteredEvents.append(event)
+            }
+        }
+        return filteredEvents
+    }
+    
+    
+    /**
+     Retrieves all events associated with organization organization.
+     */
+    static func getEventsAssociatedWith(organization: Int) -> [Event] {
+        let events = getEvents()
+        var filteredEvents:[Event] = []
+        for event in events {
+            if event.eventOrganizer == event.eventOrganizer {
+                filteredEvents.append(event)
+            }
+        }
+        return filteredEvents
+    }
+    
+    
+    /**
+     Updates all saved events to newest.
+    */
+    static func updateEvents(){
+        
     }
 }
