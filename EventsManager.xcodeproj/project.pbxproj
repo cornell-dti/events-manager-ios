@@ -146,6 +146,7 @@
 		DA75C222205ABF0400C1822C /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewController.swift; path = EventsManager/ViewControllers/MyProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FF292A2F219E680A00A4E7F4 /* EventsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EventsManager.entitlements; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FF76428D218E228F00ED7A11 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +228,7 @@
 		A40E37CD201E91CA00B3AFA4 /* EventsManager */ = {
 			isa = PBXGroup;
 			children = (
+				FF292A2F219E680A00A4E7F4 /* EventsManager.entitlements */,
 				A40E37CE201E91CA00B3AFA4 /* AppDelegate.swift */,
 				AAFE2FD7212222C500779FA1 /* Models */,
 				DA75C224205ABF3C00C1822C /* Utilities */,
