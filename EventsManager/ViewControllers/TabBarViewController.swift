@@ -31,8 +31,10 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     private func setUpViewControllers() {
         discoverNavVC = makeNavVC(viewController: EventsDiscoveryController(), title: NSLocalizedString("discover", comment: ""), tabBarIcon: #imageLiteral(resourceName: "discover"))
-        myEventsNavVC = makeNavVC(viewController: MyEventsViewController(), title: NSLocalizedString("my-events", comment: ""), tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
-        myProfileNavVC = makeNavVC(viewController: MyProfileViewController(), title: NSLocalizedString("my-profile", comment: ""), tabBarIcon: #imageLiteral(resourceName: "magnifyingGlass"))
+        forYouNavVC = makeNavVC(viewController: ForYouViewController(), title: NSLocalizedString("for-you",
+            comment: ""), tabBarIcon: #imageLiteral(resourceName: "foryou"))
+        myEventsNavVC = makeNavVC(viewController: MyEventsViewController(), title: NSLocalizedString("my-events", comment: ""), tabBarIcon: #imageLiteral(resourceName: "myevents"))
+        myProfileNavVC = makeNavVC(viewController: MyProfileViewController(), title: NSLocalizedString("my-profile", comment: ""), tabBarIcon: #imageLiteral(resourceName: "profile"))
 
         let controllers = [discoverNavVC, forYouNavVC, myEventsNavVC, myProfileNavVC]
         self.viewControllers = controllers
