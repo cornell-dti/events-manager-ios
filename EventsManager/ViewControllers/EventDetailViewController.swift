@@ -171,7 +171,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         
         
         bookmarkedButton.backgroundColor = UIColor.white
-        bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        bookmarkedButton.setImage(UIImage(named: "bkmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
         bookmarkedButton.tintColor = UIColor(named: "primaryPink")
         bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
@@ -195,7 +195,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         }
         
         shareButton.backgroundColor = UIColor.white
-        shareButton.setImage(UIImage(named: "share")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        shareButton.setImage(UIImage(named: "share1")?.withRenderingMode(.alwaysTemplate), for: .normal)
         shareButton.setTitle(NSLocalizedString("details-share-button", comment: ""), for: .normal)
         shareButton.tintColor = UIColor(named: "primaryPink")
         shareButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
@@ -226,7 +226,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 
         //table of info
         let calendarIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        calendarIcon.image = #imageLiteral(resourceName: "calender")
+        calendarIcon.image = #imageLiteral(resourceName: "date")
         calendarIcon.snp.makeConstraints {make in
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
@@ -250,7 +250,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         participantStack.spacing = infoStackIconLabelSpacing
 
         let organizerIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        organizerIcon.image = #imageLiteral(resourceName: "building")
+        organizerIcon.image = #imageLiteral(resourceName: "organization")
         organizerIcon.snp.makeConstraints {make in
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
@@ -266,7 +266,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventOrganizer.isUserInteractionEnabled = true
 
         let locationIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: iconSideLength, height: iconSideLength))
-        locationIcon.image = #imageLiteral(resourceName: "location")
+        locationIcon.image = #imageLiteral(resourceName: "lcation")
         locationIcon.snp.makeConstraints {make in
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
@@ -487,13 +487,14 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
             bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
             bookmarkedButton.tintColor = UIColor.white
-            bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            bookmarkedButton.setImage(UIImage(named: "bkmarkfilled")?.withRenderingMode(.alwaysTemplate), for: .normal)
             user?.bookmarkedEvents.append((event?.id)!)
         }
         else {
             bookmarkedButton.backgroundColor = UIColor.white
             bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
             bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
+            bookmarkedButton.setImage(UIImage(named: "bkmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
             bookmarkedButton.tintColor = UIColor(named: "primaryPink")
             if let index = user?.bookmarkedEvents.index(of: (event?.id)!) {
                 user?.bookmarkedEvents.remove(at: index)

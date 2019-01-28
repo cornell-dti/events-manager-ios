@@ -22,7 +22,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     //View Elements
     let tableView = UITableView(frame: CGRect(), style: .grouped)
     lazy var searchBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "magnifyingGlass"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
         button.tintColor = UIColor(named: "primaryPink")
         return button
     }()
