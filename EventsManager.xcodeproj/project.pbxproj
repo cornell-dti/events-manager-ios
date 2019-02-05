@@ -59,17 +59,13 @@
 		DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */; };
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
-		FF64608622061EE800B55135 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF64608422061D5F00B55135 /* SF-Pro-Text-Regular.otf */; };
-		FF64608722061EE900B55135 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF64608422061D5F00B55135 /* SF-Pro-Text-Regular.otf */; };
-		FF64608822061EEC00B55135 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF64608222061D5500B55135 /* SF-Pro-Text-Bold.otf */; };
-		FF64608922061EEC00B55135 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF64608222061D5500B55135 /* SF-Pro-Text-Bold.otf */; };
-		FF64608C22061FB400B55135 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF64608422061D5F00B55135 /* SF-Pro-Text-Regular.otf */; };
-		FF64608D22061FB400B55135 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF64608222061D5500B55135 /* SF-Pro-Text-Bold.otf */; };
-		FF6460902206232600B55135 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF64608F2206232500B55135 /* SF-Pro-Text-Light.otf */; };
-		FF6460922206259E00B55135 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF6460912206259E00B55135 /* SF-Pro-Text-Semibold.otf */; };
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
+		FFFD474F220949FD009BAE2D /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */; };
+		FFFD4750220949FD009BAE2D /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */; };
+		FFFD4751220949FD009BAE2D /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */; };
+		FFFD4752220949FD009BAE2D /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474E220949FD009BAE2D /* SF-Pro-Text-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,13 +151,13 @@
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FF292A2F219E680A00A4E7F4 /* EventsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EventsManager.entitlements; sourceTree = "<group>"; };
-		FF64608222061D5500B55135 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Bold.otf"; path = "../../../../../../Volumes/SF-Font/SF Pro/SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
-		FF64608422061D5F00B55135 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Regular.otf"; path = "../../../../../../Volumes/SF-Font/SF Pro/SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
-		FF64608F2206232500B55135 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Light.otf"; path = "../../../../../../Volumes/SF-Font/SF Pro/SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
-		FF6460912206259E00B55135 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Semibold.otf"; path = "../../../../../../Volumes/SF-Font/SF Pro/SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FF76428D218E228F00ED7A11 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
+		FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		FFFD474E220949FD009BAE2D /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,10 +272,10 @@
 		AAD334EE2152325500312F31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FF6460912206259E00B55135 /* SF-Pro-Text-Semibold.otf */,
-				FF64608F2206232500B55135 /* SF-Pro-Text-Light.otf */,
-				FF64608422061D5F00B55135 /* SF-Pro-Text-Regular.otf */,
-				FF64608222061D5500B55135 /* SF-Pro-Text-Bold.otf */,
+				FFFD474E220949FD009BAE2D /* SF-Pro-Text-Bold.otf */,
+				FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */,
+				FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */,
+				FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */,
 				AAD7D1CD2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png */,
 				AAD7D1CC2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png */,
 				AAD7D1CB2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png */,
@@ -476,19 +472,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF64608C22061FB400B55135 /* SF-Pro-Text-Regular.otf in Resources */,
-				FF64608D22061FB400B55135 /* SF-Pro-Text-Bold.otf in Resources */,
 				AAD7D1CF2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png in Resources */,
 				AAD334F2215232AA00312F31 /* dosis.semibold.ttf in Resources */,
 				AAD334F3215232AA00312F31 /* dosis.medium.ttf in Resources */,
 				AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */,
+				FFFD474F220949FD009BAE2D /* SF-Pro-Text-Regular.otf in Resources */,
 				AAD7D1CE2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png in Resources */,
+				FFFD4752220949FD009BAE2D /* SF-Pro-Text-Bold.otf in Resources */,
+				FFFD4751220949FD009BAE2D /* SF-Pro-Text-Semibold.otf in Resources */,
 				AAD334F4215232AA00312F31 /* dosis.book.ttf in Resources */,
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
+				FFFD4750220949FD009BAE2D /* SF-Pro-Text-Light.otf in Resources */,
 				A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */,
 				AAD7D1D02156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png in Resources */,
-				FF6460922206259E00B55135 /* SF-Pro-Text-Semibold.otf in Resources */,
-				FF6460902206232600B55135 /* SF-Pro-Text-Light.otf in Resources */,
 				A40E37D6201E91CA00B3AFA4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,8 +493,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF64608822061EEC00B55135 /* SF-Pro-Text-Bold.otf in Resources */,
-				FF64608722061EE900B55135 /* SF-Pro-Text-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,8 +500,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF64608922061EEC00B55135 /* SF-Pro-Text-Bold.otf in Resources */,
-				FF64608622061EE800B55135 /* SF-Pro-Text-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

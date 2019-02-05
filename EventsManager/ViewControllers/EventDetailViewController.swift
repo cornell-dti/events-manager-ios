@@ -171,7 +171,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         
         
         bookmarkedButton.backgroundColor = UIColor.white
-        bookmarkedButton.setImage(UIImage(named: "bkmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
         bookmarkedButton.tintColor = UIColor(named: "primaryPink")
         bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
@@ -487,14 +487,14 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
             bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
             bookmarkedButton.tintColor = UIColor.white
-            bookmarkedButton.setImage(UIImage(named: "bkmarkfilled")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
             user?.bookmarkedEvents.append((event?.id)!)
         }
         else {
             bookmarkedButton.backgroundColor = UIColor.white
             bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
             bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
-            bookmarkedButton.setImage(UIImage(named: "bkmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
             bookmarkedButton.tintColor = UIColor(named: "primaryPink")
             if let index = user?.bookmarkedEvents.index(of: (event?.id)!) {
                 user?.bookmarkedEvents.remove(at: index)
