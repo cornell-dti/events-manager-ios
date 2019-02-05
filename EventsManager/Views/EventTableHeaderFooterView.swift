@@ -30,9 +30,9 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
 
     func setLayouts() {
         editButton.setTitleColor(UIColor.gray, for: .normal)
-        editButton.titleLabel?.font = UIFont(name: "Dosis-Book", size: buttonFontSize)
+        editButton.titleLabel?.font = UIFont(name: "SFProText-Regular", size: buttonFontSize)
 
-        title.font = UIFont(name: "Dosis-Bold", size: titleFontSize)
+        title.font = UIFont(name: "SFProText-Bold", size: titleFontSize)
         title.textColor = UIColor(named: "primaryPink")
 
         self.addSubview(title)

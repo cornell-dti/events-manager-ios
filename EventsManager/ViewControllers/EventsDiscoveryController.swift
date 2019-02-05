@@ -115,7 +115,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton) {
         let popularListViewController = EventListViewController()
-        popularListViewController.setup(with: popularEvents, title: NSLocalizedString("popular-events", comment: ""), withFilterBar: false)
+        popularListViewController.setup(with: popularEvents, title: NSLocalizedString("popular", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
 
@@ -183,7 +183,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         switch section {
             case popularEventsSection:
                 if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-                    popularHeader.setMainTitle(NSLocalizedString("popular-events", comment: "").uppercased())
+                    popularHeader.setMainTitle(NSLocalizedString("popular", comment: "").uppercased())
                     popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     popularHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                     popularHeader.editButton.addTarget(self, action: #selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
