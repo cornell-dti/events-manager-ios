@@ -44,8 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Set global appearance attributes
         UITabBar.appearance().barTintColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "Dosis-Bold", size: 19)!, NSAttributedStringKey.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
-        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "Dosis-Bold", size: 32)!, NSAttributedStringKey.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "SFProText-Bold", size: 19)!, NSAttributedStringKey.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
+        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "SFProText-Bold", size: 32)!, NSAttributedStringKey.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
         window?.tintColor = UIColor(named: "primaryPink")
 
         return true

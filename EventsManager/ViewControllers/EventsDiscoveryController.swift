@@ -9,6 +9,9 @@
 import UIKit
 
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
+    
+    //used for refreshing the view controller
+    var refreshControl = UIRefreshControl()
 
     //Constants
     let headerHeight: CGFloat = 35
@@ -24,6 +27,8 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     lazy var searchBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
         button.tintColor = UIColor(named: "primaryPink")
+        var X_Position:CGFloat? = 50.0 //use your X position here
+        var Y_Position:CGFloat? = 50.0 //use your Y position here
         return button
     }()
 
@@ -35,6 +40,10 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl.tintColor = UIColor(named: "primaryPink")
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.addSubview(refreshControl) // not required when using UITableViewController
         preloadCells()
         setup()
     }
@@ -42,6 +51,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+
+    
+    
 
     /**
      Preload cells, including the popular, today, tomorrow card cells.
@@ -51,16 +63,34 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      Cells are loaded into the @cells dictionary
     */
     func preloadCells() {
+        
         //for testing
-        let date1 = "2019-01-20 16:39:57"
-        let date2 = "2019-01-20 18:39:57"
-        for _ in 1...20 {
-            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
+        let date1 = "2019-02-05 16:39:57"
+        let date2 = "2019-02-05 18:39:57"
+        let date3 = "2019-02-05 20:39:57"
+        let date4 = "2019-02-06 00:39:57"
+        let date5 = "2019-02-07 23:39:57"
+        events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 186))
+        events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date2)!, endTime: DateFormatHelper.datetime(from: date3)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 170))
+        events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date3)!, endTime: DateFormatHelper.datetime(from: date4)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 176))
+        events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date4)!, endTime: DateFormatHelper.datetime(from: date5)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 160))
+//        for _ in 6...10 {
+//            events.append(Event(id: 2, startTime: DateFormatHelper.datetime(from: date3)!, endTime: DateFormatHelper.datetime(from: date4)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [2], eventParticipantCount: 186))
+//        }
+        popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
+        for ev in events {
+            if (Calendar.current.isDateInToday(ev.startTime)) {
+                todayEvents.append(ev)
+            }
+            else if (Calendar.current.isDateInTomorrow(ev.startTime)){
+                tomorrowEvents.append(ev)
+            }
         }
-        popularEvents = events
-        todayEvents = events
-        tomorrowEvents = events
-
+        todayEvents = todayEvents.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
+        tomorrowEvents = tomorrowEvents.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
+        todayEvents = (Array(todayEvents.prefix(10))).sorted(by: { $0.startTime.timeIntervalSinceNow < $1.startTime.timeIntervalSinceNow })
+        tomorrowEvents = (Array(tomorrowEvents.prefix(10))).sorted(by: { $0.startTime.timeIntervalSinceNow < $1.startTime.timeIntervalSinceNow })
+        
         let popularEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
         let todayEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
         let tomorrowEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
@@ -108,6 +138,12 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         }
 
     }
+    
+    @objc func refresh(sender:AnyObject) {
+        // Code to refresh table view
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
 
     /**
      Handle the action for user pressing the see more buttons above a popular card stack. Should segue to a event list view controller without filters
@@ -115,7 +151,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton) {
         let popularListViewController = EventListViewController()
-        popularListViewController.setup(with: popularEvents, title: NSLocalizedString("popular-events", comment: ""), withFilterBar: false)
+        popularListViewController.setup(with: popularEvents, title: NSLocalizedString("popular", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
 
@@ -125,7 +161,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      */
     @objc func todaySeeMoreButtonPressed(_ sender: UIButton) {
         let todayListViewController = EventListViewController()
-        todayListViewController.setup(with: popularEvents, title: NSLocalizedString("today-events", comment: ""), withFilterBar: false)
+        todayListViewController.setup(with: todayEvents, title: NSLocalizedString("today-events", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(todayListViewController, animated: true)
     }
 
@@ -135,7 +171,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      */
     @objc func tomorrowSeeMoreButtonPressed(_ sender: UIButton) {
         let tomorrowListViewController = EventListViewController()
-        tomorrowListViewController.setup(with: popularEvents, title: NSLocalizedString("tomorrow-events", comment: ""), withFilterBar: false)
+        tomorrowListViewController.setup(with: tomorrowEvents, title: NSLocalizedString("tomorrow-events", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(tomorrowListViewController, animated: true)
     }
 
@@ -183,7 +219,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         switch section {
             case popularEventsSection:
                 if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
-                    popularHeader.setMainTitle(NSLocalizedString("popular-events", comment: "").uppercased())
+                    popularHeader.setMainTitle(NSLocalizedString("popular", comment: "").uppercased())
                     popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     popularHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                     popularHeader.editButton.addTarget(self, action: #selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)

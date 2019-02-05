@@ -62,6 +62,10 @@
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
+		FFFD474F220949FD009BAE2D /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */; };
+		FFFD4750220949FD009BAE2D /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */; };
+		FFFD4751220949FD009BAE2D /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */; };
+		FFFD4752220949FD009BAE2D /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474E220949FD009BAE2D /* SF-Pro-Text-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +154,10 @@
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FF76428D218E228F00ED7A11 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
+		FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		FFFD474E220949FD009BAE2D /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +272,10 @@
 		AAD334EE2152325500312F31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FFFD474E220949FD009BAE2D /* SF-Pro-Text-Bold.otf */,
+				FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */,
+				FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */,
+				FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */,
 				AAD7D1CD2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png */,
 				AAD7D1CC2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png */,
 				AAD7D1CB2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png */,
@@ -464,9 +476,13 @@
 				AAD334F2215232AA00312F31 /* dosis.semibold.ttf in Resources */,
 				AAD334F3215232AA00312F31 /* dosis.medium.ttf in Resources */,
 				AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */,
+				FFFD474F220949FD009BAE2D /* SF-Pro-Text-Regular.otf in Resources */,
 				AAD7D1CE2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png in Resources */,
+				FFFD4752220949FD009BAE2D /* SF-Pro-Text-Bold.otf in Resources */,
+				FFFD4751220949FD009BAE2D /* SF-Pro-Text-Semibold.otf in Resources */,
 				AAD334F4215232AA00312F31 /* dosis.book.ttf in Resources */,
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
+				FFFD4750220949FD009BAE2D /* SF-Pro-Text-Light.otf in Resources */,
 				A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */,
 				AAD7D1D02156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png in Resources */,
 				A40E37D6201E91CA00B3AFA4 /* Assets.xcassets in Resources */,

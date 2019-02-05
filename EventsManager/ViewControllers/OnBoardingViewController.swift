@@ -191,10 +191,10 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         let titleLabel = UILabel()
         let subtitleLabel = UILabel()
 
-        titleLabel.font = UIFont(name: "Dosis-Bold", size: navTitleFontSize)
-        subtitleLabel.font = UIFont(name: "Dosis-Book", size: navSubtitleFontSize)
+        titleLabel.font = UIFont(name: "SFProText-Bold", size: navTitleFontSize)
+        subtitleLabel.font = UIFont(name: "SFProText-Light", size: navSubtitleFontSize)
         titleLabel.textColor = UIColor(named: "primaryPink")
-        subtitleLabel.textColor = UIColor.gray
+        subtitleLabel.textColor = UIColor.black
         subtitleLabel.numberOfLines = 2
 
         titleLabel.text = title

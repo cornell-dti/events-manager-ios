@@ -62,8 +62,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
-        appLabel.font = UIFont(name: "Dosis-SemiBold", size: appLabelFontSize)
-        appIntro.font = UIFont(name: "Dosis-Book", size: appIntroFontSize)
+        appLabel.font = UIFont(name: "SFProText-SemiBold", size: appLabelFontSize)
+        appIntro.font = UIFont(name: "SFProText-Light", size: appIntroFontSize)
         appLabel.textColor = UIColor.white
         appIntro.textColor = UIColor.white
         appIntro.textAlignment = .center
@@ -92,9 +92,9 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         view.addSubview(powerByLabel)
         view.addSubview(signatureLabel)
         powerByLabel.textColor = UIColor.white
-        powerByLabel.font = UIFont(name: "Dosis-Book", size: poweredByFontSize)
+        powerByLabel.font = UIFont(name: "SFProText-Regular", size: poweredByFontSize)
         signatureLabel.textColor = UIColor.white
-        signatureLabel.font = UIFont(name: "Dosis-Medium", size: signatureFontSize)
+        signatureLabel.font = UIFont(name: "SFProText-Regular", size: signatureFontSize)
 
         signatureLabel.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-signatureBottomSpacing)

@@ -11,6 +11,7 @@
 "discover"="Discover";
 "search" = "Search";
 "popular-events" = "Popular Events";
+"popular" = "Popular";
 "today-events" = "Today's Events";
 "tomorrow-events" = "Tomorrow's Events";
 "all-events" = "All Events";
