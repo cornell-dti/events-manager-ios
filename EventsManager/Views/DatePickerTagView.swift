@@ -106,9 +106,9 @@ class DatePickerTagView: UIView {
             make.bottom.equalTo(self)
         }
 
-        self.bringSubview(toFront: whiteBackgroundView)
-        self.bringSubview(toFront: dateLabel)
-        self.bringSubview(toFront: displayLabel)
+        self.bringSubviewToFront(whiteBackgroundView)
+        self.bringSubviewToFront(dateLabel)
+        self.bringSubviewToFront(displayLabel)
 
     }
 

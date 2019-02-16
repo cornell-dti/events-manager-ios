@@ -17,7 +17,7 @@ class LoadingViewController: UIViewController {
     let messageFontSize: CGFloat = 18
 
     let containerView = UIView()
-    let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
     let messageLabel = UILabel()
 
     override func viewDidLoad() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1010"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CEE415570D7BBA3771625EEA6B3AA603"
+               BlueprintIdentifier = "F37A3D69562C992670595A39FC8CDA9A"
                BuildableName = "Pods_EventsManagerUITests.framework"
                BlueprintName = "Pods-EventsManagerUITests"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CEE415570D7BBA3771625EEA6B3AA603"
+            BlueprintIdentifier = "F37A3D69562C992670595A39FC8CDA9A"
             BuildableName = "Pods_EventsManagerUITests.framework"
             BlueprintName = "Pods-EventsManagerUITests"
             ReferencedContainer = "container:Pods.xcodeproj">

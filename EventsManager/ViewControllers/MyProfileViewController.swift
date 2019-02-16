@@ -115,7 +115,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         //tableview
         view.addSubview(tableView)
-        view.bringSubview(toFront: topBar)
+        view.bringSubviewToFront(topBar)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(topBar.snp.bottom)
             make.left.equalTo(view)
@@ -126,7 +126,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.dataSource = self
         tableView.register(OrganizationTableViewCell.self, forCellReuseIdentifier: OrganizationTableViewCell.identifier)
         tableView.register(MyProfileHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: MyProfileHeaderFooterView.identifier)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none
 
