@@ -107,7 +107,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         tableView.dataSource = self
         tableView.register(OrganizationTableViewCell.self, forCellReuseIdentifier: OrganizationTableViewCell.identifier)
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -116,7 +116,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
         //empty state
         view.addSubview(emptyState)
-        view.bringSubview(toFront: emptyState)
+        view.bringSubviewToFront(emptyState)
         emptyState.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }

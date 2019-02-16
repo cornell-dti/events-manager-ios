@@ -89,7 +89,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -98,7 +98,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
             make.right.equalTo(view)
             make.bottom.equalTo(view)
         }
-        view.bringSubview(toFront: datePicker)
+        view.bringSubviewToFront(datePicker)
 
     }
 
