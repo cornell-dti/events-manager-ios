@@ -78,6 +78,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         setLayouts()
     }
+    
+    
 
     /**
      Allow client to configure the event detail page by passing in an organization object
@@ -111,6 +113,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             tagStack.addArrangedSubview(tagButton)
         }
     }
+    
 
     /** Sets all the layout elements in the view */
     public func setLayouts() {
@@ -391,7 +394,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
      */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton) {
         let popularListViewController = EventListViewController()
-        popularListViewController.setup(with: popularEvents, title: NSLocalizedString("popular-events", comment: ""), withFilterBar: false)
+//        popularListViewController.setup(with: popularEvents, title: NSLocalizedString("popular-events", comment: ""), withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
 

@@ -286,12 +286,12 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
             case .chooseOrganization:
                 let selectedOrganizationID = filteredOrganizations[indexPath.row].id
                 checkedOrganizationIDs.append(selectedOrganizationID)
-                user?.followingOrganizations.append(selectedOrganizationID)
+                user?.followingOrganizations.append(filteredOrganizations[indexPath.row].id)
                 setNavigatorFowardButtonStatus()
             case .chooseTags:
                 let selectedTagID = filteredTags[indexPath.row].id
                 checkedTags.append(selectedTagID)
-                user?.followingTags.append(selectedTagID)
+                user?.followingTags.append(filteredOrganizations[indexPath.row].id)
                 setNavigatorFowardButtonStatus()
             }
     }
@@ -301,11 +301,13 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         switch currentOnBoardingProcess {
             case .chooseOrganization:
                 let selectedOrganizationID = filteredOrganizations[indexPath.row].id
+               // print(selectedOrganizationID)
                 checkedOrganizationIDs.remove(at: checkedOrganizationIDs.index(of: selectedOrganizationID)!)
                 user?.followingOrganizations.remove(at: (user?.followingOrganizations.index(of:selectedOrganizationID)!)!)
                 setNavigatorFowardButtonStatus()
             case .chooseTags:
                 let selectedTagID = filteredTags[indexPath.row].id
+             //   print(selectedTagID)
                 checkedTags.remove(at: checkedTags.index(of: selectedTagID)!)
                 user?.followingTags.remove(at: (user?.followingTags.index(of:selectedTagID)!)!)
                 setNavigatorFowardButtonStatus()

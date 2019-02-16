@@ -34,6 +34,11 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
     //view element
     let tableView = UITableView(frame: CGRect(), style: .grouped)
+    lazy var datePickerButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "calendarempty"), style: .plain, target: self, action: #selector(datePickerButtonPressed(_:)))
+        button.tintColor = UIColor(named: "primaryPink")
+        return button
+    }()
     let emptyState = SearchEmtpyStateView()
 
     override func viewDidLoad() {
@@ -52,6 +57,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
     /** Sets all the layout elements in the view */
     func setLayouts() {
+        navigationItem.rightBarButtonItem = datePickerButton
 
         //For testing
         var date1 = "2018-09-22 16:39:57"
@@ -64,7 +70,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
             date2Date = Calendar.current.date(byAdding: .day, value: 2, to: date2Date)!
             date2 = DateFormatHelper.datetime(from: date2Date)
             events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
-            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
+//            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
         }
         organizations = [Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email: "connect@cornelldti.org")]
         tags = [1]
@@ -270,6 +276,27 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
             filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+    
+    //date picker stuff
+    @objc func datePickerButtonPressed(_ sender: UIBarButtonItem) {
+        datePickerButton.image = UIImage(named: "calendarfilled")
+        let picker = UIDatePicker()
+        picker.datePickerMode = UIDatePickerMode.date
+        picker.timeZone = NSTimeZone.local
+        picker.addTarget(self, action: Selector(("dueDateChanged:")), for: UIControlEvents.valueChanged)
+        //        let pickerSize : CGSize = picker.sizeThatFits(CGSizeZero)
+        picker.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: 200)
+        // you probably don't want to set background color as black
+        // picker.backgroundColor = UIColor.blackColor()
+        self.view.addSubview(picker)
+    }
+    
+    func dueDateChanged(sender:UIDatePicker){
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        dateFormatter.timeStyle = DateFormatter.Style.none
+        //self.myLabel.text = dateFormatter.stringFromDate(dueDate.date)
     }
 
 }
