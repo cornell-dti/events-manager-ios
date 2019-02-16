@@ -298,7 +298,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         popularEventsTableView.separatorStyle = .none
         popularEventsTableView.register(EventCardCell.self, forCellReuseIdentifier: EventCardCell.identifer)
         popularEventsTableView.register(EventTableHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: EventTableHeaderFooterView.identifier)
-        popularEventsTableView.rowHeight = UITableViewAutomaticDimension
+        popularEventsTableView.rowHeight = UITableView.automaticDimension
         popularEventsTableView.isScrollEnabled = false
 
         //Line seperator

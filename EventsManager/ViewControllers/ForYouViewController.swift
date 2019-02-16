@@ -50,7 +50,7 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.register(EventCardCell.self, forCellReuseIdentifier: EventCardCell.identifer)
         tableView.register(EventTableHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: EventTableHeaderFooterView.identifier)
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
         
         //tableview layout

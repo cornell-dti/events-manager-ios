@@ -54,7 +54,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 
     //datasource
     var event: Event?
-    let placesClient = GMSPlacesClient.shared()
+    var placesClient = GMSPlacesClient.shared()
     var mapLocation: CLLocationCoordinate2D?
     var user: User?
 
@@ -410,17 +410,24 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventLocation.text = event.eventLocation
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
 
-        placesClient.lookUpPlaceID(event.eventLocationID, callback: { result, _ in
-            guard result != nil else {
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
+        placesClient.fetchPlace(fromPlaceID: event.eventLocationID, placeFields: fields, sessionToken: nil, callback: {
+            (result: GMSPlace?, error: Error?) in
+            if let error = error {
+                print("An error occurred: \(error.localizedDescription) when fetching google places")
                 return
             }
-            self.mapLocation = result?.coordinate
-            self.eventMapView.moveCamera(GMSCameraUpdate.fit(result!.viewport!))
-            let mapMarker = GMSMarker(position: result!.coordinate)
-            mapMarker.map = self.eventMapView
-            self.eventMapView.selectedMarker = mapMarker
-        })
 
+            if let result = result {
+                self.mapLocation = result.coordinate
+                self.eventMapView.moveCamera(GMSCameraUpdate.fit(result.viewport!))
+                let mapMarker = GMSMarker(position: result.coordinate)
+                mapMarker.map = self.eventMapView
+                self.eventMapView.selectedMarker = mapMarker
+            }
+        })
+        
+        
         for tagPk in event.eventTags {
             let tagButton = EventTagButton()
             tagButton.setTag(with: tagPk)
@@ -442,7 +449,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             } else {
                 url = URL(string: "http://maps.apple.com/?q=\(mapLocation.latitude),\(mapLocation.longitude)")!
             }
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }
     }
 
@@ -547,4 +554,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         return true
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
