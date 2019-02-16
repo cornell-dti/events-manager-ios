@@ -27,8 +27,14 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     lazy var searchBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
         button.tintColor = UIColor(named: "primaryPink")
-        var X_Position:CGFloat? = 50.0 //use your X position here
-        var Y_Position:CGFloat? = 50.0 //use your Y position here
+//        tagStackView.snp.makeConstraints { make in
+//            make.left.equalTo(recommendedTagScrollView).offset(tagSideMargins)
+//            make.right.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
+//            make.top.equalTo(recommendedTagScrollView).offset(tagSideMargins)
+//            make.bottom.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
+//        }
+//        var X_Position:CGFloat? = 50.0 //use your X position here
+//        var Y_Position:CGFloat? = 50.0 //use your Y position here
         return button
     }()
 
@@ -110,7 +116,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     */
     func setup() {
 
-        view.backgroundColor = UIColor.white
+        //view.backgroundColor = UIColor.white
 
         //NAVIGATION STUFFS
         navigationItem.rightBarButtonItem = searchBarButton

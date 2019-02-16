@@ -11,276 +11,102 @@ import UIKit
 //Displays the events as a list, with a optional filter bar at the top.
 class EventListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let tableView = UITableView()
-    let recommendedTagView = UIView()
-    let recommendedTagScrollView = UIScrollView()
-    let datePickerContainerView = UIView()
-    let datePicker = UIDatePicker()
-    let toolBar = UIToolbar()
-    let datePickerTag = DatePickerTagView()
+    var myEvents: [Event] = [] //all my events
+    var sectionDates: [Date] = [] //valid date sections, sorted from small date to large date, unique
+    var eventsOnDate: [[Event]] = [] //array whose row represents index in sectionDates, column represents events on that date
 
-    //constants
-    let reccommendedTagViewHeight: CGFloat = 50
-    let tagSideMargins: CGFloat = 10
-    let tagSpacing: CGFloat = 12
-    let datePickerHeight: CGFloat = 300
-    let animationDuration = 0.2
-
-    //datasource
-    var events = [Event]()
-    var filteredEvents = [Event]()
-    var recommendedTags = [Int]()
-
+    //Constants
+    let headerFontSize: CGFloat = 16
+    
+    //let datePicker = MyEventsDatePickerView()
+    let tableView = UITableView(frame: CGRect(), style: .grouped)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setLayouts()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: animated)
         }
     }
-
-    /*
-     * Sets up the tag view
-     * - events: an events array that tha tag view should filter events from
-     * - tag: the tag that should be displayed in this tag view
-     */
-    func setup(with events: [Event], title: String, withFilterBar: Bool) {
-        //NAVIGATION STUFFS
-        navigationItem.title = title
-
-        //datasource settings
-        self.events = events
-        filteredEvents = events
-        view.backgroundColor = UIColor.white
-        //Recommended TagView
-        if withFilterBar {
-            getTags()
-            //set default date to today
-            datePickerTag.setDate(Date())
-            filterEvents(by: Date())
-            recommendedTagView.backgroundColor = UIColor(named: "tableViewBackground")
-            let tagStackView = UIStackView()
-            tagStackView.alignment = .center
-            tagStackView.axis = .horizontal
-            tagStackView.distribution = .fill
-            tagStackView.spacing = tagSpacing
-            tagStackView.addArrangedSubview(datePickerTag)
-
-            let datePickerPressedGesture = UITapGestureRecognizer(target: self, action: #selector(onDatePickerPressed(_:)))
-            datePickerTag.addGestureRecognizer(datePickerPressedGesture)
-            for tag in recommendedTags {
-                let eventTagButton = EventTagButton()
-                eventTagButton.setTag(with: tag)
-                eventTagButton.addTarget(self, action: #selector(tagButtonPressed(_:)), for: .touchUpInside)
-                tagStackView.addArrangedSubview(eventTagButton)
-            }
-            recommendedTagScrollView.addSubview(tagStackView)
-            recommendedTagView.addSubview(recommendedTagScrollView)
-            view.addSubview(recommendedTagView)
-            tagStackView.snp.makeConstraints { make in
-                make.left.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-                make.right.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-                make.top.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-                make.bottom.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-            }
-            recommendedTagScrollView.snp.makeConstraints { make in
-                make.edges.equalTo(recommendedTagView)
-            }
-            recommendedTagView.snp.makeConstraints { make in
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-                make.left.equalTo(view)
-                make.right.equalTo(view)
-                make.height.equalTo(reccommendedTagViewHeight)
-            }
+    
+    
+    /* Sets all the layout elements in the view */
+    private func setLayouts() {
+        
+        //For testing
+        var date1 = "2019-01-22 16:39:57"
+        var date2 = "2019-01-22 18:39:57"
+        for _ in 1...20 {
+            var date1Date = DateFormatHelper.datetime(from: date1)!
+            date1Date = Calendar.current.date(byAdding: .day, value: 2, to: date1Date)!
+            date1 = DateFormatHelper.datetime(from: date1Date)
+            var date2Date = DateFormatHelper.datetime(from: date2)!
+            date2Date = Calendar.current.date(byAdding: .day, value: 2, to: date2Date)!
+            date2 = DateFormatHelper.datetime(from: date2Date)
+            myEvents.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
+            myEvents.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
         }
-
-        //Tableview stuffs
+        //Setting up data source
+        let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: myEvents)
+        sectionDates = eventsDateData.0
+        eventsOnDate = eventsDateData.1
+        
+        //TableView
+        tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
         tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
-
-        if withFilterBar {
-            tableView.snp.makeConstraints { (make) -> Void in
-                make.top.equalTo(recommendedTagView.snp.bottom)
-                make.left.equalTo(view)
-                make.right.equalTo(view)
-                make.bottom.equalTo(view)
-            }
-        } else {
-            tableView.snp.makeConstraints { (make) -> Void in
-                make.edges.equalTo(view)
-            }
-        }
-
-        //datepicker
-        view.addSubview(datePickerContainerView)
-        datePickerContainerView.addSubview(datePicker)
-        datePickerContainerView.addSubview(toolBar)
-
-        datePicker.backgroundColor = UIColor.white
-        datePicker.datePickerMode = .date
-        datePicker.center = view.center
-
-        //tool bar
-        toolBar.barStyle = .default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = view.tintColor
-        toolBar.sizeToFit()
-
-        //add button to tool bar
-        let doneButton = UIBarButtonItem(title: NSLocalizedString("tool-bar-done-button", comment: ""), style: .plain, target: self, action: #selector(toolBarDoneClicked))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: NSLocalizedString("tool-bar-cancel-button", comment: ""), style: .plain, target: self, action: #selector(toolBarCancelClicked))
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
-        toolBar.isUserInteractionEnabled = true
-
-        datePicker.snp.makeConstraints { make in
-            make.top.equalTo(toolBar.snp.bottom)
-            make.left.equalTo(datePickerContainerView)
-            make.right.equalTo(datePickerContainerView)
-            make.bottom.equalTo(datePickerContainerView)
-        }
-        toolBar.snp.makeConstraints { make in
-            make.bottom.equalTo(datePicker.snp.top)
-            make.right.equalTo(datePickerContainerView)
-            make.left.equalTo(datePickerContainerView)
-            make.top.equalTo(datePickerContainerView)
-        }
-
-        datePickerContainerView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(view)
             make.left.equalTo(view)
             make.right.equalTo(view)
-            make.height.equalTo(0)
+            make.bottom.equalTo(view)
         }
+        
     }
-
-    /**
-     Filter out all tags and put it into @self.recommendedTags from the current event datasource.
-    */
-    func getTags() {
-        for event in events {
-            for tag in event.eventTags {
-                if !recommendedTags.contains(tag) {
-                    recommendedTags.append(tag)
-                }
-            }
-        }
+    
+    func setup(with events: [Event], title: String, withFilterBar: Bool) {
+        navigationItem.title = title
     }
-
-    /**
-     Filter the events displayed in the list by
-     - date: the day to which to events should be filtered on.
-    */
-    func filterEvents(by date: Date) {
-        filteredEvents = [Event]()
-        for event in events {
-            if Calendar.current.compare(date, to: event.startTime, toGranularity: .day) == .orderedSame {
-                filteredEvents.append(event)
-            }
-        }
-        tableView.reloadData()
-    }
-
-    /**
-     Action handler for the pressing of the date picker. Should review a date picker at the bottom.
-    */
-    @objc func onDatePickerPressed(_ sender: UITapGestureRecognizer) {
-        if let date = datePickerTag.getDate() {
-            loadDatePicker(with: date)
-        } else {
-            loadDatePicker(with: Date())
-        }
-    }
-
-    /**
-     Loads a date picker at the bottom of the screen, with the inital date to be
-     - currentTime: the initial date displayed on the date picker
-    */
-    func loadDatePicker(with currentTime: Date) {
-
-        //date picker
-        datePicker.setDate(currentTime, animated: false)
-
-        UIView.animate(withDuration: animationDuration, animations: {
-            if let constraint = (self.datePickerContainerView.constraints.filter {$0.firstAttribute == .height}.first) {
-                constraint.constant = self.datePickerHeight
-                self.view.layoutIfNeeded()
-            }
-        })
-    }
-
-    /**
-     Handles the action of pressing done on the date picker tool bar
-    */
-    @objc func toolBarDoneClicked() {
-        let date = datePicker.date
-        datePickerTag.setDate(date)
-        filterEvents(by: date)
-
-        datePicker.resignFirstResponder()
-
-        UIView.animate(withDuration: animationDuration, animations: {
-            if let constraint = (self.datePickerContainerView.constraints.filter {$0.firstAttribute == .height}.first) {
-                constraint.constant = 0
-                self.view.layoutIfNeeded()
-            }
-        })
-    }
-
-    /**
-     Handles the action of pressing cancel on the date picker tool bar
-     */
-    @objc func toolBarCancelClicked() {
-        UIView.animate(withDuration: animationDuration, animations: {
-            if let constraint = (self.datePickerContainerView.constraints.filter {$0.firstAttribute == .height}.first) {
-                constraint.constant = 0
-                self.view.layoutIfNeeded()
-            }
-        })
-    }
-
-    /*
-     * Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
-     * - sender: the sender of the action.
-     */
-    @objc func tagButtonPressed(_ sender: UIButton) {
-        let tagViewController = TagViewController()
-        if let tagButton = sender as? EventTagButton {
-            let tag = tagButton.getTagPk()
-            if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
-                tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
-                navigationController?.pushViewController(tagViewController, animated: true)
-            }
-        }
-    }
-
+    
+    //TABLEVIEW DELEGATE METHODS
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sectionDates.count
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredEvents.count
+        return eventsOnDate[section].count
     }
-
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "\(DateFormatHelper.dayOfWeek(from: sectionDates[section])), \(DateFormatHelper.month(from: sectionDates[section])) \(DateFormatHelper.day(from: sectionDates[section]))"
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EventsDiscoveryTableViewCell.identifer, for: indexPath) as! EventsDiscoveryTableViewCell
-        // Configure the cell...
-        cell.configure(event: filteredEvents[indexPath.row])
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: EventsDiscoveryTableViewCell.identifer) as! EventsDiscoveryTableViewCell
+        let event = eventsOnDate[indexPath.section][indexPath.row]
+        cell.configure(event: event)
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.black
+        header.textLabel?.font = UIFont.boldSystemFont(ofSize: headerFontSize)
+    }
+    
     /*
      segue to the selected eventsDetailController
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsViewController = EventDetailViewController()
-        detailsViewController.configure(with: filteredEvents[indexPath.row])
+        detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row])
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
 
