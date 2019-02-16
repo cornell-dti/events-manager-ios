@@ -282,9 +282,9 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     @objc func datePickerButtonPressed(_ sender: UIBarButtonItem) {
         datePickerButton.image = UIImage(named: "calendarfilled")
         let picker = UIDatePicker()
-        picker.datePickerMode = UIDatePickerMode.date
+        picker.datePickerMode = UIDatePicker.Mode.date
         picker.timeZone = NSTimeZone.local
-        picker.addTarget(self, action: Selector(("dueDateChanged:")), for: UIControlEvents.valueChanged)
+        picker.addTarget(self, action: Selector(("dueDateChanged:")), for: UIControl.Event.valueChanged)
         //        let pickerSize : CGSize = picker.sizeThatFits(CGSizeZero)
         picker.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: 200)
         // you probably don't want to set background color as black
