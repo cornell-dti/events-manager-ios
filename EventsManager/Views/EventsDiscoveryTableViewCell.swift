@@ -21,7 +21,8 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
     private let eventNameFontSize: CGFloat = 15
     private let lineSpacingLeftStack: CGFloat = 12
     private let lineSpacingRightStack: CGFloat = 9
-    private let iconSideLength: CGFloat = 18
+    private let bookmarkIconHeight: CGFloat = 18
+    private let bookmarkIconWidth: CGFloat = 16
     private let separatorHeight: CGFloat = 15
     private let leftToRightStackSpacing: CGFloat = 8
     private let eventParticipantCountAndLocationStackInnerSpacing: CGFloat = 6
@@ -75,10 +76,10 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
         eventParticipantCountAndLocationStack.distribution = .fill
         eventParticipantCountAndLocationStack.axis = .horizontal
         eventParticipantCountAndLocationStack.spacing = eventParticipantCountAndLocationStackInnerSpacing
-        let eventParticipantIcon = UIImageView(image: #imageLiteral(resourceName: "person"))
+        let eventParticipantIcon = UIImageView(image: #imageLiteral(resourceName: "filledbookmark"))
         eventParticipantIcon.snp.makeConstraints { make in
-            make.width.equalTo(iconSideLength)
-            make.height.equalTo(iconSideLength)
+            make.width.equalTo(bookmarkIconWidth)
+            make.height.equalTo(bookmarkIconHeight)
         }
         eventParticipantCountAndLocationStack.addArrangedSubview(eventParticipantIcon)
         eventParticipantCountAndLocationStack.addArrangedSubview(eventParticipantCount)
