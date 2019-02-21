@@ -27,14 +27,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     lazy var searchBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
         button.tintColor = UIColor(named: "primaryPink")
-//        tagStackView.snp.makeConstraints { make in
-//            make.left.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-//            make.right.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-//            make.top.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-//            make.bottom.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-//        }
-//        var X_Position:CGFloat? = 50.0 //use your X position here
-//        var Y_Position:CGFloat? = 50.0 //use your Y position here
         return button
     }()
 
@@ -58,9 +50,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidAppear(animated)
     }
 
-    
-    
-
     /**
      Preload cells, including the popular, today, tomorrow card cells.
      This action is to prevent active loading the cells during user scroll.
@@ -82,6 +71,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             date2 = DateFormatHelper.datetime(from: date2Date)
             events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "ChIJZ3LpY4yB0IkRFZfk9Xybyys", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
             events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "ChIJZ3LpY4yB0IkRFZfk9Xybyys", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
+
         }
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         for ev in events {
@@ -115,8 +105,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     * View initial setups
     */
     func setup() {
-
-        //view.backgroundColor = UIColor.white
 
         //NAVIGATION STUFFS
         navigationItem.rightBarButtonItem = searchBarButton
