@@ -27,14 +27,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     lazy var searchBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
         button.tintColor = UIColor(named: "primaryPink")
-//        tagStackView.snp.makeConstraints { make in
-//            make.left.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-//            make.right.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-//            make.top.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-//            make.bottom.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-//        }
-//        var X_Position:CGFloat? = 50.0 //use your X position here
-//        var Y_Position:CGFloat? = 50.0 //use your Y position here
         return button
     }()
 
@@ -58,9 +50,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidAppear(animated)
     }
 
-    
-    
-
     /**
      Preload cells, including the popular, today, tomorrow card cells.
      This action is to prevent active loading the cells during user scroll.
@@ -80,9 +69,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date2)!, endTime: DateFormatHelper.datetime(from: date3)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 170))
         events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date3)!, endTime: DateFormatHelper.datetime(from: date4)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 176))
         events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date4)!, endTime: DateFormatHelper.datetime(from: date5)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 160))
-//        for _ in 6...10 {
-//            events.append(Event(id: 2, startTime: DateFormatHelper.datetime(from: date3)!, endTime: DateFormatHelper.datetime(from: date4)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [2], eventParticipantCount: 186))
-//        }
+        for _ in 6...10 {
+            events.append(Event(id: 2, startTime: DateFormatHelper.datetime(from: date3)!, endTime: DateFormatHelper.datetime(from: date4)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "KORNELLUNIVERSITY", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [2], eventParticipantCount: 186))
+        }
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         for ev in events {
             if (Calendar.current.isDateInToday(ev.startTime)) {
@@ -115,8 +104,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     * View initial setups
     */
     func setup() {
-
-        //view.backgroundColor = UIColor.white
 
         //NAVIGATION STUFFS
         navigationItem.rightBarButtonItem = searchBarButton
