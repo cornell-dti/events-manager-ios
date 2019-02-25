@@ -74,6 +74,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 
         }
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
+        popularEvents = Array(popularEvents.prefix(10))
         for ev in events {
             if (Calendar.current.isDateInToday(ev.startTime)) {
                 todayEvents.append(ev)
@@ -176,7 +177,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      */
     @objc func seeAllEventsButtonPressed(_ sender: UIButton) {
         let seeAllEventsListViewController = EventListViewController()
-        seeAllEventsListViewController.setup(with: popularEvents, title: NSLocalizedString("all-events", comment: ""), withFilterBar: true)
+        seeAllEventsListViewController.setup(with: events, title: NSLocalizedString("all-events", comment: ""), withFilterBar: true)
         navigationController?.pushViewController(seeAllEventsListViewController, animated: true)
     }
 
