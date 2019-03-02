@@ -58,7 +58,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      Cells are loaded into the @cells dictionary
     */
     func preloadCells() {
-        
         //for testing
         var date1 = "2019-02-15 16:39:57"
         var date2 = "2019-02-15 18:39:57"
