@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class Internet {
-    private static let serverTokenAddress = "http://cuevents-app.herokuapp.com/app/generate_token/"
+    private static let serverTokenAddress = "http://cuevents-app.herokuapp.com/generate_token/"
     private static let mediaAddress = "http://cuevents-app.herokuapp.com/app/media/"
     private static let tagAddress = "http://cuevents-app.herokuapp.com/app/tag/"
     private static let locationAddress = "http://cuevents-app.herokuapp.com/app/loc/"
@@ -19,7 +19,7 @@ class Internet {
     
 
     static func getServerAuthToken(for googleToken: String, _ completion: @escaping (String?) -> Void) {
-        Alamofire.request("\(serverTokenAddress)\(googleToken)").validate().responseJSON { response in
+        Alamofire.request("\(serverTokenAddress)\(googleToken)/").validate().responseJSON { response in
             switch response.result {
                 case .success(let value):
                     let json = JSON(value)
