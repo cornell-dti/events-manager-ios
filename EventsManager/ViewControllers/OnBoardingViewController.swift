@@ -105,7 +105,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CheckableTableViewCell.self, forCellReuseIdentifier: CheckableTableViewCell.identifier)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         self.tableView.allowsMultipleSelection = true
         self.tableView.allowsMultipleSelectionDuringEditing = true
 
@@ -142,7 +142,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
 
         //empty state
         view.addSubview(emptyState)
-        view.bringSubview(toFront: emptyState)
+        view.bringSubviewToFront(emptyState)
         emptyState.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }

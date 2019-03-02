@@ -20,7 +20,7 @@ class EventCard: UIView {
     let dayLabel = UILabel()
     let startLabel = UILabel()
     let startContentLabel = UILabel()
-    let goingLabel = UILabel()
+    let bookmarkIcon = UIImageView()
     let goingContentLabel = UILabel()
     let eventNameLabel = UILabel()
     let locationLabel = UILabel()
@@ -43,7 +43,9 @@ class EventCard: UIView {
     let shadowRadius: CGFloat = 3
     let shadowOffset = CGSize(width: 1, height: 1)
     let cardRadius: CGFloat = 20
-
+    let bookmarkIconWidth: CGFloat = 16
+    let bookmarkIconHeight: CGFloat = 18
+    
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
 
     override init(frame: CGRect) {
@@ -56,7 +58,7 @@ class EventCard: UIView {
      * - event: The event object that this card should populate with
      */
     func configure(with event: Event) {
-        goingLabel.text = NSLocalizedString("going", comment: "")
+        bookmarkIcon.image = #imageLiteral(resourceName: "filledbookmark")
         startLabel.text = NSLocalizedString("starts", comment: "")
         self.event = event
         monthLabel.text = DateFormatHelper.month(from: event.startTime)
@@ -92,11 +94,15 @@ class EventCard: UIView {
             make.height.equalTo(eventPicHeight)
         }
 
-        let eventInfoHeaderLabels = [monthLabel, startLabel, goingLabel]
+        let eventInfoHeaderLabels = [monthLabel, startLabel]
         eventInfoHeaderLabels.forEach { $0.font = UIFont(name: "SFProText-Semibold", size: eventInfoHeaderFontSize) }
         let eventInfoContentLabels = [dayLabel, startContentLabel, goingContentLabel]
         eventInfoContentLabels.forEach { $0.font = UIFont(name: "SFProText-Light", size: eventInfoContentFontSize)}
-
+        bookmarkIcon.snp.makeConstraints { make in
+            make.width.equalTo(bookmarkIconWidth)
+            make.height.equalTo(bookmarkIconHeight)
+        }
+        
         let dateStack = UIStackView(arrangedSubviews: [monthLabel, dayLabel])
         dateStack.distribution = .fill
         dateStack.alignment = .center
@@ -109,7 +115,7 @@ class EventCard: UIView {
         startTimeStack.axis = .vertical
         startTimeStack.spacing = eventInfoStackInnerSpacing
 
-        let goingStack = UIStackView(arrangedSubviews: [goingLabel, goingContentLabel])
+        let goingStack = UIStackView(arrangedSubviews: [bookmarkIcon, goingContentLabel])
         goingStack.distribution = .fill
         goingStack.alignment = .center
         goingStack.axis = .vertical

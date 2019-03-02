@@ -107,7 +107,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         tableView.dataSource = self
         tableView.register(OrganizationTableViewCell.self, forCellReuseIdentifier: OrganizationTableViewCell.identifier)
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -116,7 +116,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
         //empty state
         view.addSubview(emptyState)
-        view.bringSubview(toFront: emptyState)
+        view.bringSubviewToFront(emptyState)
         emptyState.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
@@ -282,9 +282,9 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     @objc func datePickerButtonPressed(_ sender: UIBarButtonItem) {
         datePickerButton.image = UIImage(named: "calendarfilled")
         let picker = UIDatePicker()
-        picker.datePickerMode = UIDatePickerMode.date
+        picker.datePickerMode = UIDatePicker.Mode.date
         picker.timeZone = NSTimeZone.local
-        picker.addTarget(self, action: Selector(("dueDateChanged:")), for: UIControlEvents.valueChanged)
+        picker.addTarget(self, action: Selector(("dueDateChanged:")), for: UIControl.Event.valueChanged)
         //        let pickerSize : CGSize = picker.sizeThatFits(CGSizeZero)
         picker.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: 200)
         // you probably don't want to set background color as black
