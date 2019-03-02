@@ -41,7 +41,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         refreshControl.tintColor = UIColor(named: "primaryPink")
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableView.addSubview(refreshControl) // not required when using UITableViewController
+        tableView.addSubview(refreshControl)
         preloadCells()
         setup()
     }

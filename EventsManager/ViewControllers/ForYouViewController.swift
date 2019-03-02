@@ -10,6 +10,9 @@ import UIKit
 
 class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
     
+    //used for refreshing the view controller
+    var refreshControl = UIRefreshControl()
+    
     //Constants
     let headerHeight: CGFloat = 35
     
@@ -21,6 +24,10 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl.tintColor = UIColor(named: "primaryPink")
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.addSubview(refreshControl)
         setup()
     }
     
@@ -58,6 +65,12 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
             make.edges.equalTo(view)
         }
         
+    }
+    
+    @objc func refresh(sender:AnyObject) {
+        // Code to refresh table view
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     

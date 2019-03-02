@@ -11,6 +11,9 @@ import UIKit
 //Displays the events as a list, with a optional filter bar at the top.
 class EventListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    //used for refreshing the view controller
+    var refreshControl = UIRefreshControl()
+    
     var myEvents: [Event] = [] //all my events
     var events: [Event] = []
     var sectionDates: [Date] = [] //valid date sections, sorted from small date to large date, unique
@@ -24,6 +27,10 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl.tintColor = UIColor(named: "primaryPink")
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,6 +59,12 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
             make.right.equalTo(view)
             make.bottom.equalTo(view)
         }
+    }
+    
+    @objc func refresh(sender:AnyObject) {
+        // Code to refresh table view
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     
