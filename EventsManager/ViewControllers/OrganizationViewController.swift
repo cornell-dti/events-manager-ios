@@ -23,12 +23,10 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let orgHeaderView = UIView()
     let orgAvatar: UIImageView = UIImageView()
     let orgNameLabel: UILabel = UILabel()
-    let orgSettingsButton: UIButton = UIButton()
     let memberButton: UIButton = UIButton()
     let followButton: UIButton = UIButton()
 
     let orgInfoView = UIView()
-    let infoViewEditButton = UIButton()
     let aboutLabel = UILabel()
     let websiteLabel = UILabel()
     let websiteContentLabel = UILabel()
@@ -137,15 +135,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             make.right.equalTo(contentView)
         }
 
-        orgHeaderView.addSubview(orgSettingsButton)
-        orgSettingsButton.setImage(#imageLiteral(resourceName: "settings"), for: .normal)
-        orgSettingsButton.snp.makeConstraints {make in
-            make.height.equalTo(utilButtonSideLength)
-            make.width.equalTo(utilButtonSideLength)
-            make.top.equalTo(orgHeaderView).offset(sectionViewPadding)
-            make.right.equalTo(orgHeaderView).offset(-sectionViewPadding)
-        }
-
         let orgSettingsButtonPlaceHolderView = UIView() //To prevent the label from blocking the button
         orgSettingsButtonPlaceHolderView.snp.makeConstraints {make in
             make.height.equalTo(utilButtonSideLength)
@@ -223,15 +212,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             make.top.equalTo(headerInfoSeparator.snp.bottom)
             make.left.equalTo(contentView)
             make.right.equalTo(contentView)
-        }
-
-        orgInfoView.addSubview(infoViewEditButton)
-        infoViewEditButton.setImage(#imageLiteral(resourceName: "create"), for: .normal)
-        infoViewEditButton.snp.makeConstraints {make in
-            make.top.equalTo(orgInfoView).offset(sectionViewPadding)
-            make.right.equalTo(orgInfoView).offset(-sectionViewPadding)
-            make.width.equalTo(utilButtonSideLength)
-            make.height.equalTo(utilButtonSideLength)
         }
 
         aboutLabel.font = UIFont.boldSystemFont(ofSize: sectionHeaderFontSize)
