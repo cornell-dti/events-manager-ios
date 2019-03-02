@@ -27,14 +27,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     lazy var searchBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(searchButtonPressed(_:)))
         button.tintColor = UIColor(named: "primaryPink")
-//        tagStackView.snp.makeConstraints { make in
-//            make.left.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-//            make.right.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-//            make.top.equalTo(recommendedTagScrollView).offset(tagSideMargins)
-//            make.bottom.equalTo(recommendedTagScrollView).offset(-tagSideMargins)
-//        }
-//        var X_Position:CGFloat? = 50.0 //use your X position here
-//        var Y_Position:CGFloat? = 50.0 //use your Y position here
         return button
     }()
 
@@ -49,7 +41,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         refreshControl.tintColor = UIColor(named: "primaryPink")
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableView.addSubview(refreshControl) // not required when using UITableViewController
+        tableView.addSubview(refreshControl)
         preloadCells()
         setup()
     }
@@ -57,9 +49,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-
-    
-    
 
     /**
      Preload cells, including the popular, today, tomorrow card cells.
@@ -69,7 +58,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      Cells are loaded into the @cells dictionary
     */
     func preloadCells() {
-        
         //for testing
         var date1 = "2019-02-15 16:39:57"
         var date2 = "2019-02-15 18:39:57"
@@ -84,6 +72,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: "Upson B02", eventLocationID: "ChIJZ3LpY4yB0IkRFZfk9Xybyys", eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
         }
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
+        popularEvents = Array(popularEvents.prefix(10))
         for ev in events {
             if (Calendar.current.isDateInToday(ev.startTime)) {
                 todayEvents.append(ev)
@@ -115,8 +104,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     * View initial setups
     */
     func setup() {
-
-        //view.backgroundColor = UIColor.white
 
         //NAVIGATION STUFFS
         navigationItem.rightBarButtonItem = searchBarButton
@@ -188,7 +175,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      */
     @objc func seeAllEventsButtonPressed(_ sender: UIButton) {
         let seeAllEventsListViewController = EventListViewController()
-        seeAllEventsListViewController.setup(with: popularEvents, title: NSLocalizedString("all-events", comment: ""), withFilterBar: true)
+        seeAllEventsListViewController.setup(with: events, title: NSLocalizedString("all-events", comment: ""), withFilterBar: true)
         navigationController?.pushViewController(seeAllEventsListViewController, animated: true)
     }
 
