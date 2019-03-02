@@ -26,6 +26,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -38,13 +39,14 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
     }
+    
 
     /* Sets all the layout elements in the view */
     private func setLayouts() {
 
         //For testing
-        var date1 = "2019-01-22 16:39:57"
-        var date2 = "2019-01-22 18:39:57"
+        var date1 = "2019-03-02 16:39:57"
+        var date2 = "2019-03-03 18:39:57"
         for _ in 1...20 {
             var date1Date = DateFormatHelper.datetime(from: date1)!
             date1Date = Calendar.current.date(byAdding: .day, value: 2, to: date1Date)!
