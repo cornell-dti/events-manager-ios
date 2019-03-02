@@ -59,6 +59,7 @@
 		DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */; };
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
+		FC48D37B222B0D3F00A8F8DF /* PinkClickableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */; };
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
@@ -150,6 +151,7 @@
 		DA75C222205ABF0400C1822C /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewController.swift; path = EventsManager/ViewControllers/MyProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkClickableButton.swift; sourceTree = "<group>"; };
 		FF292A2F219E680A00A4E7F4 /* EventsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EventsManager.entitlements; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */,
+				FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */,
 				AA5B784C2076E29F00D15262 /* EventTagButton.swift */,
 				AA1FFF97208ED460007A5E5C /* EventCard.swift */,
 				AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */,
@@ -606,7 +609,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n";
+			shellScript = "
+";
 		};
 		EC34332FF7928582725932F6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -647,6 +651,7 @@
 				AA04DEFC2134E8C500FA0507 /* MyProfileHeaderFooterView.swift in Sources */,
 				FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */,
 				AAD3E05021444461000B5000 /* EventsSearchViewController.swift in Sources */,
+				FC48D37B222B0D3F00A8F8DF /* PinkClickableButton.swift in Sources */,
 				AABA675420C7244600363899 /* MyEventsDatePickerView.swift in Sources */,
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
 				AABA675020C6E5DD00363899 /* User.swift in Sources */,

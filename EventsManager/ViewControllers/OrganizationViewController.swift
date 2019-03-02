@@ -23,8 +23,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let orgHeaderView = UIView()
     let orgAvatar: UIImageView = UIImageView()
     let orgNameLabel: UILabel = UILabel()
-    let memberButton: UIButton = UIButton()
-    let followButton: UIButton = UIButton()
+    let memberButton: PinkClickableButton = PinkClickableButton()
+    let followButton: PinkClickableButton = PinkClickableButton()
 
     let orgInfoView = UIView()
     let aboutLabel = UILabel()
@@ -61,7 +61,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let tagLabelFontSize: CGFloat = 22
     let tagScrollViewHeight: CGFloat = 50
     let tagHorizontalSpacing: CGFloat = 8
-
+    let buttonHeight: CGFloat = 40
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -156,18 +157,18 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         rightLowerStack.distribution = .fill
         rightLowerStack.spacing = memberToFollowButtonSpacing
 
-        memberButton.setTitleColor(UIColor.black, for: .normal)
-        memberButton.layer.borderWidth = 1
-        memberButton.layer.borderColor = UIColor.black.cgColor
-        memberButton.layer.cornerRadius = buttonBorderRadius
-        memberButton.titleLabel?.font = UIFont.systemFont(ofSize: headerButtonFontSize)
-
-        followButton.setTitleColor(UIColor.black, for: .normal)
-        followButton.layer.borderWidth = 1
-        followButton.layer.borderColor = UIColor.black.cgColor
-        followButton.layer.cornerRadius = buttonBorderRadius
-        followButton.titleLabel?.font = UIFont.systemFont(ofSize: headerButtonFontSize)
-
+        memberButton.layer.cornerRadius = buttonHeight / 2
+        memberButton.addTarget(self, action: #selector(self.memberButtonPressed(_:)), for: .touchUpInside)
+        memberButton.snp.makeConstraints { make in
+            make.height.equalTo(buttonHeight)
+        }
+        
+        followButton.layer.cornerRadius = buttonHeight / 2
+        followButton.addTarget(self, action: #selector(self.followButtonPressed(_:)), for: .touchUpInside)
+        followButton.snp.makeConstraints { make in
+            make.height.equalTo(buttonHeight)
+        }
+        
         orgAvatar.snp.makeConstraints { make in
             make.width.equalTo(orgAvatarSideLength)
             make.height.equalTo(orgAvatarSideLength)
@@ -378,6 +379,14 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
 
+    @objc func memberButtonPressed(_ sender: UIButton){
+        self.memberButton.changeColor()
+    }
+    
+    @objc func followButtonPressed(_ sender: UIButton){
+        self.followButton.changeColor()
+    }
+    
     /*
      * Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
      * - sender: the sender of the action.
