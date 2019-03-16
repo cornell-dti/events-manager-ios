@@ -72,7 +72,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 
         }
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
-        popularEvents = Array(popularEvents.prefix(10))
         for ev in events {
             if (Calendar.current.isDateInToday(ev.startTime)) {
                 todayEvents.append(ev)

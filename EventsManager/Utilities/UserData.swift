@@ -65,7 +65,9 @@ class UserData {
                 followingOrganizations: [],
                 followingTags: [],
                 organizationClicks: [:],
-                tagClicks: [:]
+                tagClicks: [:],
+                reminderEnabled: true,
+                reminderTime: ReminderTimeOptions.getInt(from: .fifteenMinutesBefore)
             )
         }
         return nil
@@ -108,7 +110,58 @@ class UserData {
         }
         return false
     }
+    
+    /**
+     Set reminderEnabled
+    */
+    
+    static func setReminderEnabled(rem: Bool) -> Bool {
+        if var user = UserData.getLoggedInUser() {
+            user.reminderEnabled = rem
+            return UserData.login(for: user)
+        }
+        return false
+    }
+    
 
+    /**
+     Get reminderEnabled
+     */
+    
+    static func getReminderEnabled() -> Bool? {
+        if let user = UserData.getLoggedInUser() {
+            return user.reminderEnabled
+        }
+        
+        return nil
+    }
+
+    /**
+     Set reminderTime
+     */
+    
+    static func setReminderTime(timeReminderOption: ReminderTimeOptions) -> Bool {
+        if var user = UserData.getLoggedInUser() {
+            user.reminderTime = ReminderTimeOptions.getInt(from: timeReminderOption)
+            return UserData.login(for: user)
+        }
+        return false
+        
+    }
+
+    /**
+     Get reminderTime
+     */
+    
+    static func getReminderTime() -> Int? {
+        if let user = UserData.getLoggedInUser() {
+            return user.reminderTime
+        }
+        return nil
+        
+    }
+
+    
     /**
      Check if user has completed the onboarding process.
      */
