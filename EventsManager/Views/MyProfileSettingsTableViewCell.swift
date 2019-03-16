@@ -146,8 +146,22 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
     */
     func configure(with user: User) {
         netIdDisplayLabel.text = user.netID
-        if !eventRemindersSwitch.isOn {
-            toggleNotifyMeSelectorDisabled()
+        if user.reminderEnabled {
+            eventRemindersSwitch.isOn = true
+        }
+        else {
+            eventRemindersSwitch.isOn = false
+        }
+       
+        switch ReminderTimeOptions.getCase(by: user.reminderTime) {
+        case .fifteenMinutesBefore:
+            notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-15min-before", comment: ""), for: .normal)
+        case .halfAnHourBefore:
+            notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-half-an-hour-before", comment: ""), for: .normal)
+        case .oneHourBefore:
+            notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-one-hour-before", comment: ""), for: .normal)
+        case .none:
+            notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-none", comment: ""), for: .normal)
         }
     }
 
@@ -178,6 +192,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
      */
     @objc func eventReminderSwitcherSwitched(_ sender: UISwitch) {
        self.toggleNotifyMeSelectorDisabled()
+        UserData.setReminderEnabled(rem: sender.isOn)
     }
 
     /**
