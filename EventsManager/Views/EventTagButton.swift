@@ -39,8 +39,8 @@ class EventTagButton: UIButton {
         self.titleLabel?.font = UIFont.systemFont(ofSize: tagFontSize)
         self.layer.cornerRadius = tagHeight / 2
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.black.cgColor
-        self.setTitleColor(UIColor.black, for: .normal)
+        self.layer.borderColor = UIColor(named: "primaryPink")?.cgColor
+        self.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         self.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(tagHeight)
         }

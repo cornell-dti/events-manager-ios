@@ -20,6 +20,8 @@ struct User: Codable {
     var followingTags: [Int]
     var organizationClicks: [Int:Int]
     var tagClicks: [Int:Int]
+    var reminderEnabled: Bool
+    var reminderTime: Int
 
     private enum CodingKeys: String, CodingKey {
         case netID = "net_id"
@@ -33,6 +35,8 @@ struct User: Codable {
         case followingTags = "following_tags"
         case organizationClicks = "organization_clicks"
         case tagClicks = "tag_clicks"
+        case reminderEnabled = "reminder_enabled"
+        case reminderTime = "reminder_time"
     }
 
     func encode(to encoder: Encoder) throws {
@@ -48,6 +52,8 @@ struct User: Codable {
         try container.encode(followingTags, forKey: .followingTags)
         try container.encode(organizationClicks, forKey: .organizationClicks)
         try container.encode(tagClicks, forKey: .tagClicks)
+        try container.encode(reminderEnabled, forKey: .reminderEnabled)
+        try container.encode(reminderTime, forKey: .reminderTime)
     }
 
 }

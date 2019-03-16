@@ -197,6 +197,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
      */
     @objc func toolBarDoneClicked() {
         let selectedTimeOption = ReminderTimeOptions.getCase(by: reminderTimePicker.selectedRow(inComponent: 0))
+        _ = UserData.setReminderTime(timeReminderOption: selectedTimeOption)
         switch selectedTimeOption {
             case .fifteenMinutesBefore: settingsCell.notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-15min-before", comment: ""), for: .normal)
             case .halfAnHourBefore: settingsCell.notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-half-an-hour-before", comment: ""), for: .normal)
