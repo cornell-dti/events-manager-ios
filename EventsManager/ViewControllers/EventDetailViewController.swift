@@ -408,11 +408,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.text = event.eventDescription
         eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
         eventOrganizer.text = AppData.getOrganization(by: event.eventOrganizer).name
-        eventLocation.text = event.eventLocation
+        eventLocation.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation).0
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
 
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
-        placesClient.fetchPlace(fromPlaceID: event.eventLocationID, placeFields: fields, sessionToken: nil, callback: {
+        placesClient.fetchPlace(fromPlaceID: AppData.getLocationPlaceIdTuple(by: event.eventLocation).1, placeFields: fields, sessionToken: nil, callback: {
             (result: GMSPlace?, error: Error?) in
             if let error = error {
                 print("An error occurred: \(error.localizedDescription) when fetching google places")

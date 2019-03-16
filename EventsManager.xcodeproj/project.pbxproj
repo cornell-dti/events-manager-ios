@@ -27,6 +27,7 @@
 		AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */; };
 		AA7C451F21EEA74300B3241F /* ForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7C451E21EEA74300B3241F /* ForYouViewController.swift */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
+		AA8861F7223D6FE500DE9180 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8861F6223D6FE500DE9180 /* Location.swift */; };
 		AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */; };
 		AABA674E20C6E5D500363899 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674D20C6E5D500363899 /* Organization.swift */; };
 		AABA675020C6E5DD00363899 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674F20C6E5DD00363899 /* User.swift */; };
@@ -117,6 +118,7 @@
 		AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.bold.ttf; sourceTree = "<group>"; };
 		AA7C451E21EEA74300B3241F /* ForYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForYouViewController.swift; sourceTree = "<group>"; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
+		AA8861F6223D6FE500DE9180 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerTagView.swift; path = EventsManager/Views/DatePickerTagView.swift; sourceTree = SOURCE_ROOT; };
 		AABA674D20C6E5D500363899 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Organization.swift; path = EventsManager/Models/Organization.swift; sourceTree = SOURCE_ROOT; };
 		AABA674F20C6E5DD00363899 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = EventsManager/Models/User.swift; sourceTree = SOURCE_ROOT; };
@@ -340,6 +342,7 @@
 				DA75C21C205ABDCD00C1822C /* Event.swift */,
 				AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */,
 				AA4B5FC2214818E8005B5879 /* SearchOptions.swift */,
+				AA8861F6223D6FE500DE9180 /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
 				AAD334EA2151E83100312F31 /* LoginViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,
+				AA8861F7223D6FE500DE9180 /* Location.swift in Sources */,
 				DA75C21D205ABDCD00C1822C /* Event.swift in Sources */,
 				FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */,
 				AAD3E054214500D5000B5000 /* SearchEmtpyStateView.swift in Sources */,
