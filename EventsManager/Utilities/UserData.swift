@@ -67,7 +67,7 @@ class UserData {
                 organizationClicks: [:],
                 tagClicks: [:],
                 reminderEnabled: true,
-                reminderTime: 15
+                reminderTime: ReminderTimeOptions.getInt(from: .fifteenMinutesBefore)
             )
         }
         return nil
