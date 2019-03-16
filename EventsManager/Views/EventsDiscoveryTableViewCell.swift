@@ -122,7 +122,7 @@ class EventsDiscoveryTableViewCell: UITableViewCell {
     func updateUI() {
         startTime.text = DateFormatHelper.hourMinute(from: event?.startTime ?? Date())
         endTime.text = DateFormatHelper.hourMinute(from: event?.endTime ?? Date())
-        eventLocation.text = event?.eventLocation
+        eventLocation.text = AppData.getLocationPlaceIdTuple(by: event?.eventLocation ?? 0).0
         eventName.text = event?.eventName
         eventParticipantCount.text = String(event?.eventParticipantCount ?? 0)
     }
