@@ -129,7 +129,7 @@ class UserData {
      */
     
     static func getReminderEnabled() -> Bool? {
-        if var user = UserData.getLoggedInUser() {
+        if let user = UserData.getLoggedInUser() {
             return user.reminderEnabled
         }
         
@@ -154,7 +154,7 @@ class UserData {
      */
     
     static func getReminderTime() -> Int? {
-        if var user = UserData.getLoggedInUser() {
+        if let user = UserData.getLoggedInUser() {
             return user.reminderTime
         }
         return nil
