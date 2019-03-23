@@ -68,7 +68,18 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             var date2Date = DateFormatHelper.datetime(from: date2)!
             date2Date = Calendar.current.date(byAdding: .day, value: 1, to: date2Date)!
             date2 = DateFormatHelper.datetime(from: date2Date)
-            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166))
+            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166, isPublic: true))
+            
+            let serverTokenString = "Token \(String(describing: UserData.getLoggedInUser()?.serverAuthToken!))"
+            let timestampString = "2018-01-20 01:43:40"
+            let startString = "1999-02-19 01:45:10"
+            let endString = "2021-03-21 01:45:10"
+            Internet.fetchUpdatedEvents(serverToken: serverTokenString, timestamp: DateFormatHelper.datetime(from: timestampString)!, start: DateFormatHelper.datetime(from: startString)!, end: DateFormatHelper.datetime(from: endString)!){
+                (events, deleted, timestamp) in
+                if events != nil {
+                    print("GOOD")
+                }
+            }
 
         }
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })

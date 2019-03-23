@@ -19,6 +19,7 @@ struct Event:Codable {
     let eventDescription: String
     let eventTags: [Int]
     let eventParticipantCount: Int
+    let isPublic: Bool
     
     private enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -31,6 +32,7 @@ struct Event:Codable {
         case eventDescription = "event_description"
         case eventTags = "event_tags"
         case eventParticipantCount = "event_participant_count"
+        case isPublic = "is_public"
     }
     
     func encode(to encoder: Encoder) throws {
@@ -45,5 +47,6 @@ struct Event:Codable {
         try container.encode(eventDescription, forKey: .eventDescription)
         try container.encode(eventTags, forKey: .eventTags)
         try container.encode(eventParticipantCount, forKey: .eventParticipantCount)
+        try container.encode(isPublic, forKey: .isPublic)
     }
 }
