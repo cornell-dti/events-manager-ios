@@ -13,8 +13,7 @@ struct Event:Codable {
     let startTime: Date
     let endTime: Date
     let eventName: String
-    let eventLocation: String
-    let eventLocationID: String
+    let eventLocation: Int
     let eventImage: URL //id
     let eventOrganizer: Int
     let eventDescription: String
@@ -27,7 +26,6 @@ struct Event:Codable {
         case endTime = "end_time"
         case eventName = "event_name"
         case eventLocation = "event_location"
-        case eventLocationID = "event_location_id"
         case eventImage = "event_image"
         case eventOrganizer = "event_organizer"
         case eventDescription = "event_description"
@@ -42,7 +40,6 @@ struct Event:Codable {
         try container.encode(endTime, forKey: .endTime)
         try container.encode(eventName, forKey: .eventName)
         try container.encode(eventLocation, forKey: .eventLocation)
-        try container.encode(eventLocationID, forKey: .eventLocationID)
         try container.encode(eventImage, forKey: .eventImage)
         try container.encode(eventOrganizer, forKey: .eventOrganizer)
         try container.encode(eventDescription, forKey: .eventDescription)
