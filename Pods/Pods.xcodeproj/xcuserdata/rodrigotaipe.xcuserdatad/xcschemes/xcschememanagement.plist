@@ -6,8 +6,10 @@
 	<dict>
 		<key>Alamofire.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<key>GTMOAuth2.xcscheme_^#shared#^_</key>
 		<dict>
@@ -16,58 +18,143 @@
 		</dict>
 		<key>GTMSessionFetcher.xcscheme_^#shared#^_</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
-		</dict>
-		<key>GoogleMaps.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-		<key>GooglePlaces.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>GoogleSignIn.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-		<key>GoogleToolboxForMac.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
-		<key>Kingfisher.xcscheme_^#shared#^_</key>
-		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>Pods-EventsManager.xcscheme_^#shared#^_</key>
+		<key>GoogleMaps.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>GooglePlaces.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>GoogleSignIn.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>GoogleToolboxForMac.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Kingfisher.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
-		<key>Pods-EventsManagerTests.xcscheme_^#shared#^_</key>
+		<key>Pods-EventsManager.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
-		<key>Pods-EventsManagerUITests.xcscheme_^#shared#^_</key>
+		<key>Pods-EventsManagerTests.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>10</integer>
 		</dict>
-		<key>SnapKit.xcscheme_^#shared#^_</key>
+		<key>Pods-EventsManagerUITests.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
-		<key>SwiftyJSON.xcscheme_^#shared#^_</key>
+		<key>SnapKit.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>12</integer>
+		</dict>
+		<key>SwiftyJSON.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1AD73B07D0A43E21F0EE0F993215B9D8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1BFD95A8FA2A7C58041780EBAA5044E1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2CA9E9CBD6D1591F4833D0AC9A6DE30D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3383968E74B5371B20BB519B170DC7FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>41246577D3A9F9B0B32C0ACD5CDAF1C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>45FF5A8453366480EB83D0C7F9FC7903</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4A0A22DC77365EB37D44E9B9E0F3ABD4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5027EAAD6306522F98139A35E361E231</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AEE17E48E568BEF862E2C0285AE6358E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BCE3DE68053C99B18AAD56BE1F98BD73</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F37A3D69562C992670595A39FC8CDA9A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FAAC2B7A886334E12EF4ECCFEFD3F384</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

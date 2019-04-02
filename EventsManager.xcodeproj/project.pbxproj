@@ -61,6 +61,63 @@
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
 		FC48D37B222B0D3F00A8F8DF /* PinkClickableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */; };
+		FCD0E44C225417CA00E180DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E37CE201E91CA00B3AFA4 /* AppDelegate.swift */; };
+		FCD0E44D225417CA00E180DF /* EventsDiscoveryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */; };
+		FCD0E44E225417CA00E180DF /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
+		FCD0E44F225417CA00E180DF /* MyProfileTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */; };
+		FCD0E450225417CA00E180DF /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4B5FC2214818E8005B5879 /* SearchOptions.swift */; };
+		FCD0E451225417CA00E180DF /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674D20C6E5D500363899 /* Organization.swift */; };
+		FCD0E452225417CA00E180DF /* EventCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */; };
+		FCD0E453225417CA00E180DF /* DatePickerTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA17B720919A3B00CC2ACA /* DatePickerTagView.swift */; };
+		FCD0E454225417CA00E180DF /* ForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7C451E21EEA74300B3241F /* ForYouViewController.swift */; };
+		FCD0E455225417CA00E180DF /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
+		FCD0E456225417CA00E180DF /* EventTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF8FC6A209AA69900BF8277 /* EventTableHeaderFooterView.swift */; };
+		FCD0E457225417CA00E180DF /* MyProfileHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEFB2134E8C500FA0507 /* MyProfileHeaderFooterView.swift */; };
+		FCD0E458225417CA00E180DF /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
+		FCD0E459225417CA00E180DF /* EventsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */; };
+		FCD0E45A225417CA00E180DF /* PinkClickableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */; };
+		FCD0E45B225417CA00E180DF /* MyEventsDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675320C7244600363899 /* MyEventsDatePickerView.swift */; };
+		FCD0E45C225417CA00E180DF /* EventsDiscoveryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C218205ABDB600C1822C /* EventsDiscoveryController.swift */; };
+		FCD0E45D225417CA00E180DF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA674F20C6E5DD00363899 /* User.swift */; };
+		FCD0E45E225417CA00E180DF /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD7D1C92156C71D003C58E6 /* OnBoardingViewController.swift */; };
+		FCD0E45F225417CA00E180DF /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
+		FCD0E460225417CA00E180DF /* EventDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E0512144B34F000B5000 /* EventDateHelper.swift */; };
+		FCD0E461225417CA00E180DF /* ReminderTimeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FD2136374400EBCC64 /* ReminderTimeOptions.swift */; };
+		FCD0E462225417CA00E180DF /* OrganizationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEF92134DFCB00FA0507 /* OrganizationTableViewCell.swift */; };
+		FCD0E463225417CA00E180DF /* SeeAllEventsHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF8FC6C209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift */; };
+		FCD0E464225417CA00E180DF /* Internet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4820AF42530070F515 /* Internet.swift */; };
+		FCD0E465225417CA00E180DF /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABA675120C6E5E400363899 /* Tag.swift */; };
+		FCD0E466225417CA00E180DF /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */; };
+		FCD0E467225417CA00E180DF /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
+		FCD0E468225417CA00E180DF /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
+		FCD0E469225417CA00E180DF /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */; };
+		FCD0E46A225417CA00E180DF /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */; };
+		FCD0E46B225417CA00E180DF /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
+		FCD0E46C225417CA00E180DF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD334E92151E83100312F31 /* LoginViewController.swift */; };
+		FCD0E46D225417CA00E180DF /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03DC272061B8220059EE1B /* EventDetailViewController.swift */; };
+		FCD0E46E225417CA00E180DF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8861F6223D6FE500DE9180 /* Location.swift */; };
+		FCD0E46F225417CA00E180DF /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21C205ABDCD00C1822C /* Event.swift */; };
+		FCD0E470225417CA00E180DF /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
+		FCD0E471225417CA00E180DF /* SearchEmtpyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD3E053214500D5000B5000 /* SearchEmtpyStateView.swift */; };
+		FCD0E472225417CA00E180DF /* MyProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2C7FB21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift */; };
+		FCD0E473225417CA00E180DF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE10F4A20AF42D50070F515 /* UserData.swift */; };
+		FCD0E474225417CA00E180DF /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF97208ED460007A5E5C /* EventCard.swift */; };
+		FCD0E475225417CA00E180DF /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD334EB215204C600312F31 /* AppData.swift */; };
+		FCD0E477225417CA00E180DF /* Pods_EventsManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 203EF1ECAA23F1DF15B70B81 /* Pods_EventsManager.framework */; };
+		FCD0E479225417CA00E180DF /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD7D1CC2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png */; };
+		FCD0E47A225417CA00E180DF /* dosis.semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAD334F12152327B00312F31 /* dosis.semibold.ttf */; };
+		FCD0E47B225417CA00E180DF /* dosis.medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAD334F02152327600312F31 /* dosis.medium.ttf */; };
+		FCD0E47C225417CA00E180DF /* dosis.bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */; };
+		FCD0E47D225417CA00E180DF /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */; };
+		FCD0E47E225417CA00E180DF /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD7D1CB2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png */; };
+		FCD0E47F225417CA00E180DF /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474E220949FD009BAE2D /* SF-Pro-Text-Bold.otf */; };
+		FCD0E480225417CA00E180DF /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */; };
+		FCD0E481225417CA00E180DF /* dosis.book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAD334EF2152327100312F31 /* dosis.book.ttf */; };
+		FCD0E482225417CA00E180DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */; };
+		FCD0E483225417CA00E180DF /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */; };
+		FCD0E484225417CA00E180DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A11D265E20FAF0D9001712E6 /* Localizable.strings */; };
+		FCD0E485225417CA00E180DF /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD7D1CD2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png */; };
+		FCD0E486225417CA00E180DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */; };
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
@@ -154,6 +211,7 @@
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkClickableButton.swift; sourceTree = "<group>"; };
+		FCD0E48D225417CA00E180DF /* EventsManager Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventsManager Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF292A2F219E680A00A4E7F4 /* EventsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EventsManager.entitlements; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -186,6 +244,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8AB18432A62923AEF3E6DFE /* Pods_EventsManagerUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCD0E476225417CA00E180DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCD0E477225417CA00E180DF /* Pods_EventsManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +299,7 @@
 				A40E37CB201E91CA00B3AFA4 /* EventsManager.app */,
 				A40E37DF201E91CA00B3AFA4 /* EventsManagerTests.xctest */,
 				A40E37EA201E91CA00B3AFA4 /* EventsManagerUITests.xctest */,
+				FCD0E48D225417CA00E180DF /* EventsManager Development.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -422,6 +489,27 @@
 			productReference = A40E37EA201E91CA00B3AFA4 /* EventsManagerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		FCD0E449225417CA00E180DF /* EventsManager Development */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCD0E48A225417CA00E180DF /* Build configuration list for PBXNativeTarget "EventsManager Development" */;
+			buildPhases = (
+				FCD0E44A225417CA00E180DF /* [CP] Check Pods Manifest.lock */,
+				FCD0E44B225417CA00E180DF /* Sources */,
+				FCD0E476225417CA00E180DF /* Frameworks */,
+				FCD0E478225417CA00E180DF /* Resources */,
+				FCD0E487225417CA00E180DF /* [CP] Embed Pods Frameworks */,
+				FCD0E488225417CA00E180DF /* [CP] Copy Pods Resources */,
+				FCD0E489225417CA00E180DF /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EventsManager Development";
+			productName = EventsManager;
+			productReference = FCD0E48D225417CA00E180DF /* EventsManager Development.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -454,6 +542,9 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = A40E37CA201E91CA00B3AFA4;
 					};
+					FCD0E449225417CA00E180DF = {
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = A40E37C6201E91CA00B3AFA4 /* Build configuration list for PBXProject "EventsManager" */;
@@ -472,6 +563,7 @@
 				A40E37CA201E91CA00B3AFA4 /* EventsManager */,
 				A40E37DE201E91CA00B3AFA4 /* EventsManagerTests */,
 				A40E37E9201E91CA00B3AFA4 /* EventsManagerUITests */,
+				FCD0E449225417CA00E180DF /* EventsManager Development */,
 			);
 		};
 /* End PBXProject section */
@@ -509,6 +601,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCD0E478225417CA00E180DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCD0E479225417CA00E180DF /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.47.png in Resources */,
+				FCD0E47A225417CA00E180DF /* dosis.semibold.ttf in Resources */,
+				FCD0E47B225417CA00E180DF /* dosis.medium.ttf in Resources */,
+				FCD0E47C225417CA00E180DF /* dosis.bold.ttf in Resources */,
+				FCD0E47D225417CA00E180DF /* SF-Pro-Text-Regular.otf in Resources */,
+				FCD0E47E225417CA00E180DF /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png in Resources */,
+				FCD0E47F225417CA00E180DF /* SF-Pro-Text-Bold.otf in Resources */,
+				FCD0E480225417CA00E180DF /* SF-Pro-Text-Semibold.otf in Resources */,
+				FCD0E481225417CA00E180DF /* dosis.book.ttf in Resources */,
+				FCD0E482225417CA00E180DF /* LaunchScreen.storyboard in Resources */,
+				FCD0E483225417CA00E180DF /* SF-Pro-Text-Light.otf in Resources */,
+				FCD0E484225417CA00E180DF /* Localizable.strings in Resources */,
+				FCD0E485225417CA00E180DF /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png in Resources */,
+				FCD0E486225417CA00E180DF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +746,88 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FCD0E44A225417CA00E180DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EventsManager-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCD0E487225417CA00E180DF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EventsManager/Pods-EventsManager-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventsManager/Pods-EventsManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCD0E488225417CA00E180DF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EventsManager/Pods-EventsManager-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventsManager/Pods-EventsManager-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCD0E489225417CA00E180DF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -698,6 +893,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				A40E37EF201E91CA00B3AFA4 /* EventsManagerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCD0E44B225417CA00E180DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCD0E44C225417CA00E180DF /* AppDelegate.swift in Sources */,
+				FCD0E44D225417CA00E180DF /* EventsDiscoveryTableViewCell.swift in Sources */,
+				FCD0E44E225417CA00E180DF /* MyEventsViewController.swift in Sources */,
+				FCD0E44F225417CA00E180DF /* MyProfileTagsTableViewCell.swift in Sources */,
+				FCD0E450225417CA00E180DF /* SearchOptions.swift in Sources */,
+				FCD0E451225417CA00E180DF /* Organization.swift in Sources */,
+				FCD0E452225417CA00E180DF /* EventCardCell.swift in Sources */,
+				FCD0E453225417CA00E180DF /* DatePickerTagView.swift in Sources */,
+				FCD0E454225417CA00E180DF /* ForYouViewController.swift in Sources */,
+				FCD0E455225417CA00E180DF /* EventTagButton.swift in Sources */,
+				FCD0E456225417CA00E180DF /* EventTableHeaderFooterView.swift in Sources */,
+				FCD0E457225417CA00E180DF /* MyProfileHeaderFooterView.swift in Sources */,
+				FCD0E458225417CA00E180DF /* LoadingViewController.swift in Sources */,
+				FCD0E459225417CA00E180DF /* EventsSearchViewController.swift in Sources */,
+				FCD0E45A225417CA00E180DF /* PinkClickableButton.swift in Sources */,
+				FCD0E45B225417CA00E180DF /* MyEventsDatePickerView.swift in Sources */,
+				FCD0E45C225417CA00E180DF /* EventsDiscoveryController.swift in Sources */,
+				FCD0E45D225417CA00E180DF /* User.swift in Sources */,
+				FCD0E45E225417CA00E180DF /* OnBoardingViewController.swift in Sources */,
+				FCD0E45F225417CA00E180DF /* TagViewController.swift in Sources */,
+				FCD0E460225417CA00E180DF /* EventDateHelper.swift in Sources */,
+				FCD0E461225417CA00E180DF /* ReminderTimeOptions.swift in Sources */,
+				FCD0E462225417CA00E180DF /* OrganizationTableViewCell.swift in Sources */,
+				FCD0E463225417CA00E180DF /* SeeAllEventsHeaderFooterView.swift in Sources */,
+				FCD0E464225417CA00E180DF /* Internet.swift in Sources */,
+				FCD0E465225417CA00E180DF /* Tag.swift in Sources */,
+				FCD0E466225417CA00E180DF /* TabBarViewController.swift in Sources */,
+				FCD0E467225417CA00E180DF /* Alert.swift in Sources */,
+				FCD0E468225417CA00E180DF /* DateFormatHelper.swift in Sources */,
+				FCD0E469225417CA00E180DF /* OrganizationViewController.swift in Sources */,
+				FCD0E46A225417CA00E180DF /* EventListViewController.swift in Sources */,
+				FCD0E46B225417CA00E180DF /* MyProfileViewController.swift in Sources */,
+				FCD0E46C225417CA00E180DF /* LoginViewController.swift in Sources */,
+				FCD0E46D225417CA00E180DF /* EventDetailViewController.swift in Sources */,
+				FCD0E46E225417CA00E180DF /* Location.swift in Sources */,
+				FCD0E46F225417CA00E180DF /* Event.swift in Sources */,
+				FCD0E470225417CA00E180DF /* CheckableTableViewCell.swift in Sources */,
+				FCD0E471225417CA00E180DF /* SearchEmtpyStateView.swift in Sources */,
+				FCD0E472225417CA00E180DF /* MyProfileSettingsTableViewCell.swift in Sources */,
+				FCD0E473225417CA00E180DF /* UserData.swift in Sources */,
+				FCD0E474225417CA00E180DF /* EventCard.swift in Sources */,
+				FCD0E475225417CA00E180DF /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,7 +1090,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EventsManager/EventsManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NHAKALPCJ4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = EventsManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cornell.dti.org.EventsManager;
@@ -863,7 +1107,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EventsManager/EventsManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NHAKALPCJ4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = EventsManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cornell.dti.org.EventsManager;
@@ -939,6 +1183,42 @@
 			};
 			name = Release;
 		};
+		FCD0E48B225417CA00E180DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07997C0E5F60D72C919DA2A1 /* Pods-EventsManager.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EventsManager/EventsManager.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "EventsManager copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cornell.dti.org.EventsManager.Development;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG DEVELOPMENT";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		FCD0E48C225417CA00E180DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BA597F01357890B27CC5332 /* Pods-EventsManager.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EventsManager/EventsManager.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "EventsManager copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cornell.dti.org.EventsManager.Development;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPMENT;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -974,6 +1254,15 @@
 			buildConfigurations = (
 				A40E37FA201E91CA00B3AFA4 /* Debug */,
 				A40E37FB201E91CA00B3AFA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FCD0E48A225417CA00E180DF /* Build configuration list for PBXNativeTarget "EventsManager Development" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCD0E48B225417CA00E180DF /* Debug */,
+				FCD0E48C225417CA00E180DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

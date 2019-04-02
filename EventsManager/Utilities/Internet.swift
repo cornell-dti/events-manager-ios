@@ -11,11 +11,16 @@ import Alamofire
 import SwiftyJSON
 
 class Internet {
-    private static let serverTokenAddress = "http://cuevents-app.herokuapp.com/generate_token/"
-    private static let mediaAddress = "http://cuevents-app.herokuapp.com/app/media/"
-    private static let tagAddress = "http://cuevents-app.herokuapp.com/app/tag/"
-    private static let locationAddress = "http://cuevents-app.herokuapp.com/app/loc/"
-    private static let eventsFeedAddress = "http://cuevents-app.herokuapp.com/feed/events/"
+    #if DEVELOPMENT
+    private static let baseURL = "http://127.0.0.1:8000/"
+    #else
+    private static let baseURL = "http://cuevents-app.herokuapp.com/"
+    #endif
+    private static let serverTokenAddress = baseURL + "generate_token/"
+    private static let mediaAddress = baseURL + "app/media/"
+    private static let tagAddress = baseURL + "app/tag/"
+    private static let locationAddress = baseURL + "app/loc/"
+    private static let eventsFeedAddress = baseURL + "feed/events/"
     
 
     static func getServerAuthToken(for googleToken: String, _ completion: @escaping (String?) -> Void) {
