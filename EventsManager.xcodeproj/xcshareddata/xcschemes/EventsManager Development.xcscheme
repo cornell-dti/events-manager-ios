@@ -52,7 +52,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FCD0E449225417CA00E180DF"
+            BlueprintIdentifier = "FCD0E48F22548ED700E180DF"
             BuildableName = "EventsManager Development.app"
             BlueprintName = "EventsManager Development"
             ReferencedContainer = "container:EventsManager.xcodeproj">
@@ -75,7 +75,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FCD0E449225417CA00E180DF"
+            BlueprintIdentifier = "FCD0E48F22548ED700E180DF"
             BuildableName = "EventsManager Development.app"
             BlueprintName = "EventsManager Development"
             ReferencedContainer = "container:EventsManager.xcodeproj">
