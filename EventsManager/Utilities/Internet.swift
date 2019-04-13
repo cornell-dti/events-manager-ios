@@ -11,11 +11,17 @@ import Alamofire
 import SwiftyJSON
 
 class Internet {
-    private static let serverTokenAddress = "http://cuevents-app.herokuapp.com/generate_token/"
-    private static let mediaAddress = "http://cuevents-app.herokuapp.com/app/media/"
-    private static let tagAddress = "http://cuevents-app.herokuapp.com/app/tag/"
-    private static let locationAddress = "http://cuevents-app.herokuapp.com/app/loc/"
-    private static let eventsFeedAddress = "http://cuevents-app.herokuapp.com/feed/events/"
+    #if DEVELOPMENT
+    private static let baseURL = "http://127.0.0.1:8000/"
+    #else
+    private static let baseURL = "http://cuevents-app.herokuapp.com/"
+    #endif
+    private static let serverTokenAddress = baseURL + "generate_token/"
+    private static let mediaAddress = baseURL + "app/media/"
+    private static let tagAddress = baseURL + "app/tag/"
+    private static let locationAddress = baseURL + "app/loc/"
+    private static let eventsFeedAddress = baseURL + "feed/events/"
+    private static let eventDetailsAddress = baseURL + "event/"
     
 
     static func getServerAuthToken(for googleToken: String, _ completion: @escaping (String?) -> Void) {
@@ -127,13 +133,16 @@ class Internet {
                         {
                             let startDateTime = DateFormatHelper.datetime(from: "\(start_date) \(start_time)")
                             let endDateTime = DateFormatHelper.datetime(from: "\(end_date) \(end_time)")
-                            let imageId = event_media.count > 0 ? event_media[0].int! : 0
-                            let imageURL = URL(string: mediaAddress + String(imageId))
+                            var imageURL = URL(string: "http://ethanhu.me/images/background.jpg")!
+                            if event_media.count > 0 {
+                                let imageId = event_media[0].int!
+                                imageURL = URL(string: mediaAddress + String(imageId))!
+                            }
                             var eventTags : [Int] = []
                             for tag in event_tags {
                                 eventTags.append((tag.int)!)
                             }
-                            let eventInstance = Event.init(id: pk, startTime: startDateTime!, endTime: endDateTime!, eventName: name, eventLocation: location, eventImage: imageURL!, eventOrganizer: organizer, eventDescription: description, eventTags: eventTags, eventParticipantCount: num_attendees, isPublic: is_public)
+                            let eventInstance = Event.init(id: pk, startTime: startDateTime!, endTime: endDateTime!, eventName: name, eventLocation: location, eventImage: imageURL, eventOrganizer: organizer, eventDescription: description, eventTags: eventTags, eventParticipantCount: num_attendees, isPublic: is_public)
                             events.append(eventInstance)
                         }
                     }
@@ -161,5 +170,54 @@ class Internet {
         
     }
     
+    //Returns Array of events, array of deleted event ids, and timestamp as a string.
+    static func fetchEventDetails(serverToken: String, id: Int, completion: @escaping (Event?) -> Void) {
+        print(serverToken)
+        let headers : HTTPHeaders = ["Authorization" : serverToken]
+        Alamofire.request("\(eventDetailsAddress)\(id)/", headers: headers).validate().responseJSON
+            { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    print("SUCCESS: \(json)")
+                    if let pk = json["pk"].int,
+                        let name = json["name"].string,
+                        let description = json["description"].string,
+                        let start_date = json["start_date"].string,
+                        let end_date = json["end_date"].string,
+                        let start_time = json["start_time"].string,
+                        let end_time = json["end_time"].string,
+                        let num_attendees = json["num_attendees"].int,
+                        let is_public = json["is_public"].bool,
+                        let organizer = json["organizer"].int,
+                        let location = json["location"].int,
+                        let event_tags = json["event_tags"].array,
+                        let event_media = json["event_media"].array
+                    {
+                        let startDateTime = DateFormatHelper.datetime(from: "\(start_date) \(start_time)")
+                        let endDateTime = DateFormatHelper.datetime(from: "\(end_date) \(end_time)")
+                        var imageURL = URL(string: "http://ethanhu.me/images/background.jpg")!
+                        if event_media.count > 0 {
+                            let imageId = event_media[0].int!
+                            imageURL = URL(string: mediaAddress + String(imageId))!
+                        }
+                        var eventTags : [Int] = []
+                        for tag in event_tags {
+                            eventTags.append((tag.int)!)
+                        }
+                        let eventInstance = Event.init(id: pk, startTime: startDateTime!, endTime: endDateTime!, eventName: name, eventLocation: location, eventImage: imageURL, eventOrganizer: organizer, eventDescription: description, eventTags: eventTags, eventParticipantCount: num_attendees, isPublic: is_public)
+                        completion(eventInstance)
+                    }
+                    else {
+                        completion(nil)
+                    }
+                    
+                case .failure(let error):
+                    print("ERROR: \(error)")
+                    completion(nil)
+                }
+        }
+        
+    }
 
 }

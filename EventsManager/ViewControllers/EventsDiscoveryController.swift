@@ -69,18 +69,33 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             date2Date = Calendar.current.date(byAdding: .day, value: 1, to: date2Date)!
             date2 = DateFormatHelper.datetime(from: date2Date)
             events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166, isPublic: true))
-            
-            let serverTokenString = "Token \(String(describing: UserData.getLoggedInUser()?.serverAuthToken!))"
-            let timestampString = "2018-01-20 01:43:40"
-            let startString = "1999-02-19 01:45:10"
-            let endString = "2021-03-21 01:45:10"
-            Internet.fetchUpdatedEvents(serverToken: serverTokenString, timestamp: DateFormatHelper.datetime(from: timestampString)!, start: DateFormatHelper.datetime(from: startString)!, end: DateFormatHelper.datetime(from: endString)!){
-                (events, deleted, timestamp) in
-                if events != nil {
-                    print("GOOD")
+        }
+        let serverTokenString = "Token " + (UserData.getLoggedInUser()?.serverAuthToken)!
+        let timestampString = "2018-01-20 01:43:40"
+        let startString = "1999-02-19 01:45:10"
+        let endString = "2021-03-21 01:45:10"
+        Internet.fetchUpdatedEvents(serverToken: serverTokenString, timestamp: DateFormatHelper.datetime(from: timestampString)!, start: DateFormatHelper.datetime(from: startString)!, end: DateFormatHelper.datetime(from: endString)!){
+            (events, deleted, timestamp) in
+            if let events = events {
+                if events.count > 0 {
+                    print(events[0].eventName)
+                }
+                else {
+                    print("No events")
                 }
             }
-
+            else {
+                print("Error with event feed")
+            }
+        }
+        Internet.fetchEventDetails(serverToken: serverTokenString, id: 1){
+            (event) in
+            if let event = event {
+                print(event.eventName)
+            }
+            else{
+                print("Error with event details")
+            }
         }
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         for ev in events {
