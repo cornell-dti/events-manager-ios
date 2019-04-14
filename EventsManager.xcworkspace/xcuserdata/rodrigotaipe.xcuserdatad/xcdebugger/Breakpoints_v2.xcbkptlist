@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EventsManager/ViewControllers/EventsDiscoveryController.swift"
-            timestampString = "575994517.905174"
+            timestampString = "576916691.8651021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EventsManager/ViewControllers/EventsDiscoveryController.swift"
-            timestampString = "575994517.905266"
+            timestampString = "576916691.865239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
@@ -106,13 +106,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EventsManager/Utilities/Internet.swift"
-            timestampString = "575994517.905357"
+            timestampString = "576916691.8654211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "fetchUpdatedEvents(serverToken:timestamp:start:end:completion:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EventsManager/ViewControllers/EventsDiscoveryController.swift"
+            timestampString = "576916691.866115"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "preloadCells()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EventsManager_Development.EventsDiscoveryController.preloadCells() -&gt; ()"
+                  moduleName = "EventsManager Development"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rodrigotaipe/Desktop/events-manager-ios/EventsManager/ViewControllers/EventsDiscoveryController.swift"
+                  timestampString = "576916582.5792921"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "3071">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EventsManager_Development.EventsDiscoveryController.preloadCells() -&gt; ()"
+                  moduleName = "EventsManager Development"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rodrigotaipe/Desktop/events-manager-ios/EventsManager/ViewControllers/EventsDiscoveryController.swift"
+                  timestampString = "576916582.583181"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "10868">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
