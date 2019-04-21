@@ -118,6 +118,10 @@
 		FCD0E4CA22548ED700E180DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A11D265E20FAF0D9001712E6 /* Localizable.strings */; };
 		FCD0E4CB22548ED700E180DF /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD7D1CD2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.20.png */; };
 		FCD0E4CC22548ED700E180DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */; };
+		FCD0E4D622625F5E00E180DF /* JSONParserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */; };
+		FCD0E4DA2262E12B00E180DF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D92262E12B00E180DF /* Endpoint.swift */; };
+		FCD0E4DB2263084D00E180DF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D92262E12B00E180DF /* Endpoint.swift */; };
+		FCD0E4DC2263085C00E180DF /* JSONParserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */; };
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
@@ -213,6 +217,8 @@
 		FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkClickableButton.swift; sourceTree = "<group>"; };
 		FCD0E4D322548ED700E180DF /* EventsManager Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventsManager Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD0E4D422548ED800E180DF /* EventsManager copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EventsManager copy-Info.plist"; path = "/Users/rodrigotaipe/Desktop/events-manager-ios/EventsManager copy-Info.plist"; sourceTree = "<absolute>"; };
+		FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParserHelper.swift; sourceTree = "<group>"; };
+		FCD0E4D92262E12B00E180DF /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		FF292A2F219E680A00A4E7F4 /* EventsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EventsManager.entitlements; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -425,6 +431,8 @@
 				AAE10F4A20AF42D50070F515 /* UserData.swift */,
 				AAD3E0512144B34F000B5000 /* EventDateHelper.swift */,
 				AAD334EB215204C600312F31 /* AppData.swift */,
+				FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */,
+				FCD0E4D92262E12B00E180DF /* Endpoint.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -859,6 +867,7 @@
 				AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */,
 				AAD3E0522144B34F000B5000 /* EventDateHelper.swift in Sources */,
 				AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */,
+				FCD0E4D622625F5E00E180DF /* JSONParserHelper.swift in Sources */,
 				AA04DEFA2134DFCB00FA0507 /* OrganizationTableViewCell.swift in Sources */,
 				AAF8FC6D209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift in Sources */,
 				AAE10F4920AF42530070F515 /* Internet.swift in Sources */,
@@ -878,6 +887,7 @@
 				AAC2C7FC21362CA500EBCC64 /* MyProfileSettingsTableViewCell.swift in Sources */,
 				AAE10F4B20AF42D50070F515 /* UserData.swift in Sources */,
 				AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */,
+				FCD0E4DA2262E12B00E180DF /* Endpoint.swift in Sources */,
 				AAD334EC215204C600312F31 /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -910,6 +920,7 @@
 				FCD0E49722548ED700E180DF /* Organization.swift in Sources */,
 				FCD0E49822548ED700E180DF /* EventCardCell.swift in Sources */,
 				FCD0E49922548ED700E180DF /* DatePickerTagView.swift in Sources */,
+				FCD0E4DB2263084D00E180DF /* Endpoint.swift in Sources */,
 				FCD0E49A22548ED700E180DF /* ForYouViewController.swift in Sources */,
 				FCD0E49B22548ED700E180DF /* EventTagButton.swift in Sources */,
 				FCD0E49C22548ED700E180DF /* EventTableHeaderFooterView.swift in Sources */,
@@ -933,6 +944,7 @@
 				FCD0E4AE22548ED700E180DF /* DateFormatHelper.swift in Sources */,
 				FCD0E4AF22548ED700E180DF /* OrganizationViewController.swift in Sources */,
 				FCD0E4B022548ED700E180DF /* EventListViewController.swift in Sources */,
+				FCD0E4DC2263085C00E180DF /* JSONParserHelper.swift in Sources */,
 				FCD0E4B122548ED700E180DF /* MyProfileViewController.swift in Sources */,
 				FCD0E4B222548ED700E180DF /* LoginViewController.swift in Sources */,
 				FCD0E4B322548ED700E180DF /* EventDetailViewController.swift in Sources */,
