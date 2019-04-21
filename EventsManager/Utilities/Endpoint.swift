@@ -21,6 +21,8 @@ class Endpoint {
         case locationAddress
         case eventsFeedAddress
         case eventDetailsAddress
+        case orgDetailsAddress
+        case eventsByOrgAddress
     }
     
     public enum QueryParam {
@@ -28,6 +30,7 @@ class Endpoint {
         case locationPk
         case eventPk
         case googleToken
+        case orgPk
     }
     
     public static func getURLString (address: Addresses, queryParams : [QueryParam:String]) -> String {
@@ -42,6 +45,10 @@ class Endpoint {
             return baseURL + "feed/events/"
         case .eventDetailsAddress:
             return baseURL + "event/" + queryParams[QueryParam.eventPk]! + "/"
+        case .orgDetailsAddress:
+            return baseURL + "org/" + queryParams[QueryParam.orgPk]! + "/"
+        case .eventsByOrgAddress:
+            return baseURL + "org/" + queryParams[QueryParam.orgPk]! + "/events/"
         }
     }
     

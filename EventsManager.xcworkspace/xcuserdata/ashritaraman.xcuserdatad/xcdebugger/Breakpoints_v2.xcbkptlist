@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EventsManager/ViewControllers/LoginViewController.swift"
-            timestampString = "574727141.454209"
+            timestampString = "577566142.7088211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "136"
@@ -22,11 +22,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EventsManager/Utilities/Internet.swift"
-            timestampString = "575055713.18861"
+            timestampString = "577566765.320924"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
@@ -38,17 +38,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EventsManager/ViewControllers/LoginViewController.swift"
-            timestampString = "575055978.6043169"
+            timestampString = "577566142.710147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
             endingLineNumber = "137"
             landmarkName = "sign(_:didSignInFor:withError:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;) -&gt; () in closure #1 () -&gt; () in EventsManager.LoginViewController.sign(_: Swift.Optional&lt;__C.GIDSignIn&gt;, didSignInFor: Swift.Optional&lt;__C.GIDGoogleUser&gt;, withError: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "EventsManager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ashritaraman/Documents/events-manager-ios/EventsManager/ViewControllers/LoginViewController.swift"
+                  timestampString = "576869289.160695"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
+                  offsetFromSymbolStart = "67">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 (Swift.Optional&lt;Swift.String&gt;) -&gt; () in closure #1 () -&gt; () in EventsManager.LoginViewController.sign(_: Swift.Optional&lt;__C.GIDSignIn&gt;, didSignInFor: Swift.Optional&lt;__C.GIDGoogleUser&gt;, withError: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "EventsManager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ashritaraman/Documents/events-manager-ios/EventsManager/ViewControllers/LoginViewController.swift"
+                  timestampString = "576869289.163872"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

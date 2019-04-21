@@ -97,6 +97,34 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
                 print("Error with event details")
             }
         }
+        Internet.fetchOrgDetails(serverToken: serverTokenString, id: 1){
+            (organization) in
+            if let organization = organization {
+                print(organization.description)
+            }
+            else {
+                print("Error with organization details")
+            }
+        }
+        Internet.fetchLocation(serverToken: serverTokenString, locationPk: 1) {
+            (location) in
+            if let location = location {
+                print(location)
+            }
+            else {
+                print("Error with location details")
+            }
+        }
+        Internet.fetchEventsbyOrg(serverToken: serverTokenString, orgPk: 1) {
+            (event) in
+            if let event = event {
+                print(event)
+            }
+            else {
+                print("Error with event organzation details")
+            }
+        }
+        
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         for ev in events {
             if (Calendar.current.isDateInToday(ev.startTime)) {

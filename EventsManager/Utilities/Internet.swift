@@ -27,6 +27,7 @@ class Internet {
         }
     }
     
+    //fetch tag
     static func fetchTag(serverToken: String, tagPk:Int , completion: @escaping (Tag?) -> Void) {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
         headers["Authorization"] = serverToken
@@ -53,7 +54,8 @@ class Internet {
         }
     }
     
-    static func fetchLocation(serverToken: String, locationPk:Int , completion: @escaping (String?, String?) -> Void) {
+    //single location
+    static func fetchLocation(serverToken: String, locationPk:Int , completion: @escaping (Location?) -> Void) {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
         headers["Authorization"] = serverToken
         
@@ -67,15 +69,16 @@ class Internet {
                 if let buildingName = json["building"].string,
                     let roomName = json["room"].string,
                     let placeId = json["place_id"].string {
-                    completion("\(buildingName) \(roomName)", placeId)
+                    let locationInstance = Location(id: locationPk, building: buildingName, room: roomName, placeId: placeId)
+                    completion(locationInstance)
                 }
                 else {
                     print("Error occured while fetching a location")
-                    completion(nil, nil)
+                    completion(nil)
                 }
             case .failure(let error):
                 print(error)
-                completion(nil, nil)
+                completion(nil)
             }
         }
     }
@@ -154,6 +157,51 @@ class Internet {
         
     }
     
+    //organization details
+    static func fetchOrgDetails(serverToken: String, id:Int , completion: @escaping (Organization?) -> Void) {
+        let headers : HTTPHeaders = ["Authorization" : serverToken]
+        let qp = [Endpoint.QueryParam.orgPk : String(id)]
+        let URL = Endpoint.getURLString(address: .orgDetailsAddress, queryParams: qp)
+        
+        Alamofire.request(URL, headers:headers).validate().responseJSON
+            { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    print("SUCCESS: \(json)")
+                    completion(JSONParserHelper.parseOrganization(json: json))
+                case .failure(let error):
+                    print("ERROR: \(error)")
+                    completion(nil)
+                }
+            }
+                
+        }
+    
+    //events by organization
+    static func fetchEventsbyOrg(serverToken: String, orgPk: Int, completion: @escaping ([Event]?) -> Void) {
+        print(serverToken)
+        let headers : HTTPHeaders = ["Authorization" : serverToken]
+        
+        let qp = [Endpoint.QueryParam.orgPk : String(orgPk)]
+        let URL = Endpoint.getURLString(address: .eventsByOrgAddress, queryParams: qp)
+        
+        Alamofire.request(URL, headers: headers).validate().responseJSON
+            { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    print("SUCCESS: \(json)")
+                    //completion(JSONParserHelper.parseEvent(json: json))
+                case .failure(let error):
+                    print("ERROR: \(error)")
+                    completion(nil)
+                }
+        }
+        
+    }
+    
+    //single tag
     static func fetchSingleTag(serverToken: String, id: Int, completion: @escaping (Tag?) -> Void){
         let headers : HTTPHeaders = ["Authorization" : serverToken]
         
