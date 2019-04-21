@@ -27,33 +27,7 @@ class Internet {
         }
     }
     
-    static func fetchTag(serverToken: String, tagPk:Int , completion: @escaping (Tag?) -> Void) {
-        var headers = Alamofire.SessionManager.defaultHTTPHeaders
-        headers["Authorization"] = serverToken
-        
-        let qp = [Endpoint.QueryParam.tagPk : String(tagPk)]
-        let URL = Endpoint.getURLString(address: .tagAddress, queryParams: qp)
-        
-        Alamofire.request(URL, headers: headers).validate().responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                if let tagName = json["name"].string {
-                    let tagInstance = Tag(id: tagPk, name: tagName)
-                    completion(tagInstance)
-                }
-                else {
-                    print("Error occured while fetching a tag")
-                    completion(nil)
-                }
-            case .failure(let error):
-                print(error)
-                completion(nil)
-            }
-        }
-    }
-    
-    static func fetchLocation(serverToken: String, locationPk:Int , completion: @escaping (String?, String?) -> Void) {
+    static func fetchLocation(serverToken: String, locationPk:Int , completion: @escaping (Location?) -> Void) {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
         headers["Authorization"] = serverToken
         
@@ -64,18 +38,10 @@ class Internet {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                if let buildingName = json["building"].string,
-                    let roomName = json["room"].string,
-                    let placeId = json["place_id"].string {
-                    completion("\(buildingName) \(roomName)", placeId)
-                }
-                else {
-                    print("Error occured while fetching a location")
-                    completion(nil, nil)
-                }
+                completion(JSONParserHelper.parseLocation(json: json))
             case .failure(let error):
                 print(error)
-                completion(nil, nil)
+                completion(nil)
             }
         }
     }
@@ -144,10 +110,9 @@ class Internet {
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    print("SUCCESS: \(json)")
                     completion(JSONParserHelper.parseEvent(json: json))
                 case .failure(let error):
-                    print("ERROR: \(error)")
+                    print(error)
                     completion(nil)
                 }
         }
@@ -165,10 +130,9 @@ class Internet {
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    print("SUCCESS: \(json)")
                     completion(JSONParserHelper.parseTag(json: json))
                 case .failure(let error):
-                    print("ERROR: \(error)")
+                    print(error)
                     completion(nil)
                 }
             }

@@ -44,5 +44,5 @@ class Endpoint {
             return baseURL + "event/" + queryParams[QueryParam.eventPk]! + "/"
         }
     }
-    
+
 }

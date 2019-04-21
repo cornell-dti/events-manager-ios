@@ -26,6 +26,20 @@ class JSONParserHelper {
         }
     }
     
+    public static func parseLocation(json: JSON) -> Location? {
+        if let pk = json["pk"].int,
+            let buildingName = json["building"].string,
+            let roomName = json["room"].string,
+            let placeId = json["place_id"].string {
+            
+            let locationInstance = Location.init(id: pk, building: buildingName, room: roomName, placeId: placeId)
+            return locationInstance
+        }
+        else {
+            return nil
+        }
+    }
+    
     public static func parseEvent(json: JSON) -> Event? {
         if let pk = json["pk"].int,
             let name = json["name"].string,
