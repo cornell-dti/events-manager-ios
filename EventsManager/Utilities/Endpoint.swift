@@ -21,12 +21,15 @@ class Endpoint {
         case locationAddress
         case eventsFeedAddress
         case eventDetailsAddress
+        case organizationAddress
+        case organizationEventAddress
     }
     
     public enum QueryParam {
         case tagPk
         case locationPk
         case eventPk
+        case organizationPk
         case googleToken
     }
     
@@ -42,6 +45,10 @@ class Endpoint {
             return baseURL + "feed/events/"
         case .eventDetailsAddress:
             return baseURL + "event/" + queryParams[QueryParam.eventPk]! + "/"
+        case .organizationAddress:
+            return baseURL + "org/" + queryParams[QueryParam.organizationPk]! + "/"
+        case .organizationEventAddress:
+            return baseURL + "org/" + queryParams[QueryParam.organizationPk]! + "/events/"
         }
     }
 

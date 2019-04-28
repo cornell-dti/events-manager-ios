@@ -143,51 +143,38 @@ class AppData {
     static func getEvents(startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> [Event]{
         if updateData {
             if CheckInternet.Connection() {
-                startLoading()
-                let group = DispatchGroup()
-                group.enter()
-                DispatchQueue.global(qos: .default).async {
-                    for i in 1...10000000 {
-                        
-                    }
-                    group.leave()
+                if let serverToken = UserData.serverToken() {
+                    startLoading()
+                    let group = DispatchGroup()
+                    group.enter()
+                    let startDate = DateFormatHelper.date(from: "2019-01-01")!
+                    let endDate = Date()
+                    Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
+                        if let events = events {
+                            var savedEventsPk:[Int] = []
+                            for event in events {
+                                savedEventsPk.append(event.id)
+                                //update location, organization, tags related with event
+                                _ = getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                                _ = getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                                for tag in event.eventTags {
+                                    _ = getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                                }
+
+                                do {
+                                    let jsonData = try JSONEncoder().encode(event)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
+                                } catch {
+                                    print (error)
+                                }
+                            }
+                            UserDefaults.standard.set(savedEventsPk, forKey: "nums")
+                        }
+                        group.leave()
+                    })
+                    group.wait()
+                    endLoading()
                 }
-                group.wait()
-                endLoading()
-//                if let serverToken = UserData.serverToken() {
-//                    startLoading()
-//                    let group = DispatchGroup()
-//                    group.enter()
-//                    let startDate = DateFormatHelper.date(from: "2019-01-01")!
-//                    let endDate = Date()
-//                    Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
-//                        if let events = events {
-//                            var savedEventsPk:[Int] = []
-//                            for event in events {
-//                                savedEventsPk.append(event.id)
-//                                //update location, organization, tags related with event
-//                                _ = getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
-//                                _ = getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
-//                                for tag in event.eventTags {
-//                                    _ = getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
-//                                }
-//
-//                                do {
-//                                    let jsonData = try JSONEncoder().encode(event)
-//                                    UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
-//                                } catch {
-//                                    print (error)
-//                                }
-//                            }
-//                            UserDefaults.standard.set(savedEventsPk, forKey: "nums")
-//                        }
-//                        group.leave()
-//                    })
-//                    group.wait()
-//                    endLoading()
-//                }
-                
-                
             }
             else {
                 noConnection()

@@ -137,5 +137,80 @@ class Internet {
                 }
             }
     }
+    
+    static func fetchLocationDetail(serverToken: String, id: Int, completion: @escaping (Location?) -> Void){
+        let headers : HTTPHeaders = ["Authorization" : serverToken]
+        
+        let qp = [Endpoint.QueryParam.locationPk : String(id)]
+        let URL = Endpoint.getURLString(address: .locationAddress, queryParams: qp)
+        
+        Alamofire.request(URL, headers: headers).validate().responseJSON
+            { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    completion(JSONParserHelper.parseLocation(json: json))
+                case .failure(let error):
+                    print(error)
+                    completion(nil)
+                }
+        }
+    }
 
+    static func fetchOrganizationDetail(serverToken: String, id: Int, completion: @escaping (Organization?) -> Void){
+        let headers : HTTPHeaders = ["Authorization" : serverToken]
+        
+        let qp = [Endpoint.QueryParam.organizationPk : String(id)]
+        let URL = Endpoint.getURLString(address: .organizationAddress, queryParams: qp)
+        
+        Alamofire.request(URL, headers: headers).validate().responseJSON
+            { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    completion(JSONParserHelper.parseOrganization(json: json))
+                case .failure(let error):
+                    print(error)
+                    completion(nil)
+                }
+        }
+    }
+    
+    static func fetchEventsByOrganization(serverToken: String, id: Int, completion: @escaping ([Event]?) -> Void) {
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Authorization"] = serverToken
+        
+        let qp = [Endpoint.QueryParam.organizationPk : String(id)]
+        let URL = Endpoint.getURLString(address: .organizationEventAddress, queryParams: qp)
+        
+        Alamofire.request(URL, parameters: [:], headers: headers).validate().responseJSON
+            { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    print(json)
+                    var events : [Event] = []
+                    if let updatedJSON = json["updated"].array{
+                    for subJSON in updatedJSON {
+                            let event = JSONParserHelper.parseEvent(json: subJSON)
+                            if event != nil {
+                                events.append(event!)
+                            }
+                        }
+                        completion(events)
+                    }
+                    else {
+                        completion(nil)
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(nil)
+                }
+        }
+        
+    }
+    
+    
+    
 }
