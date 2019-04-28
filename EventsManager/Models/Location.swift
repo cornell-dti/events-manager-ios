@@ -6,9 +6,24 @@
 //
 
 import Foundation
-struct Location {
+struct Location: Codable {
     let id: Int
     let building: String
     let room: String
     let placeId: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case building = "building"
+        case room = "room"
+        case placeId = "placeId"
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(building, forKey: .building)
+        try container.encode(room, forKey: .room)
+        try container.encode(placeId, forKey: .placeId)
+    }
 }

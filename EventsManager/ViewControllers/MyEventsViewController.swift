@@ -43,6 +43,13 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
 
     /* Sets all the layout elements in the view */
     private func setLayouts() {
+        let loadingVC = LoadingViewController()
+        loadingVC.configure(with: "ooooo...")
+        let test = AppData.getEvents(
+            startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC),
+            endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC),
+            noConnection: GenericLoadingHelper.noConnection(from: self),
+            updateData: true)
 
         //For testing
         var date1 = "2019-03-02 16:39:57"

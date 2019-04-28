@@ -112,3 +112,6 @@
 "on-bording-continue" = "   Continue   ";
 "onboarding-interest-title" = "Interest";
 "onboarding-interest-description" = "Let us know your interests. We’ll tailor your feed to include events you’ll be interested in.";
+
+//Loading
+"loading" = "Loading...";

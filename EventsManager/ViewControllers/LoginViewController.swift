@@ -125,20 +125,25 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             loadingViewController.configure(with: "Logging You In...")
             present(loadingViewController, animated: true, completion: {
                 if var user = UserData.newUser(from: user) {
-                    Internet.getServerAuthToken(for: user.googleIdToken, { (serverAuthToken) in
-                        if serverAuthToken == nil {
-                            loadingViewController.dismiss(animated: true, completion: {
-                                UserData.logOut()
-                                Alert.informative(with: NSLocalizedString("backend-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: (UIApplication.shared.delegate as! AppDelegate).window!.rootViewController!)
-
-                            })
-                        } else {
-                            user.serverAuthToken = serverAuthToken!
-                            loadingViewController.dismiss(animated: true, completion: {
-                                if UserData.login(for: user) {
-                                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
-                                }
-                            })
+                    //                    Internet.getServerAuthToken(for: user.googleIdToken, { (serverAuthToken) in
+                    //                        if serverAuthToken == nil {
+                    //                            loadingViewController.dismiss(animated: true, completion: {
+                    //                                UserData.logOut()
+                    //                                Alert.informative(with: NSLocalizedString("backend-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: (UIApplication.shared.delegate as! AppDelegate).window!.rootViewController!)
+                    //
+                    //                            })
+                    //                        } else {
+                    //                            user.serverAuthToken = serverAuthToken!
+                    //                            loadingViewController.dismiss(animated: true, completion: {
+                    //                                if UserData.login(for: user) {
+                    //                                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                    //                                }
+                    //                            })
+                    //                        }
+                    //                    })
+                    loadingViewController.dismiss(animated: true, completion: {
+                        if UserData.login(for: user) {
+                            self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
                         }
                     })
                 }

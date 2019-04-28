@@ -302,7 +302,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             switch indexPath.section {
                 case followingOrganizationsSetion:
                     let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: OrganizationTableViewCell.identifier) as! OrganizationTableViewCell
-                    followingOrgCell.configure(with: AppData.getOrganization(by: user.followingOrganizations[indexPath.row]))
+                    followingOrgCell.configure(with: AppData.getOrganization(by: user.followingOrganizations[indexPath.row], startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
                     return followingOrgCell
                 case followingTagsSection:
                     let followingTagCell = MyProfileTagsTableViewCell()
@@ -328,7 +328,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             if let user = user {
                 let orgSelected = user.followingOrganizations[indexPath.row]
                 let orgViewController = OrganizationViewController()
-                orgViewController.configure(organization: AppData.getOrganization(by: orgSelected))
+                orgViewController.configure(organization: AppData.getOrganization(by: orgSelected, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
                 navigationController?.pushViewController(orgViewController, animated: true)
             }
         }

@@ -84,6 +84,13 @@ class UserData {
             return false
         }
     }
+    
+    static func serverToken() -> String? {
+        if let user = UserData.getLoggedInUser() {
+            return user.serverAuthToken
+        }
+        return nil
+    }
 
     /**
      Add an organization into a user's followed organizations.
@@ -114,7 +121,6 @@ class UserData {
     /**
      Set reminderEnabled
     */
-    
     static func setReminderEnabled(rem: Bool) -> Bool {
         if var user = UserData.getLoggedInUser() {
             user.reminderEnabled = rem
@@ -249,8 +255,8 @@ class UserData {
             recommendedData = recommendedData.sorted(by: {$0.1 > $1.1})
             var recommendedLabelEventsPairs: [(String, [Event])] = []
             for (pk, _, type) in recommendedData {
-                let label = type == .organization ? "Based on \(AppData.getOrganization(by: pk).name)" : "Based on \(AppData.getTag(by: pk).name)"
-                recommendedLabelEventsPairs.append((label, type == .organization ? AppData.getEventsAssociatedWith(organization: pk) : AppData.getEventsAssociatedWith(tag: pk)))
+                let label = type == .organization ? "Based on \(AppData.getOrganization(by: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name)" : "Based on \(AppData.getTag(by: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name)"
+                recommendedLabelEventsPairs.append((label, type == .organization ? AppData.getEventsAssociatedWith(organization: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false) : AppData.getEventsAssociatedWith(tag: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false)))
             }
             return recommendedLabelEventsPairs
         }

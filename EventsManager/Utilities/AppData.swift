@@ -11,53 +11,209 @@ import Foundation
  AppData contains helper functions that deals with app data like organization, tags, and events.
  */
 class AppData {
-    static let EVENT_DATA_KEY = "event data"
+    static let ORG_QUERY_KEY = "organization_pk_"
+    static let LOC_QUERY_KEY = "location_pk_"
+    static let TAG_QUERY_KEY = "tag_pk_"
+    static let SAVED_EVENTS_KEY = "saved events"
+    static let EVENT_QUERY_KEY = "event_pk_"
     static let EVENT_IMAGE_DIMENTION: UInt = 1500
+    static let DUMMY_URL = "https://www.cornelldti.org"
+    static let DUMMY_TAG = "#CornellDTI"
     
     /**
      Returns the tuple of string of the location the PK corresponds to, and the placeID. The string returned is a full string, including the building and the room
      Requires: pk is a valid location id. If no existing locations match pk, an empty string will be returned.
      */
-    static func getLocationPlaceIdTuple(by pk: Int) -> (String, String) {
-        return ("Olin Hall 155", "ChIJZ3LpY4yB0IkRFZfk9Xybyys");
+    static func getLocationPlaceIdTuple(by pk: Int, startLoading: () -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> (String, String) {
+        
+        if updateData {
+            if CheckInternet.Connection() {
+                if let serverToken = UserData.serverToken() {
+                    startLoading()
+                    let group = DispatchGroup()
+                    group.enter()
+                    Internet.fetchLocation(serverToken: serverToken, locationPk: pk, completion: { location in
+                        if let location = location {
+                            do {
+                                let jsonData = try JSONEncoder().encode(location)
+                                UserDefaults.standard.set(jsonData, forKey: "\(LOC_QUERY_KEY)\(pk)")
+                            } catch {
+                                print (error)
+                            }
+                            group.leave()
+                        }
+                    })
+                    group.wait()
+                    endLoading()
+                }
+            }
+            else {
+                noConnection()
+            }
+        }
+        if let jsonData = UserDefaults.standard.data(forKey: "\(LOC_QUERY_KEY)\(pk)") {
+            do {
+                let location = try JSONDecoder().decode(Location.self, from: jsonData)
+                return ("\(location.building) \(location.room)", location.placeId)
+            } catch {
+                print(error)
+            }
+        }
+        return ("", "");
     }
 
     /**
      Returns the organization struct with id pk.
      Requires: pk is a valid organization id. If no existing organizations match pk, any organization might be returned.
      */
-    static func getOrganization(by pk: Int) -> Organization {
-        return Organization(id: pk, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email: "connect@cornelldti.org")
+    static func getOrganization(by pk: Int, startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> Organization {
+        if updateData {
+            if CheckInternet.Connection() {
+                startLoading()
+                if let serverToken = UserData.serverToken() {
+                    
+                }
+                
+            }
+            else {
+                noConnection()
+            }
+        }
+        if let jsonData = UserDefaults.standard.data(forKey: "\(ORG_QUERY_KEY)\(pk)") {
+            do {
+                return try JSONDecoder().decode(Organization.self, from: jsonData)
+            } catch {
+                print(error)
+            }
+        }
+        return Organization(
+            id: 0,
+            name: "",
+            description: "",
+            avatar: URL(string: DUMMY_URL)!,
+            website: "",
+            email: ""
+        )
     }
 
     /**
      Returns the tag with id pk.
      Requires: pk is a valid tag id. If no existing tags match pk, an empty string will be returned.
      */
-    static func getTag(by pk: Int) -> Tag {
-        return Tag(id: pk, name: "#lolololol")
+    static func getTag(by pk: Int, startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> Tag {
+        if updateData {
+            if CheckInternet.Connection() {
+                if let serverToken = UserData.serverToken() {
+                    startLoading()
+                    let group = DispatchGroup()
+                    group.enter()
+                    Internet.fetchSingleTag(serverToken: serverToken, id: pk, completion: { tag in
+                        if let tag = tag {
+                            do {
+                                let jsonData = try JSONEncoder().encode(tag)
+                                UserDefaults.standard.set(jsonData, forKey: "\(TAG_QUERY_KEY)\(pk)")
+                            } catch {
+                                print (error)
+                            }
+                        }
+                        group.leave()
+                    })
+                    group.wait()
+                    endLoading()
+                }
+                
+            }
+            else {
+                noConnection()
+            }
+        }
+        if let jsonData = UserDefaults.standard.data(forKey: "\(TAG_QUERY_KEY)\(pk)") {
+            do {
+                return try JSONDecoder().decode(Tag.self, from: jsonData)
+            } catch {
+                print(error)
+            }
+        }
+        return Tag(id: pk, name: DUMMY_TAG)
     }
     
     /**
      Retrieves all events that are saved locally.
      */
-    static func getEvents() -> [Event]{
-        //for testing
-        var events:[Event] = []
-        let date1 = "2019-01-20 16:39:57"
-        let date2 = "2019-01-20 18:39:57"
-        for _ in 1...20 {
-            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166, isPublic: true))
+    static func getEvents(startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> [Event]{
+        if updateData {
+            if CheckInternet.Connection() {
+                startLoading()
+                let group = DispatchGroup()
+                group.enter()
+                DispatchQueue.global(qos: .default).async {
+                    for i in 1...10000000 {
+                        
+                    }
+                    group.leave()
+                }
+                group.wait()
+                endLoading()
+//                if let serverToken = UserData.serverToken() {
+//                    startLoading()
+//                    let group = DispatchGroup()
+//                    group.enter()
+//                    let startDate = DateFormatHelper.date(from: "2019-01-01")!
+//                    let endDate = Date()
+//                    Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
+//                        if let events = events {
+//                            var savedEventsPk:[Int] = []
+//                            for event in events {
+//                                savedEventsPk.append(event.id)
+//                                //update location, organization, tags related with event
+//                                _ = getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+//                                _ = getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+//                                for tag in event.eventTags {
+//                                    _ = getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+//                                }
+//
+//                                do {
+//                                    let jsonData = try JSONEncoder().encode(event)
+//                                    UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
+//                                } catch {
+//                                    print (error)
+//                                }
+//                            }
+//                            UserDefaults.standard.set(savedEventsPk, forKey: "nums")
+//                        }
+//                        group.leave()
+//                    })
+//                    group.wait()
+//                    endLoading()
+//                }
+                
+                
+            }
+            else {
+                noConnection()
+            }
         }
-        
-        return events
+        if let savedEventsPk = UserDefaults.standard.array(forKey: SAVED_EVENTS_KEY) as? [Int] {
+            var events:[Event] = []
+            for id in savedEventsPk {
+                if let jsonData = UserDefaults.standard.data(forKey: "\(EVENT_QUERY_KEY)\(id)") {
+                    do {
+                        events.append(try JSONDecoder().decode(Event.self, from: jsonData))
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+            return events
+        }
+        return []
     }
     
     /**
      Retrieves all events associated with tag tag.
      */
-    static func getEventsAssociatedWith(tag: Int) -> [Event] {
-        let events = getEvents()
+    static func getEventsAssociatedWith(tag: Int, startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> [Event] {
+        let events = getEvents(startLoading: startLoading, endLoading: endLoading, noConnection: noConnection, updateData: updateData)
         var filteredEvents:[Event] = []
         for event in events {
             if event.eventTags.contains(tag) {
@@ -71,8 +227,8 @@ class AppData {
     /**
      Retrieves all events associated with organization organization.
      */
-    static func getEventsAssociatedWith(organization: Int) -> [Event] {
-        let events = getEvents()
+    static func getEventsAssociatedWith(organization: Int, startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData:Bool) -> [Event] {
+        let events = getEvents(startLoading: startLoading, endLoading: endLoading, noConnection: noConnection, updateData: updateData)
         var filteredEvents:[Event] = []
         for event in events {
             if event.eventOrganizer == event.eventOrganizer {
@@ -80,13 +236,5 @@ class AppData {
             }
         }
         return filteredEvents
-    }
-    
-    
-    /**
-     Updates all saved events to newest.
-    */
-    static func updateEvents(){
-        
     }
 }

@@ -79,6 +79,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var tagScrollView = UIScrollView()
     var tagStack = UIStackView()
     let backButton = UIButton()
+    let loadingViewController = LoadingViewController()
 
     var statusBarHeight: CGFloat = 0
     var statusBarHidden: Bool = false
@@ -111,6 +112,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 
     /* Sets all the layout elements in the details view */
     func setLayouts() {
+        loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
+        
         view.addSubview(scrollView)
         statusBarHeight = UIApplication.shared.statusBarFrame.height
         scrollView.backgroundColor = UIColor.white
@@ -407,12 +410,25 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
         eventDescription.text = event.eventDescription
         eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
-        eventOrganizer.text = AppData.getOrganization(by: event.eventOrganizer).name
-        eventLocation.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation).0
+        eventOrganizer.text = AppData.getOrganization(
+            by: event.eventOrganizer,
+            startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
+            endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
+            noConnection: GenericLoadingHelper.noConnection(from: self),
+            updateData: true).name
+        eventLocation.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation,
+                                                             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
+                                                             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
+                                                             noConnection: GenericLoadingHelper.noConnection(from: self),
+                                                             updateData: true).0
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
 
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
-        placesClient.fetchPlace(fromPlaceID: AppData.getLocationPlaceIdTuple(by: event.eventLocation).1, placeFields: fields, sessionToken: nil, callback: {
+        placesClient.fetchPlace(fromPlaceID: AppData.getLocationPlaceIdTuple(by: event.eventLocation,
+                                                                             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
+                                                                             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
+                                                                             noConnection: GenericLoadingHelper.noConnection(from: self),
+                                                                             updateData: true).1, placeFields: fields, sessionToken: nil, callback: {
             (result: GMSPlace?, error: Error?) in
             if let error = error {
                 print("An error occurred: \(error.localizedDescription) when fetching google places")
@@ -459,7 +475,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      - sender: the sender of the action
      */
     @objc func orgNamePressed(_ sender: UITapGestureRecognizer) {
-        let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email: "connect@cornelldti.org")
+        let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, website: "cornelldit.org", email: "connect@cornelldti.org")
         let orgController = OrganizationViewController()
         orgController.configure(organization: testOrg)
         navigationController?.pushViewController(orgController, animated: true)

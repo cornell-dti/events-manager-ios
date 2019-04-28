@@ -35,7 +35,7 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
      */
     func setup(with events: [Event], for tag: Int) {
         //NAVIGATION STUFFS
-        navigationItem.title = AppData.getTag(by: tag).name
+        navigationItem.title = AppData.getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name
 
         //assign dataSource
         self.events = events
