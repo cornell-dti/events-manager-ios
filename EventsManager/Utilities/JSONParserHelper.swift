@@ -14,6 +14,27 @@ class JSONParserHelper {
     private static let defaultImageURL = URL(string: "http://ethanhu.me/images/background.jpg")!
     private static let mediaAddress = Endpoint.baseURL + "app/media/"
     
+    public static func parseOrganization(json: JSON) -> Organization? {
+        if let pk = json["pk"].int,
+            let name = json["name"].string,
+            let desc = json["description"].string,
+            let verified = json["verified"].bool,
+            let email = json["contact"].string
+        {
+            let website = defaultImageURL.absoluteString
+            var avatarURL = defaultImageURL
+            if let photo_id = json["photo_id"].string{
+                avatarURL = URL(string: mediaAddress + String(photo_id))!
+            }
+            let orgInstance = Organization.init(id: pk, name: name, description: desc, avatar: avatarURL, website: website, email: email)
+            return orgInstance
+        }
+        else {
+            return nil
+        }
+        
+    }
+    
     public static func parseTag(json: JSON) -> Tag? {
         if let id = json["id"].int,
             let name = json["name"].string
