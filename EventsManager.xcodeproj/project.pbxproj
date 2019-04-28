@@ -21,10 +21,14 @@
 		AA04DEFE2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */; };
 		AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF97208ED460007A5E5C /* EventCard.swift */; };
 		AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */; };
+		AA25744722750ADD0077B15F /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25744622750ADD0077B15F /* CheckInternet.swift */; };
+		AA257F81227516D1009B50B5 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25744622750ADD0077B15F /* CheckInternet.swift */; };
 		AA4B5FC3214818E8005B5879 /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4B5FC2214818E8005B5879 /* SearchOptions.swift */; };
 		AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58DE66207BF6F700CDC38E /* TagViewController.swift */; };
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */; };
+		AA6B45202276285C009925FF /* GenericLoadingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */; };
+		AA6B45212276285C009925FF /* GenericLoadingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */; };
 		AA7C451F21EEA74300B3241F /* ForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7C451E21EEA74300B3241F /* ForYouViewController.swift */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
 		AA8861F7223D6FE500DE9180 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8861F6223D6FE500DE9180 /* Location.swift */; };
@@ -173,10 +177,12 @@
 		AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTagsTableViewCell.swift; sourceTree = "<group>"; };
 		AA1FFF97208ED460007A5E5C /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCard.swift; path = EventsManager/Views/EventCard.swift; sourceTree = SOURCE_ROOT; };
 		AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCardCell.swift; path = EventsManager/Views/EventCardCell.swift; sourceTree = SOURCE_ROOT; };
+		AA25744622750ADD0077B15F /* CheckInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
 		AA4B5FC2214818E8005B5879 /* SearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptions.swift; sourceTree = "<group>"; };
 		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.bold.ttf; sourceTree = "<group>"; };
+		AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericLoadingHelper.swift; sourceTree = "<group>"; };
 		AA7C451E21EEA74300B3241F /* ForYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForYouViewController.swift; sourceTree = "<group>"; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
 		AA8861F6223D6FE500DE9180 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -426,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				FF76428B218E227900ED7A11 /* Alert.swift */,
+				AA25744622750ADD0077B15F /* CheckInternet.swift */,
 				AA873B4B207D616900BD413B /* DateFormatHelper.swift */,
 				AAE10F4820AF42530070F515 /* Internet.swift */,
 				AAE10F4A20AF42D50070F515 /* UserData.swift */,
@@ -433,6 +440,7 @@
 				AAD334EB215204C600312F31 /* AppData.swift */,
 				FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */,
 				FCD0E4D92262E12B00E180DF /* Endpoint.swift */,
+				AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -861,9 +869,11 @@
 				AAD3E05021444461000B5000 /* EventsSearchViewController.swift in Sources */,
 				FC48D37B222B0D3F00A8F8DF /* PinkClickableButton.swift in Sources */,
 				AABA675420C7244600363899 /* MyEventsDatePickerView.swift in Sources */,
+				AA6B45202276285C009925FF /* GenericLoadingHelper.swift in Sources */,
 				DA75C21A205ABDB600C1822C /* EventsDiscoveryController.swift in Sources */,
 				AABA675020C6E5DD00363899 /* User.swift in Sources */,
 				AAD7D1CA2156C71D003C58E6 /* OnBoardingViewController.swift in Sources */,
+				AA25744722750ADD0077B15F /* CheckInternet.swift in Sources */,
 				AA58DE67207BF6F700CDC38E /* TagViewController.swift in Sources */,
 				AAD3E0522144B34F000B5000 /* EventDateHelper.swift in Sources */,
 				AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */,
@@ -928,9 +938,11 @@
 				FCD0E49E22548ED700E180DF /* LoadingViewController.swift in Sources */,
 				FCD0E49F22548ED700E180DF /* EventsSearchViewController.swift in Sources */,
 				FCD0E4A022548ED700E180DF /* PinkClickableButton.swift in Sources */,
+				AA6B45212276285C009925FF /* GenericLoadingHelper.swift in Sources */,
 				FCD0E4A122548ED700E180DF /* MyEventsDatePickerView.swift in Sources */,
 				FCD0E4A222548ED700E180DF /* EventsDiscoveryController.swift in Sources */,
 				FCD0E4A322548ED700E180DF /* User.swift in Sources */,
+				AA257F81227516D1009B50B5 /* CheckInternet.swift in Sources */,
 				FCD0E4A422548ED700E180DF /* OnBoardingViewController.swift in Sources */,
 				FCD0E4A522548ED700E180DF /* TagViewController.swift in Sources */,
 				FCD0E4A622548ED700E180DF /* EventDateHelper.swift in Sources */,
