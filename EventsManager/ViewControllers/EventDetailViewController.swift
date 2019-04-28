@@ -79,6 +79,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var tagScrollView = UIScrollView()
     var tagStack = UIStackView()
     let backButton = UIButton()
+    let loadingViewController = LoadingViewController()
 
     var statusBarHeight: CGFloat = 0
     var statusBarHidden: Bool = false
@@ -111,6 +112,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 
     /* Sets all the layout elements in the details view */
     func setLayouts() {
+        loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
+        
         view.addSubview(scrollView)
         statusBarHeight = UIApplication.shared.statusBarFrame.height
         scrollView.backgroundColor = UIColor.white
@@ -407,12 +410,25 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
         eventDescription.text = event.eventDescription
         eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
-        eventOrganizer.text = AppData.getOrganization(by: event.eventOrganizer).name
-        eventLocation.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation).0
+        eventOrganizer.text = AppData.getOrganization(
+            by: event.eventOrganizer,
+            startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
+            endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
+            noConnection: GenericLoadingHelper.noConnection(from: self),
+            updateData: true).name
+        eventLocation.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation,
+                                                             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
+                                                             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
+                                                             noConnection: GenericLoadingHelper.noConnection(from: self),
+                                                             updateData: true).0
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
 
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
-        placesClient.fetchPlace(fromPlaceID: AppData.getLocationPlaceIdTuple(by: event.eventLocation).1, placeFields: fields, sessionToken: nil, callback: {
+        placesClient.fetchPlace(fromPlaceID: AppData.getLocationPlaceIdTuple(by: event.eventLocation,
+                                                                             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
+                                                                             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
+                                                                             noConnection: GenericLoadingHelper.noConnection(from: self),
+                                                                             updateData: true).1, placeFields: fields, sessionToken: nil, callback: {
             (result: GMSPlace?, error: Error?) in
             if let error = error {
                 print("An error occurred: \(error.localizedDescription) when fetching google places")

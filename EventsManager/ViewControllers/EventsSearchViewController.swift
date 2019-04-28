@@ -165,7 +165,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                 if cell == nil {
                     cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 }
-                cell.textLabel?.text = AppData.getTag(by: filteredTags[indexPath.row]).name
+                cell.textLabel?.text = AppData.getTag(by: filteredTags[indexPath.row], startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name
                 return cell
         }
 
@@ -243,7 +243,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                     filteredResults = filteredOrganizations
                 case .tags:
                     filteredTags = tags.filter { (tag: Int) -> Bool in
-                        return AppData.getTag(by: tag).name.lowercased().contains(searchText.lowercased())
+                        return AppData.getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name.lowercased().contains(searchText.lowercased())
                     }
                     filteredResults = filteredTags
             }

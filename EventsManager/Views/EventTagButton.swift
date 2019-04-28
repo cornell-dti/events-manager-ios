@@ -25,7 +25,7 @@ class EventTagButton: UIButton {
     
     func setTag(with pk: Int) {
         tagPk = pk
-        setTitle("    \(AppData.getTag(by: pk).name)    ", for: state)
+        setTitle("    \(AppData.getTag(by: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name)    ", for: state)
     }
 
     func getTagPk() -> Int {

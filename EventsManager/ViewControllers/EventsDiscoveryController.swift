@@ -70,64 +70,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             date2 = DateFormatHelper.datetime(from: date2Date)
             events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166, isPublic: true))
         }
-        let serverTokenString = "Token " + (UserData.getLoggedInUser()?.serverAuthToken)!
-        
-        Internet.fetchSingleTag(serverToken: serverTokenString, id: 1){
-            (tag) in
-            if let tag = tag {
-                print(tag.name)
-            }
-            else{
-                print("Error with tag names")
-            }
-        }
-        
-        Internet.fetchEventDetails(serverToken: serverTokenString, id: 1){
-            (event) in
-            if let event = event {
-                print(event.eventName)
-            }
-            else{
-                print("Error with event details")
-            }
-        }
-        
-        Internet.fetchLocation(serverToken: serverTokenString, locationPk: 1){
-            (location) in
-            if let location = location {
-                print(location.placeId)
-                print(location.building)
-                print(location.id)
-                print(location.room)
-            }
-            else{
-                print("Error with location")
-            }
-        }
-        
-        Internet.fetchOrganizationDetail(serverToken: serverTokenString, id: 1){
-            (org) in
-            if let org = org {
-                print(org.id)
-                print(org.name)
-                print(org.description)
-                print(org.email)
-                print(org.avatar.absoluteString)
-            }
-            else {
-                print("Error with org")
-            }
-        }
-        
-        Internet.fetchEventsByOrganization(serverToken: serverTokenString, id: 1){
-            (events) in
-            if let events = events {
-                print(events.count)
-            }
-            else {
-                print("Error with events")
-            }
-        }
         
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         for ev in events {
