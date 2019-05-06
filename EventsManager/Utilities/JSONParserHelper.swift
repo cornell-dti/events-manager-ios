@@ -30,9 +30,7 @@ class JSONParserHelper {
         if let pk = json["pk"].int,
         let name = json["name"].string,
         let description = json["description"].string,
-        let contact = json["contact"].string,
-        let verified = json["verified"].bool,
-        let photoid = json["photo_id"].string
+        let contact = json["contact"].string
         {
             let orgInstance = Organization.init(id: pk, name: name, description: description, avatar: URL(string: mediaAddress)!, website: mediaAddress, email: contact)
             return orgInstance

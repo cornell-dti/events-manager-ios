@@ -122,6 +122,8 @@
 		FCD0E4DA2262E12B00E180DF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D92262E12B00E180DF /* Endpoint.swift */; };
 		FCD0E4DB2263084D00E180DF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D92262E12B00E180DF /* Endpoint.swift */; };
 		FCD0E4DC2263085C00E180DF /* JSONParserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */; };
+		FF6599C22280BE11004EE0C2 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6599C12280BE11004EE0C2 /* LocalNotifications.swift */; };
+		FF6599C32280BF79004EE0C2 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6599C12280BE11004EE0C2 /* LocalNotifications.swift */; };
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
@@ -220,6 +222,7 @@
 		FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParserHelper.swift; sourceTree = "<group>"; };
 		FCD0E4D92262E12B00E180DF /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		FF292A2F219E680A00A4E7F4 /* EventsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EventsManager.entitlements; sourceTree = "<group>"; };
+		FF6599C12280BE11004EE0C2 /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FF76428D218E228F00ED7A11 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -433,6 +436,7 @@
 				AAD334EB215204C600312F31 /* AppData.swift */,
 				FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */,
 				FCD0E4D92262E12B00E180DF /* Endpoint.swift */,
+				FF6599C12280BE11004EE0C2 /* LocalNotifications.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -848,6 +852,7 @@
 				A40E37CF201E91CA00B3AFA4 /* AppDelegate.swift in Sources */,
 				DA75C217205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift in Sources */,
 				DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */,
+				FF6599C22280BE11004EE0C2 /* LocalNotifications.swift in Sources */,
 				AA04DEFE2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift in Sources */,
 				AA4B5FC3214818E8005B5879 /* SearchOptions.swift in Sources */,
 				AABA674E20C6E5D500363899 /* Organization.swift in Sources */,
@@ -915,6 +920,7 @@
 				FCD0E49222548ED700E180DF /* AppDelegate.swift in Sources */,
 				FCD0E49322548ED700E180DF /* EventsDiscoveryTableViewCell.swift in Sources */,
 				FCD0E49422548ED700E180DF /* MyEventsViewController.swift in Sources */,
+				FF6599C32280BF79004EE0C2 /* LocalNotifications.swift in Sources */,
 				FCD0E49522548ED700E180DF /* MyProfileTagsTableViewCell.swift in Sources */,
 				FCD0E49622548ED700E180DF /* SearchOptions.swift in Sources */,
 				FCD0E49722548ED700E180DF /* Organization.swift in Sources */,

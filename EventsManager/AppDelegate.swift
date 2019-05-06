@@ -10,11 +10,13 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import GoogleSignIn
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var delegate:LocalNotifications!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
         [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -41,6 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = LoginViewController()
         }
         window?.makeKeyAndVisible()
+        
+        LocalNotifications.requestPermissionForNotifications()
+        setDelegateForNotifications()
 
         // Set global appearance attributes
         UITabBar.appearance().barTintColor = UIColor.white
@@ -60,6 +65,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
 //        UIApplication.shared.open(url, options: [:], completionHandler: nil)
 //    }
+    
+    private func setDelegateForNotifications()
+    {
+        let center = UNUserNotificationCenter.current()
+        delegate = LocalNotifications(window:window!)
+        center.delegate = delegate
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -17,6 +17,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     //Constants
     let buttonHeight: CGFloat = 40
     let standardEdgeSpacing: CGFloat = 20
+    let modifiedEdgeSpacing: CGFloat = 70
     let imageViewHeight: CGFloat = 220
     let buttonStackInnerSpacing: CGFloat = 15
     let infoStackEdgeSpacing: CGFloat = 40
@@ -43,6 +44,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let buttonImageHeight: CGFloat = 26
     let buttonImageTopSpacing: CGFloat = 7
     let buttonImageLeftSpacing: CGFloat = 15
+    let modifiedbuttonImageLeftSpacing: CGFloat = 65
     let buttonFontSize: CGFloat = 16
     let shadowOpacity: Float = 0.6
     let shadowRadius: CGFloat = 5
@@ -143,7 +145,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         var backButtonIcon = #imageLiteral(resourceName: "back")
         backButtonIcon = backButtonIcon.withRenderingMode(.alwaysTemplate)
         backButton.setImage(backButtonIcon, for: .normal)
-        //backButton.imageEdgeInsets = UIEdgeInsets(top: backButtonTopBottomInset, left: backButtonLeftInset, bottom: backButtonTopBottomInset, right: backButtonRightInset)
         backButton.contentEdgeInsets = UIEdgeInsets(top: backButtonTopBottomInset, left: backButtonLeftInset, bottom: backButtonTopBottomInset, right: backButtonRightInset)
         backButton.tintColor = UIColor(named: "primaryPink")
         backButton.layer.cornerRadius = floatingButtonSideLength / 2
@@ -172,7 +173,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         
         bookmarkedButton.backgroundColor = UIColor.white
         bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-//        bookmarkedButton.imageEdgeInsets = UIEdgeInsetsMake(0, bookmarkedButton.titleLabel.frame.size.width, 0, -bookmarkedButton.titleLabel.frame.size.width);
         bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
         bookmarkedButton.tintColor = UIColor(named: "primaryPink")
         bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
@@ -190,7 +190,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 
         bookmarkedButton.imageView?.snp.makeConstraints { make in
             make.top.equalTo(bookmarkedButton).offset(buttonImageTopSpacing)
-            make.left.equalTo(bookmarkedButton).offset(buttonImageLeftSpacing)
+            make.left.equalTo(bookmarkedButton).offset(modifiedbuttonImageLeftSpacing)
             make.width.equalTo(buttonImageWidth)
             make.height.equalTo(buttonImageHeight)
         }
@@ -207,6 +207,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         shareButton.layer.shadowOffset = shadowOffset
         shareButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
         shareButton.addTarget(self, action: #selector(self.shareButtonPressed(_:)), for: .touchUpInside)
+        shareButton.isHidden = true
 
         shareButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
@@ -219,7 +220,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.height.equalTo(buttonImageHeight)
         }
 
-        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
+        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton])
         buttonStack.alignment = .center
         buttonStack.axis = .horizontal
         buttonStack.distribution = .fill
@@ -345,8 +346,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 
         buttonStack.snp.makeConstraints { make in
             make.top.equalTo(eventDescriptionShowMoreButton.snp.bottom).offset(standardEdgeSpacing)
-            make.left.equalTo(contentView).offset(standardEdgeSpacing)
-            make.right.equalTo(contentView).offset(-standardEdgeSpacing)
+            make.left.equalTo(contentView).offset(modifiedEdgeSpacing)
+            make.right.equalTo(contentView).offset(-modifiedEdgeSpacing)
         }
 
         infoTableStack.snp.makeConstraints { (make) -> Void in
@@ -459,7 +460,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      - sender: the sender of the action
      */
     @objc func orgNamePressed(_ sender: UITapGestureRecognizer) {
-        let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, photoID: [], events: [], members: [], website: "cornelldit.org", email: "connect@cornelldti.org")
+        let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, website: "cornelldit.org", email: "connect@cornelldti.org")
         let orgController = OrganizationViewController()
         orgController.configure(organization: testOrg)
         navigationController?.pushViewController(orgController, animated: true)
@@ -490,13 +491,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      Handler for the pressing action of the bookmark button. Should change the color of the button and add it to the user's bookmarked list.
      */
     @objc func bookmarkedButtonPressed(_ sender: UIButton) {
+        
         if bookmarkedButton.backgroundColor == UIColor.white {
             bookmarkedButton.backgroundColor = UIColor(named: "primaryPink")
             bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
             bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
-            bookmarkedButton.tintColor = UIColor.white
             bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
             user?.bookmarkedEvents.append((event?.id)!)
+            bookmarkedButton.tintColor = UIColor.white
+            LocalNotifications.createNotification(for: event!)
         }
         else {
             bookmarkedButton.backgroundColor = UIColor.white
@@ -507,6 +510,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             if let index = user?.bookmarkedEvents.index(of: (event?.id)!) {
                 user?.bookmarkedEvents.remove(at: index)
             }
+            LocalNotifications.removeNotification(for: event!.id)
         }
     }
     

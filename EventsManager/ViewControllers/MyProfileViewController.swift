@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import UserNotifications
 
 class MyProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, MyProfileSettingsTableViewCellDelegate {
 
@@ -43,6 +44,8 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     let reminderTimePicker = UIPickerView()
     let reminderTimePickerToolBar = UIToolbar()
     let settingsCell = MyProfileSettingsTableViewCell()
+    //let center = UNUserNotificationCenter.current()
+
 
     //data source
     var user: User?
@@ -67,6 +70,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         if UserData.didLogin() {
             configure(with: UserData.getLoggedInUser()!)
         }
+        
     }
 
     /**
@@ -231,7 +235,9 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.view.layoutIfNeeded()
             }
         })
+
     }
+    
 
     /**
      Handles pressing of the "MORE" button above following organizations. Should display all possible organizations.
