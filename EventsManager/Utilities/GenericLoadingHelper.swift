@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 
 class GenericLoadingHelper {
-    static func startLoadding(from targetViewController: UIViewController, loadingVC: LoadingViewController) -> (()->Void) -> Void {
+    static func startLoadding(from targetViewController: UIViewController, loadingVC: LoadingViewController) -> (@escaping ()->Void) -> Void {
         return { completion in
-            targetViewController.present(loadingVC, animated: true, completion: nil)
-            completion()
+            targetViewController.present(loadingVC, animated: true, completion: {
+                completion()
+            })
         }
     }
     

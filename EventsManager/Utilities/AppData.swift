@@ -25,7 +25,7 @@ class AppData {
      Returns the tuple of string of the location the PK corresponds to, and the placeID. The string returned is a full string, including the building and the room
      Requires: pk is a valid location id. If no existing locations match pk, an empty string will be returned.
      */
-    static func getLocationPlaceIdTuple(by pk: Int, startLoading: (() -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> (String, String) {
+    static func getLocationPlaceIdTuple(by pk: Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> (String, String) {
         if updateData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
@@ -273,7 +273,7 @@ class AppData {
     /**
      Retrieves all events associated with organization organization.
      */
-    static func getEventsAssociatedWith(organization: Int, startLoading: (() -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData:Bool) -> [Event] {
+    static func getEventsAssociatedWith(organization: Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData:Bool) -> [Event] {
         let events = getEvents(startLoading: startLoading, endLoading: endLoading, noConnection: noConnection, updateData: updateData)
         var filteredEvents:[Event] = []
         for event in events {
