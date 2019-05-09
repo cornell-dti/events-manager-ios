@@ -57,8 +57,8 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         setLayouts()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let loadingVC = LoadingViewController()
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
         let events = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
