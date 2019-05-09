@@ -19,6 +19,7 @@ class AppData {
     static let EVENT_IMAGE_DIMENTION: UInt = 1500
     static let DUMMY_URL = "https://www.cornelldti.org"
     static let DUMMY_TAG = "#CornellDTI"
+    static let DUMMY_EVENT = Event(id: 0, startTime: Date(), endTime: Date(), eventName: "DTI", eventLocation: 0, eventImage: URL(string: AppData.DUMMY_URL)!, eventOrganizer: 0, eventDescription: "", eventTags: [], eventParticipantCount: 0, isPublic: false)
     
     /**
      Returns the tuple of string of the location the PK corresponds to, and the placeID. The string returned is a full string, including the building and the room
@@ -69,9 +70,23 @@ class AppData {
     static func getOrganization(by pk: Int, startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> Organization {
         if updateData {
             if CheckInternet.Connection() {
-                startLoading()
                 if let serverToken = UserData.serverToken() {
-                    
+                    startLoading()
+                    let group = DispatchGroup()
+                    group.enter()
+                    Internet.fetchOrganizationDetail(serverToken: serverToken, id: pk, completion: { organization in
+                        if let organization = organization {
+                            do {
+                                let jsonData = try JSONEncoder().encode(organization)
+                                UserDefaults.standard.set(jsonData, forKey: "\(ORG_QUERY_KEY)\(pk)")
+                            } catch {
+                                print (error)
+                            }
+                        }
+                        group.leave()
+                    })
+                    group.wait()
+                    endLoading()
                 }
                 
             }
@@ -137,56 +152,83 @@ class AppData {
         return Tag(id: pk, name: DUMMY_TAG)
     }
     
+    static func getEvent(pk:Int, startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> Event {
+        if updateData {
+            if CheckInternet.Connection() {
+                if let serverToken = UserData.serverToken() {
+                    startLoading()
+                    let group = DispatchGroup()
+                    group.enter()
+                    Internet.fetchEventDetails(serverToken: serverToken, id: pk, completion: { event in
+                        if let event = event {
+                            _ = getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                            _ = getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                            for tag in event.eventTags {
+                                _ = getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                            }
+                            do {
+                                let jsonData = try JSONEncoder().encode(event)
+                                UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
+                            } catch {
+                                print (error)
+                            }
+                        }
+                        group.leave()
+                    })
+                    group.wait()
+                    endLoading()
+                }
+                
+            }
+        }
+        if let jsonData = UserDefaults.standard.data(forKey: "\(EVENT_QUERY_KEY)\(pk)") {
+            do {
+                return try JSONDecoder().decode(Event.self, from: jsonData)
+            } catch {
+                print(error)
+            }
+        }
+        return DUMMY_EVENT
+    }
+    
     /**
      Retrieves all events that are saved locally.
      */
     static func getEvents(startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> [Event]{
         if updateData {
             if CheckInternet.Connection() {
-                startLoading()
-                let group = DispatchGroup()
-                group.enter()
-                DispatchQueue.global(qos: .default).async {
-                    for i in 1...10000000 {
-                        
-                    }
-                    group.leave()
+                if let serverToken = UserData.serverToken() {
+                    startLoading()
+                    let group = DispatchGroup()
+                    group.enter()
+                    let startDate = DateFormatHelper.date(from: "2019-01-01")!
+                    let endDate = Date()
+                    Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
+                        if let events = events {
+                            var savedEventsPk:[Int] = []
+                            for event in events {
+                                savedEventsPk.append(event.id)
+                                //update location, organization, tags related with event
+                                _ = getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                                _ = getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                                for tag in event.eventTags {
+                                    _ = getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
+                                }
+
+                                do {
+                                    let jsonData = try JSONEncoder().encode(event)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
+                                } catch {
+                                    print (error)
+                                }
+                            }
+                            UserDefaults.standard.set(savedEventsPk, forKey: "nums")
+                        }
+                        group.leave()
+                    })
+                    group.wait()
+                    endLoading()
                 }
-                group.wait()
-                endLoading()
-//                if let serverToken = UserData.serverToken() {
-//                    startLoading()
-//                    let group = DispatchGroup()
-//                    group.enter()
-//                    let startDate = DateFormatHelper.date(from: "2019-01-01")!
-//                    let endDate = Date()
-//                    Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
-//                        if let events = events {
-//                            var savedEventsPk:[Int] = []
-//                            for event in events {
-//                                savedEventsPk.append(event.id)
-//                                //update location, organization, tags related with event
-//                                _ = getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
-//                                _ = getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
-//                                for tag in event.eventTags {
-//                                    _ = getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: true)
-//                                }
-//
-//                                do {
-//                                    let jsonData = try JSONEncoder().encode(event)
-//                                    UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
-//                                } catch {
-//                                    print (error)
-//                                }
-//                            }
-//                            UserDefaults.standard.set(savedEventsPk, forKey: "nums")
-//                        }
-//                        group.leave()
-//                    })
-//                    group.wait()
-//                    endLoading()
-//                }
-                
                 
             }
             else {

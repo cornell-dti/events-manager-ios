@@ -328,7 +328,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             if let user = user {
                 let orgSelected = user.followingOrganizations[indexPath.row]
                 let orgViewController = OrganizationViewController()
-                orgViewController.configure(organization: AppData.getOrganization(by: orgSelected, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+                orgViewController.configure(organizationPk: orgSelected)
                 navigationController?.pushViewController(orgViewController, animated: true)
             }
         }

@@ -29,6 +29,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         button.tintColor = UIColor(named: "primaryPink")
         return button
     }()
+    let loadingViewController = LoadingViewController()
 
     //Models
     var events = [Event]()
@@ -38,10 +39,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshControl.tintColor = UIColor(named: "primaryPink")
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableView.addSubview(refreshControl)
         preloadCells()
         setup()
     }
@@ -58,19 +55,8 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      Cells are loaded into the @cells dictionary
     */
     func preloadCells() {
-        //for testing
-        var date1 = "2019-02-15 16:39:57"
-        var date2 = "2019-02-15 18:39:57"
-        for _ in 1...30 {
-            var date1Date = DateFormatHelper.datetime(from: date1)!
-            date1Date = Calendar.current.date(byAdding: .day, value: 1, to: date1Date)!
-            date1 = DateFormatHelper.datetime(from: date1Date)
-            var date2Date = DateFormatHelper.datetime(from: date2)!
-            date2Date = Calendar.current.date(byAdding: .day, value: 1, to: date2Date)!
-            date2 = DateFormatHelper.datetime(from: date2Date)
-            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166, isPublic: true))
-        }
-        
+        loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
+        events = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         for ev in events {
             if (Calendar.current.isDateInToday(ev.startTime)) {
@@ -103,6 +89,11 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     * View initial setups
     */
     func setup() {
+        //refresh control
+        refreshControl.tintColor = UIColor(named: "primaryPink")
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.refreshControl = refreshControl
 
         //NAVIGATION STUFFS
         navigationItem.rightBarButtonItem = searchBarButton
