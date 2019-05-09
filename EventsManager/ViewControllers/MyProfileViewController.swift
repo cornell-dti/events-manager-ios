@@ -302,7 +302,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
             switch indexPath.section {
                 case followingOrganizationsSetion:
                     let followingOrgCell = tableView.dequeueReusableCell(withIdentifier: OrganizationTableViewCell.identifier) as! OrganizationTableViewCell
-                    followingOrgCell.configure(with: AppData.getOrganization(by: user.followingOrganizations[indexPath.row], startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+                    followingOrgCell.configure(with: AppData.getOrganization(by: user.followingOrganizations[indexPath.row], startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
                     return followingOrgCell
                 case followingTagsSection:
                     let followingTagCell = MyProfileTagsTableViewCell()

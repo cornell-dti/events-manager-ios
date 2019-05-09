@@ -255,8 +255,8 @@ class UserData {
             recommendedData = recommendedData.sorted(by: {$0.1 > $1.1})
             var recommendedLabelEventsPairs: [(String, [Event])] = []
             for (pk, _, type) in recommendedData {
-                let label = type == .organization ? "Based on \(AppData.getOrganization(by: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name)" : "Based on \(AppData.getTag(by: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name)"
-                recommendedLabelEventsPairs.append((label, type == .organization ? AppData.getEventsAssociatedWith(organization: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false) : AppData.getEventsAssociatedWith(tag: pk, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false)))
+                let label = type == .organization ? "Based on \(AppData.getOrganization(by: pk, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name)" : "Based on \(AppData.getTag(by: pk, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name)"
+                recommendedLabelEventsPairs.append((label, type == .organization ? AppData.getEventsAssociatedWith(organization: pk, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false) : AppData.getEventsAssociatedWith(tag: pk, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)))
             }
             return recommendedLabelEventsPairs
         }

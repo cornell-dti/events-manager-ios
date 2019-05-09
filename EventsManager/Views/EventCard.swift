@@ -65,7 +65,7 @@ class EventCard: UIView {
         dayLabel.text = DateFormatHelper.day(from: event.startTime)
         startContentLabel.text = DateFormatHelper.hourMinute(from: event.startTime)
         goingContentLabel.text = "\(event.eventParticipantCount)"
-        locationLabel.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).0
+        locationLabel.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false).0
         eventNameLabel.text = event.eventName
         eventPicture.kf.setImage(with: event.eventImage)
     }

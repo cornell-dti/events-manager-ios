@@ -48,7 +48,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
         
         if let user = UserData.getLoggedInUser() {
             for eventId in user.bookmarkedEvents {
-                myEvents.append(AppData.getEvent(pk: eventId, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+                myEvents.append(AppData.getEvent(pk: eventId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
             }
         }
         
