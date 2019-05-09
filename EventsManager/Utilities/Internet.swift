@@ -11,18 +11,18 @@ import Alamofire
 import SwiftyJSON
 
 class Internet {
-
+    
     static func getServerAuthToken(for googleToken: String, _ completion: @escaping (String?) -> Void) {
         let qp = [Endpoint.QueryParam.googleToken : googleToken]
         let URL = Endpoint.getURLString(address: .serverTokenAddress, queryParams: qp)
         Alamofire.request(URL).validate().responseJSON { response in
             switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    completion(json["token"].string)
-                case .failure(let error):
-                    print(error)
-                    completion(nil)
+            case .success(let value):
+                let json = JSON(value)
+                completion(json["token"].string)
+            case .failure(let error):
+                print(error)
+                completion(nil)
             }
         }
     }
@@ -60,39 +60,39 @@ class Internet {
         let URL = Endpoint.getURLString(address: .eventsFeedAddress, queryParams: [:])
         
         Alamofire.request(URL, parameters: params, headers: headers).validate().responseJSON
-        { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                print(json)
-                var events : [Event] = []
-                if let updatedJSON = json["updated"].array {
-                    for subJSON in updatedJSON {
-                        let event = JSONParserHelper.parseEvent(json: subJSON)
-                        if event != nil {
-                            events.append(event!)
+            { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    print(json)
+                    var events : [Event] = []
+                    if let updatedJSON = json["updated"].array {
+                        for subJSON in updatedJSON {
+                            let event = JSONParserHelper.parseEvent(json: subJSON)
+                            if event != nil {
+                                events.append(event!)
+                            }
                         }
                     }
-                }
-                var deleted : [Int] = []
-                if let deletedJSON = json["deleted"].array {
-                    for id in deletedJSON {
-                        deleted.append(id.int!)
+                    var deleted : [Int] = []
+                    if let deletedJSON = json["deleted"].array {
+                        for id in deletedJSON {
+                            deleted.append(id.int!)
+                        }
                     }
+                    
+                    if let timestamp = json["timestamp"].string,
+                        let timestampDateTime = DateFormatHelper.date(from: timestamp) {
+                        completion(events, deleted, timestampDateTime)
+                    }
+                    else {
+                        completion(events, deleted, nil)
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(nil, nil, nil)
                 }
-                
-                if let timestamp = json["timestamp"].string,
-                    let timestampDateTime = DateFormatHelper.date(from: timestamp) {
-                    completion(events, deleted, timestampDateTime)
-                }
-                else {
-                    completion(events, deleted, nil)
-                }
-                
-            case .failure(let error):
-                print(error)
-                completion(nil, nil, nil)
-            }
         }
         
     }
@@ -135,7 +135,7 @@ class Internet {
                     print(error)
                     completion(nil)
                 }
-            }
+        }
     }
     
     static func fetchLocationDetail(serverToken: String, id: Int, completion: @escaping (Location?) -> Void){
@@ -156,7 +156,7 @@ class Internet {
                 }
         }
     }
-
+    
     static func fetchOrganizationDetail(serverToken: String, id: Int, completion: @escaping (Organization?) -> Void){
         let headers : HTTPHeaders = ["Authorization" : serverToken]
         
@@ -191,7 +191,7 @@ class Internet {
                     print(json)
                     var events : [Event] = []
                     if let updatedJSON = json["updated"].array{
-                    for subJSON in updatedJSON {
+                        for subJSON in updatedJSON {
                             let event = JSONParserHelper.parseEvent(json: subJSON)
                             if event != nil {
                                 events.append(event!)
