@@ -56,23 +56,28 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         setLayouts()
     }
-
-    /**
-     Sets the basic layout of the view
-     */
-    func setLayouts() {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         let loadingVC = LoadingViewController()
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
         let events = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         for event in events {
-            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
             for tag in event.eventTags {
-                tags.append(AppData.getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+                tags.append(AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
             }
         }
         //setup datasource
         filteredTags = tags
         filteredOrganizations = organizations
+    }
+
+    /**
+     Sets the basic layout of the view
+     */
+    func setLayouts() {
+        
 
         //navigation stuffs
         if #available(iOS 11, *) {
@@ -239,11 +244,11 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             case .chooseTags:
                 for orgId in checkedOrganizationIDs {
-                    _ = UserData.follow(organization: AppData.getOrganization(by: orgId, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+                    _ = UserData.follow(organization: AppData.getOrganization(by: orgId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
                     _ = UserData.addClickForOrganization(pk: orgId)
                 }
                 for tagId in checkedOrganizationIDs {
-                    _ = UserData.follow(tag: AppData.getTag(by: tagId, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+                    _ = UserData.follow(tag: AppData.getTag(by: tagId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
                     _ = UserData.addClickForTag(pk: tagId)
                 }
                 self.present(TabBarViewController(), animated: true, completion: {

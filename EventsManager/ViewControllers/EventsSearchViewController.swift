@@ -49,11 +49,11 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
     /** Sets all the layout elements in the view */
     func setLayouts() {
-        events = AppData.getEvents(startLoading: {}, endLoading: {}, noConnection: {}, updateData: false)
+        events = AppData.getEvents(startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
         organizations = []
         tags = []
         for event in events {
-            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
             tags.append(contentsOf: event.eventTags)
         }
         //Setting up data source
@@ -157,7 +157,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                 if cell == nil {
                     cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 }
-                cell.textLabel?.text = AppData.getTag(by: filteredTags[indexPath.row], startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name
+                cell.textLabel?.text = AppData.getTag(by: filteredTags[indexPath.row], startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name
                 return cell
         }
 
@@ -235,7 +235,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                     filteredResults = filteredOrganizations
                 case .tags:
                     filteredTags = tags.filter { (tag: Int) -> Bool in
-                        return AppData.getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false).name.lowercased().contains(searchText.lowercased())
+                        return AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name.lowercased().contains(searchText.lowercased())
                     }
                     filteredResults = filteredTags
             }
