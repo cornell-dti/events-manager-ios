@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 protocol MyProfileSettingsTableViewCellDelegate: class {
     func reminderTimeSelectionButtonDidClick()
@@ -195,6 +196,9 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         _ = UserData.setReminderEnabled(rem: sender.isOn)
         if sender.isOn {
             _ = UserData.setReminderTime(timeReminderOption: .fifteenMinutesBefore)
+        }
+        else {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
     }
 

@@ -11,6 +11,7 @@ import MapKit
 import Kingfisher
 import GoogleMaps
 import GooglePlaces
+import UserNotifications
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
@@ -56,7 +57,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var event: Event?
     var placesClient = GMSPlacesClient.shared()
     var mapLocation: CLLocationCoordinate2D?
-    var user: User?
 
     //view elements
     var scrollView = UIScrollView()
@@ -506,22 +506,51 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      Handler for the pressing action of the bookmark button. Should change the color of the button and add it to the user's bookmarked list.
      */
     @objc func bookmarkedButtonPressed(_ sender: UIButton) {
-        if bookmarkedButton.backgroundColor == UIColor.white {
-            bookmarkedButton.backgroundColor = UIColor(named: "primaryPink")
-            bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
-            bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
-            bookmarkedButton.tintColor = UIColor.white
-            bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            user?.bookmarkedEvents.append((event?.id)!)
-        }
-        else {
-            bookmarkedButton.backgroundColor = UIColor.white
-            bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
-            bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
-            bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            bookmarkedButton.tintColor = UIColor(named: "primaryPink")
-            if let index = user?.bookmarkedEvents.index(of: (event?.id)!) {
-                user?.bookmarkedEvents.remove(at: index)
+        let center = UNUserNotificationCenter.current()
+        if var user = UserData.getLoggedInUser() {
+            if bookmarkedButton.backgroundColor == UIColor.white {
+                bookmarkedButton.backgroundColor = UIColor(named: "primaryPink")
+                bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
+                bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
+                bookmarkedButton.tintColor = UIColor.white
+                bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                if let event = event {
+                    user.bookmarkedEvents.append(event.id)
+                    if user.reminderEnabled {
+                        let content = UNMutableNotificationContent()
+                        content.title = NSLocalizedString("notification-title", comment: "")
+                        content.body = "\(NSLocalizedString("notificaition-body-1", comment: "")) \(event.eventName)\(NSLocalizedString("notification-body-2", comment: ""))"
+                        content.sound = .default
+                        let minutesBeforeEvent = ReminderTimeOptions.getValue(from: ReminderTimeOptions.getCase(by: user.reminderTime))
+                        let minuteComp = DateComponents(minute: -minutesBeforeEvent)
+                        let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
+                        if let remindDate = remindDate {
+                            let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: remindDate)
+                            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+                                                                        repeats: false)
+                            let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
+                            let request = UNNotificationRequest(identifier: notificationIdentifier,
+                                                                content: content, trigger: trigger)
+                            center.add(request, withCompletionHandler: { (error) in
+                            })
+                        }
+                        
+                    }
+                }
+            }
+            else {
+                bookmarkedButton.backgroundColor = UIColor.white
+                bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
+                bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
+                bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                bookmarkedButton.tintColor = UIColor(named: "primaryPink")
+                if let index = user.bookmarkedEvents.index(of: (event?.id)!) {
+                    user.bookmarkedEvents.remove(at: index)
+                }
+                if let event = event {
+                    let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
+                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
+                }
             }
         }
     }

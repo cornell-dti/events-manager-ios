@@ -44,4 +44,17 @@ enum ReminderTimeOptions {
                 return -1
         }
     }
+    
+    static func getValue(from caseTime: ReminderTimeOptions) -> Int {
+        switch caseTime {
+        case .oneHourBefore:
+            return 60
+        case .halfAnHourBefore:
+            return 30
+        case .fifteenMinutesBefore:
+            return 15
+        default:
+            return 0
+        }
+    }
 }
