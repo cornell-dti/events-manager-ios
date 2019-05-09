@@ -70,9 +70,23 @@ class AppData {
     static func getOrganization(by pk: Int, startLoading: () -> Void, endLoading: ()-> Void, noConnection: () -> Void, updateData: Bool) -> Organization {
         if updateData {
             if CheckInternet.Connection() {
-                startLoading()
                 if let serverToken = UserData.serverToken() {
-                    
+                    startLoading()
+                    let group = DispatchGroup()
+                    group.enter()
+                    Internet.fetchOrganizationDetail(serverToken: serverToken, id: pk, completion: { organization in
+                        if let organization = organization {
+                            do {
+                                let jsonData = try JSONEncoder().encode(organization)
+                                UserDefaults.standard.set(jsonData, forKey: "\(ORG_QUERY_KEY)\(pk)")
+                            } catch {
+                                print (error)
+                            }
+                        }
+                        group.leave()
+                    })
+                    group.wait()
+                    endLoading()
                 }
                 
             }
