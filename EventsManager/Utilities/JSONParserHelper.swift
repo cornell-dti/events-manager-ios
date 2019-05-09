@@ -4,7 +4,6 @@
 //  EventsManager
 //
 //  Created by Rodrigo Taipe on 4/13/19.
-//  Copyright © 2019 Jagger Brulato. All rights reserved.
 //
 
 import Foundation
