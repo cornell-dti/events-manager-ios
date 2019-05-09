@@ -45,24 +45,13 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     private func setLayouts() {
         let loadingVC = LoadingViewController()
         loadingVC.configure(with: "ooooo...")
-        let test = AppData.getEvents(
-            startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC),
-            endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC),
-            noConnection: GenericLoadingHelper.noConnection(from: self),
-            updateData: true)
-
-        //For testing
-        var date1 = "2019-03-02 16:39:57"
-        var date2 = "2019-03-03 18:39:57"
-        for _ in 1...20 {
-            var date1Date = DateFormatHelper.datetime(from: date1)!
-            date1Date = Calendar.current.date(byAdding: .day, value: 2, to: date1Date)!
-            date1 = DateFormatHelper.datetime(from: date1Date)
-            var date2Date = DateFormatHelper.datetime(from: date2)!
-            date2Date = Calendar.current.date(byAdding: .day, value: 2, to: date2Date)!
-            date2 = DateFormatHelper.datetime(from: date2Date)
-            myEvents.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166, isPublic: true))
+        
+        if let user = UserData.getLoggedInUser() {
+            for eventId in user.bookmarkedEvents {
+                myEvents.append(AppData.getEvent(pk: eventId, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+            }
         }
+        
         //Setting up data source
         let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: myEvents)
         sectionDates = eventsDateData.0
@@ -200,7 +189,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsViewController = EventDetailViewController()
-        detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row])
+        detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row].id)
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
 

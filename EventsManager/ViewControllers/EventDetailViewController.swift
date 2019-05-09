@@ -401,7 +401,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 }
 
     /* Allow client to configure the event detail page by passing in an event object */
-    func configure(with event: Event) {
+    func configure(with eventPk: Int) {
+        let event = AppData.getEvent(pk: eventPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         self.event = event
         let _ = UserData.addClickForEvent(event: event)
         eventImage.kf.setImage(with: event.eventImage)
@@ -415,12 +416,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
             noConnection: GenericLoadingHelper.noConnection(from: self),
-            updateData: true).name
+            updateData: false).name
         eventLocation.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation,
                                                              startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
                                                              endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
                                                              noConnection: GenericLoadingHelper.noConnection(from: self),
-                                                             updateData: true).0
+                                                             updateData: false).0
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
 
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
@@ -428,7 +429,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                                                                              startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
                                                                              endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
                                                                              noConnection: GenericLoadingHelper.noConnection(from: self),
-                                                                             updateData: true).1, placeFields: fields, sessionToken: nil, callback: {
+                                                                             updateData: false).1, placeFields: fields, sessionToken: nil, callback: {
             (result: GMSPlace?, error: Error?) in
             if let error = error {
                 print("An error occurred: \(error.localizedDescription) when fetching google places")
@@ -475,9 +476,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      - sender: the sender of the action
      */
     @objc func orgNamePressed(_ sender: UITapGestureRecognizer) {
-        let testOrg = Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, website: "cornelldit.org", email: "connect@cornelldti.org")
         let orgController = OrganizationViewController()
-        orgController.configure(organization: testOrg)
+        orgController.configure(organizationPk: event?.eventOrganizer ?? 0)
         navigationController?.pushViewController(orgController, animated: true)
     }
 

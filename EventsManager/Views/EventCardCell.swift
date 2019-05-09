@@ -95,7 +95,7 @@ class EventCardCell: UITableViewCell {
         if let senderCard = sender.view as? EventCard {
             if let event = senderCard.event {
                 let detailsViewController = EventDetailViewController()
-                detailsViewController.configure(with: event)
+                detailsViewController.configure(with: event.id)
                 delegate?.push(detailsViewController: detailsViewController)
             }
         }

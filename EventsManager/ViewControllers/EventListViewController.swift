@@ -100,7 +100,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsViewController = EventDetailViewController()
-        detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row])
+        detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row].id)
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
 

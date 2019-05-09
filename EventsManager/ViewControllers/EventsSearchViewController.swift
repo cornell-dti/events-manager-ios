@@ -49,23 +49,15 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
     /** Sets all the layout elements in the view */
     func setLayouts() {
-
-        //For testing
-        var date1 = "2019-03-22 16:39:57"
-        var date2 = "2019-03-22 18:39:57"
-        for _ in 1...20 {
-            var date1Date = DateFormatHelper.datetime(from: date1)!
-            date1Date = Calendar.current.date(byAdding: .day, value: 2, to: date1Date)!
-            date1 = DateFormatHelper.datetime(from: date1Date)
-            var date2Date = DateFormatHelper.datetime(from: date2)!
-            date2Date = Calendar.current.date(byAdding: .day, value: 2, to: date2Date)!
-            date2 = DateFormatHelper.datetime(from: date2Date)
-            events.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166, isPublic: true))
+        events = AppData.getEvents(startLoading: {}, endLoading: {}, noConnection: {}, updateData: false)
+        organizations = []
+        tags = []
+        for event in events {
+            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+            tags.append(contentsOf: event.eventTags)
         }
-        organizations = [Organization(id: 1, name: "Cornell DTI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, website: "cornelldit.org", email: "connect@cornelldti.org")]
-        tags = [1]
         //Setting up data source
-       // filteredEvents = events
+        filteredEvents = events
         filteredOrganizations = organizations
         filteredTags = tags
         updateDataSource()
@@ -184,11 +176,11 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         switch currentSearchScope {
             case .events:
                 let detailsViewController = EventDetailViewController()
-                detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row])
+                detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row].id)
                 navigationController?.pushViewController(detailsViewController, animated: true)
             case .organization:
                 let orgViewController = OrganizationViewController()
-                orgViewController.configure(organization: filteredOrganizations[indexPath.row])
+                orgViewController.configure(organizationPk: filteredOrganizations[indexPath.row].id)
                 navigationController?.pushViewController(orgViewController, animated: true)
             case .tags:
                 let tagViewController = TagViewController()

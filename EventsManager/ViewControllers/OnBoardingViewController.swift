@@ -61,12 +61,15 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
      Sets the basic layout of the view
      */
     func setLayouts() {
-        //For testing
-        organizations = [Organization(id: 1, name: "Cornell DJI", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, website: "cornelldit.org", email: "connect@cornelldti.org")]
-        for i in 2...20 {
-            organizations.append(Organization(id: i, name: "Cornell DTI \(i)", description: "Cornell DTI is a project team that creates technology to address needs on Cornell's campus, and beyond. Our team consists of 50 product managers, designers and developers working on 6 projects ranging from a campus safety app to a course review website. Check out our projects to see what we're up to!", avatar: URL(string: "https://avatars3.githubusercontent.com/u/19356609?s=200&v=4")!, website: "cornelldit.org", email: "connect@cornelldti.org"))
+        let loadingVC = LoadingViewController()
+        loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
+        let events = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        for event in events {
+            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+            for tag in event.eventTags {
+                tags.append(AppData.getTag(by: tag, startLoading: {}, endLoading: {}, noConnection: {}, updateData: false))
+            }
         }
-        tags = [Tag(id: 1, name: "#Kornell"), Tag(id: 2, name: "#DTI"), Tag(id: 3, name: "#lol"), Tag(id: 4, name: "#random tag"), Tag(id: 5, name: "#ooof")]
         //setup datasource
         filteredTags = tags
         filteredOrganizations = organizations

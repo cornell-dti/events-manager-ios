@@ -83,7 +83,12 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     /**
      Allow client to configure the event detail page by passing in an organization object
      */
-    public func configure(organization: Organization) {
+    public func configure(organizationPk: Int) {
+        let loadingVC = LoadingViewController()
+        loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
+        
+        let organization = AppData.getOrganization(by: organizationPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        
         memberButton.setTitle(NSLocalizedString("is-member-button", comment: ""), for: .normal)
         followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
         aboutLabel.text = NSLocalizedString("about", comment: "")
@@ -97,12 +102,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         emailContentLabel.text = organization.email
         bioContentLabel.text = organization.description
 
-        //FOR TESTING
-        let date1 = "2018-06-20 16:39:57"
-        let date2 = "2018-06-20 18:39:57"
-        for _ in 1...20 {
-            popularEvents.append(Event(id: 1, startTime: DateFormatHelper.datetime(from: date1)!, endTime: DateFormatHelper.datetime(from: date2)!, eventName: "Cornell DTI Meeting", eventLocation: 1, eventImage: URL(string: "http://ethanhu.me/images/background.jpg")!, eventOrganizer: 1, eventDescription: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.", eventTags: [1], eventParticipantCount: 166, isPublic: true))
-        }
+        
+        popularEvents = AppData.getEventsAssociatedWith(organization: organizationPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
 
         getTags()
         for tag in tags {

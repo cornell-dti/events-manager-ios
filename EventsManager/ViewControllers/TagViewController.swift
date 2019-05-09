@@ -90,7 +90,7 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsViewController = EventDetailViewController()
-        detailsViewController.configure(with: events[indexPath.row])
+        detailsViewController.configure(with: events[indexPath.row].id)
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
 
