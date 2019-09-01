@@ -41,11 +41,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
-        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
-        
-        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
-        tracker.send(builder.build() as [NSObject : AnyObject])
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     /**
@@ -193,6 +189,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                 orgViewController.configure(organizationPk: filteredOrganizations[indexPath.row].id)
                 navigationController?.pushViewController(orgViewController, animated: true)
             case .tags:
+                GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "search pg")
                 let tagViewController = TagViewController()
                 tagViewController.setup(with: events, for: tags[indexPath.row])
                 navigationController?.pushViewController(tagViewController, animated: true)

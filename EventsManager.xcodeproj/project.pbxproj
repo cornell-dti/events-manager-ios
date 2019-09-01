@@ -19,6 +19,7 @@
 		AA04DEFA2134DFCB00FA0507 /* OrganizationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEF92134DFCB00FA0507 /* OrganizationTableViewCell.swift */; };
 		AA04DEFC2134E8C500FA0507 /* MyProfileHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEFB2134E8C500FA0507 /* MyProfileHeaderFooterView.swift */; };
 		AA04DEFE2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */; };
+		AA16F3D6231B44F40031DC67 /* GoogleAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA16F3D5231B44F40031DC67 /* GoogleAnalytics.swift */; };
 		AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF97208ED460007A5E5C /* EventCard.swift */; };
 		AA1FFF9A208EDB9C007A5E5C /* EventCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */; };
 		AA25744722750ADD0077B15F /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25744622750ADD0077B15F /* CheckInternet.swift */; };
@@ -114,6 +115,7 @@
 		AA04DEFB2134E8C500FA0507 /* MyProfileHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileHeaderFooterView.swift; sourceTree = "<group>"; };
 		AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTagsTableViewCell.swift; sourceTree = "<group>"; };
 		AA16F3D2231B0ECD0031DC67 /* EventsManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EventsManager-Bridging-Header.h"; sourceTree = "<group>"; };
+		AA16F3D5231B44F40031DC67 /* GoogleAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAnalytics.swift; sourceTree = "<group>"; };
 		AA1FFF97208ED460007A5E5C /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCard.swift; path = EventsManager/Views/EventCard.swift; sourceTree = SOURCE_ROOT; };
 		AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCardCell.swift; path = EventsManager/Views/EventCardCell.swift; sourceTree = SOURCE_ROOT; };
 		AA25744622750ADD0077B15F /* CheckInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */,
 				FCD0E4D92262E12B00E180DF /* Endpoint.swift */,
 				AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */,
+				AA16F3D5231B44F40031DC67 /* GoogleAnalytics.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 				AA1FFF98208ED460007A5E5C /* EventCard.swift in Sources */,
 				FCD0E4DA2262E12B00E180DF /* Endpoint.swift in Sources */,
 				AAD334EC215204C600312F31 /* AppData.swift in Sources */,
+				AA16F3D6231B44F40031DC67 /* GoogleAnalytics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

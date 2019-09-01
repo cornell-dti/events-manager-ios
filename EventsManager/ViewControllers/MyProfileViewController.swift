@@ -57,11 +57,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
         
-        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
-        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
-        
-        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
-        tracker.send(builder.build() as [NSObject : AnyObject])
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

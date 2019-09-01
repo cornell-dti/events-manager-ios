@@ -74,11 +74,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
         
-        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
-        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
-        
-        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
-        tracker.send(builder.build() as [NSObject : AnyObject])
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     override func viewDidLoad() {
@@ -404,6 +400,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
             if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
+                //Ganalytics
+                GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "organization view pg")
                 tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
                 navigationController?.pushViewController(tagViewController, animated: true)
             }
