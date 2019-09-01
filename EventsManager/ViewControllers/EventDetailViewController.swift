@@ -16,6 +16,8 @@ import UserNotifications
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     //Constants
+    let gAnalyticsScreenName = "event detail pg"
+    
     let buttonHeight: CGFloat = 40
     let standardEdgeSpacing: CGFloat = 20
     let imageViewHeight: CGFloat = 220
@@ -101,6 +103,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationControllerInteractivePopGestureRecognizerDelegate = navigationController?.interactivePopGestureRecognizer?.delegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -493,6 +497,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
             if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
+                //Ganalytics
+                GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "event detail pg")
                 tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
                 navigationController?.pushViewController(tagViewController, animated: true)
             }
@@ -540,6 +546,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                         
                     }
                 }
+                
+                //Ganalytics
+                GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "event detail page")
             }
             else {
                 bookmarkedButton.backgroundColor = UIColor.white
@@ -554,6 +563,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
                 }
+                //Ganalytics
+                GoogleAnalytics.trackEvent(category: "button click", action: "unbookmark", label: "event detail page")
             }
         }
     }
@@ -564,6 +575,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         let activityVC = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = sender
         self.present(activityVC, animated: true, completion: nil)
+        //Ganalytics
+        GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
     }
     
     /**

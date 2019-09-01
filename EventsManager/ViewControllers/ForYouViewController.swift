@@ -14,6 +14,8 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var refreshControl = UIRefreshControl()
     
     //Constants
+    let gAnalyticsScreenName = "for you pg"
+    
     let headerHeight: CGFloat = 35
     
     //View Elements
@@ -33,6 +35,10 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
     
     /**

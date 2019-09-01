@@ -12,6 +12,8 @@ import Kingfisher
 class MyProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, MyProfileSettingsTableViewCellDelegate {
 
     //constants
+    let gAnalyticsScreenName = "my profile pg"
+    
     let sectionCount = 3
     let followingOrganizationsSetion = 0
     let followingTagsSection = 1
@@ -54,6 +56,8 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

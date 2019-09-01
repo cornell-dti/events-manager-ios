@@ -41,6 +41,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let tagStack = UIStackView()
 
     //Constants
+    let gAnalyticsScreenName = "org profile pg"
+    
     let sectionViewPadding: CGFloat = 15
     let orgNameFontSize: CGFloat = 22
     let orgNameToSettingSpacing: CGFloat = 20
@@ -71,6 +73,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     override func viewDidLoad() {
@@ -396,6 +400,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
             if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
+                //Ganalytics
+                GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "organization view pg")
                 tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
                 navigationController?.pushViewController(tagViewController, animated: true)
             }

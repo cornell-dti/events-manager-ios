@@ -9,7 +9,7 @@
 import GoogleSignIn
 import UIKit
 
-class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
+class LoginViewController: UIViewController, GIDSignInDelegate {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -40,8 +40,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        GIDSignIn.sharedInstance()?.uiDelegate = self
         GIDSignIn.sharedInstance()?.delegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
         setLayouts()
         configure()
     }

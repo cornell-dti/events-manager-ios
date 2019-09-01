@@ -14,6 +14,8 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     var refreshControl = UIRefreshControl()
 
     //Constants
+    let gAnalyticsScreenName = "discover pg"
+    
     let headerHeight: CGFloat = 35
 
     let popularEventsSection = 0
@@ -45,6 +47,10 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     /**

@@ -27,6 +27,8 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     var searchController = UISearchController(searchResultsController: nil)
 
     //constants
+    let gAnalyticsScreenName = "search pg"
+    
     let headerFontSize: CGFloat = 16
 
     //view element
@@ -36,6 +38,10 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     /**
@@ -183,6 +189,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                 orgViewController.configure(organizationPk: filteredOrganizations[indexPath.row].id)
                 navigationController?.pushViewController(orgViewController, animated: true)
             case .tags:
+                GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "search pg")
                 let tagViewController = TagViewController()
                 tagViewController.setup(with: events, for: tags[indexPath.row])
                 navigationController?.pushViewController(tagViewController, animated: true)
