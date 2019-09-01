@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		526C9A54EADE48065785CCFB /* Pods_EventsManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 203EF1ECAA23F1DF15B70B81 /* Pods_EventsManager.framework */; };
 		619CEBFEB4045BE61841259B /* Pods_EventsManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 203EF1ECAA23F1DF15B70B81 /* Pods_EventsManager.framework */; };
 		87D045C51B04D8A2013C80FB /* Pods_EventsManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */; };
 		A11D265F20FAF0D9001712E6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A11D265E20FAF0D9001712E6 /* Localizable.strings */; };
@@ -114,6 +113,7 @@
 		AA04DEF92134DFCB00FA0507 /* OrganizationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationTableViewCell.swift; sourceTree = "<group>"; };
 		AA04DEFB2134E8C500FA0507 /* MyProfileHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileHeaderFooterView.swift; sourceTree = "<group>"; };
 		AA04DEFD2134EFAA00FA0507 /* MyProfileTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTagsTableViewCell.swift; sourceTree = "<group>"; };
+		AA16F3D2231B0ECD0031DC67 /* EventsManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EventsManager-Bridging-Header.h"; sourceTree = "<group>"; };
 		AA1FFF97208ED460007A5E5C /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCard.swift; path = EventsManager/Views/EventCard.swift; sourceTree = SOURCE_ROOT; };
 		AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCardCell.swift; path = EventsManager/Views/EventCardCell.swift; sourceTree = SOURCE_ROOT; };
 		AA25744622750ADD0077B15F /* CheckInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
@@ -180,7 +180,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				619CEBFEB4045BE61841259B /* Pods_EventsManager.framework in Frameworks */,
-				526C9A54EADE48065785CCFB /* Pods_EventsManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +262,7 @@
 				A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */,
 				A11D265E20FAF0D9001712E6 /* Localizable.strings */,
 				A40E37DA201E91CA00B3AFA4 /* Info.plist */,
+				AA16F3D2231B0ECD0031DC67 /* EventsManager-Bridging-Header.h */,
 			);
 			path = EventsManager;
 			sourceTree = "<group>";
@@ -445,12 +445,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Jagger Brulato";
 				TargetAttributes = {
 					A40E37CA201E91CA00B3AFA4 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
@@ -866,13 +866,16 @@
 			baseConfigurationReference = A5B189B31913E827DEED20E2 /* Pods-EventsManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventsManager/EventsManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NHAKALPCJ4;
 				INFOPLIST_FILE = EventsManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cornell.dti.org.EventsManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "EventsManager/EventsManager-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -883,13 +886,15 @@
 			baseConfigurationReference = C49C20E339E2728AE58F4507 /* Pods-EventsManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventsManager/EventsManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NHAKALPCJ4;
 				INFOPLIST_FILE = EventsManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cornell.dti.org.EventsManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "EventsManager/EventsManager-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

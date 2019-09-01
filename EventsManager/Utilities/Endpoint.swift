@@ -8,11 +8,7 @@
 import Foundation
 
 class Endpoint {
-    #if DEVELOPMENT
-    public static let baseURL = "http://127.0.0.1:8000/"
-    #else
     public static let baseURL = "http://cuevents-app.herokuapp.com/"
-    #endif
     
     public enum Addresses {
         case serverTokenAddress

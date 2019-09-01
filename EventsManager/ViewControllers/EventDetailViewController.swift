@@ -16,6 +16,8 @@ import UserNotifications
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     //Constants
+    let gAnalyticsScreenName = "event detail pg"
+    
     let buttonHeight: CGFloat = 40
     let standardEdgeSpacing: CGFloat = 20
     let imageViewHeight: CGFloat = 220
@@ -101,6 +103,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationControllerInteractivePopGestureRecognizerDelegate = navigationController?.interactivePopGestureRecognizer?.delegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

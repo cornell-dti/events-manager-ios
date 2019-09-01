@@ -12,6 +12,8 @@ import Kingfisher
 class MyProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, MyProfileSettingsTableViewCellDelegate {
 
     //constants
+    let gAnalyticsScreenName = "my profile pg"
+    
     let sectionCount = 3
     let followingOrganizationsSetion = 0
     let followingTagsSection = 1
@@ -54,6 +56,12 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
     }
 
     override func viewWillDisappear(_ animated: Bool) {

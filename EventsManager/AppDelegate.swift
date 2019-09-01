@@ -30,6 +30,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //initiallize Google Sign In
         GIDSignIn.sharedInstance()?.clientID = "498336876169-c0tedkl028ga401h2qj4g4gelnr68pen.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.hostedDomain = "cornell.edu"
+        
+        //Initialize Google Analytics
+        if let gai = GAI.sharedInstance() {
+            gai.tracker(withTrackingId: "208454961")
+            // Optional: automatically report uncaught exceptions.
+            gai.trackUncaughtExceptions = true
+            
+            // Optional: set Logger to VERBOSE for debug information.
+            // Remove before app release.
+            gai.logger.logLevel = .verbose;
+        }
+        else {
+            print("GA not setup correctly")
+        }
+        
 
         //check if logged in
         if UserData.didLogin() {

@@ -41,6 +41,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let tagStack = UIStackView()
 
     //Constants
+    let gAnalyticsScreenName = "org profile pg"
+    
     let sectionViewPadding: CGFloat = 15
     let orgNameFontSize: CGFloat = 22
     let orgNameToSettingSpacing: CGFloat = 20
@@ -71,6 +73,12 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
     }
 
     override func viewDidLoad() {

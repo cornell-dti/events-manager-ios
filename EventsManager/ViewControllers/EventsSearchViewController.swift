@@ -27,6 +27,8 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     var searchController = UISearchController(searchResultsController: nil)
 
     //constants
+    let gAnalyticsScreenName = "search pg"
+    
     let headerFontSize: CGFloat = 16
 
     //view element
@@ -36,6 +38,14 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
     }
 
     /**

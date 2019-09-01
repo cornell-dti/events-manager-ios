@@ -17,6 +17,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     var scrollEventCalledByDatePickerClicking = false //when user clicks on date picker, it triggers didscroll and sets the datepicker selected date as well. To prevent this, set this to true when user clicks a date, and to false again in scrollviewdidfinishanimations. Only when this is set to false, will the date picker adjust selection based on the position of the tableview.
 
     //Constants
+    let gAnalyticsScreenName = "my events pg"
     let datePickerHeight: CGFloat = 100
     let headerFontSize: CGFloat = 16
 
@@ -38,6 +39,12 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
     }
     
 

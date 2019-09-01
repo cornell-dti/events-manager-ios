@@ -14,6 +14,8 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var refreshControl = UIRefreshControl()
     
     //Constants
+    let gAnalyticsScreenName = "for you pg"
+    
     let headerHeight: CGFloat = 35
     
     //View Elements
@@ -33,6 +35,15 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    //GAnalytics Screen Tracking
+    override func viewWillAppear(_ animated: Bool) {
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: gAnalyticsScreenName)
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
     }
     
     /**
