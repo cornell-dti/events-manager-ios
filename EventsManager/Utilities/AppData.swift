@@ -17,7 +17,7 @@ class AppData {
     static let SAVED_EVENTS_KEY = "saved events"
     static let EVENT_QUERY_KEY = "event_pk_"
     static let EVENT_IMAGE_DIMENTION: UInt = 1500
-    static let DUMMY_URL = "https://www.cornelldti.org"
+    static let DUMMY_URL = "https://www.cornelldti.org/static/branding/brand-icon.svg"
     static let DUMMY_TAG = "#CornellDTI"
     static let DUMMY_EVENT = Event(id: 0, startTime: Date(), endTime: Date(), eventName: "DTI", eventLocation: 0, eventImage: URL(string: AppData.DUMMY_URL)!, eventOrganizer: 0, eventDescription: "", eventTags: [], eventParticipantCount: 0, isPublic: false)
     
@@ -225,7 +225,7 @@ class AppData {
                                         print (error)
                                     }
                                 }
-                                UserDefaults.standard.set(savedEventsPk, forKey: "nums")
+                                UserDefaults.standard.set(savedEventsPk, forKey: SAVED_EVENTS_KEY)
                             }
                             group.leave()
                         })

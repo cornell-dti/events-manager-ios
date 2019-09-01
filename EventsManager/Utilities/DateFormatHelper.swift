@@ -9,6 +9,15 @@
 import Foundation
 
 class DateFormatHelper {
+    
+    private static let timeStampFromStringFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        formatter.timeZone = TimeZone(abbreviation: "EST")
+        return formatter
+    }()
+    
     private static let datetimeFromStringFormatter: DateFormatter = {
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -69,6 +78,9 @@ class DateFormatHelper {
     }
     public static func day(from date: Date) -> String {
         return dayFromDateFormatter.string(from: date)
+    }
+    public static func timestamp(from date: Date) -> String {
+        return timeStampFromStringFormatter.string(from: date)
     }
     public static func dayAbbreviationOfWeek(from date: Date) -> String {
         let myCalendar = Calendar(identifier: .gregorian)

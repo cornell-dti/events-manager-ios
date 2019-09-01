@@ -16,21 +16,15 @@ class JSONParserHelper {
     public static func parseOrganization(json: JSON) -> Organization? {
         if let pk = json["pk"].int,
             let name = json["name"].string,
-            let desc = json["description"].string,
-            let verified = json["verified"].bool,
-            let email = json["contact"].string
+            let desc = json["bio"].string,
+            let email = json["website"].string,
+            let website = json["website"].string
+            //ignores media for now as its not working
+            //ignores tags for now as currently apis give none.
         {
-            let website = defaultImageURL.absoluteString
-            var avatarURL = defaultImageURL
-            if let photo_id = json["photo_id"].string{
-                avatarURL = URL(string: mediaAddress + String(photo_id))!
-            }
-            let orgInstance = Organization.init(id: pk, name: name, description: desc, avatar: avatarURL, website: website, email: email)
-            return orgInstance
+            return Organization(id: pk, name: name, description: desc, avatar: URL(string: AppData.DUMMY_URL)!, website: website, email: email)
         }
-        else {
-            return nil
-        }
+        return nil
         
     }
     
@@ -38,12 +32,10 @@ class JSONParserHelper {
         if let id = json["id"].int,
             let name = json["name"].string
         {
-            let tagInstance = Tag.init(id: id, name: name)
+            let tagInstance = Tag(id: id, name: name)
             return tagInstance
         }
-        else {
-            return nil
-        }
+        return nil
     }
     
     public static func parseLocation(json: JSON) -> Location? {
@@ -52,7 +44,7 @@ class JSONParserHelper {
             let roomName = json["room"].string,
             let placeId = json["place_id"].string {
             
-            let locationInstance = Location.init(id: pk, building: buildingName, room: roomName, placeId: placeId)
+            let locationInstance = Location(id: pk, building: buildingName, room: roomName, placeId: placeId)
             return locationInstance
         }
         else {
@@ -61,6 +53,7 @@ class JSONParserHelper {
     }
     
     public static func parseEvent(json: JSON) -> Event? {
+        //parse singletons
         if let pk = json["pk"].int,
             let name = json["name"].string,
             let description = json["description"].string,
@@ -68,29 +61,43 @@ class JSONParserHelper {
             let end_date = json["end_date"].string,
             let start_time = json["start_time"].string,
             let end_time = json["end_time"].string,
-            let num_attendees = json["num_attendees"].int,
-            let is_public = json["is_public"].bool,
-            let organizer = json["organizer"].int,
-            let location = json["location"].int,
-            let event_tags = json["event_tags"].array,
-            let event_media = json["event_media"].array
+            let participantCount = json["num_attendees"].int,
+            let isPublic = json["is_public"].bool,
+            // parse imbedded objects
+            let org_json = json["organizer"].dictionary,
+            let location_json = json["location"].dictionary,
+            let tags_json = json["tags"].array,
+            let medias_json = json["media"].array
         {
-            let startDateTime = DateFormatHelper.datetime(from: "\(start_date) \(start_time)")
-            let endDateTime = DateFormatHelper.datetime(from: "\(end_date) \(end_time)")
-            var imageURL = defaultImageURL
-            if event_media.count > 0 {
-                let imageId = event_media[0].int!
-                imageURL = URL(string: mediaAddress + String(imageId))!
+            //get org id and location id
+            if let orgId = org_json["owner"]?.int,
+                let location_id = location_json["id"]?.int
+            {
+                // get tags and media
+                var tags:[Int] = []
+                for tag_json in tags_json {
+                    if let tagId = tag_json["id"].int {
+                        tags.append(tagId)
+                    }
+                }
+                var media = AppData.DUMMY_URL
+                for media_json in medias_json {
+                    if let media_string = media_json["link"].string {
+                        media = media_string
+                    }
+                    break
+                }
+                let media_url = URL(string: media) ?? URL(string: AppData.DUMMY_URL)!
+                
+                // change start time and end time to swift date formats
+                if let startDate = DateFormatHelper.datetime(from: "\(start_date) \(start_time)"),
+                    let endDate = DateFormatHelper.datetime(from: "\(end_date) \(end_time)")
+                {
+                    return Event(id: pk, startTime: startDate, endTime: endDate, eventName: name, eventLocation: location_id, eventImage: media_url, eventOrganizer: orgId, eventDescription: description, eventTags: tags, eventParticipantCount: participantCount, isPublic: isPublic)
+                }
             }
-            var eventTags : [Int] = []
-            for tag in event_tags {
-                eventTags.append((tag.int)!)
-            }
-            let eventInstance = Event.init(id: pk, startTime: startDateTime!, endTime: endDateTime!, eventName: name, eventLocation: location, eventImage: imageURL, eventOrganizer: organizer, eventDescription: description, eventTags: eventTags, eventParticipantCount: num_attendees, isPublic: is_public)
-            return eventInstance
+            
         }
-        else {
-            return nil
-        }
+        return nil
     }
 }

@@ -34,7 +34,7 @@ class Internet {
         let qp = [Endpoint.QueryParam.locationPk: String(locationPk)]
         let URL = Endpoint.getURLString(address: .locationAddress, queryParams: qp)
         
-        Alamofire.request(URL, headers: headers).validate().responseJSON { response in
+        Alamofire.request(URL, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default)) { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -51,22 +51,22 @@ class Internet {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
         headers["Authorization"] = serverToken
         
+        
         let params = [
-            "timestamp": DateFormatHelper.datetime(from: timestamp),
-            "start": DateFormatHelper.datetime(from: start),
-            "end": DateFormatHelper.datetime(from: end)
+            "timestamp": DateFormatHelper.timestamp(from: timestamp),
+            "start": DateFormatHelper.timestamp(from: start),
+            "end": DateFormatHelper.timestamp(from: end)
         ]
         
         let URL = Endpoint.getURLString(address: .eventsFeedAddress, queryParams: [:])
         
-        Alamofire.request(URL, parameters: params, headers: headers).validate().responseJSON
+        Alamofire.request(URL, parameters: params, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
             { response in
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    print(json)
                     var events : [Event] = []
-                    if let updatedJSON = json["updated"].array {
+                    if let updatedJSON = json["events"].array {
                         for subJSON in updatedJSON {
                             let event = JSONParserHelper.parseEvent(json: subJSON)
                             if event != nil {
@@ -74,20 +74,10 @@ class Internet {
                             }
                         }
                     }
-                    var deleted : [Int] = []
-                    if let deletedJSON = json["deleted"].array {
-                        for id in deletedJSON {
-                            deleted.append(id.int!)
-                        }
-                    }
+                    // not given under first version of api
+                    let deleted : [Int] = []
+                    completion(events, deleted, Date())
                     
-                    if let timestamp = json["timestamp"].string,
-                        let timestampDateTime = DateFormatHelper.date(from: timestamp) {
-                        completion(events, deleted, timestampDateTime)
-                    }
-                    else {
-                        completion(events, deleted, nil)
-                    }
                     
                 case .failure(let error):
                     print(error)
@@ -105,7 +95,7 @@ class Internet {
         let qp = [Endpoint.QueryParam.eventPk : String(id)]
         let URL = Endpoint.getURLString(address: .eventDetailsAddress, queryParams: qp)
         
-        Alamofire.request(URL, headers: headers).validate().responseJSON
+        Alamofire.request(URL, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
             { response in
                 switch response.result {
                 case .success(let value):
@@ -125,7 +115,7 @@ class Internet {
         let qp = [Endpoint.QueryParam.tagPk : String(id)]
         let URL = Endpoint.getURLString(address: .tagAddress, queryParams: qp)
         
-        Alamofire.request(URL, headers: headers).validate().responseJSON
+        Alamofire.request(URL, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
             { response in
                 switch response.result {
                 case .success(let value):
@@ -144,7 +134,7 @@ class Internet {
         let qp = [Endpoint.QueryParam.locationPk : String(id)]
         let URL = Endpoint.getURLString(address: .locationAddress, queryParams: qp)
         
-        Alamofire.request(URL, headers: headers).validate().responseJSON
+        Alamofire.request(URL, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
             { response in
                 switch response.result {
                 case .success(let value):
@@ -162,12 +152,14 @@ class Internet {
         
         let qp = [Endpoint.QueryParam.organizationPk : String(id)]
         let URL = Endpoint.getURLString(address: .organizationAddress, queryParams: qp)
+        print(URL)
         
-        Alamofire.request(URL, headers: headers).validate().responseJSON
+        Alamofire.request(URL, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
             { response in
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
+                    print(json)
                     completion(JSONParserHelper.parseOrganization(json: json))
                 case .failure(let error):
                     print(error)
@@ -183,7 +175,7 @@ class Internet {
         let qp = [Endpoint.QueryParam.organizationPk : String(id)]
         let URL = Endpoint.getURLString(address: .organizationEventAddress, queryParams: qp)
         
-        Alamofire.request(URL, parameters: [:], headers: headers).validate().responseJSON
+        Alamofire.request(URL, parameters: [:], headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
             { response in
                 switch response.result {
                 case .success(let value):

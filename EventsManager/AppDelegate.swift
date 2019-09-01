@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         notificationCenter.requestAuthorization(options: options, completionHandler: {(granted, error) in
         })
-
+        
         return true
     }
     
