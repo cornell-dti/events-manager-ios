@@ -167,7 +167,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     navigatorForwardButton.backgroundColor = UIColor.white
                     navigatorForwardButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-choose-3-to-continue", comment: ""), for: .normal)
-                    navigatorForwardButton.isEnabled = false
+                    navigatorForwardButton.isEnabled = true
                 } else {
                     navigatorForwardButton.backgroundColor = UIColor(named: "primaryPink")
                     navigatorForwardButton.setTitleColor(UIColor.white, for: .normal)
@@ -179,7 +179,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     navigatorForwardButton.backgroundColor = UIColor.white
                     navigatorForwardButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-choose-3-to-continue", comment: ""), for: .normal)
-                    navigatorForwardButton.isEnabled = false
+                    navigatorForwardButton.isEnabled = true
                 } else {
                     navigatorForwardButton.backgroundColor = UIColor(named: "primaryPink")
                     navigatorForwardButton.setTitleColor(UIColor.white, for: .normal)
@@ -237,13 +237,13 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     @objc func onBoardingForwardButtonClicked(_ sender: UIButton) {
         switch currentOnBoardingProcess {
             case .chooseOrganization:
-                if checkedOrganizationIDs.count >= minimumSelectionCount {
+               
                     currentOnBoardingProcess = .chooseTags
                     navigationItem.titleView = setTitle(title: NSLocalizedString("onboarding-interest-title", comment: ""), subtitle: NSLocalizedString("onboarding-interest-description", comment: ""))
                     searchController.isActive = false
                     tableView.reloadData()
                     setNavigatorFowardButtonStatus()
-                }
+            
             case .chooseTags:
                 for orgId in checkedOrganizationIDs {
                     _ = UserData.follow(organization: AppData.getOrganization(by: orgId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))

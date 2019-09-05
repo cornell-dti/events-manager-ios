@@ -45,9 +45,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let buttonImageWidth: CGFloat = 23
     let buttonImageHeight: CGFloat = 26
     let buttonImageTopSpacing: CGFloat = 7
-    let buttonImageLeftSpacing: CGFloat = 15
+    let buttonImageLeftSpacing: CGFloat = 0 //15
     let modifiedEdgeSpacing: CGFloat = 70
-    let modifiedbuttonImageLeftSpacing: CGFloat = 65
+    let modifiedbuttonImageLeftSpacing: CGFloat = 15 //65
     let buttonFontSize: CGFloat = 16
     let shadowOpacity: Float = 0.6
     let shadowRadius: CGFloat = 5
@@ -181,7 +181,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         
         bookmarkedButton.backgroundColor = UIColor.white
         bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        //        bookmarkedButton.imageEdgeInsets = UIEdgeInsetsMake(0, bookmarkedButton.titleLabel.frame.size.width, 0, -bookmarkedButton.titleLabel.frame.size.width);
+        //bookmarkedButton.imageEdgeInsets = UIEdgeInsetsMake(0, bookmarkedButton.titleLabel?.frame.size.width ?? <#default value#>, 0, -bookmarkedButton.titleLabel?.frame.size.width);
         bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
         bookmarkedButton.tintColor = UIColor(named: "primaryPink")
         bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
