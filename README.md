@@ -13,12 +13,12 @@ An **iOS** app for Cornell students to find events. It allows students to view a
 
 The **Android** branch can be found [here](https://github.com/cornell-dti/events-manager-android). 
 The **Backend** can be found [here](https://github.com/cornell-dti/events-backend). 
-The **Webiste** can be found [here](https://github.com/cornell-dti/events-site)
+The **Website** can be found [here](https://github.com/cornell-dti/events-site)
 
 ## Getting Started
 You will need **Xcode 10.0** to run the latest version of this app, which uses Swift 4.2 compiled for iOS 12. Xcode can be downloaded from the Mac App Store. Make sure you are not running a beta version of macOS, as Apple will prevent you from publishing to the App Store if you do.
  
-_Last updated **22/09/2018**_.
+_Last updated **06/09/2019**_.
 
 ### Code Review
 After pushing any changes to the codebase, let's get your code reviewed. Some general guidelines:
