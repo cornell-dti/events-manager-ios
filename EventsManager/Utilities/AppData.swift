@@ -17,7 +17,7 @@ class AppData {
     static let SAVED_EVENTS_KEY = "saved events"
     static let EVENT_QUERY_KEY = "event_pk_"
     static let EVENT_IMAGE_DIMENTION: UInt = 1500
-    static let DUMMY_URL = "https://www.cornelldti.org/static/branding/brand-icon.svg"
+    static let DUMMY_URL = "http://ethanhu.me/images/background.jpg"
     static let DUMMY_TAG = "#CornellDTI"
     static let DUMMY_EVENT = Event(id: 0, startTime: Date(), endTime: Date(), eventName: "DTI", eventLocation: 0, eventImage: URL(string: AppData.DUMMY_URL)!, eventOrganizer: 0, eventDescription: "", eventTags: [], eventParticipantCount: 0, isPublic: false)
     
@@ -30,8 +30,6 @@ class AppData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
                     startLoading {
-                        let group = DispatchGroup()
-                        group.enter()
                         Internet.fetchLocation(serverToken: serverToken, locationPk: pk, completion: { location in
                             if let location = location {
                                 do {
@@ -40,11 +38,12 @@ class AppData {
                                 } catch {
                                     print (error)
                                 }
-                                group.leave()
+                                runAsyncFunction{
+                                    NotificationCenter.default.post(name: .updatedLocation, object: nil)
+                                    endLoading()
+                                }
                             }
                         })
-                        group.wait()
-                        endLoading()
                     }
                 }
             }
@@ -72,8 +71,6 @@ class AppData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
                     startLoading{
-                        let group = DispatchGroup()
-                        group.enter()
                         Internet.fetchOrganizationDetail(serverToken: serverToken, id: pk, completion: { organization in
                             if let organization = organization {
                                 do {
@@ -83,10 +80,11 @@ class AppData {
                                     print (error)
                                 }
                             }
-                            group.leave()
+                            runAsyncFunction{
+                                NotificationCenter.default.post(name: .updatedOrg, object: nil)
+                                endLoading()
+                            }
                         })
-                        group.wait()
-                        endLoading()
                     }
                 }
                 
@@ -121,8 +119,6 @@ class AppData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
                     startLoading {
-                        let group = DispatchGroup()
-                        group.enter()
                         Internet.fetchSingleTag(serverToken: serverToken, id: pk, completion: { tag in
                             if let tag = tag {
                                 do {
@@ -132,10 +128,11 @@ class AppData {
                                     print (error)
                                 }
                             }
-                            group.leave()
+                            runAsyncFunction{
+                                NotificationCenter.default.post(name: .updatedTag, object: nil)
+                                endLoading()
+                            }
                         })
-                        group.wait()
-                        endLoading()
                     }
                 }
                 
@@ -159,8 +156,6 @@ class AppData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
                     startLoading {
-                        let group = DispatchGroup()
-                        group.enter()
                         Internet.fetchEventDetails(serverToken: serverToken, id: pk, completion: { event in
                             if let event = event {
                                 _ = getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: true)
@@ -175,10 +170,11 @@ class AppData {
                                     print (error)
                                 }
                             }
-                            group.leave()
+                            runAsyncFunction{
+                                NotificationCenter.default.post(name: .updatedEvent, object: nil)
+                                endLoading()
+                            }
                         })
-                        group.wait()
-                        endLoading()
                     }
                 }
                 
@@ -201,11 +197,9 @@ class AppData {
         if updateData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
-                    startLoading {
-                        let group = DispatchGroup()
-                        group.enter()
-                        let startDate = DateFormatHelper.date(from: "2019-01-01")!
-                        let endDate = Date()
+                    let startDate = DateFormatHelper.date(from: "2019-01-01")!
+                    let endDate = Date()
+                    startLoading{
                         Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
                             if let events = events {
                                 var savedEventsPk:[Int] = []
@@ -226,11 +220,12 @@ class AppData {
                                     }
                                 }
                                 UserDefaults.standard.set(savedEventsPk, forKey: SAVED_EVENTS_KEY)
+                                runAsyncFunction({
+                                    NotificationCenter.default.post(name: .reloadData, object: nil)
+                                    endLoading()
+                                })
                             }
-                            group.leave()
                         })
-                        group.wait()
-                        endLoading()
                     }
                 }
                 
@@ -283,4 +278,33 @@ class AppData {
         }
         return filteredEvents
     }
+    
+    /**
+     Runs `function` asynchronously. Use when attempting to modify UI from functions that involve internet connections. This is required because the UI thread must be independent from the internet threads in iOS, and not using this function will result in an exception.
+     - parameter function: Function to run
+     */
+    private static func runAsyncFunction(_ function:(() -> ())?)
+    {
+        if (function == nil) {
+            return
+        }
+        DispatchQueue.main.async(execute: {
+            function?()
+        })
+    }
 }
+
+
+/**
+ Names for custom notifications. Classes interested in receiving notifications for a particular event should subscribe to the event's corresponding notification. Another class generates notifications for the particular event.
+ */
+extension Notification.Name
+{
+    static let reloadData = Notification.Name("reloadData")
+    static let updatedLocation = Notification.Name("updatedLocation")
+    static let updatedOrg = Notification.Name("updatedOrg")
+    static let updatedTag = Notification.Name("updatedTag")
+    static let updatedEvent = Notification.Name("updatedEvent")
+}
+
+

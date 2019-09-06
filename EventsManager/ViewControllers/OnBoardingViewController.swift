@@ -51,29 +51,31 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     let placeHolderView = UIView() //add this view between the navbar and the tableview to prevent nav bar from collapsing
     let navigatorView = UIView()
     let navigatorForwardButton = UIButton()
+    let loadingVC = LoadingViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let loadingVC = LoadingViewController()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: .reloadData, object: nil)
+        
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
-        let events = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
-        print(events)
-//        for event in events {
-//            print(AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
-//            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
-//            for tag in event.eventTags {
-//                tags.append(AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
-//            }
-//        }
+        let _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        
         //setup datasource
         filteredTags = tags
         filteredOrganizations = organizations
     }
+    
+    /**
+     Calls AppData to update locally saved data.
+     */
+    @objc func updateData() {
+        print ("Reiceived data update request!!!!")
+        let events = AppData.getEvents(startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
+        print(events)
+    }
+    
 
     /**
      Sets the basic layout of the view

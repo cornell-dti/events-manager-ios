@@ -87,7 +87,7 @@ class JSONParserHelper {
                     }
                     break
                 }
-                let media_url = URL(string: media) ?? URL(string: AppData.DUMMY_URL)!
+                let media_url = URL(string: media.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") ?? URL(string: AppData.DUMMY_URL)!
                 
                 // change start time and end time to swift date formats
                 if let startDate = DateFormatHelper.datetime(from: "\(start_date) \(start_time)"),
