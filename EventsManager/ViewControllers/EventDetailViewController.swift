@@ -105,6 +105,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
+        GoogleAnalytics.trackEvent(category: "view", action: "visit", label: (event?.eventName)!)
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -498,7 +499,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             let tag = tagButton.getTagPk()
             if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
                 //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "event detail pg")
+                GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
                 tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
                 navigationController?.pushViewController(tagViewController, animated: true)
             }
