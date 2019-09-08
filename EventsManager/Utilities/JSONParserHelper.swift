@@ -17,12 +17,22 @@ class JSONParserHelper {
         if let pk = json["pk"].int,
             let name = json["name"].string,
             let desc = json["bio"].string,
-            let email = json["website"].string,
+            let email = json["email"].string,
             let website = json["website"].string
             //ignores media for now as its not working
             //ignores tags for now as currently apis give none.
         {
-            return Organization(id: pk, name: name, description: desc, avatar: URL(string: AppData.DUMMY_URL)!, website: website, email: email)
+            var photo = AppData.DUMMY_URL
+            if let photos = json["photo"].array {
+                if photos.count > 0 {
+                    if let firstPhoto = photos[0]["link"].string {
+                        photo = firstPhoto
+                    }
+                }
+            }
+            let photo_url = URL(string: photo.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") ?? URL(string: AppData.DUMMY_URL)!
+            
+            return Organization(id: pk, name: name, description: desc, avatar: photo_url, website: website, email: email)
         }
         return nil
         
