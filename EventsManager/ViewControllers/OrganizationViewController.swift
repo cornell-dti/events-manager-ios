@@ -118,6 +118,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    
 
     /** Sets all the layout elements in the view */
     public func setLayouts() {
@@ -373,6 +374,21 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight
     }
+    
+    /**
+     Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
+     - sender: the sender of the action.
+     */
+    @objc func tagButtonPressed(_ sender: UIButton) {
+        let tagViewController = TagViewController()
+        if let tagButton = sender as? EventTagButton {
+            let tag = tagButton.getTagPk()
+            //Ganalytics
+            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
+            navigationController?.pushViewController(tagViewController, animated: true)
+        }
+    }
 
     /**
      Handle the action for user pressing the see more buttons above a popular card stack. Should segue to a event list view controller without filters
@@ -389,23 +405,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func followButtonPressed(_ sender: UIButton){
         self.followButton.changeColor()
-    }
-    
-    /*
-     * Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
-     * - sender: the sender of the action.
-     */
-    @objc func tagButtonPressed(_ sender: UIButton) {
-        let tagViewController = TagViewController()
-        if let tagButton = sender as? EventTagButton {
-            let tag = tagButton.getTagPk()
-            if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
-                //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "organization view pg")
-                tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
-                navigationController?.pushViewController(tagViewController, animated: true)
-            }
-        }
     }
 
     func push(detailsViewController: EventDetailViewController) {

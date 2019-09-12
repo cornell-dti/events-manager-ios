@@ -10,6 +10,8 @@ import UIKit
 class MyProfileTagsTableViewCell: UITableViewCell {
 
     static let identifier = "myProfileTagsTableViewCell"
+    
+    var navigationController: UINavigationController?
 
     //constants
     let sideMargins: CGFloat = 20
@@ -55,16 +57,33 @@ class MyProfileTagsTableViewCell: UITableViewCell {
      Populate this cell with tags
      - tags: the tags used to populate this cell
      */
-    func configure(with tags: [Int]) {
+    func configure(with tags: [Int], parentNavigationController: UINavigationController?) {
+        self.navigationController = parentNavigationController
         for view in tagStack.arrangedSubviews {
             tagStack.removeArrangedSubview(view)
         }
         for tag in tags {
             let tagButton = EventTagButton()
             tagButton.setTag(with: tag)
+            tagButton.addTarget(self, action: #selector(tagButtonPressed(_:)), for: .touchUpInside)
             tagStack.addArrangedSubview(tagButton)
         }
     }
     
+    
+    /**
+     Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
+     - sender: the sender of the action.
+     */
+    @objc func tagButtonPressed(_ sender: UIButton) {
+        let tagViewController = TagViewController()
+        if let tagButton = sender as? EventTagButton {
+            let tag = tagButton.getTagPk()
+            //Ganalytics
+            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
+            navigationController?.pushViewController(tagViewController, animated: true)
+        }
+    }
 
 }

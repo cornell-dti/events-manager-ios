@@ -310,7 +310,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
                     return followingOrgCell
                 case followingTagsSection:
                     let followingTagCell = MyProfileTagsTableViewCell()
-                    followingTagCell.configure(with: user.followingTags)
+                    followingTagCell.configure(with: user.followingTags, parentNavigationController: navigationController)
                     return followingTagCell
                 case settingsSection:
                     settingsCell.delegate = self
