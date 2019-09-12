@@ -19,8 +19,6 @@ class JSONParserHelper {
             let desc = json["bio"].string,
             let email = json["email"].string,
             let website = json["website"].string
-            //ignores media for now as its not working
-            //ignores tags for now as currently apis give none.
         {
             var photo = AppData.DUMMY_URL
             if let photos = json["photo"].array {
@@ -39,7 +37,7 @@ class JSONParserHelper {
     }
     
     public static func parseTag(json: JSON) -> Tag? {
-        if let id = json["id"].int,
+        if let id = json["pk"].int,
             let name = json["name"].string
         {
             let tagInstance = Tag(id: id, name: name)

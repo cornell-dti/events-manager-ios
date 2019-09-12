@@ -203,21 +203,47 @@ class AppData {
                         Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
                             if let events = events {
                                 var savedEventsPk:[Int] = []
+                                var uniqueLocId = Set<Int>()
+                                var uniqueOrgId = Set<Int>()
+                                var uniquetagId = Set<Int>()
                                 for event in events {
                                     savedEventsPk.append(event.id)
-                                    //update location, organization, tags related with event
-                                    _ = getLocationPlaceIdTuple(by: event.eventLocation, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: true)
-                                    _ = getOrganization(by: event.eventOrganizer, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: true)
-                                    for tag in event.eventTags {
-                                        _ = getTag(by: tag, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: true)
-                                    }
-                                    
+                                    uniqueLocId.insert(event.eventLocation)
+                                    uniqueOrgId.insert(event.eventOrganizer)
+                                    event.eventTags.forEach{uniquetagId.insert($0)}
                                     do {
                                         let jsonData = try JSONEncoder().encode(event)
                                         UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
                                     } catch {
                                         print (error)
                                     }
+                                }
+                                //update locationion, orgs, tags
+                                uniqueLocId.forEach{ tagId in
+                                    let group = DispatchGroup()
+                                    group.enter()
+                                    DispatchQueue.global(qos: .default).async {
+                                        _ = getLocationPlaceIdTuple(by: tagId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {
+                                            group.leave()
+                                        }, noConnection: {}, updateData: true)
+                                    }
+                                    group.wait()
+                                }
+                                uniqueOrgId.forEach{ orgId in
+                                    let group = DispatchGroup()
+                                    group.enter()
+                                    DispatchQueue.global(qos: .default).async {
+                                        _ = getOrganization(by: orgId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {group.leave()}, noConnection: {}, updateData: true)
+                                    }
+                                    group.wait()
+                                }
+                                uniquetagId.forEach{ tagId in
+                                    let group = DispatchGroup()
+                                    group.enter()
+                                    DispatchQueue.global(qos: .default).async {
+                                        _ = getTag(by: tagId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {group.leave()}, noConnection: {}, updateData: true)
+                                    }
+                                    group.wait()
                                 }
                                 UserDefaults.standard.set(savedEventsPk, forKey: SAVED_EVENTS_KEY)
                                 runAsyncFunction({
@@ -253,8 +279,8 @@ class AppData {
     /**
      Retrieves all events associated with tag tag.
      */
-    static func getEventsAssociatedWith(tag: Int, startLoading: (() -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> [Event] {
-        let events = getEvents(startLoading: startLoading, endLoading: endLoading, noConnection: noConnection, updateData: updateData)
+    static func getEventsAssociatedWith(tag: Int) -> [Event] {
+        let events = AppData.getEvents(startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
         var filteredEvents:[Event] = []
         for event in events {
             if event.eventTags.contains(tag) {
@@ -268,8 +294,8 @@ class AppData {
     /**
      Retrieves all events associated with organization organization.
      */
-    static func getEventsAssociatedWith(organization: Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData:Bool) -> [Event] {
-        let events = getEvents(startLoading: startLoading, endLoading: endLoading, noConnection: noConnection, updateData: updateData)
+    static func getEventsAssociatedWith(organization: Int) -> [Event] {
+        let events = getEvents(startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
         var filteredEvents:[Event] = []
         for event in events {
             if event.eventOrganizer == event.eventOrganizer {

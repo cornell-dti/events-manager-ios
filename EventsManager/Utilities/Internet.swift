@@ -89,7 +89,6 @@ class Internet {
     
     //Returns Array of events, array of deleted event ids, and timestamp as a string.
     static func fetchEventDetails(serverToken: String, id: Int, completion: @escaping (Event?) -> Void) {
-        print(serverToken)
         let headers : HTTPHeaders = ["Authorization" : serverToken]
         
         let qp = [Endpoint.QueryParam.eventPk : String(id)]
@@ -152,14 +151,12 @@ class Internet {
         
         let qp = [Endpoint.QueryParam.organizationPk : String(id)]
         let URL = Endpoint.getURLString(address: .organizationAddress, queryParams: qp)
-        print(URL)
         
         Alamofire.request(URL, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
             { response in
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    print(json)
                     completion(JSONParserHelper.parseOrganization(json: json))
                 case .failure(let error):
                     print(error)
@@ -180,7 +177,6 @@ class Internet {
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    print(json)
                     var events : [Event] = []
                     if let updatedJSON = json["updated"].array{
                         for subJSON in updatedJSON {

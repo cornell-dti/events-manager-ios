@@ -497,12 +497,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
-            if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
-                //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
-                tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
-                navigationController?.pushViewController(tagViewController, animated: true)
-            }
+            //Ganalytics
+            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            let tagViewController = TagViewController()
+            tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
+            navigationController?.pushViewController(tagViewController, animated: true)
         }
     }
     

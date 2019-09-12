@@ -65,5 +65,6 @@ class MyProfileTagsTableViewCell: UITableViewCell {
             tagStack.addArrangedSubview(tagButton)
         }
     }
+    
 
 }

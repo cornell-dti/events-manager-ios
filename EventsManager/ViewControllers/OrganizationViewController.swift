@@ -107,7 +107,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         bioContentLabel.text = organization.description
 
         
-        popularEvents = AppData.getEventsAssociatedWith(organization: organizationPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        popularEvents = AppData.getEventsAssociatedWith(organization: organizationPk)
 
         getTags()
         for tag in tags {

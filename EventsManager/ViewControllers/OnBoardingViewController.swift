@@ -61,19 +61,30 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
         let _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
-        
-        //setup datasource
-        filteredTags = tags
-        filteredOrganizations = organizations
     }
     
     /**
      Calls AppData to update locally saved data.
      */
     @objc func updateData() {
-        print ("Reiceived data update request!!!!")
         let events = AppData.getEvents(startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
-        print(events)
+        var uniqueOrgIds = Set<Int>()
+        var uniqueTagIds = Set<Int>()
+        for event in events {
+            uniqueOrgIds.insert(event.eventOrganizer)
+            for tag in event.eventTags {
+                uniqueTagIds.insert(tag)
+            }
+        }
+        for org in uniqueOrgIds {
+            organizations.append(AppData.getOrganization(by: org, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false))
+        }
+        for tag in uniqueTagIds {
+            tags.append(AppData.getTag(by: tag, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false))
+        }
+        filteredTags = tags
+        filteredOrganizations = organizations
+        tableView.reloadData()
     }
     
 
@@ -169,7 +180,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     navigatorForwardButton.backgroundColor = UIColor.white
                     navigatorForwardButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-choose-3-to-continue", comment: ""), for: .normal)
-                    navigatorForwardButton.isEnabled = true
+                    navigatorForwardButton.isEnabled = false
                 } else {
                     navigatorForwardButton.backgroundColor = UIColor(named: "primaryPink")
                     navigatorForwardButton.setTitleColor(UIColor.white, for: .normal)
@@ -181,7 +192,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     navigatorForwardButton.backgroundColor = UIColor.white
                     navigatorForwardButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-choose-3-to-continue", comment: ""), for: .normal)
-                    navigatorForwardButton.isEnabled = true
+                    navigatorForwardButton.isEnabled = false
                 } else {
                     navigatorForwardButton.backgroundColor = UIColor(named: "primaryPink")
                     navigatorForwardButton.setTitleColor(UIColor.white, for: .normal)
@@ -248,11 +259,11 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
             
             case .chooseTags:
                 for orgId in checkedOrganizationIDs {
-                    _ = UserData.follow(organization: AppData.getOrganization(by: orgId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
+                    _ = UserData.follow(organization: orgId)
                     _ = UserData.addClickForOrganization(pk: orgId)
                 }
-                for tagId in checkedOrganizationIDs {
-                    _ = UserData.follow(tag: AppData.getTag(by: tagId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
+                for tagId in checkedTags {
+                    _ = UserData.follow(tag: tagId)
                     _ = UserData.addClickForTag(pk: tagId)
                 }
                 self.present(TabBarViewController(), animated: true, completion: {
