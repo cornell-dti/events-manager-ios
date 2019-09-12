@@ -91,7 +91,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         let loadingVC = LoadingViewController()
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
         
-        let organization = AppData.getOrganization(by: organizationPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        let organization = AppData.getOrganization(by: organizationPk, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
         
         memberButton.setTitle(NSLocalizedString("is-member-button", comment: ""), for: .normal)
         followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
@@ -396,6 +396,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
      */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton) {
         let popularListViewController = EventListViewController()
+        popularListViewController.setup(with: popularEvents, title: "", withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
 
