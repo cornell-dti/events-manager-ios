@@ -33,14 +33,6 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setup()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
-    }
-    
     /**
      * View initial setups
      */

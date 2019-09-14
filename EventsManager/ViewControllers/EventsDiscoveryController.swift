@@ -42,15 +42,13 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         preloadCells()
+        
+        //data update
+        NotificationCenter.default.addObserver(self, selector: #selector(preloadCells), name: .reloadData, object: nil)
+        loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
+        _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        
         setup()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     /**
@@ -60,9 +58,13 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      Since there will be only 3 cells, it is legit to preload cells instead of generating them dynmically during scroll.
      Cells are loaded into the @cells dictionary
     */
-    func preloadCells() {
-        loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
-        events = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+    @objc func preloadCells() {
+        
+        popularEvents = []
+        todayEvents = []
+        tomorrowEvents = []
+        
+        events = AppData.getEvents(startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         for ev in events {
             if (Calendar.current.isDateInToday(ev.startTime)) {
@@ -76,7 +78,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         tomorrowEvents = tomorrowEvents.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         todayEvents = (Array(todayEvents.prefix(10))).sorted(by: { $0.startTime.timeIntervalSinceNow < $1.startTime.timeIntervalSinceNow })
         tomorrowEvents = (Array(tomorrowEvents.prefix(10))).sorted(by: { $0.startTime.timeIntervalSinceNow < $1.startTime.timeIntervalSinceNow })
-        
+
         let popularEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
         let todayEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
         let tomorrowEventsCell = EventCardCell(style: .default, reuseIdentifier: EventCardCell.identifer)
@@ -89,6 +91,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         for (_, cell) in cells {
             cell.delegate = self
         }
+        tableView.reloadData()
     }
 
     /**
@@ -130,8 +133,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @objc func refresh(sender:AnyObject) {
-        // Code to refresh table view
-        self.tableView.reloadData()
+        _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         refreshControl.endRefreshing()
     }
 

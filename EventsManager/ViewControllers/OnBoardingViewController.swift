@@ -51,27 +51,42 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     let placeHolderView = UIView() //add this view between the navbar and the tableview to prevent nav bar from collapsing
     let navigatorView = UIView()
     let navigatorForwardButton = UIButton()
+    let loadingVC = LoadingViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: .reloadData, object: nil)
+        
+        loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
+        let _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let loadingVC = LoadingViewController()
-        loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
-        let events = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+    /**
+     Calls AppData to update locally saved data.
+     */
+    @objc func updateData() {
+        let events = AppData.getEvents(startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
+        var uniqueOrgIds = Set<Int>()
+        var uniqueTagIds = Set<Int>()
         for event in events {
-            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
+            uniqueOrgIds.insert(event.eventOrganizer)
             for tag in event.eventTags {
-                tags.append(AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
+                uniqueTagIds.insert(tag)
             }
         }
-        //setup datasource
+        for org in uniqueOrgIds {
+            organizations.append(AppData.getOrganization(by: org, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false))
+        }
+        for tag in uniqueTagIds {
+            tags.append(AppData.getTag(by: tag, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false))
+        }
         filteredTags = tags
         filteredOrganizations = organizations
+        tableView.reloadData()
     }
+    
 
     /**
      Sets the basic layout of the view
@@ -235,20 +250,20 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     @objc func onBoardingForwardButtonClicked(_ sender: UIButton) {
         switch currentOnBoardingProcess {
             case .chooseOrganization:
-                if checkedOrganizationIDs.count >= minimumSelectionCount {
+               
                     currentOnBoardingProcess = .chooseTags
                     navigationItem.titleView = setTitle(title: NSLocalizedString("onboarding-interest-title", comment: ""), subtitle: NSLocalizedString("onboarding-interest-description", comment: ""))
                     searchController.isActive = false
                     tableView.reloadData()
                     setNavigatorFowardButtonStatus()
-                }
+            
             case .chooseTags:
                 for orgId in checkedOrganizationIDs {
-                    _ = UserData.follow(organization: AppData.getOrganization(by: orgId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
+                    _ = UserData.follow(organization: orgId)
                     _ = UserData.addClickForOrganization(pk: orgId)
                 }
-                for tagId in checkedOrganizationIDs {
-                    _ = UserData.follow(tag: AppData.getTag(by: tagId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
+                for tagId in checkedTags {
+                    _ = UserData.follow(tag: tagId)
                     _ = UserData.addClickForTag(pk: tagId)
                 }
                 self.present(TabBarViewController(), animated: true, completion: {

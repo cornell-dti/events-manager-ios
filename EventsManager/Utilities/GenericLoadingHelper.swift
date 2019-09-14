@@ -18,12 +18,18 @@ class GenericLoadingHelper {
         }
     }
     
+    static func voidLoading() -> (@escaping () -> Void) -> Void {
+        return { completion in
+            completion()
+        }
+    }
+    
     static func endLoading(loadingVC: LoadingViewController) -> () -> Void {
         return {
             loadingVC.dismiss(animated: true, completion:  nil)
-            
         }
     }
+    
     
     static func noConnection(from targetViewController: UIViewController) -> () -> Void {
         return {

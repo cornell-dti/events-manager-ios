@@ -69,6 +69,7 @@
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
+		FFC4EF6B2328436200FEE1D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC4EF6A2328436200FEE1D8 /* GoogleService-Info.plist */; };
 		FFFD474F220949FD009BAE2D /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */; };
 		FFFD4750220949FD009BAE2D /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */; };
 		FFFD4751220949FD009BAE2D /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */; };
@@ -170,6 +171,7 @@
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FF76428D218E228F00ED7A11 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		FFC4EF6A2328436200FEE1D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FFFD474B220949FC009BAE2D /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		FFFD474C220949FC009BAE2D /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
 		FFFD474D220949FD009BAE2D /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */,
 				A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */,
 				A11D265E20FAF0D9001712E6 /* Localizable.strings */,
+				FFC4EF6A2328436200FEE1D8 /* GoogleService-Info.plist */,
 				A40E37DA201E91CA00B3AFA4 /* Info.plist */,
 				AA16F3D2231B0ECD0031DC67 /* EventsManager-Bridging-Header.h */,
 			);
@@ -507,6 +510,7 @@
 				FFFD474F220949FD009BAE2D /* SF-Pro-Text-Regular.otf in Resources */,
 				AAD7D1CE2156E997003C58E6 /* Simulator Screen Shot - iPhone XS - 2018-09-22 at 17.19.52.png in Resources */,
 				FFFD4752220949FD009BAE2D /* SF-Pro-Text-Bold.otf in Resources */,
+				FFC4EF6B2328436200FEE1D8 /* GoogleService-Info.plist in Resources */,
 				FFFD4751220949FD009BAE2D /* SF-Pro-Text-Semibold.otf in Resources */,
 				AAD334F4215232AA00312F31 /* dosis.book.ttf in Resources */,
 				A40E37D9201E91CA00B3AFA4 /* LaunchScreen.storyboard in Resources */,
@@ -603,9 +607,11 @@
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -613,9 +619,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -873,10 +881,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventsManager/EventsManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NHAKALPCJ4;
+				DEVELOPMENT_TEAM = WLCD63PZUT;
 				INFOPLIST_FILE = EventsManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cornell.dti.org.EventsManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dti.cornell.events;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "EventsManager/EventsManager-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -893,10 +902,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventsManager/EventsManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NHAKALPCJ4;
+				DEVELOPMENT_TEAM = WLCD63PZUT;
 				INFOPLIST_FILE = EventsManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cornell.dti.org.EventsManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dti.cornell.events;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "EventsManager/EventsManager-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

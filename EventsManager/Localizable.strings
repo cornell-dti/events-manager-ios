@@ -23,8 +23,8 @@
 
 //Event Detail
 "tag-button" = "Tags";
-"details-bookmark-button" = "  BOOKMARK      ";
-"bookmarked-button-clicked" = "BOOKMARKED ";
+"details-bookmark-button" = "    BOOKMARK      ";
+"bookmarked-button-clicked" = "  BOOKMARKED ";
 "details-share-button" = "    SHARE      ";
 "going-button" = "GOING";
 "from" = "From";

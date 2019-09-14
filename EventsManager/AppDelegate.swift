@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import GoogleSignIn
+import Firebase
 import UserNotifications
 
 @UIApplicationMain
@@ -31,21 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance()?.clientID = "498336876169-c0tedkl028ga401h2qj4g4gelnr68pen.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.hostedDomain = "cornell.edu"
         
-        //Initialize Google Analytics
-        if let gai = GAI.sharedInstance() {
-            gai.tracker(withTrackingId: "208454961")
-            // Optional: automatically report uncaught exceptions.
-            gai.trackUncaughtExceptions = true
-            
-            // Optional: set Logger to VERBOSE for debug information.
-            // Remove before app release.
-            gai.logger.logLevel = .verbose;
-        }
-        else {
-            print("GA not setup correctly")
-        }
+        FirebaseApp.configure()
         
-
         //check if logged in
         if UserData.didLogin() {
             if UserData.didCompleteOnboarding() {
@@ -69,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         notificationCenter.requestAuthorization(options: options, completionHandler: {(granted, error) in
         })
-
+        
         return true
     }
     
