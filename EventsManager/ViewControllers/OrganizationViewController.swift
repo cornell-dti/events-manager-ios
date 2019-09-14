@@ -73,8 +73,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
-        
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     override func viewDidLoad() {
@@ -91,7 +89,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         let loadingVC = LoadingViewController()
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
         
-        let organization = AppData.getOrganization(by: organizationPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        let organization = AppData.getOrganization(by: organizationPk, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
         
         memberButton.setTitle(NSLocalizedString("is-member-button", comment: ""), for: .normal)
         followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
@@ -107,7 +105,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         bioContentLabel.text = organization.description
 
         
-        popularEvents = AppData.getEventsAssociatedWith(organization: organizationPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        popularEvents = AppData.getEventsAssociatedWith(organization: organizationPk)
 
         getTags()
         for tag in tags {
@@ -117,6 +115,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             tagStack.addArrangedSubview(tagButton)
         }
     }
+    
     
 
     /** Sets all the layout elements in the view */
@@ -373,6 +372,21 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight
     }
+    
+    /**
+     Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
+     - sender: the sender of the action.
+     */
+    @objc func tagButtonPressed(_ sender: UIButton) {
+        let tagViewController = TagViewController()
+        if let tagButton = sender as? EventTagButton {
+            let tag = tagButton.getTagPk()
+            //Ganalytics
+            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
+            navigationController?.pushViewController(tagViewController, animated: true)
+        }
+    }
 
     /**
      Handle the action for user pressing the see more buttons above a popular card stack. Should segue to a event list view controller without filters
@@ -380,6 +394,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
      */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton) {
         let popularListViewController = EventListViewController()
+        popularListViewController.setup(with: popularEvents, title: "", withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
 
@@ -389,23 +404,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func followButtonPressed(_ sender: UIButton){
         self.followButton.changeColor()
-    }
-    
-    /*
-     * Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
-     * - sender: the sender of the action.
-     */
-    @objc func tagButtonPressed(_ sender: UIButton) {
-        let tagViewController = TagViewController()
-        if let tagButton = sender as? EventTagButton {
-            let tag = tagButton.getTagPk()
-            if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
-                //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "organization view pg")
-                tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
-                navigationController?.pushViewController(tagViewController, animated: true)
-            }
-        }
     }
 
     func push(detailsViewController: EventDetailViewController) {

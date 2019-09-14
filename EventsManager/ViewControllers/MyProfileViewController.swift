@@ -56,8 +56,6 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
-        
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -310,7 +308,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
                     return followingOrgCell
                 case followingTagsSection:
                     let followingTagCell = MyProfileTagsTableViewCell()
-                    followingTagCell.configure(with: user.followingTags)
+                    followingTagCell.configure(with: user.followingTags, parentNavigationController: navigationController)
                     return followingTagCell
                 case settingsSection:
                     settingsCell.delegate = self

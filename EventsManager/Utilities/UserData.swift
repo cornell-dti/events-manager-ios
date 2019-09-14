@@ -97,9 +97,9 @@ class UserData {
      Returns true if operation is successful, false otherwise.
      Requires: user is logged in.
      */
-    static func follow(organization: Organization) -> Bool {
+    static func follow(organization: Int) -> Bool {
         if var user = UserData.getLoggedInUser() {
-            user.followingOrganizations.append(organization.id)
+            user.followingOrganizations.append(organization)
             return UserData.login(for: user)
         }
         return false
@@ -110,9 +110,9 @@ class UserData {
      Returns true if operation is successful, false otherwise.
      Requires: user is logged in.
      */
-    static func follow(tag: Tag) -> Bool {
+    static func follow(tag: Int) -> Bool {
         if var user = UserData.getLoggedInUser() {
-            user.followingTags.append(tag.id)
+            user.followingTags.append(tag)
             return UserData.login(for: user)
         }
         return false
@@ -256,7 +256,7 @@ class UserData {
             var recommendedLabelEventsPairs: [(String, [Event])] = []
             for (pk, _, type) in recommendedData {
                 let label = type == .organization ? "Based on \(AppData.getOrganization(by: pk, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name)" : "Based on \(AppData.getTag(by: pk, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name)"
-                recommendedLabelEventsPairs.append((label, type == .organization ? AppData.getEventsAssociatedWith(organization: pk, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false) : AppData.getEventsAssociatedWith(tag: pk, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)))
+                recommendedLabelEventsPairs.append((label, type == .organization ? AppData.getEventsAssociatedWith(organization: pk) : AppData.getEventsAssociatedWith(tag: pk)))
             }
             return recommendedLabelEventsPairs
         }

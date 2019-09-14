@@ -45,9 +45,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let buttonImageWidth: CGFloat = 23
     let buttonImageHeight: CGFloat = 26
     let buttonImageTopSpacing: CGFloat = 7
-    let buttonImageLeftSpacing: CGFloat = 15
+    let buttonImageLeftSpacing: CGFloat = 0 //15
     let modifiedEdgeSpacing: CGFloat = 70
-    let modifiedbuttonImageLeftSpacing: CGFloat = 65
+    let modifiedbuttonImageLeftSpacing: CGFloat = 15 //65
     let buttonFontSize: CGFloat = 16
     let shadowOpacity: Float = 0.6
     let shadowRadius: CGFloat = 5
@@ -59,7 +59,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     
     //datasource
     var event: Event?
-    var placesClient = GMSPlacesClient.shared()
+    let placesClient = GMSPlacesClient.shared()
     var mapLocation: CLLocationCoordinate2D?
     
     //view elements
@@ -104,7 +104,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationControllerInteractivePopGestureRecognizerDelegate = navigationController?.interactivePopGestureRecognizer?.delegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
+        GoogleAnalytics.trackEvent(category: "view", action: "visit", label: (event?.eventName)!)
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -181,7 +181,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         
         bookmarkedButton.backgroundColor = UIColor.white
         bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        //        bookmarkedButton.imageEdgeInsets = UIEdgeInsetsMake(0, bookmarkedButton.titleLabel.frame.size.width, 0, -bookmarkedButton.titleLabel.frame.size.width);
+        //bookmarkedButton.imageEdgeInsets = UIEdgeInsetsMake(0, bookmarkedButton.titleLabel?.frame.size.width ?? <#default value#>, 0, -bookmarkedButton.titleLabel?.frame.size.width);
         bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
         bookmarkedButton.tintColor = UIColor(named: "primaryPink")
         bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
@@ -430,28 +430,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                                                              noConnection: GenericLoadingHelper.noConnection(from: self),
                                                              updateData: false).0
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
-        
-        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
-        placesClient.fetchPlace(fromPlaceID: AppData.getLocationPlaceIdTuple(by: event.eventLocation,
-                                                                             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
-                                                                             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
-                                                                             noConnection: GenericLoadingHelper.noConnection(from: self),
-                                                                             updateData: false).1, placeFields: fields, sessionToken: nil, callback: {
-                                                                                (result: GMSPlace?, error: Error?) in
-                                                                                if let error = error {
-                                                                                    print("An error occurred: \(error.localizedDescription) when fetching google places")
-                                                                                    return
-                                                                                }
-                                                                                
-                                                                                if let result = result {
-                                                                                    self.mapLocation = result.coordinate
-                                                                                    self.eventMapView.moveCamera(GMSCameraUpdate.fit(result.viewport!))
-                                                                                    let mapMarker = GMSMarker(position: result.coordinate)
-                                                                                    mapMarker.map = self.eventMapView
-                                                                                    self.eventMapView.selectedMarker = mapMarker
-                                                                                }
-        })
-        
+        configureMap(event)
         
         for tagPk in event.eventTags {
             let tagButton = EventTagButton()
@@ -460,6 +439,25 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             tagStack.addArrangedSubview(tagButton)
         }
         
+    }
+    
+    func configureMap(_ event: Event) {
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
+        placesClient.fetchPlace(fromPlaceID: event.location.placeId, placeFields: fields, sessionToken: nil, callback: {
+                (result: GMSPlace?, error: Error?) in
+                if let error = error {
+                    print("An error occurred: \(error.localizedDescription) when fetching google places")
+                    return
+                }
+            
+                if let result = result {
+                    self.mapLocation = result.coordinate
+                    self.eventMapView.moveCamera(GMSCameraUpdate.fit(result.viewport!))
+                    let mapMarker = GMSMarker(position: result.coordinate)
+                    mapMarker.map = self.eventMapView
+                    self.eventMapView.selectedMarker = mapMarker
+                }
+        })
     }
     
     /**
@@ -496,12 +494,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
-            if let rootViewEventsDiscoveryController = navigationController?.viewControllers.first as? EventsDiscoveryController {
-                //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "event detail pg")
-                tagViewController.setup(with: rootViewEventsDiscoveryController.events, for: tag)
-                navigationController?.pushViewController(tagViewController, animated: true)
-            }
+            //Ganalytics
+            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            let tagViewController = TagViewController()
+            tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
+            navigationController?.pushViewController(tagViewController, animated: true)
         }
     }
     
@@ -524,7 +521,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 bookmarkedButton.tintColor = UIColor.white
                 bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
                 if let event = event {
-                    user.bookmarkedEvents.append(event.id)
+                    if !user.bookmarkedEvents.contains(event.id) {
+                        user.bookmarkedEvents.append(event.id)
+                    }
                     if user.reminderEnabled {
                         let content = UNMutableNotificationContent()
                         content.title = NSLocalizedString("notification-title", comment: "")
@@ -543,8 +542,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                             center.add(request, withCompletionHandler: { (error) in
                             })
                         }
-                        
                     }
+                    _ = UserData.login(for: user)
                 }
                 
                 //Ganalytics
@@ -556,13 +555,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
                 bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
                 bookmarkedButton.tintColor = UIColor(named: "primaryPink")
-                if let index = user.bookmarkedEvents.index(of: (event?.id)!) {
-                    user.bookmarkedEvents.remove(at: index)
-                }
+                
                 if let event = event {
+                    user.bookmarkedEvents = user.bookmarkedEvents.filter{$0 != event.id}
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
                 }
+                _ = UserData.login(for: user)
                 //Ganalytics
                 GoogleAnalytics.trackEvent(category: "button click", action: "unbookmark", label: "event detail page")
             }

@@ -39,8 +39,6 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
-        
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
     
 
