@@ -18,6 +18,8 @@ class Endpoint {
         case eventDetailsAddress
         case organizationAddress
         case organizationEventAddress
+        case incrementAttendanceAddress
+        case decrementAttendanceAddress
     }
     
     public enum QueryParam {
@@ -44,6 +46,10 @@ class Endpoint {
             return baseURL + "org/" + queryParams[QueryParam.organizationPk]! + "/"
         case .organizationEventAddress:
             return baseURL + "org/" + queryParams[QueryParam.organizationPk]! + "/events/"
+        case .incrementAttendanceAddress:
+            return baseURL + "attendance/increment/" + queryParams[QueryParam.eventPk]! + "/"
+        case .decrementAttendanceAddress:
+            return baseURL + "attendance/unincrement/" + queryParams[QueryParam.eventPk]! + "/"
         }
     }
     

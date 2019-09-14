@@ -165,6 +165,27 @@ class Internet {
         }
     }
     
+    static func changeAttendance(serverToken: String, id: Int, attend: Bool, completion: @escaping (Bool) -> Void) {
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Authorization"] = serverToken
+        
+        let qp = [Endpoint.QueryParam.eventPk : String(id)]
+        let URL = Endpoint.getURLString(address: attend ? .incrementAttendanceAddress : .decrementAttendanceAddress, queryParams: qp)
+        
+        Alamofire.request(URL, parameters: [:], headers: headers).validate().responseString(queue: DispatchQueue.global(qos: .default))
+        { response in
+            switch response.result {
+            case .success(let value):
+                print(value)
+                completion(true)
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+        
+    }
+    
     static func fetchEventsByOrganization(serverToken: String, id: Int, completion: @escaping ([Event]?) -> Void) {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
         headers["Authorization"] = serverToken
