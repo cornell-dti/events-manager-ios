@@ -59,7 +59,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     
     //datasource
     var event: Event?
-    var placesClient = GMSPlacesClient.shared()
+    let placesClient = GMSPlacesClient.shared()
     var mapLocation: CLLocationCoordinate2D?
     
     //view elements
@@ -104,7 +104,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationControllerInteractivePopGestureRecognizerDelegate = navigationController?.interactivePopGestureRecognizer?.delegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
         GoogleAnalytics.trackEvent(category: "view", action: "visit", label: (event?.eventName)!)
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -431,28 +430,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                                                              noConnection: GenericLoadingHelper.noConnection(from: self),
                                                              updateData: false).0
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
-        
-        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
-        placesClient.fetchPlace(fromPlaceID: AppData.getLocationPlaceIdTuple(by: event.eventLocation,
-                                                                             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
-                                                                             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
-                                                                             noConnection: GenericLoadingHelper.noConnection(from: self),
-                                                                             updateData: false).1, placeFields: fields, sessionToken: nil, callback: {
-                                                                                (result: GMSPlace?, error: Error?) in
-                                                                                if let error = error {
-                                                                                    print("An error occurred: \(error.localizedDescription) when fetching google places")
-                                                                                    return
-                                                                                }
-                                                                                
-                                                                                if let result = result {
-                                                                                    self.mapLocation = result.coordinate
-                                                                                    self.eventMapView.moveCamera(GMSCameraUpdate.fit(result.viewport!))
-                                                                                    let mapMarker = GMSMarker(position: result.coordinate)
-                                                                                    mapMarker.map = self.eventMapView
-                                                                                    self.eventMapView.selectedMarker = mapMarker
-                                                                                }
-        })
-        
+        configureMap(event)
         
         for tagPk in event.eventTags {
             let tagButton = EventTagButton()
@@ -461,6 +439,25 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             tagStack.addArrangedSubview(tagButton)
         }
         
+    }
+    
+    func configureMap(_ event: Event) {
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
+        placesClient.fetchPlace(fromPlaceID: event.location.placeId, placeFields: fields, sessionToken: nil, callback: {
+                (result: GMSPlace?, error: Error?) in
+                if let error = error {
+                    print("An error occurred: \(error.localizedDescription) when fetching google places")
+                    return
+                }
+            
+                if let result = result {
+                    self.mapLocation = result.coordinate
+                    self.eventMapView.moveCamera(GMSCameraUpdate.fit(result.viewport!))
+                    let mapMarker = GMSMarker(position: result.coordinate)
+                    mapMarker.map = self.eventMapView
+                    self.eventMapView.selectedMarker = mapMarker
+                }
+        })
     }
     
     /**

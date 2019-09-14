@@ -65,14 +65,14 @@ class JSONParserHelper {
             let isPublic = json["is_public"].bool,
             // parse imbedded objects
             let org_json = json["organizer"].dictionary,
-            let location_json = json["location"].dictionary,
             let tags_json = json["tags"].array,
-            let medias_json = json["media"].array
+            let medias_json = json["media"].array,
+            let location_data = try? json["location"].rawData(),
+            let location = try? JSONDecoder().decode(Location.self, from: location_data)
         {
             //get org id and location id
-            if let orgId = org_json["owner"]?.int,
-                let location_id = location_json["id"]?.int
-            {
+             let location_id = location.id
+            if let orgId = org_json["owner"]?.int {
                 // get tags and media
                 var tags:[Int] = []
                 for tag_json in tags_json {
@@ -93,7 +93,7 @@ class JSONParserHelper {
                 if let startDate = DateFormatHelper.datetime(from: "\(start_date) \(start_time)"),
                     let endDate = DateFormatHelper.datetime(from: "\(end_date) \(end_time)")
                 {
-                    return Event(id: pk, startTime: startDate, endTime: endDate, eventName: name, eventLocation: location_id, eventImage: media_url, eventOrganizer: orgId, eventDescription: description, eventTags: tags, eventParticipantCount: participantCount, isPublic: isPublic)
+                    return Event(id: pk, startTime: startDate, endTime: endDate, eventName: name, eventLocation: location_id, eventImage: media_url, eventOrganizer: orgId, eventDescription: description, eventTags: tags, eventParticipantCount: participantCount, isPublic: isPublic, location: location)
                 }
             }
             

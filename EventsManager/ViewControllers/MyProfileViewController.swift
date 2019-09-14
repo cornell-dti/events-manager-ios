@@ -56,8 +56,6 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
-        
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

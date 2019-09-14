@@ -45,14 +45,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         setup()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
-    }
-
     /**
      Preload cells, including the popular, today, tomorrow card cells.
      This action is to prevent active loading the cells during user scroll.
