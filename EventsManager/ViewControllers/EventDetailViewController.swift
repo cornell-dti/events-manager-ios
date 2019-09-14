@@ -191,7 +191,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         bookmarkedButton.layer.shadowRadius = shadowRadius
         bookmarkedButton.layer.shadowOffset = shadowOffset
         bookmarkedButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
-        bookmarkedButton.addTarget(self, action: #selector(self.bookmarkedButtonPressed(_:)), for: .touchUpInside)
+        bookmarkedButton.addTarget(self, action: #selector(self.changeAttendance (_:)), for: .touchUpInside)
         
         bookmarkedButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
@@ -508,10 +508,35 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     @objc func backButtonPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc func changeAttendance(_ sender: UIButton){
+        bookmarkedButton.isEnabled = false
+        var success = false
+        let group = DispatchGroup()
+        
+        group.enter()
+        if let user = UserData.getLoggedInUser(){
+            if let event = event{
+                Internet.changeAttendance(serverToken: user.serverAuthToken!, id: event.id, attend: bookmarkedButton.backgroundColor == UIColor.white){
+                    result in
+                        success = result
+                        group.leave()
+                }
+            }
+        }
+
+        group.notify(queue: .main){
+            if(success){
+                self.bookmarkedButtonPressed()
+            }
+            self.bookmarkedButton.isEnabled = true
+        }
+    }
+    
     /**
      Handler for the pressing action of the bookmark button. Should change the color of the button and add it to the user's bookmarked list.
      */
-    @objc func bookmarkedButtonPressed(_ sender: UIButton) {
+    func bookmarkedButtonPressed() {
         let center = UNUserNotificationCenter.current()
         if var user = UserData.getLoggedInUser() {
             if bookmarkedButton.backgroundColor == UIColor.white {
