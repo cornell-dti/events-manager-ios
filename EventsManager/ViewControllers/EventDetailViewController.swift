@@ -524,7 +524,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 bookmarkedButton.tintColor = UIColor.white
                 bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
                 if let event = event {
-                    user.bookmarkedEvents.append(event.id)
+                    if !user.bookmarkedEvents.contains(event.id) {
+                        user.bookmarkedEvents.append(event.id)
+                    }
                     if user.reminderEnabled {
                         let content = UNMutableNotificationContent()
                         content.title = NSLocalizedString("notification-title", comment: "")
@@ -543,8 +545,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                             center.add(request, withCompletionHandler: { (error) in
                             })
                         }
-                        
                     }
+                    _ = UserData.login(for: user)
                 }
                 
                 //Ganalytics
@@ -556,13 +558,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
                 bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
                 bookmarkedButton.tintColor = UIColor(named: "primaryPink")
-                if let index = user.bookmarkedEvents.index(of: (event?.id)!) {
-                    user.bookmarkedEvents.remove(at: index)
-                }
+                
                 if let event = event {
+                    user.bookmarkedEvents = user.bookmarkedEvents.filter{$0 != event.id}
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
                 }
+                _ = UserData.login(for: user)
                 //Ganalytics
                 GoogleAnalytics.trackEvent(category: "button click", action: "unbookmark", label: "event detail page")
             }
