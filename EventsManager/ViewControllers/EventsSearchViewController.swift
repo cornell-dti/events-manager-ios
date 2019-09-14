@@ -39,10 +39,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         super.viewDidLoad()
         setLayouts()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
-    }
+
 
     /**
      Update the data source based on filtered Events

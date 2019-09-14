@@ -13,10 +13,10 @@ struct Location: Codable {
     let placeId: String
     
     private enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case building = "building"
-        case room = "room"
-        case placeId = "placeId"
+        case id
+        case building
+        case room
+        case placeId = "place_id"
     }
     
     func encode(to encoder: Encoder) throws {

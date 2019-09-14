@@ -73,8 +73,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
-        
-        GoogleAnalytics.trackScreen(screenName: gAnalyticsScreenName)
     }
 
     override func viewDidLoad() {
