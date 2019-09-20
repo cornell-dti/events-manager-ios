@@ -23,7 +23,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let orgHeaderView = UIView()
     let orgAvatar: UIImageView = UIImageView()
     let orgNameLabel: UILabel = UILabel()
-    let memberButton: PinkClickableButton = PinkClickableButton()
     let followButton: PinkClickableButton = PinkClickableButton()
 
     let orgInfoView = UIView()
@@ -44,7 +43,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let gAnalyticsScreenName = "org profile pg"
     
     let sectionViewPadding: CGFloat = 15
-    let orgNameFontSize: CGFloat = 22
+    let orgNameFontSize: CGFloat = 20
     let orgNameToSettingSpacing: CGFloat = 20
     let orgNamePreferredWidth: CGFloat = 250
     let memberToFollowButtonSpacing: CGFloat = 20
@@ -90,8 +89,8 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
         
         let organization = AppData.getOrganization(by: organizationPk, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
+        self.organization = organization
         
-        memberButton.setTitle(NSLocalizedString("is-member-button", comment: ""), for: .normal)
         followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
         aboutLabel.text = NSLocalizedString("about", comment: "")
         websiteLabel.text = NSLocalizedString("website", comment: "")
@@ -113,6 +112,15 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             tagButton.setTag(with: tag)
             tagButton.addTarget(self, action: #selector(self.tagButtonPressed(_:)), for: .touchUpInside)
             tagStack.addArrangedSubview(tagButton)
+        }
+        
+        if let user = UserData.getLoggedInUser() {
+            if user.followingOrganizations.contains(organizationPk) {
+                if !followButton.activated {
+                    followButton.changeColor()
+                    followButton.setTitle(NSLocalizedString("followed-button", comment: ""), for: .normal)
+                }
+            }
         }
     }
     
@@ -155,17 +163,11 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         orgNameLabel.numberOfLines = 0
         orgNameLabel.preferredMaxLayoutWidth = orgNamePreferredWidth
 
-        let rightLowerStack = UIStackView(arrangedSubviews: [memberButton, followButton])
+        let rightLowerStack = UIStackView(arrangedSubviews: [followButton])
         rightLowerStack.axis = .horizontal
         rightLowerStack.alignment = .center
         rightLowerStack.distribution = .fill
         rightLowerStack.spacing = memberToFollowButtonSpacing
-
-        memberButton.layer.cornerRadius = buttonHeight / 2
-        memberButton.addTarget(self, action: #selector(self.memberButtonPressed(_:)), for: .touchUpInside)
-        memberButton.snp.makeConstraints { make in
-            make.height.equalTo(buttonHeight)
-        }
         
         followButton.layer.cornerRadius = buttonHeight / 2
         followButton.addTarget(self, action: #selector(self.followButtonPressed(_:)), for: .touchUpInside)
@@ -397,13 +399,27 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         popularListViewController.setup(with: popularEvents, title: "", withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
-
-    @objc func memberButtonPressed(_ sender: UIButton){
-        self.memberButton.changeColor()
-    }
     
     @objc func followButtonPressed(_ sender: UIButton){
-        self.followButton.changeColor()
+        if followButton.activated {
+            followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
+            if var user = UserData.getLoggedInUser() {
+                user.followingOrganizations = user.followingOrganizations.filter{$0 != self.organization?.id ?? -1}
+                _ = UserData.login(for: user)
+            }
+        }
+        else {
+            followButton.setTitle(NSLocalizedString("followed-button", comment: ""), for: .normal)
+            if var user = UserData.getLoggedInUser() {
+                if let organization = organization {
+                    if !user.followingOrganizations.contains(organization.id) {
+                        user.followingOrganizations.append(organization.id)
+                    }
+                    _ = UserData.login(for: user)
+                }
+            }
+        }
+        followButton.changeColor()
     }
 
     func push(detailsViewController: EventDetailViewController) {

@@ -54,6 +54,8 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: animated)
         }
+        user = UserData.getLoggedInUser()
+        tableView.reloadData()
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
     }
