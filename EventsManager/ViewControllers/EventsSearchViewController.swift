@@ -49,6 +49,24 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         sectionDates = eventsDateData.0
         eventsOnDate = eventsDateData.1
     }
+    
+    func orgAlreadyExists(target: Organization, orgs: [Organization]) -> Bool {
+        for org in orgs {
+            if org.id == target.id {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func tagAlreadyExists(target: Int, tags: [Int]) -> Bool {
+        for tag in tags {
+            if tag == target {
+                return true
+            }
+        }
+        return false
+    }
 
     /** Sets all the layout elements in the view */
     func setLayouts() {
@@ -56,8 +74,16 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         organizations = []
         tags = []
         for event in events {
-            organizations.append(AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
-            tags.append(contentsOf: event.eventTags)
+            let org = AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
+            if !orgAlreadyExists(target: org, orgs: organizations){
+                organizations.append(org)
+            }
+            
+            for target in event.eventTags {
+                if !tagAlreadyExists(target: target, tags: tags){
+                    tags.append(target)
+                }
+            }
         }
         //Setting up data source
         filteredEvents = events
