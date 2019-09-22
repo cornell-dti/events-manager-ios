@@ -83,7 +83,7 @@ class MyProfileTagsTableViewCell: UITableViewCell {
             //Ganalytics
             //GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
             Analytics.logEvent("tagButtonPressed", parameters: [
-                "tagName": tagButton.titleLabel
+                "tagName": tagButton.titleLabel?.text ?? ""
                 ])
             tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
             navigationController?.pushViewController(tagViewController, animated: true)

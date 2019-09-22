@@ -104,7 +104,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationControllerInteractivePopGestureRecognizerDelegate = navigationController?.interactivePopGestureRecognizer?.delegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
-        Analytics.logEvent("eventClicked", parameters: [
+        Analytics.logEvent("eventViewed", parameters: [
             "eventName": eventName.text ?? ""
             ])
         //GoogleAnalytics.trackEvent(category: "view", action: "visit", label: (event?.eventName)!)
@@ -500,7 +500,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             //Ganalytics
            // GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
             Analytics.logEvent("tagButtonPressed", parameters: [
-                "tagName": tagButton.titleLabel ?? ""
+                "tagName": tagButton.titleLabel?.text ?? ""
                 ])
             let tagViewController = TagViewController()
             tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)

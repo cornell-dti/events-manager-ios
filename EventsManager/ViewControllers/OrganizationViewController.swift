@@ -382,7 +382,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
             Analytics.logEvent("tagButtonPressed", parameters: [
-                "tagName": tagButton.titleLabel
+                "tagName": tagButton.titleLabel?.text ?? ""
                 ])
             let tag = tagButton.getTagPk()
             //Ganalytics
@@ -410,12 +410,12 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         self.followButton.changeColor()
         if (followButton.tintColor == UIColor(named: "primaryPink")) {
             Analytics.logEvent("followButtonPressed", parameters: [
-                "orgName": orgNameLabel
+                "orgName": orgNameLabel.text ?? ""
                 ])
         }
         else {
             Analytics.logEvent("followButtonUnclicked", parameters: [
-                "orgName": orgNameLabel
+                "orgName": orgNameLabel.text ?? ""
                 ])
         }
     }
