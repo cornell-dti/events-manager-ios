@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating {
 
@@ -34,6 +35,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     var tags: [Tag] = []
     var filteredTags: [Tag] = []
     var checkedTags: [Int] = []
+    var checkedTagNames: [String] = []
     var currentOnBoardingProcess = OnBoardingProcess.chooseOrganization
     var user: User?
 
@@ -266,6 +268,11 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     _ = UserData.follow(tag: tagId)
                     _ = UserData.addClickForTag(pk: tagId)
                 }
+                for tagName in checkedTagNames {
+                    Analytics.logEvent("tagButtonPressed", parameters: [
+                        "tagName": tagName
+                        ])
+                }
                 self.present(TabBarViewController(), animated: true, completion: {
                     (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = TabBarViewController()
                     (UIApplication.shared.delegate as! AppDelegate).window?.makeKeyAndVisible()
@@ -313,7 +320,9 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                 setNavigatorFowardButtonStatus()
             case .chooseTags:
                 let selectedTagID = filteredTags[indexPath.row].id
+                let selectedTagName = filteredTags[indexPath.row].name
                 checkedTags.append(selectedTagID)
+                checkedTagNames.append(selectedTagName)
                 user?.followingTags.append(filteredOrganizations[indexPath.row].id)
                 setNavigatorFowardButtonStatus()
             }
@@ -330,8 +339,10 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                 setNavigatorFowardButtonStatus()
             case .chooseTags:
                 let selectedTagID = filteredTags[indexPath.row].id
+                let selectedTagName = filteredTags[indexPath.row].name
              //   print(selectedTagID)
                 checkedTags.remove(at: checkedTags.index(of: selectedTagID)!)
+                checkedTagNames.remove(at: checkedTagNames.index(of: selectedTagName)!)
                 user?.followingTags.remove(at: (user?.followingTags.index(of:selectedTagID)!)!)
                 setNavigatorFowardButtonStatus()
             }

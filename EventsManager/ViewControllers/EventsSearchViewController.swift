@@ -212,7 +212,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                 orgViewController.configure(organizationPk: filteredOrganizations[indexPath.row].id)
                 navigationController?.pushViewController(orgViewController, animated: true)
             case .tags:
-                GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "search pg")
+              //  GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "search pg")
                 let tagViewController = TagViewController()
                 tagViewController.setup(with: events, for: tags[indexPath.row])
                 navigationController?.pushViewController(tagViewController, animated: true)

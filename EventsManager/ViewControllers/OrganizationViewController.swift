@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 class OrganizationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
 
@@ -380,9 +381,12 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     @objc func tagButtonPressed(_ sender: UIButton) {
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
+            Analytics.logEvent("tagButtonPressed", parameters: [
+                "tagName": tagButton.titleLabel
+                ])
             let tag = tagButton.getTagPk()
             //Ganalytics
-            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            //GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
             tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
             navigationController?.pushViewController(tagViewController, animated: true)
         }
@@ -404,6 +408,16 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func followButtonPressed(_ sender: UIButton){
         self.followButton.changeColor()
+        if (followButton.tintColor == UIColor(named: "primaryPink")) {
+            Analytics.logEvent("followButtonPressed", parameters: [
+                "orgName": orgNameLabel
+                ])
+        }
+        else {
+            Analytics.logEvent("followButtonUnclicked", parameters: [
+                "orgName": orgNameLabel
+                ])
+        }
     }
 
     func push(detailsViewController: EventDetailViewController) {

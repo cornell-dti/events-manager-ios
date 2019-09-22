@@ -12,6 +12,7 @@ import Kingfisher
 import GoogleMaps
 import GooglePlaces
 import UserNotifications
+import Firebase
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
@@ -103,8 +104,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationControllerInteractivePopGestureRecognizerDelegate = navigationController?.interactivePopGestureRecognizer?.delegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
-        
-        GoogleAnalytics.trackEvent(category: "view", action: "visit", label: (event?.eventName)!)
+        Analytics.logEvent("eventClicked", parameters: [
+            "eventName": eventName.text ?? ""
+            ])
+        //GoogleAnalytics.trackEvent(category: "view", action: "visit", label: (event?.eventName)!)
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -495,7 +498,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
             //Ganalytics
-            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+           // GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            Analytics.logEvent("tagButtonPressed", parameters: [
+                "tagName": tagButton.titleLabel ?? ""
+                ])
             let tagViewController = TagViewController()
             tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
             navigationController?.pushViewController(tagViewController, animated: true)
@@ -545,6 +551,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
                 bookmarkedButton.tintColor = UIColor.white
                 bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                Analytics.logEvent("bookmarked", parameters: [
+                    "eventName": event?.eventName,
+                    ])
                 if let event = event {
                     if !user.bookmarkedEvents.contains(event.id) {
                         user.bookmarkedEvents.append(event.id)
@@ -556,7 +565,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                         content.sound = .default
                         let minutesBeforeEvent = ReminderTimeOptions.getValue(from: ReminderTimeOptions.getCase(by: user.reminderTime))
                         let minuteComp = DateComponents(minute: -minutesBeforeEvent)
+                        print("eventstartTime")
+                        print(event.startTime)
                         let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
+                        print("reminddate")
+                        print(remindDate)
                         if let remindDate = remindDate {
                             let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: remindDate)
                             let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
@@ -569,18 +582,28 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                         }
                     }
                     _ = UserData.login(for: user)
+                    center.getPendingNotificationRequests(completionHandler: { requests in
+                        for request in requests {
+                            print("request")
+                            print(request)
+                        }
+                    })
                 }
                 
                 //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "event detail page")
+               // GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "event detail page")
             }
+                
+                
             else {
                 bookmarkedButton.backgroundColor = UIColor.white
                 bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                 bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
                 bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
                 bookmarkedButton.tintColor = UIColor(named: "primaryPink")
-                
+                Analytics.logEvent("unbookmarked", parameters: [
+                    "eventName": event?.eventName ?? "",
+                    ])
                 if let event = event {
                     user.bookmarkedEvents = user.bookmarkedEvents.filter{$0 != event.id}
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
@@ -588,7 +611,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 }
                 _ = UserData.login(for: user)
                 //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "unbookmark", label: "event detail page")
+               // GoogleAnalytics.trackEvent(category: "button click", action: "unbookmark", label: "event detail page")
             }
         }
     }
@@ -600,7 +623,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         activityVC.popoverPresentationController?.sourceView = sender
         self.present(activityVC, animated: true, completion: nil)
         //Ganalytics
-        GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
+       // GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
     }
     
     /**
