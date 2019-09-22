@@ -411,6 +411,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     func configure(with eventPk: Int) {
         let event = AppData.getEvent(pk: eventPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         self.event = event
+        if let user = UserData.getLoggedInUser() {
+            if user.bookmarkedEvents.contains(event.id) {
+                bookmarkedButton.backgroundColor = UIColor(named: "primaryPink")
+                bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
+                bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
+                bookmarkedButton.tintColor = UIColor.white
+                bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            }
+        }
         let _ = UserData.addClickForEvent(event: event)
         eventImage.kf.setImage(with: event.eventImage)
         
@@ -496,7 +505,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             let tag = tagButton.getTagPk()
             //Ganalytics
             GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
-            let tagViewController = TagViewController()
             tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
             navigationController?.pushViewController(tagViewController, animated: true)
         }

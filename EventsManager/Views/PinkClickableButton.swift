@@ -16,6 +16,12 @@ class PinkClickableButton: UIButton {
     let shadowRadius: CGFloat = 5
     let shadowOffset = CGSize(width: 1.5, height: 1.5)
     
+    var activated:Bool {
+        get {
+            return self.backgroundColor ?? UIColor.white == UIColor(named: "primaryPink")
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
     
     override init(frame: CGRect) {

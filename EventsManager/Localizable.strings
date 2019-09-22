@@ -44,7 +44,8 @@
 
 //Organizaiton page
 "is-member-button" = "  I'M A MEMBER  ";
-"follow-button" = "  FOLLOW  ";
+"follow-button" = "     FOLLOW     ";
+"followed-button" = "     FOLLOWED     ";
 "about" = "ABOUT";
 "website" = "Website: ";
 "email" = "Email: ";
