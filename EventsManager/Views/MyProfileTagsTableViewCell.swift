@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MyProfileTagsTableViewCell: UITableViewCell {
 
@@ -80,7 +81,10 @@ class MyProfileTagsTableViewCell: UITableViewCell {
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
             //Ganalytics
-            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            //GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            Analytics.logEvent("tagButtonPressed", parameters: [
+                "tagName": tagButton.titleLabel?.text ?? ""
+                ])
             tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
             navigationController?.pushViewController(tagViewController, animated: true)
         }
