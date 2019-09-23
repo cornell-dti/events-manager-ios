@@ -39,9 +39,18 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
+        setDataSource()
+        tableView.reloadData()
     }
     
-
+    
+    private func setDataSource() {
+        //Setting up data source
+        let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: myEvents)
+        sectionDates = eventsDateData.0
+        eventsOnDate = eventsDateData.1
+    }
+    
     /* Sets all the layout elements in the view */
     private func setLayouts() {
         let loadingVC = LoadingViewController()
@@ -53,10 +62,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
-        //Setting up data source
-        let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: myEvents)
-        sectionDates = eventsDateData.0
-        eventsOnDate = eventsDateData.1
+        setDataSource()
 
         //Nav Bar and date picker
         let navigationBar = navigationController!.navigationBar
