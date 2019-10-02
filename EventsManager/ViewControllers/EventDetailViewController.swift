@@ -12,6 +12,7 @@ import Kingfisher
 import GoogleMaps
 import GooglePlaces
 import UserNotifications
+import Firebase
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
@@ -103,8 +104,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationControllerInteractivePopGestureRecognizerDelegate = navigationController?.interactivePopGestureRecognizer?.delegate
         navigationController?.interactivePopGestureRecognizer?.delegate = self
-        
-        GoogleAnalytics.trackEvent(category: "view", action: "visit", label: (event?.eventName)!)
+        Analytics.logEvent("eventViewed", parameters: [
+            "eventName": eventName.text ?? ""
+            ])
+        //GoogleAnalytics.trackEvent(category: "view", action: "visit", label: (event?.eventName)!)
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -191,7 +194,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         bookmarkedButton.layer.shadowRadius = shadowRadius
         bookmarkedButton.layer.shadowOffset = shadowOffset
         bookmarkedButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
-        bookmarkedButton.addTarget(self, action: #selector(self.bookmarkedButtonPressed(_:)), for: .touchUpInside)
+        bookmarkedButton.addTarget(self, action: #selector(self.changeAttendance (_:)), for: .touchUpInside)
         
         bookmarkedButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
@@ -411,6 +414,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     func configure(with eventPk: Int) {
         let event = AppData.getEvent(pk: eventPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         self.event = event
+        if let user = UserData.getLoggedInUser() {
+            if user.bookmarkedEvents.contains(event.id) {
+                bookmarkedButton.backgroundColor = UIColor(named: "primaryPink")
+                bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
+                bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
+                bookmarkedButton.tintColor = UIColor.white
+                bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            }
+        }
         let _ = UserData.addClickForEvent(event: event)
         eventImage.kf.setImage(with: event.eventImage)
         
@@ -495,9 +507,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
-            //Ganalytics
-            GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
+            Analytics.logEvent("tagButtonPressed", parameters: [
+                "tagName": tagButton.titleLabel?.text ?? ""
+                ])
             let tagViewController = TagViewController()
+            //GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
             tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
             navigationController?.pushViewController(tagViewController, animated: true)
         }
@@ -509,10 +523,35 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     @objc func backButtonPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc func changeAttendance(_ sender: UIButton){
+        bookmarkedButton.isEnabled = false
+        var success = false
+        let group = DispatchGroup()
+        
+        group.enter()
+        if let user = UserData.getLoggedInUser(){
+            if let event = event{
+                Internet.changeAttendance(serverToken: user.serverAuthToken!, id: event.id, attend: bookmarkedButton.backgroundColor == UIColor.white){
+                    result in
+                        success = result
+                        group.leave()
+                }
+            }
+        }
+
+        group.notify(queue: .main){
+            if(success){
+                self.bookmarkedButtonPressed()
+            }
+            self.bookmarkedButton.isEnabled = true
+        }
+    }
+    
     /**
      Handler for the pressing action of the bookmark button. Should change the color of the button and add it to the user's bookmarked list.
      */
-    @objc func bookmarkedButtonPressed(_ sender: UIButton) {
+    func bookmarkedButtonPressed() {
         let center = UNUserNotificationCenter.current()
         if var user = UserData.getLoggedInUser() {
             if bookmarkedButton.backgroundColor == UIColor.white {
@@ -521,6 +560,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 bookmarkedButton.setTitleColor(UIColor.white, for: .normal)
                 bookmarkedButton.tintColor = UIColor.white
                 bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                Analytics.logEvent("bookmarked", parameters: [
+                    "eventName": event?.eventName,
+                    ])
                 if let event = event {
                     if !user.bookmarkedEvents.contains(event.id) {
                         user.bookmarkedEvents.append(event.id)
@@ -532,7 +574,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                         content.sound = .default
                         let minutesBeforeEvent = ReminderTimeOptions.getValue(from: ReminderTimeOptions.getCase(by: user.reminderTime))
                         let minuteComp = DateComponents(minute: -minutesBeforeEvent)
+                        print("eventstartTime")
+                        print(event.startTime)
                         let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
+                        print("reminddate")
+                        print(remindDate)
                         if let remindDate = remindDate {
                             let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: remindDate)
                             let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
@@ -545,18 +591,28 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                         }
                     }
                     _ = UserData.login(for: user)
+                    center.getPendingNotificationRequests(completionHandler: { requests in
+                        for request in requests {
+                            print("request")
+                            print(request)
+                        }
+                    })
                 }
                 
                 //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "event detail page")
+               // GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "event detail page")
             }
+                
+                
             else {
                 bookmarkedButton.backgroundColor = UIColor.white
                 bookmarkedButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                 bookmarkedButton.setTitle(NSLocalizedString("details-bookmark-button", comment: ""), for: .normal)
                 bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
                 bookmarkedButton.tintColor = UIColor(named: "primaryPink")
-                
+                Analytics.logEvent("unbookmarked", parameters: [
+                    "eventName": event?.eventName ?? "",
+                    ])
                 if let event = event {
                     user.bookmarkedEvents = user.bookmarkedEvents.filter{$0 != event.id}
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
@@ -564,7 +620,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 }
                 _ = UserData.login(for: user)
                 //Ganalytics
-                GoogleAnalytics.trackEvent(category: "button click", action: "unbookmark", label: "event detail page")
+               // GoogleAnalytics.trackEvent(category: "button click", action: "unbookmark", label: "event detail page")
             }
         }
     }
@@ -576,7 +632,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         activityVC.popoverPresentationController?.sourceView = sender
         self.present(activityVC, animated: true, completion: nil)
         //Ganalytics
-        GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
+       // GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
     }
     
     /**

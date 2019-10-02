@@ -5,6 +5,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:www.cuevents.org/</string>
+		<string>applinks:roddysapp.herokuapp.com</string>
 	</array>
 </dict>
 </plist>
