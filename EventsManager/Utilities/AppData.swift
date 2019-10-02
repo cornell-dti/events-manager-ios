@@ -198,7 +198,7 @@ class AppData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
                     let startDate = DateFormatHelper.date(from: "2019-01-01")!
-                    let endDate = Date()
+                    let endDate = DateFormatHelper.date(from: "2019-12-12")!
                     startLoading{
                         Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
                             if let events = events {

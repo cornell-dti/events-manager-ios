@@ -219,7 +219,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         shareButton.layer.shadowOffset = shadowOffset
         shareButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
         shareButton.addTarget(self, action: #selector(self.shareButtonPressed(_:)), for: .touchUpInside)
-        shareButton.isHidden = true
         
         shareButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
@@ -227,14 +226,14 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         
         shareButton.imageView?.snp.makeConstraints { make in
             make.top.equalTo(shareButton).offset(buttonImageTopSpacing)
-            make.left.equalTo(shareButton).offset(buttonImageLeftSpacing)
+            make.left.equalTo(shareButton).offset(modifiedbuttonImageLeftSpacing)
             make.width.equalTo(buttonImageWidth)
             make.height.equalTo(buttonImageHeight)
         }
         
-        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton])
+        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
         buttonStack.alignment = .center
-        buttonStack.axis = .horizontal
+        buttonStack.axis = .vertical
         buttonStack.distribution = .fill
         buttonStack.spacing = buttonStackInnerSpacing
         
@@ -625,11 +624,22 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     }
     
     @objc func shareButtonPressed(_ sender: UIButton) {
-        let eventText = event?.eventDescription ?? ""
-        let textToShare = [eventText]
-        let activityVC = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityVC.popoverPresentationController?.sourceView = sender
-        self.present(activityVC, animated: true, completion: nil)
+        var textToShare = ""
+        if let e = event {
+            textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(e.startTime) to \(e.endTime). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
+        }
+        
+        if let myWebsite = URL(string: Endpoint.getURLString(address: .eventDetailsAddress, queryParams: [Endpoint.QueryParam.eventPk : String(event?.id ?? 1)])) {//Enter link to your app here
+            let objectsToShare = [textToShare, eventImage.image, myWebsite ] as [Any]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            
+            //Excluded Activities
+            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+            //
+            
+            activityVC.popoverPresentationController?.sourceView = sender
+            self.present(activityVC, animated: true, completion: nil)
+        }
         //Ganalytics
        // GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
     }
