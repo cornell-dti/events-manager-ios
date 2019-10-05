@@ -63,6 +63,7 @@
 		DA75C21F205ABEAD00C1822C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C21E205ABEAD00C1822C /* TabBarViewController.swift */; };
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
+		FC1377A123401545008B2757 /* UnderlinedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1377A023401545008B2757 /* UnderlinedLabel.swift */; };
 		FC48D37B222B0D3F00A8F8DF /* PinkClickableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */; };
 		FCD0E4D622625F5E00E180DF /* JSONParserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */; };
 		FCD0E4DA2262E12B00E180DF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D92262E12B00E180DF /* Endpoint.swift */; };
@@ -163,6 +164,7 @@
 		DA75C222205ABF0400C1822C /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewController.swift; path = EventsManager/ViewControllers/MyProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FC1377A023401545008B2757 /* UnderlinedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedLabel.swift; sourceTree = "<group>"; };
 		FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkClickableButton.swift; sourceTree = "<group>"; };
 		FCD0E4D422548ED800E180DF /* EventsManager copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EventsManager copy-Info.plist"; path = "/Users/rodrigotaipe/Desktop/events-manager-ios/EventsManager copy-Info.plist"; sourceTree = "<absolute>"; };
 		FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParserHelper.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 		AAFE2FD52122226E00779FA1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FC1377A023401545008B2757 /* UnderlinedLabel.swift */,
 				DA75C216205ABDA700C1822C /* EventsDiscoveryTableViewCell.swift */,
 				FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */,
 				AA5B784C2076E29F00D15262 /* EventTagButton.swift */,
@@ -679,6 +682,7 @@
 				AAAA17B820919A3B00CC2ACA /* DatePickerTagView.swift in Sources */,
 				AA7C451F21EEA74300B3241F /* ForYouViewController.swift in Sources */,
 				AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */,
+				FC1377A123401545008B2757 /* UnderlinedLabel.swift in Sources */,
 				AAF8FC6B209AA69900BF8277 /* EventTableHeaderFooterView.swift in Sources */,
 				AA04DEFC2134E8C500FA0507 /* MyProfileHeaderFooterView.swift in Sources */,
 				FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */,

@@ -75,7 +75,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let bookmarkedButton = UIButton()
     var eventTime = UILabel()
     var eventParticipantCount = UILabel()
-    var eventOrganizer = UILabel()
+    var eventOrganizer = UnderlinedLabel()
     var eventLocation = UILabel()
     let eventMapViewWrapper = UIView()
     let eventMapDirectionsBar = UIView()
@@ -435,6 +435,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
             noConnection: GenericLoadingHelper.noConnection(from: self),
             updateData: false).name
+        eventOrganizer.textColor = UIColor(named: "primaryPink")
         eventLocation.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation,
                                                              startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
                                                              endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
