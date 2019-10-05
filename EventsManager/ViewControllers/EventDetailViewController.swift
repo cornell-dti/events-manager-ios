@@ -75,7 +75,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let bookmarkedButton = UIButton()
     var eventTime = UILabel()
     var eventParticipantCount = UILabel()
-    var eventOrganizer = UILabel()
+    var eventOrganizer = UnderlinedLabel()
     var eventLocation = UILabel()
     let eventMapViewWrapper = UIView()
     let eventMapDirectionsBar = UIView()
@@ -219,7 +219,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         shareButton.layer.shadowOffset = shadowOffset
         shareButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
         shareButton.addTarget(self, action: #selector(self.shareButtonPressed(_:)), for: .touchUpInside)
-        shareButton.isHidden = true
+        shareButton.isHidden = false
         
         shareButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
@@ -436,6 +436,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
             noConnection: GenericLoadingHelper.noConnection(from: self),
             updateData: false).name
+        eventOrganizer.textColor = UIColor(named: "primaryPink")
         eventLocation.text = AppData.getLocationPlaceIdTuple(by: event.eventLocation,
                                                              startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
                                                              endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
