@@ -94,14 +94,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        
+        print(url)
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        let host = urlComponents?.host ?? ""
+        print(host)
         return GIDSignIn.sharedInstance().handle(url)
     }
-
+    
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        
-        guard let url = userActivity.webpageURL else { return false }
-        
         return false
     }
 }
