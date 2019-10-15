@@ -459,13 +459,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         placesClient.fetchPlace(fromPlaceID: event.location.placeId, placeFields: fields, sessionToken: nil, callback: {
                 (result: GMSPlace?, error: Error?) in
             if let error = error {
+                    self.eventMapViewWrapper.removeFromSuperview()
                     print("An error occurred: \(error.localizedDescription) when fetching google places")
                     return
                 }
-            if event.location.placeId == "" {
-                print("An error occurred when fetching google places")
-                return
-            }
             else {
                 if let result = result {
                     self.mapLocation = result.coordinate
