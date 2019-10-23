@@ -34,8 +34,8 @@
 "participant-going" = "Going";
 "event-details-directions-button" = "Directions";
 "notification-title" = "You have a incoming bookmarked event!";
-"notification-body-1" = "Your event: ";
-"notification-body-2" = ", is coming up soon! Check it out!";
+"notification-body-1" = "Your event, ";
+"notification-body-2" = ", is coming up soon!";
 "notification-identifier" = "event_notification_";
 
 //Event List View

@@ -457,11 +457,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
         placesClient.fetchPlace(fromPlaceID: event.location.placeId, placeFields: fields, sessionToken: nil, callback: {
                 (result: GMSPlace?, error: Error?) in
-                if let error = error {
+            if let error = error {
+                    self.eventMapViewWrapper.removeFromSuperview()
                     print("An error occurred: \(error.localizedDescription) when fetching google places")
                     return
                 }
-            
+            else {
                 if let result = result {
                     self.mapLocation = result.coordinate
                     self.eventMapView.moveCamera(GMSCameraUpdate.fit(result.viewport!))
@@ -469,6 +470,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                     mapMarker.map = self.eventMapView
                     self.eventMapView.selectedMarker = mapMarker
                 }
+            }
         })
     }
     
@@ -560,7 +562,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 bookmarkedButton.tintColor = UIColor.white
                 bookmarkedButton.setImage(UIImage(named: "filledbookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
                 Analytics.logEvent("bookmarked", parameters: [
-                    "eventName": event?.eventName,
+                    "eventName": event?.eventName ?? ""
                     ])
                 if let event = event {
                     if !user.bookmarkedEvents.contains(event.id) {
@@ -569,15 +571,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                     if user.reminderEnabled {
                         let content = UNMutableNotificationContent()
                         content.title = NSLocalizedString("notification-title", comment: "")
-                        content.body = "\(NSLocalizedString("notificaition-body-1", comment: "")) \(event.eventName)\(NSLocalizedString("notification-body-2", comment: ""))"
+                        content.body = "\(NSLocalizedString("notification-body-1", comment: "")) \(event.eventName)\(NSLocalizedString("notification-body-2", comment: ""))"
                         content.sound = .default
                         let minutesBeforeEvent = ReminderTimeOptions.getValue(from: ReminderTimeOptions.getCase(by: user.reminderTime))
                         let minuteComp = DateComponents(minute: -minutesBeforeEvent)
-                        print("eventstartTime")
-                        print(event.startTime)
                         let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
-                        print("reminddate")
-                        print(remindDate)
                         if let remindDate = remindDate {
                             let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: remindDate)
                             let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
@@ -587,19 +585,19 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                                                                 content: content, trigger: trigger)
                             center.add(request, withCompletionHandler: { (error) in
                             })
+                            Analytics.logEvent("notificationAdded", parameters: [
+                                "notificationName": eventName.description
+                            ])
                         }
                     }
                     _ = UserData.login(for: user)
-                    center.getPendingNotificationRequests(completionHandler: { requests in
-                        for request in requests {
-                            print("request")
-                            print(request)
-                        }
-                    })
+//                    center.getPendingNotificationRequests(completionHandler: { requests in
+//                        for request in requests {
+//                            print("request")
+//                            print(request)
+//                        }
+//                    })
                 }
-                
-                //Ganalytics
-               // GoogleAnalytics.trackEvent(category: "button click", action: "bookmark", label: "event detail page")
             }
                 
                 
@@ -618,12 +616,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
                 }
                 _ = UserData.login(for: user)
-                //Ganalytics
-               // GoogleAnalytics.trackEvent(category: "button click", action: "unbookmark", label: "event detail page")
             }
         }
     }
-    
+        
     @objc func shareButtonPressed(_ sender: UIButton) {
         var textToShare = ""
         if let e = event {
