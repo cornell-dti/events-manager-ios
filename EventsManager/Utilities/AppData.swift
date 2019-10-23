@@ -197,8 +197,8 @@ class AppData {
         if updateData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
-                    let startDate = DateFormatHelper.date(from: "2019-01-01")!
-                    let endDate = Date()
+                    let startDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: Date()))!
+                    let endDate = Calendar.current.date(byAdding: .year, value: 1, to: startDate)!
                     startLoading{
                         Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
                             if let events = events {
