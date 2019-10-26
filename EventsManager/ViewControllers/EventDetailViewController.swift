@@ -170,7 +170,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventName.font = UIFont.boldSystemFont(ofSize: eventTitleFontSize)
         eventName.textAlignment = .center
         
-        eventDescriptionShowMoreButton.setTitleColor(UIColor(named: "primaryBlue"), for: .normal)
+        eventDescriptionShowMoreButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         eventDescriptionShowMoreButton.titleLabel?.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
         eventDescriptionShowMoreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0.01, bottom: 0, right: 0.01)
         eventDescriptionShowMoreButton.addTarget(self, action: #selector(detailsMoreButtonPressed(_:)), for: .touchUpInside)
@@ -178,7 +178,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.textColor = UIColor.gray
         eventDescription.textAlignment = .justified
         eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
-        
         //buttons
         
         
@@ -387,7 +386,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.right.equalTo(eventMapViewWrapper)
         }
         eventMapDirectionsBar.addSubview(eventMapViewDirectionsButton)
-        eventMapViewDirectionsButton.setTitleColor(view.tintColor, for: .normal)
+        eventMapViewDirectionsButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         eventMapViewDirectionsButton.setTitle(NSLocalizedString("event-details-directions-button", comment: ""), for: .normal)
         eventMapViewDirectionsButton.snp.makeConstraints { make in
             make.right.equalTo(eventMapDirectionsBar).offset(-directionsButtonRightSpacing)
