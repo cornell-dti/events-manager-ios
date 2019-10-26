@@ -98,16 +98,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        
-        return GIDSignIn.sharedInstance().handle(url)
+        var valid = false
+        let stack = UINavigationController(rootViewController: TabBarViewController())
+        let pathComponents = url.pathComponents
+        //if url is https://www.cuevents.org/org/6 then pathComponents is ["/", "org", "6"]
+        if pathComponents.count >= 3 && Int(pathComponents[2]) != nil {
+            if pathComponents[1] == "org" {
+                let orgId = Int(pathComponents[2])!
+                let org = OrganizationViewController()
+                org.configure(organizationPk: orgId)
+                stack.pushViewController(org, animated: true)
+                valid = true
+            }
+            if pathComponents[1] == "event" {
+                let eventId = Int(pathComponents[2])!
+                let event = EventDetailViewController()
+                event.configure(with: eventId)
+                stack.pushViewController(event, animated: true)
+                valid = true
+            }
+        }
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = stack
+        self.window?.makeKeyAndVisible()
+        return valid
     }
-
+    
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        
-        guard let url = userActivity.webpageURL else { return false }
-        
         return false
     }
 }
