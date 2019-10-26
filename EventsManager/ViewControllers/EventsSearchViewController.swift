@@ -208,9 +208,12 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                 detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row].id)
                 navigationController?.pushViewController(detailsViewController, animated: true)
             case .organization:
-                let orgViewController = OrganizationViewController()
-                orgViewController.configure(organizationPk: filteredOrganizations[indexPath.row].id)
-                navigationController?.pushViewController(orgViewController, animated: true)
+                let org = AppData.getOrganization(by: filteredOrganizations[indexPath.row].id, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
+                if org.email != "donotdisplay@cornell.edu" {
+                    let orgViewController = OrganizationViewController()
+                    orgViewController.configure(organizationPk: filteredOrganizations[indexPath.row].id)
+                    navigationController?.pushViewController(orgViewController, animated: true)
+                }
             case .tags:
               //  GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "search pg")
                 let tagViewController = TagViewController()

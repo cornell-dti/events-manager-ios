@@ -495,9 +495,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      - sender: the sender of the action
      */
     @objc func orgNamePressed(_ sender: UITapGestureRecognizer) {
-        let orgController = OrganizationViewController()
-        orgController.configure(organizationPk: event?.eventOrganizer ?? 0)
-        navigationController?.pushViewController(orgController, animated: true)
+        if let event = event {
+            let org = AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading:{}, noConnection:{}, updateData: false)
+            if org.email != "donotdisplay@cornell.edu" {
+                let orgController = OrganizationViewController()
+                orgController.configure(organizationPk: event.eventOrganizer)
+                navigationController?.pushViewController(orgController, animated: true)
+            }
+        }
+        
     }
     
     /**

@@ -331,9 +331,12 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         if indexPath.section == followingOrganizationsSetion {
             if let user = user {
                 let orgSelected = user.followingOrganizations[indexPath.row]
-                let orgViewController = OrganizationViewController()
-                orgViewController.configure(organizationPk: orgSelected)
-                navigationController?.pushViewController(orgViewController, animated: true)
+                let org = AppData.getOrganization(by: orgSelected, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
+                if org.email != "donotdisplay@cornell.edu" {
+                    let orgViewController = OrganizationViewController()
+                    orgViewController.configure(organizationPk: orgSelected)
+                    navigationController?.pushViewController(orgViewController, animated: true)
+                }
             }
         }
     }
