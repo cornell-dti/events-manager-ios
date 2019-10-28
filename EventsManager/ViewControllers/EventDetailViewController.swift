@@ -431,7 +431,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventName.text = event.eventName
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
         eventDescription.text = event.eventDescription
-        eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
+//        eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
+        eventTime.text = DateFormatHelper.formatDateRange(from: event.startTime, to: event.endTime)
         eventOrganizer.text = AppData.getOrganization(
             by: event.eventOrganizer,
             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
