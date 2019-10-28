@@ -47,7 +47,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let buttonImageHeight: CGFloat = 26
     let buttonImageTopSpacing: CGFloat = 7
     let buttonImageLeftSpacing: CGFloat = 0 //15
-    let modifiedEdgeSpacing: CGFloat = 70
+    let modifiedEdgeSpacing: CGFloat = 40
     let modifiedbuttonImageLeftSpacing: CGFloat = 15 //65
     let buttonFontSize: CGFloat = 16
     let shadowOpacity: Float = 0.6
@@ -236,7 +236,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         
         let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
         buttonStack.alignment = .center
-        buttonStack.axis = .vertical
+        buttonStack.axis = .horizontal
         buttonStack.distribution = .fill
         buttonStack.spacing = buttonStackInnerSpacing
         
@@ -514,7 +514,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      - sender: the sender of the action.
      */
     @objc func tagButtonPressed(_ sender: UIButton) {
-        let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
             Analytics.logEvent("tagButtonPressed", parameters: [
@@ -632,11 +631,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     @objc func shareButtonPressed(_ sender: UIButton) {
         var textToShare = ""
         if let e = event {
-            textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(e.startTime) to \(e.endTime). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
+            textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(DateFormatHelper.datetime(from: e.startTime)) to \(DateFormatHelper.datetime(from: e.endTime)). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
         }
         
         if let myWebsite = URL(string: Endpoint.getURLString(address: .eventDetailsAddress, queryParams: [Endpoint.QueryParam.eventPk : String(event?.id ?? 1)])) {//Enter link to your app here
-            let objectsToShare = [textToShare, eventImage.image, myWebsite ] as [Any]
+            let objectsToShare:[Any] = [textToShare, myWebsite]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             
             //Excluded Activities
