@@ -180,10 +180,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
         //buttons
         
-        if(calculateMaxLines(label: eventDescription) < 3){
-            eventDescriptionShowMoreButton.isHidden = true
-        }
-        
         
         bookmarkedButton.backgroundColor = UIColor.white
         bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -431,6 +427,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventName.text = event.eventName
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
         eventDescription.text = event.eventDescription
+        eventDescriptionShowMoreButton.isHidden = !eventDescription.isTruncated()
         eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
         eventOrganizer.text = AppData.getOrganization(
             by: event.eventOrganizer,
@@ -693,11 +690,22 @@ fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ inp
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
 
-func calculateMaxLines(label: UILabel) -> Int {
-    let maxSize = CGSize(width: label.frame.size.width, height: CGFloat(Float.infinity))
-    let charSize = label.font.lineHeight
-    let text = (label.text ?? "") as NSString
-    let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font], context: nil)
-    let linesRoundedUp = Int(ceil(textSize.height/charSize))
-    return linesRoundedUp
+extension UILabel {
+    
+    func countLabelLines() -> Int {
+        // Call self.layoutIfNeeded() if your view is uses auto layout
+        let myText = self.text! as NSString
+        let attributes = [NSAttributedString.Key.font : self.font]
+        
+        let labelSize = myText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes as [NSAttributedString.Key : Any], context: nil)
+        return Int(CGFloat(labelSize.height) / self.font.lineHeight)
+    }
+    
+    func isTruncated() -> Bool {
+        
+        if (self.countLabelLines() > self.numberOfLines) {
+            return true
+        }
+        return false
+    }
 }
