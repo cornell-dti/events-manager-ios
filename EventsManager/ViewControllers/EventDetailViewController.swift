@@ -180,6 +180,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
         //buttons
         
+        if(calculateMaxLines(label: eventDescription) < 3){
+            eventDescriptionShowMoreButton.isHidden = true
+        }
+        
         
         bookmarkedButton.backgroundColor = UIColor.white
         bookmarkedButton.setImage(UIImage(named: "bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -688,4 +692,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}
+
+func calculateMaxLines(label: UILabel) -> Int {
+    let maxSize = CGSize(width: label.frame.size.width, height: CGFloat(Float.infinity))
+    let charSize = label.font.lineHeight
+    let text = (label.text ?? "") as NSString
+    let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font], context: nil)
+    let linesRoundedUp = Int(ceil(textSize.height/charSize))
+    return linesRoundedUp
 }
