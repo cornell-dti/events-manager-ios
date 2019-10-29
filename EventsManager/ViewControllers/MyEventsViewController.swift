@@ -20,6 +20,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     let gAnalyticsScreenName = "my events pg"
     let datePickerHeight: CGFloat = 100
     let headerFontSize: CGFloat = 16
+    let noEventsLabelFontSize: CGFloat = 15
 
     let datePicker = MyEventsDatePickerView()
     let tableView = UITableView(frame: CGRect(), style: .grouped)
@@ -152,7 +153,20 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     //TABLEVIEW DELEGATE METHODS
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionDates.count
+        let count = sectionDates.count
+        if(count == 0){
+            let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            let noEventsLabel = UILabel(frame: rect)
+            noEventsLabel.text = NSLocalizedString("empty-events-message", comment: "")
+            noEventsLabel.textColor = UIColor(named: "primaryPink")
+            noEventsLabel.numberOfLines = 0
+            noEventsLabel.textAlignment = .center
+            noEventsLabel.font = UIFont.systemFont(ofSize: noEventsLabelFontSize)
+            noEventsLabel.sizeToFit()
+            tableView.backgroundView = noEventsLabel
+            tableView.separatorStyle = .none
+        }
+        return count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
