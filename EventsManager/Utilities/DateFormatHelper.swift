@@ -9,6 +9,23 @@
 import Foundation
 
 class DateFormatHelper {
+    private static func isWithinSameDay(from start: Date, to end: Date) -> Bool {
+        let myCalendar = Calendar(identifier: .gregorian)
+        let month1 = myCalendar.component(.month, from: start)
+        let month2 = myCalendar.component(.month, from: end)
+        let day1 = myCalendar.component(.day, from: start)
+        let day2 = myCalendar.component(.day, from: end)
+        return month1 == month2 && day1 == day2
+    }
+    
+    public static func formatDateRange(from start: Date, to end: Date) -> String {
+        if(isWithinSameDay(from: start, to: end)){
+            return "\(dayAbbreviationOfWeek(from: start)). \(month(from: start)) \(day(from: start)), \(hourMinute(from: start)) - \(hourMinute(from: end)) "
+        }
+        else{
+            return "\(month(from: start)) \(day(from: start)), \(hourMinute(from: start)) - \(month(from: end)) \(day(from: end)), \(hourMinute(from: end))"
+        }
+    }
     
     private static let timeStampFromStringFormatter: DateFormatter = {
         let formatter = DateFormatter()
