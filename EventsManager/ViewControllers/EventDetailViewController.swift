@@ -47,7 +47,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let buttonImageHeight: CGFloat = 26
     let buttonImageTopSpacing: CGFloat = 7
     let buttonImageLeftSpacing: CGFloat = 0 //15
-    let modifiedEdgeSpacing: CGFloat = 70
+    let modifiedEdgeSpacing: CGFloat = 40
     let modifiedbuttonImageLeftSpacing: CGFloat = 15 //65
     let buttonFontSize: CGFloat = 16
     let shadowOpacity: Float = 0.6
@@ -170,7 +170,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventName.font = UIFont.boldSystemFont(ofSize: eventTitleFontSize)
         eventName.textAlignment = .center
         
-        eventDescriptionShowMoreButton.setTitleColor(UIColor(named: "primaryBlue"), for: .normal)
+        eventDescriptionShowMoreButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         eventDescriptionShowMoreButton.titleLabel?.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
         eventDescriptionShowMoreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0.01, bottom: 0, right: 0.01)
         eventDescriptionShowMoreButton.addTarget(self, action: #selector(detailsMoreButtonPressed(_:)), for: .touchUpInside)
@@ -178,7 +178,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventDescription.textColor = UIColor.gray
         eventDescription.textAlignment = .justified
         eventDescription.font = UIFont.systemFont(ofSize: eventDescriptionFontSize)
-        
         //buttons
         
         
@@ -233,7 +232,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         
         let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
         buttonStack.alignment = .center
-        buttonStack.axis = .vertical
+        buttonStack.axis = .horizontal
         buttonStack.distribution = .fill
         buttonStack.spacing = buttonStackInnerSpacing
         
@@ -387,7 +386,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.right.equalTo(eventMapViewWrapper)
         }
         eventMapDirectionsBar.addSubview(eventMapViewDirectionsButton)
-        eventMapViewDirectionsButton.setTitleColor(view.tintColor, for: .normal)
+        eventMapViewDirectionsButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         eventMapViewDirectionsButton.setTitle(NSLocalizedString("event-details-directions-button", comment: ""), for: .normal)
         eventMapViewDirectionsButton.snp.makeConstraints { make in
             make.right.equalTo(eventMapDirectionsBar).offset(-directionsButtonRightSpacing)
@@ -428,7 +427,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventName.text = event.eventName
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
         eventDescription.text = event.eventDescription
-        eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
+        eventDescriptionShowMoreButton.isHidden = !eventDescription.isTruncated()
+        eventTime.text = DateFormatHelper.formatDateRange(from: event.startTime, to: event.endTime)
+
+
         eventOrganizer.text = AppData.getOrganization(
             by: event.eventOrganizer,
             startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController),
@@ -511,7 +513,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      - sender: the sender of the action.
      */
     @objc func tagButtonPressed(_ sender: UIButton) {
-        let tagViewController = TagViewController()
         if let tagButton = sender as? EventTagButton {
             let tag = tagButton.getTagPk()
             Analytics.logEvent("tagButtonPressed", parameters: [
@@ -629,11 +630,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     @objc func shareButtonPressed(_ sender: UIButton) {
         var textToShare = ""
         if let e = event {
-            textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(e.startTime) to \(e.endTime). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
+            textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(DateFormatHelper.datetime(from: e.startTime)) to \(DateFormatHelper.datetime(from: e.endTime)). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
         }
         
         if let myWebsite = URL(string: Endpoint.getURLString(address: .eventDetailsAddress, queryParams: [Endpoint.QueryParam.eventPk : String(event?.id ?? 1)])) {//Enter link to your app here
-            let objectsToShare = [textToShare, eventImage.image, myWebsite ] as [Any]
+            let objectsToShare:[Any] = [textToShare, myWebsite]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             
             //Excluded Activities
@@ -689,4 +690,24 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}
+
+extension UILabel {
+    
+    func countLabelLines() -> Int {
+        // Call self.layoutIfNeeded() if your view is uses auto layout
+        let myText = self.text! as NSString
+        let attributes = [NSAttributedString.Key.font : self.font]
+        
+        let labelSize = myText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes as [NSAttributedString.Key : Any], context: nil)
+        return Int(CGFloat(labelSize.height) / self.font.lineHeight)
+    }
+    
+    func isTruncated() -> Bool {
+        
+        if (self.countLabelLines() > self.numberOfLines) {
+            return true
+        }
+        return false
+    }
 }

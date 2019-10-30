@@ -60,6 +60,7 @@
 
 //My Events
 "my-events" = "My Events";
+"empty-events-message" = "No events bookmarked for this day.";
 
 //My Profile
 "my-profile" = "My Profile";
