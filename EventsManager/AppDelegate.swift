@@ -14,9 +14,10 @@ import Firebase
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
         [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -54,15 +55,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //request notifications
         let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = self
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         notificationCenter.requestAuthorization(options: options, completionHandler: {(granted, error) in
         })
         
-        
-
         return true
     }
     
+    //track notifications that have been clicked
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        Analytics.logEvent("notificationClicked", parameters: [
+            "description": center.description
+        ])
+        
+        completionHandler()
+    }
 
     
 //    func application(_ app: UIApplication, open url: URL,
@@ -96,8 +104,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         var valid = false
