@@ -8,7 +8,7 @@
 import Foundation
 
 class Endpoint {
-    public static let baseURL = "https://cuevents-staging.herokuapp.com/"
+    public static let baseURL = "https://cuevents-app.herokuapp.com/"
     
     public enum Addresses {
         case serverTokenAddress
@@ -20,6 +20,7 @@ class Endpoint {
         case organizationEventAddress
         case incrementAttendanceAddress
         case decrementAttendanceAddress
+        case eventUniversalLink
     }
     
     public enum QueryParam {
@@ -33,23 +34,25 @@ class Endpoint {
     public static func getURLString (address: Addresses, queryParams : [QueryParam:String]) -> String {
         switch address {
         case .serverTokenAddress:
-            return baseURL + "generate_token/" + queryParams[QueryParam.googleToken]! + "/"
+            return baseURL + "generate_token/" + queryParams[.googleToken]! + "/"
         case .tagAddress:
-            return baseURL + "tag/" + queryParams[QueryParam.tagPk]! + "/"
+            return baseURL + "tag/" + queryParams[.tagPk]! + "/"
         case .locationAddress:
-            return baseURL + "loc/" + queryParams[QueryParam.locationPk]! + "/"
+            return baseURL + "loc/" + queryParams[.locationPk]! + "/"
         case .eventsFeedAddress:
             return baseURL + "feed/events/"
         case .eventDetailsAddress:
-            return baseURL + "event/" + queryParams[QueryParam.eventPk]! + "/"
+            return baseURL + "event/" + queryParams[.eventPk]! + "/"
         case .organizationAddress:
-            return baseURL + "org/" + queryParams[QueryParam.organizationPk]! + "/"
+            return baseURL + "org/" + queryParams[.organizationPk]! + "/"
         case .organizationEventAddress:
-            return baseURL + "org/" + queryParams[QueryParam.organizationPk]! + "/events/"
+            return baseURL + "org/" + queryParams[.organizationPk]! + "/events/"
         case .incrementAttendanceAddress:
-            return baseURL + "attendance/increment/" + queryParams[QueryParam.eventPk]! + "/"
+            return baseURL + "attendance/increment/" + queryParams[.eventPk]! + "/"
         case .decrementAttendanceAddress:
-            return baseURL + "attendance/unincrement/" + queryParams[QueryParam.eventPk]! + "/"
+            return baseURL + "attendance/unincrement/" + queryParams[.eventPk]! + "/"
+        case .eventUniversalLink:
+            return "https://www.cuevents.org/event/" + queryParams[.eventPk]! + "/"
         }
     }
     

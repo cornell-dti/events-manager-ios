@@ -273,10 +273,9 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                         "tagName": tagName
                         ])
                 }
-                self.present(TabBarViewController(), animated: true, completion: {
-                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = TabBarViewController()
-                    (UIApplication.shared.delegate as! AppDelegate).window?.makeKeyAndVisible()
-                })
+                let mainVC = TabBarViewController()
+                mainVC.modalPresentationStyle = .fullScreen
+                self.present(mainVC, animated: true, completion: nil)
         }
     }
 

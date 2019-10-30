@@ -633,7 +633,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(DateFormatHelper.datetime(from: e.startTime)) to \(DateFormatHelper.datetime(from: e.endTime)). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
         }
         
-        if let myWebsite = URL(string: Endpoint.getURLString(address: .eventDetailsAddress, queryParams: [Endpoint.QueryParam.eventPk : String(event?.id ?? 1)])) {//Enter link to your app here
+        if let myWebsite = URL(string: Endpoint.getURLString(address: .eventUniversalLink, queryParams: [Endpoint.QueryParam.eventPk : String(event?.id ?? 1)])) {//Enter link to your app here
             let objectsToShare:[Any] = [textToShare, myWebsite]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             
