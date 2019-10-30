@@ -182,7 +182,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     navigatorForwardButton.backgroundColor = UIColor.white
                     navigatorForwardButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-choose-3-to-continue", comment: ""), for: .normal)
-                    navigatorForwardButton.isEnabled = true
+                    navigatorForwardButton.isEnabled = false
                 } else {
                     navigatorForwardButton.backgroundColor = UIColor(named: "primaryPink")
                     navigatorForwardButton.setTitleColor(UIColor.white, for: .normal)
@@ -194,7 +194,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     navigatorForwardButton.backgroundColor = UIColor.white
                     navigatorForwardButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-choose-3-to-continue", comment: ""), for: .normal)
-                    navigatorForwardButton.isEnabled = true
+                    navigatorForwardButton.isEnabled = false
                 } else {
                     navigatorForwardButton.backgroundColor = UIColor(named: "primaryPink")
                     navigatorForwardButton.setTitleColor(UIColor.white, for: .normal)
