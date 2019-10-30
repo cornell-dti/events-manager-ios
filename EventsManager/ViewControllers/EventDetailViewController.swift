@@ -427,6 +427,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventName.text = event.eventName
         eventDescriptionShowMoreButton.setTitle(NSLocalizedString("description-more-button", comment: ""), for: .normal)
         eventDescription.text = event.eventDescription
+        eventDescriptionShowMoreButton.isHidden = !eventDescription.isTruncated()
         eventTime.text = "\(NSLocalizedString("from", comment: "")) \(DateFormatHelper.hourMinute(from: event.startTime)) \(NSLocalizedString("to", comment: "")) \(DateFormatHelper.hourMinute(from: event.endTime))"
         eventOrganizer.text = AppData.getOrganization(
             by: event.eventOrganizer,
@@ -687,4 +688,24 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}
+
+extension UILabel {
+    
+    func countLabelLines() -> Int {
+        // Call self.layoutIfNeeded() if your view is uses auto layout
+        let myText = self.text! as NSString
+        let attributes = [NSAttributedString.Key.font : self.font]
+        
+        let labelSize = myText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes as [NSAttributedString.Key : Any], context: nil)
+        return Int(CGFloat(labelSize.height) / self.font.lineHeight)
+    }
+    
+    func isTruncated() -> Bool {
+        
+        if (self.countLabelLines() > self.numberOfLines) {
+            return true
+        }
+        return false
+    }
 }
