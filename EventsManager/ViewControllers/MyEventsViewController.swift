@@ -46,32 +46,31 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     private func setDataSource() {
-        //Setting up data source
-        let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: myEvents)
-        sectionDates = eventsDateData.0
-        eventsOnDate = eventsDateData.1
-    }
-    
-    /* Sets all the layout elements in the view */
-    private func setLayouts() {
-        let loadingVC = LoadingViewController()
-        loadingVC.configure(with: "ooooo...")
-        
+        myEvents = []
+        tableView.backgroundView = nil
+        tableView.separatorStyle = .singleLine
         if let user = UserData.getLoggedInUser() {
             for eventId in user.bookmarkedEvents {
                 myEvents.append(AppData.getEvent(pk: eventId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
             }
         }
         
-        setDataSource()
-
+        //Setting up data source
+        let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: myEvents)
+        sectionDates = eventsDateData.0
+        eventsOnDate = eventsDateData.1
+        datePicker.configure(with: sectionDates)
+    }
+    
+    /* Sets all the layout elements in the view */
+    private func setLayouts() {
+        
         //Nav Bar and date picker
         let navigationBar = navigationController!.navigationBar
         navigationBar.backgroundColor = UIColor.white
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
 
-        datePicker.configure(with: sectionDates)
 
         view.backgroundColor = UIColor.white
         view.addSubview(datePicker)
