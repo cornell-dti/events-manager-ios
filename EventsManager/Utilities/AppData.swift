@@ -298,7 +298,7 @@ class AppData {
         let events = getEvents(startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
         var filteredEvents:[Event] = []
         for event in events {
-            if event.eventOrganizer == event.eventOrganizer {
+            if event.eventOrganizer == organization {
                 filteredEvents.append(event)
             }
         }

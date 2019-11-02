@@ -47,9 +47,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let buttonImageHeight: CGFloat = 26
     let buttonImageTopSpacing: CGFloat = 7
     let buttonImageLeftSpacing: CGFloat = 0 //15
-    let modifiedEdgeSpacing: CGFloat = 40
+    let modifiedEdgeSpacing: CGFloat = 35
     let modifiedbuttonImageLeftSpacing: CGFloat = 15 //65
-    let buttonFontSize: CGFloat = 16
+    let buttonFontSize: CGFloat = 14
     let shadowOpacity: Float = 0.6
     let shadowRadius: CGFloat = 5
     let shadowOffset = CGSize(width: 1.5, height: 1.5)
