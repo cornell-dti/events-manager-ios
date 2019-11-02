@@ -692,22 +692,4 @@ fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ inp
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
 
-extension UILabel {
-    
-    func countLabelLines() -> Int {
-        // Call self.layoutIfNeeded() if your view is uses auto layout
-        let myText = self.text! as NSString
-        let attributes = [NSAttributedString.Key.font : self.font]
-        
-        let labelSize = myText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes as [NSAttributedString.Key : Any], context: nil)
-        return Int(CGFloat(labelSize.height) / self.font.lineHeight)
-    }
-    
-    func isTruncated() -> Bool {
-        
-        if (self.countLabelLines() > self.numberOfLines) {
-            return true
-        }
-        return false
-    }
-}
+

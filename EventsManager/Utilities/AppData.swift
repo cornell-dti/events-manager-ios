@@ -321,16 +321,3 @@ class AppData {
 }
 
 
-/**
- Names for custom notifications. Classes interested in receiving notifications for a particular event should subscribe to the event's corresponding notification. Another class generates notifications for the particular event.
- */
-extension Notification.Name
-{
-    static let reloadData = Notification.Name("reloadData")
-    static let updatedLocation = Notification.Name("updatedLocation")
-    static let updatedOrg = Notification.Name("updatedOrg")
-    static let updatedTag = Notification.Name("updatedTag")
-    static let updatedEvent = Notification.Name("updatedEvent")
-}
-
-

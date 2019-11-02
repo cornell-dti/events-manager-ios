@@ -28,7 +28,7 @@
 		AA5B784D2076E29F00D15262 /* EventTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B784C2076E29F00D15262 /* EventTagButton.swift */; };
 		AA5C52DE2152EF0000321FA3 /* dosis.bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */; };
 		AA6B45202276285C009925FF /* GenericLoadingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */; };
-		AA74D063236DE5BF00CACEF1 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74D062236DE5BF00CACEF1 /* Extentions.swift */; };
+		AA74D063236DE5BF00CACEF1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74D062236DE5BF00CACEF1 /* Extensions.swift */; };
 		AA7C451F21EEA74300B3241F /* ForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7C451E21EEA74300B3241F /* ForYouViewController.swift */; };
 		AA873B4C207D616900BD413B /* DateFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA873B4B207D616900BD413B /* DateFormatHelper.swift */; };
 		AA8861F7223D6FE500DE9180 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8861F6223D6FE500DE9180 /* Location.swift */; };
@@ -127,7 +127,7 @@
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.bold.ttf; sourceTree = "<group>"; };
 		AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericLoadingHelper.swift; sourceTree = "<group>"; };
-		AA74D062236DE5BF00CACEF1 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		AA74D062236DE5BF00CACEF1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AA7C451E21EEA74300B3241F /* ForYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForYouViewController.swift; sourceTree = "<group>"; };
 		AA873B4B207D616900BD413B /* DateFormatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatHelper.swift; sourceTree = "<group>"; };
 		AA8861F6223D6FE500DE9180 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -383,7 +383,7 @@
 				FCD0E4D92262E12B00E180DF /* Endpoint.swift */,
 				AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */,
 				AA16F3D5231B44F40031DC67 /* GoogleAnalytics.swift */,
-				AA74D062236DE5BF00CACEF1 /* Extentions.swift */,
+				AA74D062236DE5BF00CACEF1 /* Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -704,7 +704,7 @@
 				AAC2C7FE2136374400EBCC64 /* ReminderTimeOptions.swift in Sources */,
 				FCD0E4D622625F5E00E180DF /* JSONParserHelper.swift in Sources */,
 				AA04DEFA2134DFCB00FA0507 /* OrganizationTableViewCell.swift in Sources */,
-				AA74D063236DE5BF00CACEF1 /* Extentions.swift in Sources */,
+				AA74D063236DE5BF00CACEF1 /* Extensions.swift in Sources */,
 				AAF8FC6D209AA9D200BF8277 /* SeeAllEventsHeaderFooterView.swift in Sources */,
 				AAE10F4920AF42530070F515 /* Internet.swift in Sources */,
 				AABA675220C6E5E400363899 /* Tag.swift in Sources */,
