@@ -34,9 +34,11 @@
 "participant-going" = "Going";
 "event-details-directions-button" = "Directions";
 "notification-title" = "You have a incoming bookmarked event!";
-"notification-body-1" = "Your event, ";
+"notification-body-1" = "Your event,";
 "notification-body-2" = ", is coming up soon!";
 "notification-identifier" = "event_notification_";
+"notification-weekly-title" = "Here is an event you may be interested in";
+"notification-weekly-body" =  " is coming up next week!";
 
 //Event List View
 "tool-bar-cancel-button" = "Cancel";

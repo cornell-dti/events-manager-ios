@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
     
@@ -90,6 +91,61 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         cells[tomorrowEventsSection] = tomorrowEventsCell
         for (_, cell) in cells {
             cell.delegate = self
+        }
+        
+        
+        // Configure the recurring date for weekly notifications
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+
+        dateComponents.weekday = 2  // Saturday (for testing purposes)
+        dateComponents.hour = 20   // (for testing purposes)
+        dateComponents.minute = 15 // (for testing purposes)
+           
+        // Create the trigger as a repeating event.
+        let trigger = UNCalendarNotificationTrigger(
+                 dateMatching: dateComponents, repeats: true)
+        
+        
+        let center = UNUserNotificationCenter.current()
+        
+        //get top two popular events that have not been bookmarked by the user
+        var popularUnbookmarkedEvents = [Event]()
+        if let user = UserData.getLoggedInUser() {
+
+            let firstevent = popularEvents[0]
+            let secondevent = popularEvents[1]
+
+            if (user.reminderEnabled) {
+                let firsteventcontent = UNMutableNotificationContent()
+                firsteventcontent.title = NSLocalizedString("notification-weekly-title", comment: "")
+                firsteventcontent.sound = .default
+
+                let secondeventcontent = UNMutableNotificationContent()
+                secondeventcontent.title = NSLocalizedString("notification-weekly-title", comment: "")
+                secondeventcontent.sound = .default
+
+                let firstNotificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(firstevent.id)"
+                let secondNotificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(secondevent.id)"
+                firsteventcontent.body = "\(firstevent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
+                secondeventcontent.body = "\(secondevent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
+
+                let firstrequest = UNNotificationRequest(identifier: firstNotificationIdentifier,
+                                                         content: firsteventcontent, trigger: trigger)
+                let secondrequest = UNNotificationRequest(identifier: secondNotificationIdentifier,
+                                                          content: secondeventcontent, trigger: trigger)
+
+                center.add(firstrequest, withCompletionHandler: { (error) in
+                })
+                center.add(secondrequest, withCompletionHandler: { (error) in
+                })
+                Analytics.logEvent("tailoredNotificationAdded", parameters: [
+                    "notificationName": popularEvents[0].eventName
+                ])
+                Analytics.logEvent("tailoredNotificationAdded", parameters: [
+                    "notificationName": popularEvents[1].eventName
+                ])
+            }
         }
         tableView.reloadData()
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
     
@@ -64,6 +65,7 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
+
     
     @objc func refresh(sender:AnyObject) {
         // Code to refresh table view

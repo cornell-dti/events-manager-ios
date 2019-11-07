@@ -200,7 +200,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     navigatorForwardButton.setTitleColor(UIColor.white, for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-continue", comment: ""), for: .normal)
                     navigatorForwardButton.isEnabled = true
-                }
+              }
             }
     }
 
