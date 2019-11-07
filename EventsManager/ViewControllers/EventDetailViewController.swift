@@ -47,9 +47,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let buttonImageHeight: CGFloat = 26
     let buttonImageTopSpacing: CGFloat = 7
     let buttonImageLeftSpacing: CGFloat = 0 //15
-    let modifiedEdgeSpacing: CGFloat = 40
+    let modifiedEdgeSpacing: CGFloat = 35
     let modifiedbuttonImageLeftSpacing: CGFloat = 15 //65
-    let buttonFontSize: CGFloat = 16
+    let buttonFontSize: CGFloat = 14
     let shadowOpacity: Float = 0.6
     let shadowRadius: CGFloat = 5
     let shadowOffset = CGSize(width: 1.5, height: 1.5)
@@ -686,22 +686,4 @@ fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ inp
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
 
-extension UILabel {
-    
-    func countLabelLines() -> Int {
-        // Call self.layoutIfNeeded() if your view is uses auto layout
-        let myText = self.text! as NSString
-        let attributes = [NSAttributedString.Key.font : self.font]
-        
-        let labelSize = myText.boundingRect(with: CGSize(width: UIScreen.main.bounds.width, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes as [NSAttributedString.Key : Any], context: nil)
-        return Int(CGFloat(labelSize.height) / self.font.lineHeight)
-    }
-    
-    func isTruncated() -> Bool {
-        
-        if (self.countLabelLines() > self.numberOfLines) {
-            return true
-        }
-        return false
-    }
-}
+

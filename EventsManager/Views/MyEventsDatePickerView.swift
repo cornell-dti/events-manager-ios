@@ -79,6 +79,7 @@ class MyEventsDatePickerView: UIView {
      - events: the list of events that the date picker should be picking from.
      */
     func configure(with dates: [Date]) {
+        dateStack.safelyRemoveArrangedSubviews()
         self.dates = dates
         let lastDateInEvents = getLastDate(in: dates)
         let today = DateFormatHelper.date(from: DateFormatHelper.date(from: Date()))!
