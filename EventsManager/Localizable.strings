@@ -121,3 +121,7 @@
 
 //Loading
 "loading" = "Loading...";
+
+//Tag page
+"follow-tag" = "Follow";
+"unfollow-tag" = "Unfollow";
