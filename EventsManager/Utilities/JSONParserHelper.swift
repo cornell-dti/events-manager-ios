@@ -80,7 +80,7 @@ class JSONParserHelper {
         {
             //get org id and location id
              let location_id = location.id
-            if let orgId = org_json["owner"]?.int {
+            if let orgId = org_json["id"]?.int {
                 // get tags and media
                 var tags:[Int] = []
                 for tag_json in tags_json {

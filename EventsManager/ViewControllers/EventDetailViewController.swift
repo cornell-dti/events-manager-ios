@@ -597,13 +597,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                             ])
                         }
                     }
-                    _ = UserData.login(for: user)
-//                    center.getPendingNotificationRequests(completionHandler: { requests in
-//                        for request in requests {
-//                            print("request")
-//                            print(request)
-//                        }
-//                    })
+                    
                 }
             }
                 

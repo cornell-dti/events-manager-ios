@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
     
@@ -91,6 +92,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         for (_, cell) in cells {
             cell.delegate = self
         }
+        
         tableView.reloadData()
     }
 
