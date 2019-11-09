@@ -32,6 +32,10 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
         setup()
+        
+       // let weekday = Calendar.current.component(.weekday, from: Date()) --get current weekday
+        scheduleNotification()
+        
     }
     
     /**
@@ -64,9 +68,67 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
             make.edges.equalTo(view)
         }
         
+        
     }
 
-    
+    //Schedule weekly tailored notification
+    func scheduleNotification() {
+        
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+        
+        dateComponents.weekday = 6  // Saturday (for testing purposes)
+        dateComponents.hour = 19   // (for testing purposes)
+        dateComponents.minute = 28 // (for testing purposes)
+        
+        // Create the trigger as a repeating event.
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: dateComponents, repeats: true)
+        
+        let center = UNUserNotificationCenter.current()
+        
+        if let user = UserData.getLoggedInUser() {
+            
+            if (user.reminderEnabled) {
+                let firstEvent = labelEventsPair[0].1[0] //first event in labelEventsPair array, for initialization purposes
+                
+                var max = 0
+                var mostPopularEvent = firstEvent
+                for pair in labelEventsPair {
+                    for event in pair.1 {
+                        if event.eventParticipantCount > max {
+                            max = event.eventParticipantCount
+                            mostPopularEvent = event
+                        }
+                    }
+                }
+
+                let content = UNMutableNotificationContent()
+                content.title = NSLocalizedString("notification-weekly-title", comment: "")
+                content.body = "\(mostPopularEvent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
+                content.sound = .default
+                
+                let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(mostPopularEvent.id)"
+                
+                let request = UNNotificationRequest(identifier: notificationIdentifier,
+                                                    content: content, trigger: trigger)
+                
+                center.getPendingNotificationRequests(completionHandler: { requests in
+                    if !(requests.contains(request)) {
+                        center.add(request, withCompletionHandler: { (error) in
+                        })
+                        
+                        Analytics.logEvent("tailoredNotificationAdded", parameters: [
+                            "notificationName": mostPopularEvent.eventName
+                        ])
+                    }
+                })
+                
+            }
+            
+        }
+    }
+
     @objc func refresh(sender:AnyObject) {
         // Code to refresh table view
         self.tableView.reloadData()

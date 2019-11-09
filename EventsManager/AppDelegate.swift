@@ -65,6 +65,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     //track notifications that have been clicked
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        center.getDeliveredNotifications(completionHandler: { requests in
+            for request in requests {
+                
+            }
+        
+        
+        
         Analytics.logEvent("notificationClicked", parameters: [
             "description": center.description
         ])
