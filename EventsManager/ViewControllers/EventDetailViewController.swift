@@ -411,6 +411,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     /* Allow client to configure the event detail page by passing in an event object */
     func configure(with eventPk: Int) {
         let event = AppData.getEvent(pk: eventPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        print(event)
         self.event = event
         if let user = UserData.getLoggedInUser() {
             if user.bookmarkedEvents.contains(event.id) {
@@ -459,10 +460,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.all.rawValue))!
         placesClient.fetchPlace(fromPlaceID: event.location.placeId, placeFields: fields, sessionToken: nil, callback: {
                 (result: GMSPlace?, error: Error?) in
-            if let error = error {
-                    self.eventMapViewWrapper.removeFromSuperview()
-                    print("An error occurred: \(error.localizedDescription) when fetching google places")
-                    return
+            if let _ = error {
+                self.eventMapViewWrapper.isHidden = true
+                if let constraint = (self.eventMapViewWrapper.constraints.filter {$0.firstAttribute == .height}.first) {
+                    constraint.constant = 0
+                    self.view.layoutIfNeeded()
+                }
+                return
                 }
             else {
                 if let result = result {
