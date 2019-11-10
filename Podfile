@@ -11,7 +11,7 @@ target 'EventsManager' do
 	pod 'Kingfisher', '~> 4.0'
 	pod 'GoogleMaps'
   pod 'GooglePlaces'
-  pod 'GoogleSignIn'
+  pod 'GoogleSignIn', '~> 5.0'
   pod 'Firebase/Analytics'
 	pod 'Alamofire', '~> 4.7'
 	pod 'SwiftyJSON', '~> 4.0'
