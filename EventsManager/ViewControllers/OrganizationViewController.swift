@@ -367,6 +367,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             popularHeader.setMainTitle(NSLocalizedString("popular-events", comment: "").uppercased())
             popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
             popularHeader.editButton.addTarget(self, action: #selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
+            popularHeader.editButton.isHidden = popularEvents.isEmpty
             header = popularHeader
         }
         return header

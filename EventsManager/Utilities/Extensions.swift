@@ -52,8 +52,8 @@ extension UILabel {
     }
     
     func isTruncated() -> Bool {
-        
-        if (self.countLabelLines() > self.numberOfLines) {
+        //quick fix for truncation being off if countLabelLines is about equal to numberOfLines
+        if (self.countLabelLines() > self.numberOfLines - 1) {
             return true
         }
         return false
