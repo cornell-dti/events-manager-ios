@@ -32,9 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //initiallize Google Sign In
         GIDSignIn.sharedInstance()?.clientID = "498336876169-c0tedkl028ga401h2qj4g4gelnr68pen.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.hostedDomain = "cornell.edu"
-        
+
         FirebaseApp.configure()
-        
+
         //check if logged in
         if UserData.didLogin() {
             if UserData.didCompleteOnboarding() {
@@ -52,29 +52,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 19)!, NSAttributedString.Key.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 32)!, NSAttributedString.Key.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
         window?.tintColor = UIColor(named: "primaryPink")
-        
+
         //request notifications
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.delegate = self
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        notificationCenter.requestAuthorization(options: options, completionHandler: {(granted, error) in
+        notificationCenter.requestAuthorization(options: options, completionHandler: {(_, _) in
         })
-        
+        //log notifications that have been sent and are in the notification center (have not been clicked by the user)
+        notificationCenter.getDeliveredNotifications(completionHandler: { notifications in
+            for notification in notifications {
+                if notification.request.content.title == "Here is an event you may be interested in" {
+                    Analytics.logEvent("tailoredNotificationAppeared", parameters: [
+                        "description": notification.request.content
+                    ])
+                } else {
+                    Analytics.logEvent("notificationAppeared", parameters: [
+                        "description": notification.request.content
+                    ])
+                }
+            }
+        })
+
         return true
     }
-    
+
     //track notifications that have been clicked
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 
-        Analytics.logEvent("notificationClicked", parameters: [
-            "description": center.description
-        ])
+        if response.notification.request.content.title == "Here is an event you may be interested in" {
+            Analytics.logEvent("tailoredNotificationClicked", parameters: [
+                "description": response.notification.request.content
+            ])
+        }  else {
+            Analytics.logEvent("notificationClicked", parameters: [
+                "description": response.notification.request.content
+            ])
+        }
 
-        
         completionHandler()
     }
 
-    
 //    func application(_ app: UIApplication, open url: URL,
 //                     options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
 //        if let scheme = url.scheme,
@@ -84,8 +102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        }
 //        UIApplication.shared.open(url, options: [:], completionHandler: nil)
 //    }
-    
-
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -106,42 +122,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        
+
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        var valid = false
-        let stack = UINavigationController(rootViewController: TabBarViewController())
-        let pathComponents = url.pathComponents
-        //if url is https://www.cuevents.org/org/6 then pathComponents is ["/", "org", "6"]
-        if pathComponents.count >= 3 && Int(pathComponents[2]) != nil {
-            if pathComponents[1] == "org" {
-                let orgId = Int(pathComponents[2])!
-                let org = OrganizationViewController()
-                org.configure(organizationPk: orgId)
-                stack.pushViewController(org, animated: true)
-                valid = true
-            }
-            if pathComponents[1] == "event" {
-                let eventId = Int(pathComponents[2])!
-                let event = EventDetailViewController()
-                event.configure(with: eventId)
-                stack.pushViewController(event, animated: true)
-                valid = true
+
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+          let url = userActivity.webpageURL,
+          let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return false
+        }
+        let category = String(components.path.split(separator: "/")[0])
+        let id = components.path.digits
+        if category == "event" {
+            if let tabVC = window?.rootViewController as? TabBarViewController {
+                let detailsVC = EventDetailViewController()
+                detailsVC.configure(with: Int(id)!)
+                tabVC.selectedIndex = tabVC.discoverIndex
+                tabVC.discoverNavVC.pushViewController(detailsVC, animated: true)
             }
         }
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = stack
-        self.window?.makeKeyAndVisible()
-        return valid
-    }
-    
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         return false
     }
 }
-
-

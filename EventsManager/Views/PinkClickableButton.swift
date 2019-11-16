@@ -15,20 +15,20 @@ class PinkClickableButton: UIButton {
     let shadowOpacity: Float = 0.6
     let shadowRadius: CGFloat = 5
     let shadowOffset = CGSize(width: 1.5, height: 1.5)
-    
+
     var activated:Bool {
         get {
             return self.backgroundColor ?? UIColor.white == UIColor(named: "primaryPink")
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layoutUI()
     }
-    
+
     /**
      * Modifiy the button's styles
      */
@@ -42,14 +42,13 @@ class PinkClickableButton: UIButton {
         self.layer.shadowColor = UIColor.gray.cgColor
         self.titleLabel?.font = UIFont.boldSystemFont(ofSize: headerButtonFontSize)
     }
-    
+
     func changeColor() {
         if self.backgroundColor == UIColor.white {
             self.backgroundColor = UIColor(named: "primaryPink")
             self.setTitleColor(UIColor.white, for: .normal)
             self.tintColor = UIColor.white
-        }
-        else {
+        } else {
             self.backgroundColor = UIColor.white
             self.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
             self.tintColor = UIColor(named: "primaryPink")

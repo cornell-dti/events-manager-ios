@@ -43,8 +43,7 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
         setDataSource()
         tableView.reloadData()
     }
-    
-    
+
     private func setDataSource() {
         myEvents = []
         tableView.backgroundView = nil
@@ -54,23 +53,22 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
                 myEvents.append(AppData.getEvent(pk: eventId, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false))
             }
         }
-        
+
         //Setting up data source
         let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: myEvents)
         sectionDates = eventsDateData.0
         eventsOnDate = eventsDateData.1
         datePicker.configure(with: sectionDates)
     }
-    
+
     /* Sets all the layout elements in the view */
     private func setLayouts() {
-        
+
         //Nav Bar and date picker
         let navigationBar = navigationController!.navigationBar
         navigationBar.backgroundColor = UIColor.white
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
-
 
         view.backgroundColor = UIColor.white
         view.addSubview(datePicker)
@@ -153,8 +151,8 @@ class MyEventsViewController: UIViewController, UITableViewDelegate, UITableView
 
     func numberOfSections(in tableView: UITableView) -> Int {
         let count = sectionDates.count
-        if(count == 0){
-            let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+        if count == 0 {
+            let rect = CGRect(origin: CGPoint(x: 0, y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
             let noEventsLabel = UILabel(frame: rect)
             noEventsLabel.text = NSLocalizedString("empty-events-message", comment: "")
             noEventsLabel.textColor = UIColor(named: "primaryPink")

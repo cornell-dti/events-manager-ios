@@ -20,12 +20,12 @@ class AppData {
     static let DUMMY_URL = "http://ethanhu.me/images/background.jpg"
     static let DUMMY_TAG = "#CornellDTI"
     static let DUMMY_EVENT = Event(id: 0, startTime: Date(), endTime: Date(), eventName: "DTI", eventLocation: 0, eventImage: URL(string: AppData.DUMMY_URL)!, eventOrganizer: 0, eventDescription: "", eventTags: [], eventParticipantCount: 0, isPublic: false, location: Location(id: 0, building: "Gates Hall", room: "G01", placeId: "ChIJndqRYRqC0IkR9J8bgk3mDvU"))
-    
+
     /**
      Returns the tuple of string of the location the PK corresponds to, and the placeID. The string returned is a full string, including the building and the room
      Requires: pk is a valid location id. If no existing locations match pk, an empty string will be returned.
      */
-    static func getLocationPlaceIdTuple(by pk: Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> (String, String) {
+    static func getLocationPlaceIdTuple(by pk: Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping () -> Void, noConnection: () -> Void, updateData: Bool) -> (String, String) {
         if updateData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
@@ -36,9 +36,9 @@ class AppData {
                                     let jsonData = try JSONEncoder().encode(location)
                                     UserDefaults.standard.set(jsonData, forKey: "\(LOC_QUERY_KEY)\(pk)")
                                 } catch {
-                                    print (error)
+                                    print(error)
                                 }
-                                runAsyncFunction{
+                                runAsyncFunction {
                                     NotificationCenter.default.post(name: .updatedLocation, object: nil)
                                     endLoading()
                                 }
@@ -46,8 +46,7 @@ class AppData {
                         })
                     }
                 }
-            }
-            else {
+            } else {
                 noConnection()
             }
         }
@@ -59,37 +58,36 @@ class AppData {
                 print(error)
             }
         }
-        return ("", "");
+        return ("", "")
     }
 
     /**
      Returns the organization struct with id pk.
      Requires: pk is a valid organization id. If no existing organizations match pk, any organization might be returned.
      */
-    static func getOrganization(by pk: Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> Organization {
+    static func getOrganization(by pk: Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping () -> Void, noConnection: () -> Void, updateData: Bool) -> Organization {
         if updateData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
-                    startLoading{
+                    startLoading {
                         Internet.fetchOrganizationDetail(serverToken: serverToken, id: pk, completion: { organization in
                             if let organization = organization {
                                 do {
                                     let jsonData = try JSONEncoder().encode(organization)
                                     UserDefaults.standard.set(jsonData, forKey: "\(ORG_QUERY_KEY)\(pk)")
                                 } catch {
-                                    print (error)
+                                    print(error)
                                 }
                             }
-                            runAsyncFunction{
+                            runAsyncFunction {
                                 NotificationCenter.default.post(name: .updatedOrg, object: nil)
                                 endLoading()
                             }
                         })
                     }
                 }
-                
-            }
-            else {
+
+            } else {
                 noConnection()
             }
         }
@@ -114,7 +112,7 @@ class AppData {
      Returns the tag with id pk.
      Requires: pk is a valid tag id. If no existing tags match pk, an empty string will be returned.
      */
-    static func getTag(by pk: Int, startLoading: (@escaping ()->Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> Tag {
+    static func getTag(by pk: Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping () -> Void, noConnection: () -> Void, updateData: Bool) -> Tag {
         if updateData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
@@ -125,19 +123,18 @@ class AppData {
                                     let jsonData = try JSONEncoder().encode(tag)
                                     UserDefaults.standard.set(jsonData, forKey: "\(TAG_QUERY_KEY)\(pk)")
                                 } catch {
-                                    print (error)
+                                    print(error)
                                 }
                             }
-                            runAsyncFunction{
+                            runAsyncFunction {
                                 NotificationCenter.default.post(name: .updatedTag, object: nil)
                                 endLoading()
                             }
                         })
                     }
                 }
-                
-            }
-            else {
+
+            } else {
                 noConnection()
             }
         }
@@ -150,8 +147,8 @@ class AppData {
         }
         return Tag(id: pk, name: DUMMY_TAG)
     }
-    
-    static func getEvent(pk:Int, startLoading: (@escaping ()->Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> Event {
+
+    static func getEvent(pk:Int, startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping () -> Void, noConnection: () -> Void, updateData: Bool) -> Event {
         if updateData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
@@ -167,17 +164,17 @@ class AppData {
                                     let jsonData = try JSONEncoder().encode(event)
                                     UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
                                 } catch {
-                                    print (error)
+                                    print(error)
                                 }
                             }
-                            runAsyncFunction{
+                            runAsyncFunction {
                                 NotificationCenter.default.post(name: .updatedEvent, object: nil)
                                 endLoading()
                             }
                         })
                     }
                 }
-                
+
             }
         }
         if let jsonData = UserDefaults.standard.data(forKey: "\(EVENT_QUERY_KEY)\(pk)") {
@@ -189,74 +186,62 @@ class AppData {
         }
         return DUMMY_EVENT
     }
-    
+
     /**
      Retrieves all events that are saved locally.
      */
-    static func getEvents(startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping ()-> Void, noConnection: () -> Void, updateData: Bool) -> [Event]{
+    static func getEvents(startLoading: (@escaping () -> Void) -> Void, endLoading: @escaping () -> Void, noConnection: () -> Void, updateData: Bool) -> [Event] {
         if updateData {
             if CheckInternet.Connection() {
                 if let serverToken = UserData.serverToken() {
                     let startDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: Date()))!
                     let endDate = Calendar.current.date(byAdding: .year, value: 1, to: startDate)!
-                    startLoading{
-                        Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
-                            if let events = events {
-                                var savedEventsPk:[Int] = []
-                                var uniqueLocId = Set<Int>()
-                                var uniqueOrgId = Set<Int>()
-                                var uniquetagId = Set<Int>()
-                                for event in events {
-                                    savedEventsPk.append(event.id)
-                                    uniqueLocId.insert(event.eventLocation)
-                                    uniqueOrgId.insert(event.eventOrganizer)
-                                    event.eventTags.forEach{uniquetagId.insert($0)}
-                                    do {
-                                        let jsonData = try JSONEncoder().encode(event)
-                                        UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
-                                    } catch {
-                                        print (error)
-                                    }
+                    startLoading {
+                        Internet.fetchEverything(timestamp: startDate, start: startDate, end: endDate, completion: { (events, orgs, tags, locations) in
+                            var savedEventsPk:[Int] = []
+                            for event in events {
+                                savedEventsPk.append(event.id)
+                                do {
+                                    let jsonData = try JSONEncoder().encode(event)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
+                                } catch {
+                                    print(error)
                                 }
-                                //update locationion, orgs, tags
-                                uniqueLocId.forEach{ tagId in
-                                    let group = DispatchGroup()
-                                    group.enter()
-                                    DispatchQueue.global(qos: .default).async {
-                                        _ = getLocationPlaceIdTuple(by: tagId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {
-                                            group.leave()
-                                        }, noConnection: {}, updateData: true)
-                                    }
-                                    group.wait()
-                                }
-                                uniqueOrgId.forEach{ orgId in
-                                    let group = DispatchGroup()
-                                    group.enter()
-                                    DispatchQueue.global(qos: .default).async {
-                                        _ = getOrganization(by: orgId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {group.leave()}, noConnection: {}, updateData: true)
-                                    }
-                                    group.wait()
-                                }
-                                uniquetagId.forEach{ tagId in
-                                    let group = DispatchGroup()
-                                    group.enter()
-                                    DispatchQueue.global(qos: .default).async {
-                                        _ = getTag(by: tagId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {group.leave()}, noConnection: {}, updateData: true)
-                                    }
-                                    group.wait()
-                                }
-                                UserDefaults.standard.set(savedEventsPk, forKey: SAVED_EVENTS_KEY)
-                                runAsyncFunction({
-                                    NotificationCenter.default.post(name: .reloadData, object: nil)
-                                    endLoading()
-                                })
                             }
+                            for org in orgs {
+                                do {
+                                    let jsonData = try JSONEncoder().encode(org)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(ORG_QUERY_KEY)\(org.id)")
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                            for tag in tags {
+                                do {
+                                    let jsonData = try JSONEncoder().encode(tag)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(TAG_QUERY_KEY)\(tag.id)")
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                            for location in locations {
+                                do {
+                                    let jsonData = try JSONEncoder().encode(location)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(LOC_QUERY_KEY)\(location.id)")
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                            UserDefaults.standard.set(savedEventsPk, forKey: SAVED_EVENTS_KEY)
+                            runAsyncFunction({
+                                NotificationCenter.default.post(name: .reloadData, object: nil)
+                                endLoading()
+                            })
                         })
                     }
                 }
-                
-            }
-            else {
+
+            } else {
                 noConnection()
             }
         }
@@ -275,7 +260,7 @@ class AppData {
         }
         return []
     }
-    
+
     /**
      Retrieves all events associated with tag tag.
      */
@@ -289,8 +274,7 @@ class AppData {
         }
         return filteredEvents
     }
-    
-    
+
     /**
      Retrieves all events associated with organization organization.
      */
@@ -304,14 +288,13 @@ class AppData {
         }
         return filteredEvents
     }
-    
+
     /**
      Runs `function` asynchronously. Use when attempting to modify UI from functions that involve internet connections. This is required because the UI thread must be independent from the internet threads in iOS, and not using this function will result in an exception.
      - parameter function: Function to run
      */
-    private static func runAsyncFunction(_ function:(() -> ())?)
-    {
-        if (function == nil) {
+    private static func runAsyncFunction(_ function:(() -> Void)?) {
+        if function == nil {
             return
         }
         DispatchQueue.main.async(execute: {
@@ -319,5 +302,3 @@ class AppData {
         })
     }
 }
-
-

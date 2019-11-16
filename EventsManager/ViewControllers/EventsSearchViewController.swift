@@ -28,7 +28,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
     //constants
     let gAnalyticsScreenName = "search pg"
-    
+
     let headerFontSize: CGFloat = 16
 
     //view element
@@ -40,7 +40,6 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         setLayouts()
     }
 
-
     /**
      Update the data source based on filtered Events
      */
@@ -49,7 +48,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         sectionDates = eventsDateData.0
         eventsOnDate = eventsDateData.1
     }
-    
+
     func orgAlreadyExists(target: Organization, orgs: [Organization]) -> Bool {
         for org in orgs {
             if org.id == target.id {
@@ -58,7 +57,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         }
         return false
     }
-    
+
     func tagAlreadyExists(target: Int, tags: [Int]) -> Bool {
         for tag in tags {
             if tag == target {
@@ -75,12 +74,12 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
         tags = []
         for event in events {
             let org = AppData.getOrganization(by: event.eventOrganizer, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
-            if !orgAlreadyExists(target: org, orgs: organizations){
+            if !orgAlreadyExists(target: org, orgs: organizations) {
                 organizations.append(org)
             }
-            
+
             for target in event.eventTags {
-                if !tagAlreadyExists(target: target, tags: tags){
+                if !tagAlreadyExists(target: target, tags: tags) {
                     tags.append(target)
                 }
             }
@@ -296,6 +295,5 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
             filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
-    
 
 }

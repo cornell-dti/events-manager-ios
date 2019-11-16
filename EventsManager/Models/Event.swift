@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Event:Codable {
+struct Event:Codable, Hashable {
     let id: Int
     let startTime: Date
     let endTime: Date
     let eventName: String
-    let eventLocation: Int //TODO: get rid
+    let eventLocation: Int
     let eventImage: URL //id
     let eventOrganizer: Int
     let eventDescription: String
@@ -21,7 +21,7 @@ struct Event:Codable {
     let eventParticipantCount: Int
     let isPublic: Bool
     let location: Location
-    
+
     private enum CodingKeys: String, CodingKey {
         case id = "id"
         case startTime = "start_time"
@@ -36,7 +36,7 @@ struct Event:Codable {
         case isPublic = "is_public"
         case location
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)

@@ -8,6 +8,16 @@ jobs:
       - uses: actions/checkout@master
       - name: Run SwiftLint
         run: ./Pods/SwiftLint/swiftlint
+      - name: Try to autocorrect
+        run: ./Pods/SwiftLint/swiftlint autocorrect
+      - name: Check SwiftLint style
+        run: |
+          if [[ `git status --porcelain` ]]; then
+            echo "You have some swiftlint problems that can be autocorrected."
+            echo "Please run ./Pods/SwiftLint/swiftlint autocorrect before commit."
+          else
+            echo "Style is good!"
+          fi
   build:
     runs-on: macOS-latest
     steps:

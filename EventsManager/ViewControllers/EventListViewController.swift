@@ -17,10 +17,10 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     //Constants
     let headerFontSize: CGFloat = 16
-    
+
     //let datePicker = MyEventsDatePickerView()
     let tableView = UITableView(frame: CGRect(), style: .grouped)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.largeTitleTextAttributes = [
@@ -28,20 +28,19 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
             NSAttributedString.Key.foregroundColor: UIColor.blue
         ]
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: animated)
         }
     }
-    
-    
+
     func setup(with events: [Event], title: String, withFilterBar: Bool) {
         self.navigationItem.title = title
         let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: events)
         sectionDates = eventsDateData.0
         eventsOnDate = eventsDateData.1
-    
+
         //TableView
         tableView.backgroundColor = UIColor.white
         tableView.delegate = self
@@ -56,40 +55,39 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
             make.bottom.equalTo(view)
         }
     }
-    
+
     @objc func refresh(sender:AnyObject) {
         // Code to refresh table view
         self.tableView.reloadData()
     }
-    
-    
+
     //TABLEVIEW DELEGATE METHODS
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionDates.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return eventsOnDate[section].count
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "\(DateFormatHelper.dayOfWeek(from: sectionDates[section])), \(DateFormatHelper.month(from: sectionDates[section])) \(DateFormatHelper.day(from: sectionDates[section]))"
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: EventsDiscoveryTableViewCell.identifer) as! EventsDiscoveryTableViewCell
         let event = eventsOnDate[indexPath.section][indexPath.row]
         cell.configure(event: event)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.black
         header.textLabel?.font = UIFont.boldSystemFont(ofSize: headerFontSize)
     }
-    
+
     /*
      segue to the selected eventsDetailController
      */

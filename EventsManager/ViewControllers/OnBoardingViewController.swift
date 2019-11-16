@@ -58,13 +58,13 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: .reloadData, object: nil)
-        
+
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
-        let _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
     }
-    
+
     /**
      Calls AppData to update locally saved data.
      */
@@ -88,13 +88,11 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
         filteredOrganizations = organizations
         tableView.reloadData()
     }
-    
 
     /**
      Sets the basic layout of the view
      */
     func setLayouts() {
-        
 
         //navigation stuffs
         if #available(iOS 11, *) {
@@ -252,13 +250,13 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     @objc func onBoardingForwardButtonClicked(_ sender: UIButton) {
         switch currentOnBoardingProcess {
             case .chooseOrganization:
-               
+
                     currentOnBoardingProcess = .chooseTags
                     navigationItem.titleView = setTitle(title: NSLocalizedString("onboarding-interest-title", comment: ""), subtitle: NSLocalizedString("onboarding-interest-description", comment: ""))
                     searchController.isActive = false
                     tableView.reloadData()
                     setNavigatorFowardButtonStatus()
-            
+
             case .chooseTags:
                 for orgId in checkedOrganizationIDs {
                     _ = UserData.follow(organization: orgId)
@@ -383,7 +381,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     })
                     filteredResults = filteredOrganizations
                 case .chooseTags:
-                    filteredTags = tags.filter ({ (tag: Tag) -> Bool in
+                    filteredTags = tags.filter({ (tag: Tag) -> Bool in
                         return tag.name.lowercased().contains(searchText.lowercased())
                     })
                     filteredResults = filteredTags

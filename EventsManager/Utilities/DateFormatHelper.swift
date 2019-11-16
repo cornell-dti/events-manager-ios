@@ -17,16 +17,15 @@ class DateFormatHelper {
         let day2 = myCalendar.component(.day, from: end)
         return month1 == month2 && day1 == day2
     }
-    
+
     public static func formatDateRange(from start: Date, to end: Date) -> String {
-        if(isWithinSameDay(from: start, to: end)){
+        if isWithinSameDay(from: start, to: end) {
             return "\(dayAbbreviationOfWeek(from: start)). \(month(from: start)) \(day(from: start)), \(hourMinute(from: start)) - \(hourMinute(from: end)) "
-        }
-        else{
+        } else {
             return "\(month(from: start)) \(day(from: start)), \(hourMinute(from: start)) - \(month(from: end)) \(day(from: end)), \(hourMinute(from: end))"
         }
     }
-    
+
     private static let timeStampFromStringFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -34,7 +33,7 @@ class DateFormatHelper {
         formatter.timeZone = TimeZone(abbreviation: "EST")
         return formatter
     }()
-    
+
     private static let datetimeFromStringFormatter: DateFormatter = {
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -102,9 +101,6 @@ class DateFormatHelper {
     public static func dayAbbreviationOfWeek(from date: Date) -> String {
         let myCalendar = Calendar.current
         let weekDay = myCalendar.component(.weekday, from: date)
-        print("----")
-        print(self.date(from: date))
-        print(weekDay)
         switch weekDay {
             case 1: return NSLocalizedString("date-format-week-day-abbr-sun", comment: "")
             case 2: return NSLocalizedString("date-format-week-day-abbr-mon", comment: "")
