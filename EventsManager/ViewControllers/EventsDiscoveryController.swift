@@ -42,12 +42,12 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        preloadCells()
         
         //data update
         NotificationCenter.default.addObserver(self, selector: #selector(preloadCells), name: .reloadData, object: nil)
         loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        preloadCells()
         
         setup()
     }
@@ -102,7 +102,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     func setup() {
         //refresh control
         refreshControl.tintColor = UIColor(named: "primaryPink")
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("loading", comment: ""))
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
@@ -135,8 +135,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @objc func refresh(sender:AnyObject) {
-        _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
-        refreshControl.endRefreshing()
+        _ = AppData.getEvents(startLoading: GenericLoadingHelper.voidLoading(), endLoading: {
+            self.refreshControl.endRefreshing()
+        }, noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
     }
 
     /**

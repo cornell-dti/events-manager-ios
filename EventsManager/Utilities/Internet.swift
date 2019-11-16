@@ -46,7 +46,7 @@ class Internet {
         }
     }
     
-    static func fetchEverything(timestamp: Date, start: Date, end: Date, completion: @escaping([Event], [Organization], [Tag], [Location]) -> Void) {
+    static func fetchEverything(timestamp: Date, start: Date, end: Date, completion: @escaping(Set<Event>, Set<Organization>, Set<Tag>, Set<Location>) -> Void) {
         
         let URL = Endpoint.getURLString(address: .eventsFeedAddress, queryParams: [
             .timeStamp: DateFormatHelper.timestamp(from: timestamp),
@@ -76,11 +76,11 @@ class Internet {
                             }
                         }
                     }
-                    completion(Array(events), Array(orgs), Array(tags), Array(locations))
+                    completion(events, orgs, tags, locations)
                     
                 case .failure(let error):
                     print(error)
-                    completion([], [], [], [])
+                    completion(Set(), Set(), Set(), Set())
                 }
         }
     }
