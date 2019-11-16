@@ -106,34 +106,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        var valid = false
-        let stack = UINavigationController(rootViewController: TabBarViewController())
-        let pathComponents = url.pathComponents
-        //if url is https://www.cuevents.org/org/6 then pathComponents is ["/", "org", "6"]
-        if pathComponents.count >= 3 && Int(pathComponents[2]) != nil {
-            if pathComponents[1] == "org" {
-                let orgId = Int(pathComponents[2])!
-                let org = OrganizationViewController()
-                org.configure(organizationPk: orgId)
-                stack.pushViewController(org, animated: true)
-                valid = true
-            }
-            if pathComponents[1] == "event" {
-                let eventId = Int(pathComponents[2])!
-                let event = EventDetailViewController()
-                event.configure(with: eventId)
-                stack.pushViewController(event, animated: true)
-                valid = true
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+          let url = userActivity.webpageURL,
+          let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return false
+        }
+        let category = String(components.path.split(separator: "/")[0])
+        let id = components.path.digits
+        if category == "event" {
+            if let tabVC = window?.rootViewController as? TabBarViewController {
+                let detailsVC = EventDetailViewController()
+                detailsVC.configure(with: Int(id)!)
+                tabVC.selectedIndex = tabVC.discoverIndex
+                tabVC.discoverNavVC.pushViewController(detailsVC, animated: true)
             }
         }
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = stack
-        self.window?.makeKeyAndVisible()
-        return valid
-    }
-
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         return false
     }
 }
