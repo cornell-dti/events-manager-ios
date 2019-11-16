@@ -34,7 +34,6 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setup()
 
         let currentSeconds = Calendar.current.component(.second, from: Date())
-        
         var user = UserData.getLoggedInUser()
         if currentSeconds - user!.timeSinceNotification > 604800 { //if a week (or greater) has elapsed
             scheduleNotification()
@@ -79,14 +78,10 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
-        
         let center = UNUserNotificationCenter.current()
-        
         if let user = UserData.getLoggedInUser() {
-            
             if user.reminderEnabled {
                 let firstEvent = labelEventsPair[0].1[0] //first event in labelEventsPair array, for initialization purposes
-                
                 var max = 0
                 var mostPopularEvent = firstEvent
                 for pair in labelEventsPair {
@@ -97,38 +92,30 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         }
                     }
                 }
-                
                 let content = UNMutableNotificationContent()
                 content.title = NSLocalizedString("notification-weekly-title", comment: "")
                 content.body = "\(mostPopularEvent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
                 content.sound = .default
-                
-                let minutesBeforeEvent = 1440 //24 hours before
+                let minutesBeforeEvent = 2880 //24 hours before
                 let minuteComp = DateComponents(minute: -minutesBeforeEvent)
                 let remindDate = Calendar.current.date(byAdding: minuteComp, to: mostPopularEvent.startTime)
                 if let remindDate = remindDate {
                     let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second ], from: remindDate)
                     let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
                                                                 repeats: false)
-                    
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(mostPopularEvent.id)"
-                    
                     let request = UNNotificationRequest(identifier: notificationIdentifier,
                                                         content: content, trigger: trigger)
-                    
                     center.getPendingNotificationRequests(completionHandler: { requests in
                         if !(requests.contains(request)) {
                             center.add(request, withCompletionHandler: { (_) in
                             })
-                            
                             Analytics.logEvent("tailoredNotificationAdded", parameters: [
                                 "notificationName": mostPopularEvent.eventName
                             ])
                         }
                     })
-                    
                 }
-                
             }
         }
     }

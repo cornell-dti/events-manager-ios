@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             Analytics.logEvent("tailoredNotificationClicked", parameters: [
                 "description": response.notification.request.content
             ])
-        }  else {
+        } else {
             Analytics.logEvent("notificationClicked", parameters: [
                 "description": response.notification.request.content
             ])
