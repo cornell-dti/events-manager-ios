@@ -22,6 +22,7 @@ struct User: Codable {
     var tagClicks: [Int:Int]
     var reminderEnabled: Bool
     var reminderTime: Int
+    var timeSinceNotification: Int
 
     private enum CodingKeys: String, CodingKey {
         case netID = "net_id"
@@ -37,6 +38,7 @@ struct User: Codable {
         case tagClicks = "tag_clicks"
         case reminderEnabled = "reminder_enabled"
         case reminderTime = "reminder_time"
+        case timeSinceNotification = "time_since_notification"
     }
 
     func encode(to encoder: Encoder) throws {
@@ -54,6 +56,7 @@ struct User: Codable {
         try container.encode(tagClicks, forKey: .tagClicks)
         try container.encode(reminderEnabled, forKey: .reminderEnabled)
         try container.encode(reminderTime, forKey: .reminderTime)
+        try container.encode(timeSinceNotification, forKey: .timeSinceNotification)
     }
 
 }
