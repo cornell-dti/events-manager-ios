@@ -4,6 +4,8 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
+		<string>applinks:cuevents.org</string>
+		<string>applinks:www.cuevents.org</string>
 		<string>applinks:rodtai.github.io</string>
 	</array>
 </dict>

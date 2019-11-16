@@ -9,6 +9,11 @@
 import UIKit
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
+    
+    let discoverIndex = 0
+    let forYouIndex = 1
+    let myEventsIndex = 2
+    let myProfileIndex = 3
 
     var discoverNavVC = UINavigationController()
     var myEventsNavVC = UINavigationController()
