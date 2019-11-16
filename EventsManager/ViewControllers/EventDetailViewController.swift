@@ -574,6 +574,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 Analytics.logEvent("bookmarked", parameters: [
                     "eventName": event?.eventName ?? ""
                     ])
+                print("got here")
                 if let event = event {
                     if !user.bookmarkedEvents.contains(event.id) {
                         user.bookmarkedEvents.append(event.id)
@@ -619,8 +620,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
                 }
-                _ = UserData.login(for: user)
             }
+            _ = UserData.login(for: user)
         }
     }
         
