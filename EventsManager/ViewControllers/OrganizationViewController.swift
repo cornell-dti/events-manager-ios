@@ -367,7 +367,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             popularHeader.setMainTitle(NSLocalizedString("popular-events", comment: "").uppercased())
             popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
             popularHeader.editButton.addTarget(self, action: #selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
-            popularHeader.editButton.isHidden = popularEvents.isEmpty
             header = popularHeader
         }
         return header
@@ -401,7 +400,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
      */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton) {
         let popularListViewController = EventListViewController()
-        popularListViewController.setup(with: popularEvents, title: "", withFilterBar: false)
+        popularListViewController.setup(with: popularEvents, title: organization?.name ?? "", withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
     
