@@ -91,6 +91,7 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - SnapKit (4.0.1)
+  - SwiftLint (0.37.0)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -101,6 +102,7 @@ DEPENDENCIES:
   - GoogleSignIn (~> 5.0)
   - Kingfisher (~> 4.0)
   - SnapKit (~> 4.0.0)
+  - SwiftLint
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
@@ -125,6 +127,7 @@ SPEC REPOS:
     - Kingfisher
     - nanopb
     - SnapKit
+    - SwiftLint
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -148,8 +151,9 @@ SPEC CHECKSUMS:
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftLint: c078a14d7d7ade75e5507795d185e3da41d844d2
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 3951afcb2fc11a2ac9d718cec89e8dfa540671ce
+PODFILE CHECKSUM: 60e985a7a961d6d705de05cfe4c5e66ca1896e88
 
 COCOAPODS: 1.8.4

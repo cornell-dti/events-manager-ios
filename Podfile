@@ -15,6 +15,7 @@ target 'EventsManager' do
   pod 'Firebase/Analytics'
 	pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'SwiftLint'
 
   target 'EventsManagerTests' do
     inherit! :search_paths
