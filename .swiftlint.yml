@@ -1,4 +1,9 @@
 disabled_rules:
+  - implicit_getter
+  - nesting
+  - redundant_string_enum_value
+  - large_tuple
+  - switch_case_alignment
   - colon
   - identifier_name
   - line_length

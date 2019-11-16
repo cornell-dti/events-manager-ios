@@ -10,13 +10,13 @@ import UIKit
 import Firebase
 
 class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCardCellDelegate {
-    
+
     //used for refreshing the view controller
     var refreshControl = UIRefreshControl()
 
     //Constants
     let gAnalyticsScreenName = "discover pg"
-    
+
     let headerHeight: CGFloat = 35
 
     let popularEventsSection = 0
@@ -38,17 +38,17 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     var events = [Event]()
     var popularEvents = [Event]()
     var todayEvents = [Event]()
-    var tomorrowEvents = [Event] ()
+    var tomorrowEvents = [Event]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        preloadCells()
-        
+
         //data update
         NotificationCenter.default.addObserver(self, selector: #selector(preloadCells), name: .reloadData, object: nil)
         loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
-        
+        preloadCells()
+
         setup()
     }
 
@@ -60,18 +60,17 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      Cells are loaded into the @cells dictionary
     */
     @objc func preloadCells() {
-        
+
         popularEvents = []
         todayEvents = []
         tomorrowEvents = []
-        
+
         events = AppData.getEvents(startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
         popularEvents = events.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         for ev in events {
-            if (Calendar.current.isDateInToday(ev.startTime)) {
+            if Calendar.current.isDateInToday(ev.startTime) {
                 todayEvents.append(ev)
-            }
-            else if (Calendar.current.isDateInTomorrow(ev.startTime)){
+            } else if Calendar.current.isDateInTomorrow(ev.startTime) {
                 tomorrowEvents.append(ev)
             }
         }
@@ -92,7 +91,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         for (_, cell) in cells {
             cell.delegate = self
         }
-        
+
         tableView.reloadData()
     }
 
@@ -102,7 +101,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     func setup() {
         //refresh control
         refreshControl.tintColor = UIColor(named: "primaryPink")
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("loading", comment: ""))
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
@@ -130,13 +129,13 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         tableView.snp.makeConstraints { (make) -> Void in
             make.edges.equalTo(view)
         }
-        
 
     }
-    
+
     @objc func refresh(sender:AnyObject) {
-        _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
-        refreshControl.endRefreshing()
+        _ = AppData.getEvents(startLoading: GenericLoadingHelper.voidLoading(), endLoading: {
+            self.refreshControl.endRefreshing()
+        }, noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
     }
 
     /**

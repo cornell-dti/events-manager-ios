@@ -13,7 +13,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     //used for refreshing the view controller
     var refreshControl = UIRefreshControl()
-    
+
     var myEvents: [Event] = [] //all my events
     var events: [Event] = []
     var sectionDates: [Date] = [] //valid date sections, sorted from small date to large date, unique
@@ -21,10 +21,10 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     //Constants
     let headerFontSize: CGFloat = 16
-    
+
     //let datePicker = MyEventsDatePickerView()
     let tableView = UITableView(frame: CGRect(), style: .grouped)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl.tintColor = UIColor(named: "primaryPink")
@@ -32,20 +32,19 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: animated)
         }
     }
-    
-    
+
     func setup(with events: [Event], title: String, withFilterBar: Bool) {
         navigationItem.title = title
         let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: events)
         sectionDates = eventsDateData.0
         eventsOnDate = eventsDateData.1
-    
+
         //TableView
         tableView.backgroundColor = UIColor.white
         tableView.delegate = self
@@ -60,41 +59,40 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
             make.bottom.equalTo(view)
         }
     }
-    
+
     @objc func refresh(sender:AnyObject) {
         // Code to refresh table view
         self.tableView.reloadData()
         refreshControl.endRefreshing()
     }
-    
-    
+
     //TABLEVIEW DELEGATE METHODS
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionDates.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return eventsOnDate[section].count
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "\(DateFormatHelper.dayOfWeek(from: sectionDates[section])), \(DateFormatHelper.month(from: sectionDates[section])) \(DateFormatHelper.day(from: sectionDates[section]))"
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: EventsDiscoveryTableViewCell.identifer) as! EventsDiscoveryTableViewCell
         let event = eventsOnDate[indexPath.section][indexPath.row]
         cell.configure(event: event)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.black
         header.textLabel?.font = UIFont.boldSystemFont(ofSize: headerFontSize)
     }
-    
+
     /*
      segue to the selected eventsDetailController
      */

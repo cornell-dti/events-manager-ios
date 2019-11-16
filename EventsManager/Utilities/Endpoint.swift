@@ -9,7 +9,7 @@ import Foundation
 
 class Endpoint {
     public static let baseURL = "https://cuevents-app.herokuapp.com/"
-    
+
     public enum Addresses {
         case serverTokenAddress
         case tagAddress
@@ -22,15 +22,18 @@ class Endpoint {
         case decrementAttendanceAddress
         case eventUniversalLink
     }
-    
+
     public enum QueryParam {
         case tagPk
         case locationPk
         case eventPk
         case organizationPk
         case googleToken
+        case timeStamp
+        case startTime
+        case endTime
     }
-    
+
     public static func getURLString (address: Addresses, queryParams : [QueryParam:String]) -> String {
         switch address {
         case .serverTokenAddress:
@@ -40,7 +43,7 @@ class Endpoint {
         case .locationAddress:
             return baseURL + "loc/" + queryParams[.locationPk]! + "/"
         case .eventsFeedAddress:
-            return baseURL + "feed/events/"
+            return baseURL + "feed/events/?timestamp=\(queryParams[.timeStamp]!)&start=\(queryParams[.startTime]!)&end=\(queryParams[.endTime]!)"
         case .eventDetailsAddress:
             return baseURL + "event/" + queryParams[.eventPk]! + "/"
         case .organizationAddress:
@@ -55,5 +58,5 @@ class Endpoint {
             return "https://www.cuevents.org/event/" + queryParams[.eventPk]! + "/"
         }
     }
-    
+
 }

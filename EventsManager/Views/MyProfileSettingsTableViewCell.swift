@@ -159,8 +159,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
             case .none:
                 notifyTimePickerButton.setTitle(NSLocalizedString("my-profile-reminder-none", comment: ""), for: .normal)
             }
-        }
-        else {
+        } else {
             eventRemindersSwitch.isOn = false
             toggleNotifyMeSelectorDisabled()
         }
@@ -196,8 +195,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         _ = UserData.setReminderEnabled(rem: sender.isOn)
         if sender.isOn {
             _ = UserData.setReminderTime(timeReminderOption: .fifteenMinutesBefore)
-        }
-        else {
+        } else {
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
     }

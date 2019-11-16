@@ -13,7 +13,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
 
     //constants
     let gAnalyticsScreenName = "my profile pg"
-    
+
     let sectionCount = 3
     let followingOrganizationsSetion = 0
     let followingTagsSection = 1

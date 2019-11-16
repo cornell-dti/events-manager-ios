@@ -11,7 +11,7 @@ import Firebase
 class MyProfileTagsTableViewCell: UITableViewCell {
 
     static let identifier = "myProfileTagsTableViewCell"
-    
+
     var navigationController: UINavigationController?
 
     //constants
@@ -70,8 +70,7 @@ class MyProfileTagsTableViewCell: UITableViewCell {
             tagStack.addArrangedSubview(tagButton)
         }
     }
-    
-    
+
     /**
      Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
      - sender: the sender of the action.
