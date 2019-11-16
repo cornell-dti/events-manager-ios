@@ -42,7 +42,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
 
     //Constants
     let gAnalyticsScreenName = "org profile pg"
-    
+
     let sectionViewPadding: CGFloat = 15
     let orgNameFontSize: CGFloat = 20
     let orgNameToSettingSpacing: CGFloat = 20
@@ -64,7 +64,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     let tagScrollViewHeight: CGFloat = 50
     let tagHorizontalSpacing: CGFloat = 8
     let buttonHeight: CGFloat = 40
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -79,8 +79,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         setLayouts()
     }
-    
-    
 
     /**
      Allow client to configure the event detail page by passing in an organization object
@@ -88,10 +86,10 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     public func configure(organizationPk: Int) {
         let loadingVC = LoadingViewController()
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
-        
+
         let organization = AppData.getOrganization(by: organizationPk, startLoading: {_ in}, endLoading: {}, noConnection: {}, updateData: false)
         self.organization = organization
-        
+
         followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
         aboutLabel.text = NSLocalizedString("about", comment: "")
         websiteLabel.text = NSLocalizedString("website", comment: "")
@@ -104,7 +102,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         emailContentLabel.text = organization.email
         bioContentLabel.text = organization.description
 
-        
         popularEvents = AppData.getEventsAssociatedWith(organization: organizationPk)
 
         getTags()
@@ -114,7 +111,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             tagButton.addTarget(self, action: #selector(self.tagButtonPressed(_:)), for: .touchUpInside)
             tagStack.addArrangedSubview(tagButton)
         }
-        
+
         if let user = UserData.getLoggedInUser() {
             if user.followingOrganizations.contains(organizationPk) {
                 if !followButton.activated {
@@ -124,8 +121,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
     }
-    
-    
 
     /** Sets all the layout elements in the view */
     public func setLayouts() {
@@ -169,13 +164,13 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         rightLowerStack.alignment = .center
         rightLowerStack.distribution = .fill
         rightLowerStack.spacing = memberToFollowButtonSpacing
-        
+
         followButton.layer.cornerRadius = buttonHeight / 2
         followButton.addTarget(self, action: #selector(self.followButtonPressed(_:)), for: .touchUpInside)
         followButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
         }
-        
+
         orgAvatar.snp.makeConstraints { make in
             make.width.equalTo(orgAvatarSideLength)
             make.height.equalTo(orgAvatarSideLength)
@@ -375,7 +370,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight
     }
-    
+
     /**
      Handler for the pressing action of tag buttons. Should segue to the correct tagview controller.
      - sender: the sender of the action.
@@ -403,16 +398,15 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         popularListViewController.setup(with: popularEvents, title: "", withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
-    
-    @objc func followButtonPressed(_ sender: UIButton){
+
+    @objc func followButtonPressed(_ sender: UIButton) {
         if followButton.activated {
             followButton.setTitle(NSLocalizedString("follow-button", comment: ""), for: .normal)
             if var user = UserData.getLoggedInUser() {
-                user.followingOrganizations = user.followingOrganizations.filter{$0 != self.organization?.id ?? -1}
+                user.followingOrganizations = user.followingOrganizations.filter {$0 != self.organization?.id ?? -1}
                 _ = UserData.login(for: user)
             }
-        }
-        else {
+        } else {
             followButton.setTitle(NSLocalizedString("followed-button", comment: ""), for: .normal)
             if var user = UserData.getLoggedInUser() {
                 if let organization = organization {

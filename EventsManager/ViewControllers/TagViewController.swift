@@ -54,7 +54,7 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.snp.makeConstraints { (make) -> Void in
             make.edges.equalTo(view)
         }
-        
+
         setFollowButtonText()
         followButton.target = self
         followButton.action = #selector(self.followButtonPressed(_:))
@@ -99,30 +99,27 @@ class TagViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         detailsViewController.configure(with: events[indexPath.row].id)
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
-    
+
     func setFollowButtonText() {
         if let user = UserData.getLoggedInUser() {
             if user.followingTags.contains(tag) {
                 followButton.title = NSLocalizedString("unfollow-tag", comment: "")
-            }
-            else {
+            } else {
                 followButton.title = NSLocalizedString("follow-tag", comment: "")
             }
-        }
-        else {
+        } else {
             followButton.title = NSLocalizedString("follow-tag", comment: "")
         }
     }
-    
+
     @objc func followButtonPressed(_ sender: UIBarButtonItem) {
         if var user = UserData.getLoggedInUser() {
             if user.followingTags.contains(tag) {
-                user.followingTags = user.followingTags.filter{$0 != tag}
-            }
-            else {
+                user.followingTags = user.followingTags.filter {$0 != tag}
+            } else {
                 user.followingTags.append(tag)
             }
-            let _ = UserData.login(for: user)
+            _ = UserData.login(for: user)
         }
         setFollowButtonText()
     }

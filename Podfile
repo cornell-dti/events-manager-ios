@@ -14,7 +14,7 @@ target 'EventsManager' do
   pod 'GoogleSignIn', '~> 5.0'
   pod 'Firebase/Analytics'
 	pod 'Alamofire', '~> 4.7'
-	pod 'SwiftyJSON', '~> 4.0'
+  pod 'SwiftyJSON', '~> 4.0'
 
   target 'EventsManagerTests' do
     inherit! :search_paths

@@ -80,11 +80,11 @@ class UserData {
             UserDefaults.standard.set(jsonData, forKey: USER_INFO_KEY)
             return true
         } catch {
-            print (error)
+            print(error)
             return false
         }
     }
-    
+
     static func serverToken() -> String? {
         if let user = UserData.getLoggedInUser() {
             return user.serverAuthToken
@@ -117,7 +117,7 @@ class UserData {
         }
         return false
     }
-    
+
     /**
      Set reminderEnabled
     */
@@ -128,46 +128,44 @@ class UserData {
         }
         return false
     }
-    
 
     /**
      Get reminderEnabled
      */
-    
+
     static func getReminderEnabled() -> Bool? {
         if let user = UserData.getLoggedInUser() {
             return user.reminderEnabled
         }
-        
+
         return nil
     }
 
     /**
      Set reminderTime
      */
-    
+
     static func setReminderTime(timeReminderOption: ReminderTimeOptions) -> Bool {
         if var user = UserData.getLoggedInUser() {
             user.reminderTime = ReminderTimeOptions.getInt(from: timeReminderOption)
             return UserData.login(for: user)
         }
         return false
-        
+
     }
 
     /**
      Get reminderTime
      */
-    
+
     static func getReminderTime() -> Int? {
         if let user = UserData.getLoggedInUser() {
             return user.reminderTime
         }
         return nil
-        
+
     }
 
-    
     /**
      Check if user has completed the onboarding process.
      */
@@ -179,39 +177,37 @@ class UserData {
         }
         return false
     }
-    
+
     /**
      Add a click count to the organization specified by parameter pk
      */
-    static func addClickForOrganization(pk: Int) -> Bool{
+    static func addClickForOrganization(pk: Int) -> Bool {
         if var user = UserData.getLoggedInUser() {
             if user.organizationClicks[pk] != nil {
                 user.organizationClicks[pk] = user.organizationClicks[pk]! + 1
-            }
-            else {
+            } else {
                 user.organizationClicks[pk] = 1
             }
             return UserData.login(for: user)
         }
         return false
     }
-    
+
     /**
      Add a click count to the organization specified by parameter pk
      */
-    static func addClickForTag(pk: Int) -> Bool{
+    static func addClickForTag(pk: Int) -> Bool {
         if var user = UserData.getLoggedInUser() {
             if user.tagClicks[pk] != nil {
                 user.tagClicks[pk] = user.tagClicks[pk]! + 1
-            }
-            else {
+            } else {
                 user.tagClicks[pk] = 1
             }
             return UserData.login(for: user)
         }
         return false
     }
-    
+
     /**
      Add a click for all tags associated with this event and the organization associated with this event.
      */
@@ -219,22 +215,20 @@ class UserData {
         if var user = UserData.getLoggedInUser() {
             if user.organizationClicks[event.eventOrganizer] != nil {
                 user.organizationClicks[event.eventOrganizer] = user.organizationClicks[event.eventOrganizer]! + 1
-            }
-            else {
+            } else {
                 user.organizationClicks[event.eventOrganizer] = 1
             }
             for tag in event.eventTags {
                 if user.tagClicks[tag] != nil {
                     user.tagClicks[tag] = user.tagClicks[tag]! + 1
-                }
-                else {
+                } else {
                     user.tagClicks[tag] = 1
                 }
             }
         }
         return false
     }
-    
+
     /**
      Retrieve an array of tuples containing labels indicating recommended type (e.g. "Based on #Cornell DTI"), and
      events that belongs to this type.

@@ -45,7 +45,7 @@ class EventCard: UIView {
     let cardRadius: CGFloat = 20
     let bookmarkIconWidth: CGFloat = 16
     let bookmarkIconHeight: CGFloat = 18
-    
+
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
 
     override init(frame: CGRect) {
@@ -102,7 +102,7 @@ class EventCard: UIView {
             make.width.equalTo(bookmarkIconWidth)
             make.height.equalTo(bookmarkIconHeight)
         }
-        
+
         let dateStack = UIStackView(arrangedSubviews: [monthLabel, dayLabel])
         dateStack.distribution = .fill
         dateStack.alignment = .center

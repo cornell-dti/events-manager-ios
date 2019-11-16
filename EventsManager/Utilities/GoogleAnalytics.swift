@@ -9,14 +9,14 @@ import Foundation
 import FirebaseAnalytics
 
 class GoogleAnalytics {
-    
+
     static func trackEvent(category: String, action: String, label: String) {
         Analytics.logEvent("eventClicked", parameters: [
             "category": category,
             "action": action,
             "label": label
-            
+
             ])
     }
-    
+
 }

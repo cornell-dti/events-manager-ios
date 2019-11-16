@@ -22,7 +22,7 @@ class EventTagButton: UIButton {
         super.init(frame: frame)
         layoutUI()
     }
-    
+
     func setTag(with pk: Int) {
         tagPk = pk
         setTitle("    \(AppData.getTag(by: pk, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name)    ", for: state)
