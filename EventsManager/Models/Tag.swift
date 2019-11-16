@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Tag:Codable {
+struct Tag:Codable, Hashable {
     let id: Int
     let name: String
     
@@ -22,4 +22,5 @@ struct Tag:Codable {
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
     }
+    
 }

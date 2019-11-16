@@ -411,7 +411,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     /* Allow client to configure the event detail page by passing in an event object */
     func configure(with eventPk: Int) {
         let event = AppData.getEvent(pk: eventPk, startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
-        print(event)
         self.event = event
         if let user = UserData.getLoggedInUser() {
             if user.bookmarkedEvents.contains(event.id) {

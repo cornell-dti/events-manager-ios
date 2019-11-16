@@ -46,21 +46,57 @@ class Internet {
         }
     }
     
+    static func fetchEverything(timestamp: Date, start: Date, end: Date, completion: @escaping([Event], [Organization], [Tag], [Location]) -> Void) {
+        
+        let URL = Endpoint.getURLString(address: .eventsFeedAddress, queryParams: [
+            .timeStamp: DateFormatHelper.timestamp(from: timestamp),
+            .startTime: DateFormatHelper.timestamp(from: start),
+            .endTime: DateFormatHelper.timestamp(from: end)
+        ])
+        
+        Alamofire.request(URL).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
+            { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    var events = Set<Event>()
+                    var orgs = Set<Organization>()
+                    var tags = Set<Tag>()
+                    var locations = Set<Location>()
+                    if let updatedJSON = json["events"].array {
+                        for subJSON in updatedJSON {
+                            let (event, org, subTags, location) = JSONParserHelper.parseEverything(json: subJSON)
+                            if event != nil && org != nil && location != nil{
+                                events.insert(event!)
+                                orgs.insert(org!)
+                                locations.insert(location!)
+                                for tag in subTags {
+                                    tags.insert(tag)
+                                }
+                            }
+                        }
+                    }
+                    completion(Array(events), Array(orgs), Array(tags), Array(locations))
+                    
+                case .failure(let error):
+                    print(error)
+                    completion([], [], [], [])
+                }
+        }
+    }
+    
     //Returns Array of events, array of deleted event ids, and timestamp as a string.
     static func fetchUpdatedEvents(serverToken: String, timestamp: Date, start: Date, end: Date, completion: @escaping ([Event]?, [Int]?, Date?) -> Void) {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
         headers["Authorization"] = serverToken
         
-        
-        let params = [
-            "timestamp": DateFormatHelper.timestamp(from: timestamp),
-            "start": DateFormatHelper.timestamp(from: start),
-            "end": DateFormatHelper.timestamp(from: end)
-        ]
-        
-        let URL = Endpoint.getURLString(address: .eventsFeedAddress, queryParams: [:])
-        
-        Alamofire.request(URL, parameters: params, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
+        let URL = Endpoint.getURLString(address: .eventsFeedAddress, queryParams: [
+            .timeStamp: DateFormatHelper.timestamp(from: timestamp),
+            .startTime: DateFormatHelper.timestamp(from: start),
+            .endTime: DateFormatHelper.timestamp(from: end)
+        ])
+                
+        Alamofire.request(URL).validate().responseJSON(queue: DispatchQueue.global(qos: .default))
             { response in
                 switch response.result {
                 case .success(let value):

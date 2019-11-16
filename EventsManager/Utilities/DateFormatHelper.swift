@@ -102,9 +102,6 @@ class DateFormatHelper {
     public static func dayAbbreviationOfWeek(from date: Date) -> String {
         let myCalendar = Calendar.current
         let weekDay = myCalendar.component(.weekday, from: date)
-        print("----")
-        print(self.date(from: date))
-        print(weekDay)
         switch weekDay {
             case 1: return NSLocalizedString("date-format-week-day-abbr-sun", comment: "")
             case 2: return NSLocalizedString("date-format-week-day-abbr-mon", comment: "")

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Location: Codable {
+struct Location: Codable, Hashable {
     let id: Int
     let building: String
     let room: String

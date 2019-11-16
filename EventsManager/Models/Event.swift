@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Event:Codable {
+struct Event:Codable, Hashable {
     let id: Int
     let startTime: Date
     let endTime: Date

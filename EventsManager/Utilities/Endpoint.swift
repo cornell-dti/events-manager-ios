@@ -29,6 +29,9 @@ class Endpoint {
         case eventPk
         case organizationPk
         case googleToken
+        case timeStamp
+        case startTime
+        case endTime
     }
     
     public static func getURLString (address: Addresses, queryParams : [QueryParam:String]) -> String {
@@ -40,7 +43,7 @@ class Endpoint {
         case .locationAddress:
             return baseURL + "loc/" + queryParams[.locationPk]! + "/"
         case .eventsFeedAddress:
-            return baseURL + "feed/events/"
+            return baseURL + "feed/events/?timestamp=\(queryParams[.timeStamp]!)&start=\(queryParams[.startTime]!)&end=\(queryParams[.endTime]!)"
         case .eventDetailsAddress:
             return baseURL + "event/" + queryParams[.eventPk]! + "/"
         case .organizationAddress:

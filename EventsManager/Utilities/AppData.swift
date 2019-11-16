@@ -200,57 +200,47 @@ class AppData {
                     let startDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: Date()))!
                     let endDate = Calendar.current.date(byAdding: .year, value: 1, to: startDate)!
                     startLoading{
-                        Internet.fetchUpdatedEvents(serverToken: serverToken, timestamp: startDate, start: startDate, end: endDate, completion: {events, deleted, timestamp in
-                            if let events = events {
-                                var savedEventsPk:[Int] = []
-                                var uniqueLocId = Set<Int>()
-                                var uniqueOrgId = Set<Int>()
-                                var uniquetagId = Set<Int>()
-                                for event in events {
-                                    savedEventsPk.append(event.id)
-                                    uniqueLocId.insert(event.eventLocation)
-                                    uniqueOrgId.insert(event.eventOrganizer)
-                                    event.eventTags.forEach{uniquetagId.insert($0)}
-                                    do {
-                                        let jsonData = try JSONEncoder().encode(event)
-                                        UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
-                                    } catch {
-                                        print (error)
-                                    }
+                        Internet.fetchEverything(timestamp: startDate, start: startDate, end: endDate, completion: {
+                            (events, orgs, tags, locations) in
+                            var savedEventsPk:[Int] = []
+                            for event in events {
+                                savedEventsPk.append(event.id)
+                                do {
+                                    let jsonData = try JSONEncoder().encode(event)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(EVENT_QUERY_KEY)\(event.id)")
+                                } catch {
+                                    print (error)
                                 }
-                                //update locationion, orgs, tags
-                                uniqueLocId.forEach{ tagId in
-                                    let group = DispatchGroup()
-                                    group.enter()
-                                    DispatchQueue.global(qos: .default).async {
-                                        _ = getLocationPlaceIdTuple(by: tagId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {
-                                            group.leave()
-                                        }, noConnection: {}, updateData: true)
-                                    }
-                                    group.wait()
-                                }
-                                uniqueOrgId.forEach{ orgId in
-                                    let group = DispatchGroup()
-                                    group.enter()
-                                    DispatchQueue.global(qos: .default).async {
-                                        _ = getOrganization(by: orgId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {group.leave()}, noConnection: {}, updateData: true)
-                                    }
-                                    group.wait()
-                                }
-                                uniquetagId.forEach{ tagId in
-                                    let group = DispatchGroup()
-                                    group.enter()
-                                    DispatchQueue.global(qos: .default).async {
-                                        _ = getTag(by: tagId, startLoading: GenericLoadingHelper.voidLoading(), endLoading: {group.leave()}, noConnection: {}, updateData: true)
-                                    }
-                                    group.wait()
-                                }
-                                UserDefaults.standard.set(savedEventsPk, forKey: SAVED_EVENTS_KEY)
-                                runAsyncFunction({
-                                    NotificationCenter.default.post(name: .reloadData, object: nil)
-                                    endLoading()
-                                })
                             }
+                            for org in orgs {
+                                do {
+                                    let jsonData = try JSONEncoder().encode(org)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(ORG_QUERY_KEY)\(org.id)")
+                                } catch {
+                                    print (error)
+                                }
+                            }
+                            for tag in tags {
+                                do {
+                                    let jsonData = try JSONEncoder().encode(tag)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(TAG_QUERY_KEY)\(tag.id)")
+                                } catch {
+                                    print (error)
+                                }
+                            }
+                            for location in locations {
+                                do {
+                                    let jsonData = try JSONEncoder().encode(location)
+                                    UserDefaults.standard.set(jsonData, forKey: "\(LOC_QUERY_KEY)\(location.id)")
+                                } catch {
+                                    print (error)
+                                }
+                            }
+                            UserDefaults.standard.set(savedEventsPk, forKey: SAVED_EVENTS_KEY)
+                            runAsyncFunction({
+                                NotificationCenter.default.post(name: .reloadData, object: nil)
+                                endLoading()
+                            })
                         })
                     }
                 }
