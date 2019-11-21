@@ -331,7 +331,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         }
 
         eventImage.snp.makeConstraints {make in
-            make.top.equalTo(view)
+            make.top.equalTo(eventImageContainerView)
             make.left.equalTo(eventImageContainerView)
             make.right.equalTo(eventImageContainerView)
             make.bottom.equalTo(eventImageContainerView)

@@ -10,10 +10,6 @@ import UIKit
 
 //Displays the events as a list, with a optional filter bar at the top.
 class EventListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    //used for refreshing the view controller
-    var refreshControl = UIRefreshControl()
-
     var myEvents: [Event] = [] //all my events
     var events: [Event] = []
     var sectionDates: [Date] = [] //valid date sections, sorted from small date to large date, unique
@@ -27,10 +23,10 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshControl.tintColor = UIColor(named: "primaryPink")
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableView.addSubview(refreshControl)
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 5),
+            NSAttributedString.Key.foregroundColor: UIColor.blue
+        ]
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -40,7 +36,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func setup(with events: [Event], title: String, withFilterBar: Bool) {
-        navigationItem.title = title
+        self.navigationItem.title = title
         let eventsDateData = EventDateHelper.getEventsFilteredByDate(with: events)
         sectionDates = eventsDateData.0
         eventsOnDate = eventsDateData.1
@@ -63,7 +59,6 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     @objc func refresh(sender:AnyObject) {
         // Code to refresh table view
         self.tableView.reloadData()
-        refreshControl.endRefreshing()
     }
 
     //TABLEVIEW DELEGATE METHODS

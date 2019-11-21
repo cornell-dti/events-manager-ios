@@ -395,7 +395,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
      */
     @objc func popularSeeMoreButtonPressed(_ sender: UIButton) {
         let popularListViewController = EventListViewController()
-        popularListViewController.setup(with: popularEvents, title: "", withFilterBar: false)
+        popularListViewController.setup(with: popularEvents, title: organization?.name ?? "", withFilterBar: false)
         navigationController?.pushViewController(popularListViewController, animated: true)
     }
 
