@@ -101,7 +101,7 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         websiteContentLabel.text = organization.website
         emailContentLabel.text = organization.email
         bioContentLabel.text = organization.description
-
+        
         popularEvents = AppData.getEventsAssociatedWith(organization: organizationPk)
 
         getTags()
@@ -277,6 +277,19 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
             make.left.equalTo(contentView)
             make.right.equalTo(contentView)
             make.height.equalTo(popularEventsTableViewHeight)
+        }
+        //check if any values are not default
+        if organization?.website != NSLocalizedString("default-org-website", comment: "") || organization?.email != NSLocalizedString("default-org-email", comment: "") || organization?.description != NSLocalizedString("default-org-bio", comment: "") {
+            websiteContentLabel.text = organization?.website == NSLocalizedString("default-org-website", comment: "") ? "" : organization?.website
+            emailContentLabel.text = organization?.email == NSLocalizedString("default-org-email", comment: "") ? "" : organization?.email
+            bioContentLabel.text = organization?.description == NSLocalizedString("default-org-bio", comment: "") ? "" : organization?.description
+        } else {
+            //if all values are default then hide about section
+            infoViewStack.isHidden = true
+            infoUpcomingSeparator.isHidden = true
+            popularEventsTableView.snp.remakeConstraints { make in
+                make.top.equalTo(headerInfoSeparator.snp.bottom)
+            }
         }
         popularEventsTableView.backgroundColor = UIColor(named: "tableViewBackground")
         popularEventsTableView.dataSource = self

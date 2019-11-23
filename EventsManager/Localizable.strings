@@ -127,3 +127,8 @@
 //Tag page
 "follow-tag" = "Follow";
 "unfollow-tag" = "Unfollow";
+
+//Default Org Values
+"default-org-website" = "";
+"default-org-email" = "dti-dummy@cornell.edu";
+"default-org-bio" = "This is an organization manually created by DTI.";
