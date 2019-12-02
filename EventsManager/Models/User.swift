@@ -22,7 +22,7 @@ struct User: Codable {
     var tagClicks: [Int:Int]
     var reminderEnabled: Bool
     var reminderTime: Int
-    var timeSinceNotification: Int
+    var timeSinceNotification: Date
 
     private enum CodingKeys: String, CodingKey {
         case netID = "net_id"

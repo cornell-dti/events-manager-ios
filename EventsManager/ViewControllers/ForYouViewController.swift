@@ -24,6 +24,7 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     //Models
     let labelEventsPair = UserData.getRecommendedLabelAndEvents()
+    var user = UserData.getLoggedInUser()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +33,14 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
         setup()
-
-        let currentSeconds = Calendar.current.component(.second, from: Date())
-        var user = UserData.getLoggedInUser()
-        if currentSeconds - user!.timeSinceNotification > 604800 { //if a week (or greater) has elapsed
+        user?.timeSinceNotification = Date()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let currentDate = Date()
+        if currentDate.timeIntervalSince(user!.timeSinceNotification) > 60 { //if a week (or greater) has elapsed -- 604800 seconds
             scheduleNotification()
-            user?.timeSinceNotification = currentSeconds
+            user?.timeSinceNotification = currentDate
         }
     }
 
@@ -81,11 +84,17 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let center = UNUserNotificationCenter.current()
         if let user = UserData.getLoggedInUser() {
             if user.reminderEnabled {
-                let firstEvent = labelEventsPair[0].1[0] //first event in labelEventsPair array, for initialization purposes
+                var forYouEvents = [[Event]]()
+                for pair in labelEventsPair {
+                    if !pair.1.isEmpty {
+                        forYouEvents.append(pair.1)
+                    }
+                }
+                let firstEvent = forYouEvents[0][0] //first event in labelEventsPair array, for initialization purposes
                 var max = 0
                 var mostPopularEvent = firstEvent
-                for pair in labelEventsPair {
-                    for event in pair.1 {
+                for eventArray in forYouEvents {
+                    for event in eventArray {
                         if event.eventParticipantCount > max {
                             max = event.eventParticipantCount
                             mostPopularEvent = event
@@ -96,13 +105,19 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 content.title = NSLocalizedString("notification-weekly-title", comment: "")
                 content.body = "\(mostPopularEvent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
                 content.sound = .default
-                let minutesBeforeEvent = 2880 //24 hours before
+                let minutesBeforeEvent = 2880 //2 days before
                 let minuteComp = DateComponents(minute: -minutesBeforeEvent)
-                let remindDate = Calendar.current.date(byAdding: minuteComp, to: mostPopularEvent.startTime)
-                if let remindDate = remindDate {
-                    let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second ], from: remindDate)
+               // let remindDate = Calendar.current.date(byAdding: minuteComp, to: mostPopularEvent.startTime)
+                var triggerDate = DateComponents()
+                triggerDate.day = 7
+                triggerDate.hour = 17
+                triggerDate.minute = 40
+//                if let remindDate = remindDate {
+//                    let triggerDate = Calendar.current.dateComponents([.day, .hour, .minute ], from: remindDate)
+//                    let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+//                                                                repeats: false)
                     let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
-                                                                repeats: false)
+                                                                                    repeats: false)
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(mostPopularEvent.id)"
                     let request = UNNotificationRequest(identifier: notificationIdentifier,
                                                         content: content, trigger: trigger)
@@ -115,7 +130,7 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             ])
                         }
                     })
-                }
+//                }
             }
         }
     }

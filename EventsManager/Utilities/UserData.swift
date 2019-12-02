@@ -68,7 +68,7 @@ class UserData {
                 tagClicks: [:],
                 reminderEnabled: true,
                 reminderTime: ReminderTimeOptions.getInt(from: .fifteenMinutesBefore),
-                timeSinceNotification: Calendar.current.component(.second, from: Date())
+                timeSinceNotification: Date()
             )
         }
         return nil
