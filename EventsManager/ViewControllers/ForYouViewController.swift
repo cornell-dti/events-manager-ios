@@ -24,6 +24,7 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     //Models
     let labelEventsPair = UserData.getRecommendedLabelAndEvents()
+    var user = UserData.getLoggedInUser()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +33,15 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
         setup()
-
-       // let weekday = Calendar.current.component(.weekday, from: Date()) --get current weekday
-        scheduleNotification()
-
+        user?.timeSinceNotification = Date()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let currentDate = Date()
+        if currentDate.timeIntervalSince(user!.timeSinceNotification) > 60 { //if a week (or greater) has elapsed -- 604800 seconds
+            scheduleNotification()
+            user?.timeSinceNotification = currentDate
+        }
     }
 
     /**
@@ -72,60 +78,56 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     //Schedule weekly tailored notification
     func scheduleNotification() {
-
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
-
-        dateComponents.weekday = 6  // Saturday (for testing purposes)
-        dateComponents.hour = 19   // (for testing purposes)
-        dateComponents.minute = 28 // (for testing purposes)
-
-        // Create the trigger as a repeating event.
-        let trigger = UNCalendarNotificationTrigger(
-            dateMatching: dateComponents, repeats: true)
-
         let center = UNUserNotificationCenter.current()
-
         if let user = UserData.getLoggedInUser() {
-
             if user.reminderEnabled {
-                let firstEvent = labelEventsPair[0].1[0] //first event in labelEventsPair array, for initialization purposes
-
-                var max = 0
-                var mostPopularEvent = firstEvent
+                var forYouEvents = [[Event]]()
                 for pair in labelEventsPair {
-                    for event in pair.1 {
-                        if event.eventParticipantCount > max {
-                            max = event.eventParticipantCount
-                            mostPopularEvent = event
-                        }
+                    if !pair.1.isEmpty {
+                        forYouEvents.append(pair.1) //append the event array
                     }
                 }
-
-                let content = UNMutableNotificationContent()
-                content.title = NSLocalizedString("notification-weekly-title", comment: "")
-                content.body = "\(mostPopularEvent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
-                content.sound = .default
-
-                let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(mostPopularEvent.id)"
-
-                let request = UNNotificationRequest(identifier: notificationIdentifier,
-                                                    content: content, trigger: trigger)
-
-                center.getPendingNotificationRequests(completionHandler: { requests in
-                    if !(requests.contains(request)) {
-                        center.add(request, withCompletionHandler: { (_) in
-                        })
-
-                        Analytics.logEvent("tailoredNotificationAdded", parameters: [
-                            "notificationName": mostPopularEvent.eventName
-                        ])
+                if (!forYouEvents.isEmpty) {
+                    var triggerDate = DateComponents()
+                    //n is 7 and Sunday is represented by 1
+                    triggerDate.day = 2
+                    triggerDate.hour = 17
+                    triggerDate.minute = 00
+                    let firstEvent = forYouEvents[0][0] //first event in labelEventsPair array, for initialization purposes
+                    var max = 0
+                    var mostPopularEvent = firstEvent
+                    for eventArray in forYouEvents {
+                        for event in eventArray {
+                            if event.eventParticipantCount > max && event.startTime.timeIntervalSince(Calendar.current.nextDate(after: Date(), matching: triggerDate, matchingPolicy: .nextTime)!) > 0 {
+                                max = event.eventParticipantCount
+                                mostPopularEvent = event
+                            }
+                        }
                     }
-                })
-
+                    let content = UNMutableNotificationContent()
+                    content.title = NSLocalizedString("notification-weekly-title", comment: "")
+                    content.body = "\(mostPopularEvent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
+                    content.sound = .default
+                    let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+                                                                repeats: false)
+                    let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(mostPopularEvent.id)"
+                    let request = UNNotificationRequest(identifier: notificationIdentifier,
+                                                        content: content, trigger: trigger)
+                    center.getPendingNotificationRequests(completionHandler: { requests in
+                        if !(requests.contains(request)) {
+                            center.add(request, withCompletionHandler: { (_) in
+                            })
+                            Analytics.logEvent("tailoredNotificationAdded", parameters: [
+                                "notificationName": mostPopularEvent.eventName
+                            ])
+                        }
+                    })
+                }
             }
-
         }
+            
     }
 
     @objc func refresh(sender:AnyObject) {

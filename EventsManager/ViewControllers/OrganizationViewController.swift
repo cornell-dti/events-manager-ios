@@ -395,8 +395,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
                 "tagName": tagButton.titleLabel?.text ?? ""
                 ])
             let tag = tagButton.getTagPk()
-            //Ganalytics
-            //GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: String(tag))
             tagViewController.setup(with: AppData.getEventsAssociatedWith(tag: tag), for: tag)
             navigationController?.pushViewController(tagViewController, animated: true)
         }
