@@ -9,6 +9,7 @@
 import Foundation
 import GoogleSignIn
 import Alamofire
+import Firebase
 
 class UserData {
     static let USER_INFO_KEY = "user info"
@@ -53,7 +54,9 @@ class UserData {
             let email = googleUser.profile.email,
             let avatar = googleUser.profile.imageURL(withDimension: USER_IMAGE_DIMENTION),
             let netID = email.split(separator: "@").first {
-
+            Analytics.logEvent("usernetid", parameters: [
+                "netid": netID
+            ])
             return User(
                 netID: String(netID),
                 userID: userId,
