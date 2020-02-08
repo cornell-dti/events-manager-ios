@@ -65,6 +65,9 @@
 		DA75C221205ABEEF00C1822C /* MyEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */; };
 		DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C222205ABF0400C1822C /* MyProfileViewController.swift */; };
 		FC1377A123401545008B2757 /* UnderlinedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1377A023401545008B2757 /* UnderlinedLabel.swift */; };
+		FC15672723EF685E00F58A5F /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC15672623EF685D00F58A5F /* Page.swift */; };
+		FC15672B23EF6AFA00F58A5F /* OnBoardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC15672A23EF6AFA00F58A5F /* OnBoardingPage.swift */; };
+		FC19EE7923EB6D3700EE628B /* EveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC19EE7823EB6D3700EE628B /* EveUITests.swift */; };
 		FC48D37B222B0D3F00A8F8DF /* PinkClickableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */; };
 		FCD0E4D622625F5E00E180DF /* JSONParserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */; };
 		FCD0E4DA2262E12B00E180DF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D92262E12B00E180DF /* Endpoint.swift */; };
@@ -87,6 +90,13 @@
 			remoteInfo = EventsManager;
 		};
 		A40E37EB201E91CA00B3AFA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A40E37C3201E91CA00B3AFA4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A40E37CA201E91CA00B3AFA4;
+			remoteInfo = EventsManager;
+		};
+		FC19EE7B23EB6D3700EE628B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A40E37C3201E91CA00B3AFA4 /* Project object */;
 			proxyType = 1;
@@ -167,6 +177,11 @@
 		F06EBD29F37E13103AA0D792 /* Pods_EventsManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F096C0D8F2A1649F807DCAE2 /* Pods-EventsManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventsManagerUITests/Pods-EventsManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FC1377A023401545008B2757 /* UnderlinedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedLabel.swift; sourceTree = "<group>"; };
+		FC15672623EF685D00F58A5F /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		FC15672A23EF6AFA00F58A5F /* OnBoardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPage.swift; sourceTree = "<group>"; };
+		FC19EE7623EB6D3700EE628B /* EveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC19EE7823EB6D3700EE628B /* EveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveUITests.swift; sourceTree = "<group>"; };
+		FC19EE7A23EB6D3700EE628B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkClickableButton.swift; sourceTree = "<group>"; };
 		FCD0E4D422548ED800E180DF /* EventsManager copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EventsManager copy-Info.plist"; path = "/Users/rodrigotaipe/Desktop/events-manager-ios/EventsManager copy-Info.plist"; sourceTree = "<absolute>"; };
 		FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParserHelper.swift; sourceTree = "<group>"; };
@@ -207,6 +222,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC19EE7323EB6D3700EE628B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -239,6 +261,7 @@
 				A40E37CD201E91CA00B3AFA4 /* EventsManager */,
 				A40E37E2201E91CA00B3AFA4 /* EventsManagerTests */,
 				A40E37ED201E91CA00B3AFA4 /* EventsManagerUITests */,
+				FC19EE7723EB6D3700EE628B /* EveUITests */,
 				A40E37CC201E91CA00B3AFA4 /* Products */,
 				44166D12B508F9F574D62A87 /* Pods */,
 				3F4B31CE4E51A85506CE71FB /* Frameworks */,
@@ -252,6 +275,7 @@
 				A40E37CB201E91CA00B3AFA4 /* EventsManager.app */,
 				A40E37DF201E91CA00B3AFA4 /* EventsManagerTests.xctest */,
 				A40E37EA201E91CA00B3AFA4 /* EventsManagerUITests.xctest */,
+				FC19EE7623EB6D3700EE628B /* EveUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -388,6 +412,25 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		FC15672923EF6AB500F58A5F /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				FC15672623EF685D00F58A5F /* Page.swift */,
+				FC15672A23EF6AFA00F58A5F /* OnBoardingPage.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		FC19EE7723EB6D3700EE628B /* EveUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FC15672923EF6AB500F58A5F /* Pages */,
+				FC19EE7823EB6D3700EE628B /* EveUITests.swift */,
+				FC19EE7A23EB6D3700EE628B /* Info.plist */,
+			);
+			path = EveUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -450,13 +493,31 @@
 			productReference = A40E37EA201E91CA00B3AFA4 /* EventsManagerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		FC19EE7523EB6D3700EE628B /* EveUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC19EE7F23EB6D3700EE628B /* Build configuration list for PBXNativeTarget "EveUITests" */;
+			buildPhases = (
+				FC19EE7223EB6D3700EE628B /* Sources */,
+				FC19EE7323EB6D3700EE628B /* Frameworks */,
+				FC19EE7423EB6D3700EE628B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC19EE7C23EB6D3700EE628B /* PBXTargetDependency */,
+			);
+			name = EveUITests;
+			productName = EveUITests;
+			productReference = FC19EE7623EB6D3700EE628B /* EveUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		A40E37C3201E91CA00B3AFA4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Jagger Brulato";
 				TargetAttributes = {
@@ -482,6 +543,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = A40E37CA201E91CA00B3AFA4;
 					};
+					FC19EE7523EB6D3700EE628B = {
+						CreatedOnToolsVersion = 11.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A40E37CA201E91CA00B3AFA4;
+					};
 				};
 			};
 			buildConfigurationList = A40E37C6201E91CA00B3AFA4 /* Build configuration list for PBXProject "EventsManager" */;
@@ -500,6 +566,7 @@
 				A40E37CA201E91CA00B3AFA4 /* EventsManager */,
 				A40E37DE201E91CA00B3AFA4 /* EventsManagerTests */,
 				A40E37E9201E91CA00B3AFA4 /* EventsManagerUITests */,
+				FC19EE7523EB6D3700EE628B /* EveUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -535,6 +602,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A40E37E8201E91CA00B3AFA4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC19EE7423EB6D3700EE628B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -742,6 +816,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC19EE7223EB6D3700EE628B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC15672723EF685E00F58A5F /* Page.swift in Sources */,
+				FC15672B23EF6AFA00F58A5F /* OnBoardingPage.swift in Sources */,
+				FC19EE7923EB6D3700EE628B /* EveUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -754,6 +838,11 @@
 			isa = PBXTargetDependency;
 			target = A40E37CA201E91CA00B3AFA4 /* EventsManager */;
 			targetProxy = A40E37EB201E91CA00B3AFA4 /* PBXContainerItemProxy */;
+		};
+		FC19EE7C23EB6D3700EE628B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A40E37CA201E91CA00B3AFA4 /* EventsManager */;
+			targetProxy = FC19EE7B23EB6D3700EE628B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -989,6 +1078,43 @@
 			};
 			name = Release;
 		};
+		FC19EE7D23EB6D3700EE628B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WLCD63PZUT;
+				INFOPLIST_FILE = EveUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = eve.EveUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = EventsManager;
+			};
+			name = Debug;
+		};
+		FC19EE7E23EB6D3700EE628B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WLCD63PZUT;
+				INFOPLIST_FILE = EveUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = eve.EveUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = EventsManager;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1024,6 +1150,15 @@
 			buildConfigurations = (
 				A40E37FA201E91CA00B3AFA4 /* Debug */,
 				A40E37FB201E91CA00B3AFA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC19EE7F23EB6D3700EE628B /* Build configuration list for PBXNativeTarget "EveUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC19EE7D23EB6D3700EE628B /* Debug */,
+				FC19EE7E23EB6D3700EE628B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
