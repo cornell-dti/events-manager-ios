@@ -78,7 +78,6 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     //Schedule weekly tailored notification
     func scheduleNotification() {
-
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
         let center = UNUserNotificationCenter.current()
@@ -87,37 +86,32 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 var forYouEvents = [[Event]]()
                 for pair in labelEventsPair {
                     if !pair.1.isEmpty {
-                        forYouEvents.append(pair.1)
+                        forYouEvents.append(pair.1) //append the event array
                     }
                 }
-                let firstEvent = forYouEvents[0][0] //first event in labelEventsPair array, for initialization purposes
-                var max = 0
-                var mostPopularEvent = firstEvent
-                for eventArray in forYouEvents {
-                    for event in eventArray {
-                        if event.eventParticipantCount > max {
-                            max = event.eventParticipantCount
-                            mostPopularEvent = event
+                if (!forYouEvents.isEmpty) {
+                    var triggerDate = DateComponents()
+                    //n is 7 and Sunday is represented by 1
+                    triggerDate.day = 2
+                    triggerDate.hour = 17
+                    triggerDate.minute = 00
+                    let firstEvent = forYouEvents[0][0] //first event in labelEventsPair array, for initialization purposes
+                    var max = 0
+                    var mostPopularEvent = firstEvent
+                    for eventArray in forYouEvents {
+                        for event in eventArray {
+                            if event.eventParticipantCount > max && event.startTime.timeIntervalSince(Calendar.current.nextDate(after: Date(), matching: triggerDate, matchingPolicy: .nextTime)!) > 0 {
+                                max = event.eventParticipantCount
+                                mostPopularEvent = event
+                            }
                         }
                     }
-                }
-                let content = UNMutableNotificationContent()
-                content.title = NSLocalizedString("notification-weekly-title", comment: "")
-                content.body = "\(mostPopularEvent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
-                content.sound = .default
-                let minutesBeforeEvent = 2880 //2 days before
-                let minuteComp = DateComponents(minute: -minutesBeforeEvent)
-               // let remindDate = Calendar.current.date(byAdding: minuteComp, to: mostPopularEvent.startTime)
-                var triggerDate = DateComponents()
-                triggerDate.day = 7
-                triggerDate.hour = 17
-                triggerDate.minute = 40
-//                if let remindDate = remindDate {
-//                    let triggerDate = Calendar.current.dateComponents([.day, .hour, .minute ], from: remindDate)
-//                    let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
-//                                                                repeats: false)
+                    let content = UNMutableNotificationContent()
+                    content.title = NSLocalizedString("notification-weekly-title", comment: "")
+                    content.body = "\(mostPopularEvent.eventName)\(NSLocalizedString("notification-weekly-body", comment: ""))"
+                    content.sound = .default
                     let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
-                                                                                    repeats: false)
+                                                                repeats: false)
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(mostPopularEvent.id)"
                     let request = UNNotificationRequest(identifier: notificationIdentifier,
                                                         content: content, trigger: trigger)
@@ -130,9 +124,10 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             ])
                         }
                     })
-//                }
+                }
             }
         }
+            
     }
 
     @objc func refresh(sender:AnyObject) {
