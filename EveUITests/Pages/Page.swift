@@ -1,8 +1,8 @@
 //
 //  Page.swift
-//  EveUITests
+//  EventsManagerUITests
 //
-//  Created by Rodrigo Taipe on 2/8/20.
+//  Created by Rodrigo Taipe on 2/9/20.
 //  Copyright © 2020 Jagger Brulato. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ import XCTest
 class Page {
     var app: XCUIApplication
     
-    required init(_ app: XCUIApplication){
+    required init(_ app: XCUIApplication) {
         self.app = app
     }
 }
