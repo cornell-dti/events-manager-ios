@@ -203,6 +203,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch currentSearchScope {
             case .events:
+                print("events called")
                 let detailsViewController = EventDetailViewController()
                 detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row].id)
                 navigationController?.pushViewController(detailsViewController, animated: true)

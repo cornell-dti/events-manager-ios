@@ -93,6 +93,7 @@ PODS:
   - SnapKit (4.0.1)
   - SwiftLint (0.37.0)
   - SwiftyJSON (4.3.0)
+  - UXCam (3.1.11)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -104,6 +105,7 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.0)
   - SwiftLint
   - SwiftyJSON (~> 4.0)
+  - UXCam
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -129,6 +131,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftLint
     - SwiftyJSON
+    - UXCam
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -153,7 +156,8 @@ SPEC CHECKSUMS:
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftLint: c078a14d7d7ade75e5507795d185e3da41d844d2
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+  UXCam: 47e21b86062e25cfe4062d78f3b9c6c3b6b2b209
 
-PODFILE CHECKSUM: 60e985a7a961d6d705de05cfe4c5e66ca1896e88
+PODFILE CHECKSUM: f2e81aa557751187e09ea4b4afd575f3b3175df9
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.7.0.rc.2
