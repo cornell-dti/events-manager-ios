@@ -8,7 +8,7 @@
 import Foundation
 
 class Endpoint {
-    public static let baseURL = "https://cuevents-staging-pr-108.herokuapp.com/api/"
+    public static let baseURL = "https://01940ed7-109c-4af8-8b72-761e2625c4c5.mock.pstmn.io/"
 
     public enum Addresses {
         case serverTokenAddress
@@ -48,7 +48,7 @@ class Endpoint {
         case .organizationAddress:
             return baseURL + "get_profile/" + queryParams[.organizationPk]! + "/"
         case .organizationEventAddress:
-            return baseURL + "get_events/" + queryParams[.organizationPk]! + "/events/"
+            return baseURL + "get_events/" + queryParams[.organizationPk]! + "/"
         case .incrementAttendanceAddress:
             return baseURL + "increment_attendance/" + queryParams[.eventPk]! + "/"
         case .decrementAttendanceAddress:

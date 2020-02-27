@@ -138,7 +138,7 @@
 		AA1FFF99208EDB9C007A5E5C /* EventCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventCardCell.swift; path = EventsManager/Views/EventCardCell.swift; sourceTree = SOURCE_ROOT; };
 		AA25744622750ADD0077B15F /* CheckInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
 		AA4B5FC2214818E8005B5879 /* SearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptions.swift; sourceTree = "<group>"; };
-		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/ViewControllers/TagViewController.swift; sourceTree = SOURCE_ROOT; };
+		AA58DE66207BF6F700CDC38E /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagViewController.swift; path = EventsManager/TagViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5B784C2076E29F00D15262 /* EventTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTagButton.swift; path = EventsManager/Views/EventTagButton.swift; sourceTree = SOURCE_ROOT; };
 		AA5C52DD2152EF0000321FA3 /* dosis.bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dosis.bold.ttf; sourceTree = "<group>"; };
 		AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericLoadingHelper.swift; sourceTree = "<group>"; };
@@ -301,6 +301,7 @@
 				AAFE2FD32122224400779FA1 /* ViewControllers */,
 				AAD334EE2152325500312F31 /* Resources */,
 				A40E37D5201E91CA00B3AFA4 /* Assets.xcassets */,
+				AA58DE66207BF6F700CDC38E /* TagViewController.swift */,
 				A40E37D7201E91CA00B3AFA4 /* LaunchScreen.storyboard */,
 				A11D265E20FAF0D9001712E6 /* Localizable.strings */,
 				FFC4EF6A2328436200FEE1D8 /* GoogleService-Info.plist */,
@@ -355,7 +356,6 @@
 				DA75C220205ABEEF00C1822C /* MyEventsViewController.swift */,
 				DA75C222205ABF0400C1822C /* MyProfileViewController.swift */,
 				AA03DC272061B8220059EE1B /* EventDetailViewController.swift */,
-				AA58DE66207BF6F700CDC38E /* TagViewController.swift */,
 				AAF8FC6E209AAF3500BF8277 /* EventListViewController.swift */,
 				AADAFB2820DA019D000F72E3 /* OrganizationViewController.swift */,
 				AAD3E04F21444461000B5000 /* EventsSearchViewController.swift */,

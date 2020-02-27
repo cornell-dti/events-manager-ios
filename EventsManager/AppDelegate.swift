@@ -34,6 +34,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GIDSignIn.sharedInstance()?.hostedDomain = "cornell.edu"
 
         FirebaseApp.configure()
+        
+        if ProcessInfo.processInfo.arguments.contains("-UITesting") {
+            if !UserData.didLogin() {
+                let u = User(
+                    netID: String("testUser"),
+                    userID: "userID",
+                    googleIdToken: "idToken",
+                    serverAuthToken: nil,
+                    name: "fullName",
+                    avatar: URL(string: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png")!,
+                    bookmarkedEvents: [],
+                    followingOrganizations: [],
+                    followingTags: [],
+                    organizationClicks: [:],
+                    tagClicks: [:],
+                    reminderEnabled: true,
+                    reminderTime: ReminderTimeOptions.getInt(from: .fifteenMinutesBefore)
+                )
+                let _ = UserData.login(for: u)
+            }
+        }
 
         //check if logged in
         if UserData.didLogin() {
