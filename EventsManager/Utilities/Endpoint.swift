@@ -8,8 +8,8 @@
 import Foundation
 
 class Endpoint {
-    public static let baseURL = "https://cuevents-staging-pr-108.herokuapp.com/api/"
-
+    public static let baseURL = "https://cuevents-staging.herokuapp.com/api/"
+//    public static let baseURL = "https://cuevents-app.herokuapp.com/api/"
     public enum Addresses {
         case serverTokenAddress
         case tagAddress
@@ -36,7 +36,7 @@ class Endpoint {
     public static func getURLString (address: Addresses, queryParams : [QueryParam:String]) -> String {
         switch address {
         case .serverTokenAddress:
-            return baseURL + "generate_token/" + queryParams[.googleToken]! + "/"
+            return baseURL + "get_token/" + queryParams[.googleToken]! + "/"
         case .tagAddress:
             return baseURL + "get_tag/" + queryParams[.tagPk]! + "/"
         case .locationAddress:
