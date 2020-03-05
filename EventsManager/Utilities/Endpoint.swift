@@ -36,7 +36,7 @@ class Endpoint {
     public static func getURLString (address: Addresses, queryParams : [QueryParam:String]) -> String {
         switch address {
         case .serverTokenAddress:
-            return baseURL + "get_token/" + queryParams[.googleToken]! + "/"
+            return baseURL + "get_token/" + queryParams[.googleToken]!
         case .tagAddress:
             return baseURL + "get_tag/" + queryParams[.tagPk]! + "/"
         case .locationAddress:
