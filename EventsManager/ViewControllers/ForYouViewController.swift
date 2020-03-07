@@ -62,6 +62,8 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        print("Testing ")
+        print(EventsDiscoveryTableViewCell.identifer)
         tableView.register(EventsDiscoveryTableViewCell.self, forCellReuseIdentifier: EventsDiscoveryTableViewCell.identifer)
         tableView.register(EventCardCell.self, forCellReuseIdentifier: EventCardCell.identifer)
         tableView.register(EventTableHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: EventTableHeaderFooterView.identifier)
@@ -157,6 +159,7 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as! EventTableHeaderFooterView
         header.setMainTitle(labelEventsPair[section].0)
+        
         return header
     }
 

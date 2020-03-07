@@ -17,8 +17,8 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
     let bottomMargins: CGFloat = 5
     let titleFontSize: CGFloat = 17
     let buttonFontSize: CGFloat = 14
-
-    var title = UILabel()
+    
+    var title = UITextView()
     let editButton = UIButton()
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
@@ -34,7 +34,9 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
 
         title.font = UIFont(name: "SFProText-Bold", size: titleFontSize)
         title.textColor = UIColor(named: "primaryPink")
-
+        title.isEditable = false
+        
+        
         self.addSubview(title)
         self.addSubview(editButton)
 
