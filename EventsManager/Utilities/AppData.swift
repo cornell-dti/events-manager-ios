@@ -17,9 +17,9 @@ class AppData {
     static let SAVED_EVENTS_KEY = "saved events"
     static let EVENT_QUERY_KEY = "event_pk_"
     static let EVENT_IMAGE_DIMENTION: UInt = 1500
-    static let DUMMY_URL = "http://ethanhu.me/images/background.jpg"
+    static let DEFAULT_IMAGE_URL = "http://ethanhu.me/images/background.jpg"
     static let DUMMY_TAG = "#CornellDTI"
-    static let DUMMY_EVENT = Event(id: 0, startTime: Date(), endTime: Date(), eventName: "DTI", eventLocation: 0, eventImage: URL(string: AppData.DUMMY_URL)!, eventOrganizer: 0, eventDescription: "", eventTags: [], eventParticipantCount: 0, isPublic: false, location: Location(id: 0, building: "Gates Hall", room: "G01", placeId: "ChIJndqRYRqC0IkR9J8bgk3mDvU"))
+    static let DUMMY_EVENT = Event(id: 0, startTime: Date(), endTime: Date(), eventName: "DTI", eventLocation: 0, eventImage: URL(string: AppData.DEFAULT_IMAGE_URL)!, eventOrganizer: 0, eventDescription: "", eventTags: [], eventParticipantCount: 0, isPublic: false, location: Location(id: 0, building: "Gates Hall", room: "G01", placeId: "ChIJndqRYRqC0IkR9J8bgk3mDvU"))
 
     /**
      Returns the tuple of string of the location the PK corresponds to, and the placeID. The string returned is a full string, including the building and the room
@@ -102,7 +102,7 @@ class AppData {
             id: 0,
             name: "",
             description: "",
-            avatar: URL(string: DUMMY_URL)!,
+            avatar: URL(string: DEFAULT_IMAGE_URL)!,
             website: "",
             email: ""
         )

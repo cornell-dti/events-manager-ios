@@ -18,7 +18,7 @@ class JSONParserHelper {
             let desc = json["bio"].string,
             let email = json["email"].string,
             let website = json["website"].string {
-            var photo = AppData.DUMMY_URL
+            var photo = AppData.DEFAULT_IMAGE_URL
             if let photos = json["photo"].array {
                 if photos.count > 0 {
                     if let firstPhoto = photos[0]["link"].string {
@@ -26,7 +26,7 @@ class JSONParserHelper {
                     }
                 }
             }
-            let photo_url = URL(string: photo.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") ?? URL(string: AppData.DUMMY_URL)!
+            let photo_url = URL(string: photo.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") ?? URL(string: AppData.DEFAULT_IMAGE_URL)!
 
             return Organization(id: pk, name: name, description: desc, avatar: photo_url, website: website, email: email)
         }
@@ -80,7 +80,7 @@ class JSONParserHelper {
                 let orgBio = org_json["bio"]?.string,
                 let website = org_json["website"]?.string,
                 let orgEmail = org_json["email"]?.string {
-                var photo = AppData.DUMMY_URL
+                var photo = AppData.DEFAULT_IMAGE_URL
                 if let photos = org_json["photo"]?.array {
                     if photos.count > 0 {
                         if let firstPhoto = photos[0]["link"].string {
@@ -101,7 +101,7 @@ class JSONParserHelper {
                         tagObjs.append(Tag(id: tagId, name: tagName))
                     }
                 }
-                var media = AppData.DUMMY_URL
+                var media = AppData.DEFAULT_IMAGE_URL
                 for media_json in medias_json {
                     if let media_string = media_json["link"].string {
                         media = media_string
@@ -149,14 +149,14 @@ class JSONParserHelper {
                         tags.append(tagId)
                     }
                 }
-                var media = AppData.DUMMY_URL
+                var media = AppData.DEFAULT_IMAGE_URL
                 for media_json in medias_json {
                     if let media_string = media_json["link"].string {
                         media = media_string
                     }
                     break
                 }
-                let media_url = URL(string: media.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") ?? URL(string: AppData.DUMMY_URL)!
+                let media_url = URL(string: media.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") ?? URL(string: AppData.DEFAULT_IMAGE_URL)!
 
                 // change start time and end time to swift date formats
                 if let startDate = DateFormatHelper.datetime(from: "\(start_date) \(start_time)"),

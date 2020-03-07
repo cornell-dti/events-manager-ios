@@ -13,6 +13,10 @@ class EveUITests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        // Stop when encounter failure -
+        // for future testing, may set to true to test all.
+        continueAfterFailure = false
+        
         let app = XCUIApplication()
         app.launchArguments.append("-UITesting")
         app.launch()
@@ -23,6 +27,9 @@ class EveUITests: XCTestCase {
         super.tearDown()
     }
 
+    /**
+     Tests that tab titles exist for the: Discover page, For You page, My Events page, Profile page
+     */
     func testAllTabTitles() {
         let app = XCUIApplication()
         XCTAssertTrue(EventsDiscoveryPage(app).openDiscover().title.exists)
@@ -37,6 +44,7 @@ class EveUITests: XCTestCase {
     }
 
     func testEventDetailPage() {
+                
     }
 //    func testDiscoveryEventsPage() {
 //        let app = XCUIApplication()
