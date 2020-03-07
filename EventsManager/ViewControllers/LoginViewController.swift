@@ -124,10 +124,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
             let loadingViewController = LoadingViewController()
             loadingViewController.configure(with: "Logging You In...")
             present(loadingViewController, animated: true, completion: {
+                let accessToken = user.authentication.accessToken
                 if var user = UserData.newUser(from: user) {
                     user.serverAuthToken = ""
+                    user.accessToken = accessToken!
                     loadingViewController.dismiss(animated: true, completion: {
                         if UserData.login(for: user) {
+
                             self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
                         }
                     })

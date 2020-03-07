@@ -71,7 +71,8 @@ class UserData {
                 tagClicks: [:],
                 reminderEnabled: true,
                 reminderTime: ReminderTimeOptions.getInt(from: .fifteenMinutesBefore),
-                timeSinceNotification: Date()
+                timeSinceNotification: Date(),
+                accessToken: ""
             )
         }
         return nil

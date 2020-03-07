@@ -560,8 +560,38 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
      Handler for the pressing action of the bookmark button. Should change the color of the button and add it to the user's bookmarked list.
      */
     func bookmarkedButtonPressed() {
+        let json: [String: Any] = [
+        "end": ["dateTime":"2020-03-07T8:00:00", "timeZone":"Asia/Manila"],
+        "start": ["dateTime":"2020-03-07T6:00:00", "timeZone":"Asia/Manila"]]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+
+        // create post request
+        let accessToken = UserData.getLoggedInUser()?.accessToken
+        let url = URL(string: "https://www.googleapis.com/calendar/v3/calendars/498336876169-c0tedkl028ga401h2qj4g4gelnr68pen.apps.googleusercontent.com/events?accesstoken=\(accessToken)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        // insert json data to the request
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+            }
+        }
+
+        task.resume()
+        
+        
         let center = UNUserNotificationCenter.current()
         if var user = UserData.getLoggedInUser() {
+            
             if bookmarkedButton.backgroundColor == UIColor.white {
                 bookmarkedButton.backgroundColor = UIColor(named: "primaryPink")
                 bookmarkedButton.setTitle(NSLocalizedString("bookmarked-button-clicked", comment: ""), for: .normal)
@@ -571,7 +601,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 Analytics.logEvent("bookmarked", parameters: [
                     "eventName": event?.eventName ?? ""
                     ])
-                print("got here")
                 if let event = event {
                     if !user.bookmarkedEvents.contains(event.id) {
                         user.bookmarkedEvents.append(event.id)
