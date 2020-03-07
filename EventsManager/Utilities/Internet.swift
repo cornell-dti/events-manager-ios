@@ -126,13 +126,15 @@ class Internet {
 
         let qp = [Endpoint.QueryParam.eventPk : String(id)]
         let URL = Endpoint.getURLString(address: .eventDetailsAddress, queryParams: qp)
-
+        
         Alamofire.request(URL, headers: headers).validate().responseJSON(queue: DispatchQueue.global(qos: .default)) { response in
                 switch response.result {
                 case .success(let value):
+                    
                     let json = JSON(value)
                     completion(JSONParserHelper.parseEvent(json: json))
                 case .failure(let error):
+                    
                     print(error)
                     completion(nil)
                 }
