@@ -50,7 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     organizationClicks: [:],
                     tagClicks: [:],
                     reminderEnabled: true,
-                    reminderTime: ReminderTimeOptions.getInt(from: .fifteenMinutesBefore)
+                    reminderTime: ReminderTimeOptions.getInt(from: .fifteenMinutesBefore),
+                    timeSinceNotification: Date()
                 )
                 let _ = UserData.login(for: u)
             }
