@@ -2411,7 +2411,7 @@ THE SOFTWARE.
 
 ## UXCam
 
-Copyright (c) 2013-2020, UXCam Inc.
+Copyright (c) 2013-2019, UXCam Inc.
 All rights reserved.
 
 
