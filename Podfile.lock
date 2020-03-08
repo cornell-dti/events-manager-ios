@@ -108,7 +108,7 @@ DEPENDENCIES:
   - UXCam
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - AppAuth
     - Firebase
@@ -160,8 +160,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f2e81aa557751187e09ea4b4afd575f3b3175df9
 
-<<<<<<< HEAD
 COCOAPODS: 1.7.0.rc.2
-=======
-COCOAPODS: 1.8.4
->>>>>>> 0d107b736c99b3b10870d49abac7285f9d304dac
