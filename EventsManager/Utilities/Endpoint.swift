@@ -8,7 +8,7 @@
 import Foundation
 
 class Endpoint {
-    public static let baseURL = "https://cuevents-app.herokuapp.com/"
+    public static let baseURL = "https://01940ed7-109c-4af8-8b72-761e2625c4c5.mock.pstmn.io/"
 
     public enum Addresses {
         case serverTokenAddress
