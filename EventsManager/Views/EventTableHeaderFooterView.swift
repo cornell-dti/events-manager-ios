@@ -33,7 +33,11 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
         editButton.setTitleColor(UIColor.gray, for: .normal)
         editButton.titleLabel?.font = UIFont(name: "SFProText-Regular", size: buttonFontSize)
 
+
         title.backgroundColor = UIColor.clear
+
+        title.text = "test"
+
         title.font = UIFont(name: "SFProText-Bold", size: titleFontSize)
         title.textColor = UIColor(named: "primaryPink")
         title.textContainer.lineFragmentPadding = 0

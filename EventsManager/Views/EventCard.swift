@@ -61,7 +61,6 @@ class EventCard: UIView {
         bookmarkIcon.image = #imageLiteral(resourceName: "filledbookmark")
         startLabel.text = NSLocalizedString("starts", comment: "")
         self.event = event
-//        print("Testing = " + event.eventName)
         monthLabel.text = DateFormatHelper.month(from: event.startTime)
         dayLabel.text = DateFormatHelper.day(from: event.startTime)
         startContentLabel.text = DateFormatHelper.hourMinute(from: event.startTime)
