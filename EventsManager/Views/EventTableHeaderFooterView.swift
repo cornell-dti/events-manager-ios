@@ -50,6 +50,8 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
         title.textContainer.lineFragmentPadding = 0
         title.sizeToFit()
         title.layoutManager.usesFontLeading = false
+        title.isSelectable = false
+        title.isScrollEnabled = true
         
         self.addSubview(title)
         self.addSubview(editButton)
