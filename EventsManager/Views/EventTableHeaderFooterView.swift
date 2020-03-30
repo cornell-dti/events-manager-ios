@@ -15,11 +15,12 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
 
     let sideMargins: CGFloat = 15
     let bottomMargins: CGFloat = 5
+    let topMargins: CGFloat = 12
     let titleFontSize: CGFloat = 17
-    let titleViewSize: CGFloat = 20
     let buttonFontSize: CGFloat = 14
     
-    var title = UITextView()
+    var scrollable = UIScrollView()
+    var title = UILabel()
     let editButton = UIButton()
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
@@ -32,36 +33,31 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
     func setLayouts() {
         editButton.setTitleColor(UIColor.gray, for: .normal)
         editButton.titleLabel?.font = UIFont(name: "SFProText-Regular", size: buttonFontSize)
-
-
-        title.backgroundColor = UIColor.clear
-
-        title.text = "test"
-
+        
         title.font = UIFont(name: "SFProText-Bold", size: titleFontSize)
         title.textColor = UIColor(named: "primaryPink")
-        title.textContainer.lineFragmentPadding = 0
-        title.isEditable = false
-        
-        title.contentInset = .zero
-        title.contentInsetAdjustmentBehavior = .never
-        
-        title.textContainerInset = .zero
-        title.textContainer.lineFragmentPadding = 0
-        title.sizeToFit()
-        title.layoutManager.usesFontLeading = false
-        title.isSelectable = false
-        title.isScrollEnabled = true
-        
-        self.addSubview(title)
-        self.addSubview(editButton)
+        title.textAlignment = .center
 
-        title.snp.makeConstraints { make in
-            make.left.equalTo(self).offset(sideMargins)
+        scrollable.backgroundColor = .clear
+        
+        self.addSubview(scrollable)
+        self.addSubview(editButton)
+        scrollable.addSubview(title)
+
+        scrollable.snp.makeConstraints { make in
+            make.left.equalTo(self)
             make.right.equalTo(self)
-            // set UITextView's height equal to the contentSize to disable vertical scrolling
-            make.height.equalTo(title.contentSize.height)
-            make.bottom.equalTo(self)
+
+            make.height.equalTo(scrollable.contentSize.height)
+            make.top.equalTo(self)
+            make.bottom.equalTo(self).offset(bottomMargins)
+        }
+        
+        title.snp.makeConstraints { make in
+            make.left.equalTo(scrollable).offset(sideMargins)
+            make.right.equalTo(scrollable)
+            make.top.equalTo(scrollable).offset(topMargins)
+            make.bottom.equalTo(scrollable)
         }
 
         editButton.snp.makeConstraints { make in
