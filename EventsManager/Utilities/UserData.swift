@@ -96,6 +96,13 @@ class UserData {
         }
         return nil
     }
+    
+    static func accessToken() -> String? {
+        if let user = UserData.getLoggedInUser() {
+            return user.accessToken
+        }
+        return nil
+    }
 
     /**
      Add an organization into a user's followed organizations.

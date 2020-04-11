@@ -563,7 +563,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         let json: [String: Any] = [
         "end": ["dateTime":"2020-03-07T8:00:00", "timeZone":"Asia/Manila"],
         "start": ["dateTime":"2020-03-07T6:00:00", "timeZone":"Asia/Manila"]]
-        
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
         // create post request

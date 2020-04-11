@@ -63,6 +63,36 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
 
         loadingVC.configure(with: NSLocalizedString("loading", comment: ""))
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingVC), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingVC), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
+        
+        
+        let json: [String: Any] = [
+        "end": ["dateTime":"2020-03-20T8:00:00", "timeZone":"Asia/Manila"],
+        "start": ["dateTime":"2020-03-20T6:00:00", "timeZone":"Asia/Manila"]]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+
+        // create post request
+        let accessToken = UserData.getLoggedInUser()?.accessToken
+        let url = URL(string: "https://www.googleapis.com/calendar/v3/calendars/498336876169-2pochdkjo92jburkno1k3bpkl5o9tptb.apps.googleusercontent.com/events?accesstoken=ya29.a0Adw1xeXtt-71RPPk-if0ERQDdPRc3aLCegAoUkYR7L0xn8zzmPMX7p1CvHdfV-eGAXQZ-00hz7G6kA9I5-3Vvvw2uJYzue9cUVexvqdHSoRc-AWbeq9SP6b24qqg-_o2h5nTsidnNJi1HqgC0KSve-YZeYUo7tMOUpo")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        // insert json data to the request
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print("responsejson")
+                print(responseJSON)
+            }
+        }
+
+        task.resume()
     }
 
     /**
