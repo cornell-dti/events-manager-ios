@@ -196,7 +196,7 @@ class Internet {
 
     static func changeAttendance(serverToken: String, id: Int, attend: Bool, completion: @escaping (Bool) -> Void) {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
-        headers["Authorization"] = serverToken
+        headers["Authorization"] = "Bearer \(serverToken)"
 
         let qp = [Endpoint.QueryParam.eventPk : String(id)]
         let URL = Endpoint.getURLString(address: attend ? .incrementAttendanceAddress : .decrementAttendanceAddress, queryParams: qp)
