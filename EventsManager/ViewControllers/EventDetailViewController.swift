@@ -642,28 +642,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 //    }
 
 
-    @objc func shareButtonPressed(_ sender: UIButton) {
-        var textToShare = ""
-        if let e = event {
-            textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(DateFormatHelper.datetime(from: e.startTime)) to \(DateFormatHelper.datetime(from: e.endTime)). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
-        }
-
-        if let myWebsite = URL(string: Endpoint.getURLString(address: .eventsFeedAddress, queryParams: [Endpoint.QueryParam.eventPk : String(event?.id ?? 1)])) {//Enter link to your app here
-            let objectsToShare:[Any] = [textToShare, myWebsite]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-
-            //Excluded Activities
-            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
-            //
-
-            activityVC.popoverPresentationController?.sourceView = sender
-            self.present(activityVC, animated: true, completion: nil)
-        }
-        //Ganalytics
-       // GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
-    }
-
-
     /**
      Handler for the pressing action of the "more" button under event description. Should extend event description or shrink.
      */
