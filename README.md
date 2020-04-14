@@ -56,17 +56,17 @@ _Screenshots showing major parts of app_
 ## Contributors
 
 **2020**
- * **[Ashrita Raman](https://github.com/ashritaraman) -  **Front-end Developer** 
+ * **[Ashrita Raman](https://github.com/ashritaraman)** -  **Front-end Developer** 
  * **[Rodrigo Taipe](https://github.com/rodtai)** - **Front-end Developer**
  * **[Bahar Tehranipoor](https://github.com/bahartehrani)** - **Front-end Developer**
 
 **2019**
- * **[Ashrita Raman](https://github.com/ashritaraman) -  **Front-end Developer** 
+ * **[Ashrita Raman](https://github.com/ashritaraman)** -  **Front-end Developer** 
  * **[Qichen Hu](https://github.com/wsjnohyeah)** - **Front-end Developer**
  * **[Rodrigo Taipe](https://github.com/rodtai)** - **Front-end Developer**
 
 **2018**
- * **[Ashrita Raman](https://github.com/ashritaraman) -  **Front-end Developer** 
+ * **[Ashrita Raman](https://github.com/ashritaraman)** -  **Front-end Developer** 
  * **[Qichen Hu](https://github.com/wsjnohyeah)** - **Front-end Developer**
 
 **2017**
