@@ -18,13 +18,13 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
     let topMargins: CGFloat = 12
     let titleFontSize: CGFloat = 17
     let buttonFontSize: CGFloat = 14
-    let subtitleMargin: CGFloat = 90
-    let subtitleFontSize: CGFloat = 7
+    let subtitleFontSize: CGFloat = 10
+    let subtitleSpacing: CGFloat = 90
     
     var scrollable = UIScrollView()
     var title = UILabel()
-    let editButton = UIButton()
     var subtitle = UILabel()
+    let editButton = UIButton()
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
 
@@ -44,6 +44,7 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
         subtitle.font = UIFont(name: "SFProText-Light", size: subtitleFontSize)
         subtitle.textColor = UIColor(named: "primaryPink")
         subtitle.textAlignment = .center
+
 
         scrollable.backgroundColor = .clear
         
@@ -69,7 +70,7 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
         }
         
         subtitle.snp.makeConstraints { make in
-            make.right.equalTo(scrollable).offset(-subtitleMargin)
+            make.right.equalTo(self).offset(-subtitleSpacing)
             make.top.equalTo(scrollable).offset(topMargins)
             make.bottom.equalTo(scrollable)
         }
@@ -84,11 +85,11 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
     func setMainTitle(_ title: String) {
         self.title.text = title
     }
-    
+
     func setSubTitle(_ subtitle: String) {
         self.subtitle.text = subtitle
     }
-
+    
     func setButtonTitle(_ title: String) {
         editButton.setTitle(title, for: .normal)
     }
