@@ -213,6 +213,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             case popularEventsSection:
                 if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
                     popularHeader.setMainTitle(NSLocalizedString("popular", comment: "").uppercased())
+                    popularHeader.setSubTitle(NSLocalizedString("updated-weekly", comment: ""))
                     popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     popularHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                     popularHeader.editButton.addTarget(self, action: #selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
@@ -221,6 +222,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             case todayEventsSection:
                 if let todayHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
                     todayHeader.setMainTitle(NSLocalizedString("today-events", comment: "").uppercased())
+                    todayHeader.setSubTitle("")
                     todayHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     todayHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                     todayHeader.editButton.addTarget(self, action: #selector(todaySeeMoreButtonPressed(_:)), for: .touchUpInside)
