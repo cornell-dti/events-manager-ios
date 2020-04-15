@@ -38,10 +38,6 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let currentDate = Date()
-        if currentDate.timeIntervalSince(user!.timeSinceNotification) > 60 { //if a week (or greater) has elapsed -- 604800 seconds
-            scheduleNotification()
-            user?.timeSinceNotification = currentDate
-        }
     }
 
     /**

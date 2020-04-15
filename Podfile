@@ -16,6 +16,7 @@ target 'EventsManager' do
 	pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'SwiftLint'
+  pod 'UXCam'
 
   target 'EventsManagerTests' do
     inherit! :search_paths
