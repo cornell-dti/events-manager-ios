@@ -292,6 +292,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             case tomorrowEventsSection:
                 if let tomorrowHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
                     tomorrowHeader.setMainTitle(NSLocalizedString("tomorrow-events", comment: "").uppercased())
+                    tomorrowHeader.setSubTitle("")
                     tomorrowHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     tomorrowHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                     tomorrowHeader.editButton.addTarget(self, action: #selector(tomorrowSeeMoreButtonPressed(_:)), for: .touchUpInside)
