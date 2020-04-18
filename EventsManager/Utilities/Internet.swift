@@ -196,12 +196,12 @@ class Internet {
 
     static func changeAttendance(serverToken: String, id: Int, attend: Bool, completion: @escaping (Bool) -> Void) {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
-        headers["Authorization"] = "Bearer \(serverToken)"
+        headers["Authorization"] = "Token \(serverToken)"
 
         let qp = [Endpoint.QueryParam.eventPk : String(id)]
         let URL = Endpoint.getURLString(address: attend ? .incrementAttendanceAddress : .decrementAttendanceAddress, queryParams: qp)
 
-        Alamofire.request(URL, parameters: [:], headers: headers).validate().responseString(queue: DispatchQueue.global(qos: .default)) { response in
+        Alamofire.request(URL, method: .post, parameters: [:], encoding: JSONEncoding.default, headers: headers).validate().responseString(queue: DispatchQueue.global(qos: .default)) { response in
             switch response.result {
             case .success(let value):
                 print(value)
