@@ -551,6 +551,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         group.notify(queue: .main) {
             if success {
                 self.bookmarkedButtonPressed()
+                _ = AppData.getEvents(startLoading: GenericLoadingHelper.voidLoading(), endLoading: GenericLoadingHelper.endLoading(loadingVC: self.loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
             }
             self.bookmarkedButton.isEnabled = true
         }
