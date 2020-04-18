@@ -69,6 +69,7 @@
 "my-profile" = "My Profile";
 "my-profile-following" = "FOLLOWING";
 "my-profile-more-button" = "MORE";
+"my-profile-less-button" = "LESS";
 "my-profile-following-tags" = "TAGS";
 "my-profile-event-reminders" = "Event Reminders";
 "my-profile-notify-me" = "Notify Me";

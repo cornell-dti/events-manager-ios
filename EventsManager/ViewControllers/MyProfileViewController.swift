@@ -18,7 +18,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     let followingOrganizationsSetion = 0
     let followingTagsSection = 1
     let followingTagRowCount = 1
-    let follwingOrganizationRowLimit = 3
+    let followingOrganizationRowLimit = 3
     let settingsSection = 2
     let settingsRowCount = 1
 
@@ -238,19 +238,29 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     /**
-     Handles pressing of the "MORE" button above following organizations. Should display all possible organizations.
+     Handles pressing of the "MORE/LESS" button above following organizations. Should display/hide all possible organizations.
      */
-    @objc func showAllOrganizations(_ sender: UIButton) {
+    @objc func showOrHideOrganizations(_ sender: UIButton) {
         if let user = user {
-            if user.followingOrganizations.count > follwingOrganizationRowLimit && !showingAllFollowingOrganizations {
+            if user.followingOrganizations.count > followingOrganizationRowLimit && !showingAllFollowingOrganizations {
                 var indexPathsToInsert: [IndexPath] = []
-                for rowIndex in follwingOrganizationRowLimit ..< user.followingOrganizations.count {
+                for rowIndex in followingOrganizationRowLimit ..< user.followingOrganizations.count {
                     let newIndexPath = IndexPath(row: rowIndex, section: followingOrganizationsSetion)
                     indexPathsToInsert.append(newIndexPath)
                 }
                 showingAllFollowingOrganizations = true
                 tableView.insertRows(at: indexPathsToInsert, with: .fade)
-                sender.isHidden = true
+                sender.setTitle(NSLocalizedString("my-profile-less-button", comment: ""), for: .normal)
+            }
+            else {
+                var indexPathsToInsert: [IndexPath] = []
+                for rowIndex in followingOrganizationRowLimit ..< user.followingOrganizations.count {
+                    let newIndexPath = IndexPath(row: rowIndex, section: followingOrganizationsSetion)
+                    indexPathsToInsert.append(newIndexPath)
+                }
+                showingAllFollowingOrganizations = false
+                tableView.deleteRows(at: indexPathsToInsert, with: .fade)
+                sender.setTitle(NSLocalizedString("my-profile-more-button", comment: ""), for: .normal)
             }
         }
     }
@@ -260,16 +270,23 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
         switch section {
             case followingOrganizationsSetion:
                 sectionHeader.setMainTitle(NSLocalizedString("my-profile-following", comment: ""))
-                if (user?.followingOrganizations.count ?? follwingOrganizationRowLimit) > follwingOrganizationRowLimit {
-                    sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
-                    sectionHeader.editButton.addTarget(self, action: #selector(self.showAllOrganizations(_:)), for: .touchUpInside)
-                } else {
+                if user?.followingOrganizations.count ?? followingOrganizationRowLimit <= followingOrganizationRowLimit {
                     sectionHeader.editButton.isHidden = true
                 }
+                else {
+                    if !showingAllFollowingOrganizations {
+                        sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
+                        sectionHeader.editButton.addTarget(self, action: #selector(self.showOrHideOrganizations), for: .touchUpInside)
+                    }
+                    else {
+                        sectionHeader.setButtonTitle(NSLocalizedString("my-profile-less-button", comment: ""))
+                    }
+            }
             case followingTagsSection:
                 sectionHeader.setMainTitle(NSLocalizedString("my-profile-following-tags", comment: ""))
             case settingsSection:
                 sectionHeader.setMainTitle(NSLocalizedString("my-profile-settings", comment: ""))
+                sectionHeader.setButtonTitle("")
             default:
                 return sectionHeader
             }
@@ -290,7 +307,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
                 if showingAllFollowingOrganizations {
                     return user?.followingOrganizations.count ?? 0
                 } else {
-                    return (user?.followingOrganizations.count) ?? 0 <= follwingOrganizationRowLimit ? (user?.followingOrganizations.count) ?? 0 : follwingOrganizationRowLimit
+                    return (user?.followingOrganizations.count) ?? 0 <= followingOrganizationRowLimit ? (user?.followingOrganizations.count) ?? 0 : followingOrganizationRowLimit
                 }
             case followingTagsSection:
                 return followingTagRowCount
