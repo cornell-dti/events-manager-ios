@@ -8,8 +8,18 @@
 
 import UIKit
 
+extension UIScrollView {
+    func scrollToTop() {
+        let desiredOffset = CGPoint(x: 0, y: -(contentInset.top + 110))
+        setContentOffset(desiredOffset, animated: true)
+   }
+    func scrollToTopMyProfile() {
+           let desiredOffset = CGPoint(x: 0, y: -(contentInset.top))
+           setContentOffset(desiredOffset, animated: true)
+      }
+}
+
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
-    
     let discoverIndex = 0
     let forYouIndex = 1
     let myEventsIndex = 2
@@ -55,6 +65,25 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
         let navVC = UINavigationController(rootViewController: viewController)
         return navVC
+    }
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let tabBarIndex = tabBarController.selectedIndex
+        if tabBarIndex == 0 {
+            let navigVC = viewController as? UINavigationController
+            let finalVC = navigVC?.viewControllers[0] as? EventsDiscoveryController
+            finalVC?.tableView.scrollToTop()
+        }
+        else if tabBarIndex == 1 {
+            let navigVC = viewController as? UINavigationController
+            let finalVC = navigVC?.viewControllers[0] as? ForYouViewController
+            finalVC?.tableView.scrollToTop()
+        }
+        else if tabBarIndex == 3 {
+            let navigVC = viewController as? UINavigationController
+            let finalVC = navigVC?.viewControllers[0] as? MyProfileViewController
+            finalVC?.tableView.scrollToTopMyProfile()
+        }
+
     }
 
 }

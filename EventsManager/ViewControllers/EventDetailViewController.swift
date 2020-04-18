@@ -71,7 +71,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     let eventName = UILabel()
     let eventDescription = UILabel()
     let eventDescriptionShowMoreButton = UIButton()
-    let shareButton = UIButton()
+    // let shareButton = UIButton()
     let bookmarkedButton = UIButton()
     var eventTime = UILabel()
     var eventParticipantCount = UILabel()
@@ -205,31 +205,32 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.height.equalTo(buttonImageHeight)
         }
 
-        shareButton.backgroundColor = UIColor.white
-        shareButton.setImage(UIImage(named: "share1")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        shareButton.setTitle(NSLocalizedString("details-share-button", comment: ""), for: .normal)
-        shareButton.tintColor = UIColor(named: "primaryPink")
-        shareButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
-        shareButton.layer.cornerRadius = buttonHeight / 2
-        shareButton.layer.shadowColor = UIColor.gray.cgColor
-        shareButton.layer.shadowOpacity = shadowOpacity
-        shareButton.layer.shadowRadius = shadowRadius
-        shareButton.layer.shadowOffset = shadowOffset
-        shareButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
-        shareButton.addTarget(self, action: #selector(self.shareButtonPressed(_:)), for: .touchUpInside)
+//        shareButton.backgroundColor = UIColor.white
+//        shareButton.setImage(UIImage(named: "share1")?.withRenderingMode(.alwaysTemplate), for: .normal)
+//        shareButton.setTitle(NSLocalizedString("details-share-button", comment: ""), for: .normal)
+//        shareButton.tintColor = UIColor(named: "primaryPink")
+//        shareButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
+//        shareButton.layer.cornerRadius = buttonHeight / 2
+//        shareButton.layer.shadowColor = UIColor.gray.cgColor
+//        shareButton.layer.shadowOpacity = shadowOpacity
+//        shareButton.layer.shadowRadius = shadowRadius
+//        shareButton.layer.shadowOffset = shadowOffset
+//        shareButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: buttonFontSize)
+//        shareButton.addTarget(self, action: #selector(self.shareButtonPressed(_:)), for: .touchUpInside)
+//
+//        shareButton.snp.makeConstraints { make in
+//            make.height.equalTo(buttonHeight)
+//        }
+//
+//        shareButton.imageView?.snp.makeConstraints { make in
+//            make.top.equalTo(shareButton).offset(buttonImageTopSpacing)
+//            make.left.equalTo(shareButton).offset(modifiedbuttonImageLeftSpacing)
+//            make.width.equalTo(buttonImageWidth)
+//            make.height.equalTo(buttonImageHeight)
+//        }
 
-        shareButton.snp.makeConstraints { make in
-            make.height.equalTo(buttonHeight)
-        }
-
-        shareButton.imageView?.snp.makeConstraints { make in
-            make.top.equalTo(shareButton).offset(buttonImageTopSpacing)
-            make.left.equalTo(shareButton).offset(modifiedbuttonImageLeftSpacing)
-            make.width.equalTo(buttonImageWidth)
-            make.height.equalTo(buttonImageHeight)
-        }
-
-        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
+//        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
+        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton])
         buttonStack.alignment = .center
         buttonStack.axis = .horizontal
         buttonStack.distribution = .fill
@@ -618,26 +619,28 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         }
     }
 
-    @objc func shareButtonPressed(_ sender: UIButton) {
-        var textToShare = ""
-        if let e = event {
-            textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(DateFormatHelper.datetime(from: e.startTime)) to \(DateFormatHelper.datetime(from: e.endTime)). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
-        }
+//
+//    @objc func shareButtonPressed(_ sender: UIButton) {
+//        var textToShare = ""
+//        if let e = event {
+//            textToShare = "Come checkout \(e.eventName) at \(e.location.building) in room \(e.location.room) from \(DateFormatHelper.datetime(from: e.startTime)) to \(DateFormatHelper.datetime(from: e.endTime)). \(e.eventDescription) View this event on cue, the best app to find events on Cornell's campus."
+//        }
+//
+//        if let myWebsite = URL(string: Endpoint.getURLString(address: .eventUniversalLink, queryParams: [Endpoint.QueryParam.eventPk : String(event?.id ?? 1)])) {//Enter link to your app here
+//            let objectsToShare:[Any] = [textToShare, myWebsite]
+//            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+//
+//            //Excluded Activities
+//            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+//            //
+//
+//            activityVC.popoverPresentationController?.sourceView = sender
+//            self.present(activityVC, animated: true, completion: nil)
+//        }
+//        //Ganalytics
+//       // GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
+//    }
 
-        if let myWebsite = URL(string: Endpoint.getURLString(address: .eventsFeedAddress, queryParams: [Endpoint.QueryParam.eventPk : String(event?.id ?? 1)])) {//Enter link to your app here
-            let objectsToShare:[Any] = [textToShare, myWebsite]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-
-            //Excluded Activities
-            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
-            //
-
-            activityVC.popoverPresentationController?.sourceView = sender
-            self.present(activityVC, animated: true, completion: nil)
-        }
-        //Ganalytics
-       // GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
-    }
 
     /**
      Handler for the pressing action of the "more" button under event description. Should extend event description or shrink.

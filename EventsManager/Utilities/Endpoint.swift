@@ -8,8 +8,8 @@
 import Foundation
 
 class Endpoint {
-    public static let baseURL = "https://cuevents-staging.herokuapp.com/api/"
-//    public static let baseURL = "https://cuevents-app.herokuapp.com/api/"
+   // public static let baseURL = "https://cuevents-staging.herokuapp.com/api/"
+    public static let baseURL = "https://cuevents-app.herokuapp.com/api/"
     public enum Addresses {
         case serverTokenAddress
         case tagAddress

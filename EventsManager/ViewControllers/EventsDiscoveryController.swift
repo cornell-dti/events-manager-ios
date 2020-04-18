@@ -48,6 +48,11 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         preloadCells()
+        
+       // if currentDate.timeIntervalSince(user!.timeSinceNotification) > 60 { //if a week (or greater) has elapsed -- 604800 seconds
+            scheduleNotification()
+           // user?.timeSinceNotification = currentDate
+      //  }
 
         setup()
     }
@@ -131,6 +136,36 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         }
 
     }
+    
+    //Schedule weekly notification notifying user that events have been added
+    func scheduleNotification() {
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+        let center = UNUserNotificationCenter.current()
+        if let user = UserData.getLoggedInUser() {
+            if user.reminderEnabled {
+                //n is 7 and Sunday is represented by 1
+                let date = Date(timeIntervalSinceNow: 3600)
+                let triggerDate = Calendar.current.dateComponents([.weekday, .hour, .minute, .second,], from: date)
+                let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
+                
+                let content = UNMutableNotificationContent()
+                content.title = NSLocalizedString("notification-weekly-title", comment: "")
+                content.body = NSLocalizedString("notification-weekly-body", comment: "")
+                content.sound = .default
+                let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))"
+                let request = UNNotificationRequest(identifier: notificationIdentifier,
+                                                    content: content, trigger: trigger)
+                center.getPendingNotificationRequests(completionHandler: { requests in
+                    if !(requests.contains(request)) {
+                        center.add(request, withCompletionHandler: { (_) in
+                        })
+                        Analytics.logEvent("weeklyNotificationAdded", parameters: [:])
+                    }
+                })
+            }
+        }
+    }
 
     @objc func refresh(sender:AnyObject) {
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.voidLoading(), endLoading: {
@@ -213,6 +248,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             case popularEventsSection:
                 if let popularHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
                     popularHeader.setMainTitle(NSLocalizedString("popular", comment: "").uppercased())
+                    popularHeader.setSubTitle(NSLocalizedString("updated-weekly", comment: ""))
                     popularHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     popularHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                     popularHeader.editButton.addTarget(self, action: #selector(popularSeeMoreButtonPressed(_:)), for: .touchUpInside)
@@ -221,6 +257,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             case todayEventsSection:
                 if let todayHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
                     todayHeader.setMainTitle(NSLocalizedString("today-events", comment: "").uppercased())
+                    todayHeader.setSubTitle("")
                     todayHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     todayHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                     todayHeader.editButton.addTarget(self, action: #selector(todaySeeMoreButtonPressed(_:)), for: .touchUpInside)
