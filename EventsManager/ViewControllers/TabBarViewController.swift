@@ -9,9 +9,10 @@
 import UIKit
 
 extension UIScrollView {
-    func scrollToTop() {
-        let desiredOffset = CGPoint(x: 0, y: -(contentInset.top + 110))
+    func scrollToTop(navigHeight: CGFloat) {
+        let desiredOffset = CGPoint(x: 0, y: -navigHeight-3)
         setContentOffset(desiredOffset, animated: true)
+        //self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
    }
     func scrollToTopMyProfile() {
            let desiredOffset = CGPoint(x: 0, y: -(contentInset.top))
@@ -71,19 +72,22 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         if tabBarIndex == 0 {
             let navigVC = viewController as? UINavigationController
             let finalVC = navigVC?.viewControllers[0] as? EventsDiscoveryController
-            finalVC?.tableView.scrollToTop()
-        }
-        else if tabBarIndex == 1 {
+            var navigHeight = finalVC?.navigationController?.navigationBar.frame.maxY ?? 0
+            let rectWithinTableView : CGRect = (finalVC?.tableView.rectForRow(at: IndexPath(row: 0, section: 0)))!
+            navigHeight += rectWithinTableView.minY
+            finalVC?.tableView.scrollToTop(navigHeight: navigHeight)
+        } else if tabBarIndex == 1 {
             let navigVC = viewController as? UINavigationController
             let finalVC = navigVC?.viewControllers[0] as? ForYouViewController
-            finalVC?.tableView.scrollToTop()
-        }
-        else if tabBarIndex == 3 {
+            var navigHeight = finalVC?.navigationController?.navigationBar.frame.maxY ?? 0
+            let rectWithinTableView : CGRect = (finalVC?.tableView.rectForRow(at: IndexPath(row: 0, section: 0)))!
+            navigHeight += rectWithinTableView.minY
+            finalVC?.tableView.scrollToTop(navigHeight: navigHeight)
+        } else if tabBarIndex == 3 {
             let navigVC = viewController as? UINavigationController
             let finalVC = navigVC?.viewControllers[0] as? MyProfileViewController
             finalVC?.tableView.scrollToTopMyProfile()
         }
-
     }
 
 }

@@ -48,7 +48,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         preloadCells()
-        
        // if currentDate.timeIntervalSince(user!.timeSinceNotification) > 60 { //if a week (or greater) has elapsed -- 604800 seconds
           scheduleNotification()
            // user?.timeSinceNotification = currentDate
