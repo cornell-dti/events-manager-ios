@@ -19,12 +19,14 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
     let titleFontSize: CGFloat = 17
     let buttonFontSize: CGFloat = 14
     let subtitleFontSize: CGFloat = 10
+    let noEventsFontSize: CGFloat = 20
     let subtitleSpacing: CGFloat = 90
-    
     var scrollable = UIScrollView()
     var title = UILabel()
     var subtitle = UILabel()
     let editButton = UIButton()
+    
+    var noEvents = UILabel()
 
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
 
@@ -44,7 +46,10 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
         subtitle.font = UIFont(name: "SFProText-Light", size: subtitleFontSize)
         subtitle.textColor = UIColor(named: "primaryPink")
         subtitle.textAlignment = .center
-
+        
+        noEvents.font = UIFont(name: "SFProText-Light", size: noEventsFontSize)
+        noEvents.textColor = UIColor(named: "primaryPink")
+        noEvents.sizeToFit()
 
         scrollable.backgroundColor = .clear
         
@@ -52,6 +57,7 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
         self.addSubview(editButton)
         scrollable.addSubview(title)
         scrollable.addSubview(subtitle)
+        scrollable.addSubview(noEvents)
 
         scrollable.snp.makeConstraints { make in
             make.left.equalTo(self)
@@ -61,18 +67,23 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
             make.top.equalTo(self)
             make.bottom.equalTo(self).offset(bottomMargins)
         }
-        
         title.snp.makeConstraints { make in
             make.left.equalTo(scrollable).offset(sideMargins)
             make.right.equalTo(scrollable)
             make.top.equalTo(scrollable).offset(topMargins)
             make.bottom.equalTo(scrollable)
         }
-        
         subtitle.snp.makeConstraints { make in
             make.right.equalTo(self).offset(-subtitleSpacing)
             make.top.equalTo(scrollable).offset(topMargins)
             make.bottom.equalTo(scrollable)
+        }
+        noEvents.snp.makeConstraints { make in
+         //   make.right.equalTo(self).offset(-subtitleSpacing)
+            make.top.equalTo(title).offset(20)
+            make.right.equalTo(self).offset(5)
+           // make.bottom.equalTo(scrollable)
+            
         }
 
         editButton.snp.makeConstraints { make in
@@ -88,6 +99,10 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
 
     func setSubTitle(_ subtitle: String) {
         self.subtitle.text = subtitle
+    }
+    
+    func setNoEvents(_ noEvents: String) {
+        self.noEvents.text = noEvents
     }
     
     func setButtonTitle(_ title: String) {

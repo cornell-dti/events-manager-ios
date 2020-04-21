@@ -10,7 +10,7 @@ import UIKit
 
 extension UIScrollView {
     func scrollToTop(navigHeight: CGFloat) {
-        let desiredOffset = CGPoint(x: 0, y: -navigHeight-3)
+        let desiredOffset = CGPoint(x: 0, y: -navigHeight-4)
         setContentOffset(desiredOffset, animated: true)
         //self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
    }
