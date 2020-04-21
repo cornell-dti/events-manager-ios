@@ -9,13 +9,21 @@
 import UIKit
 
 extension UIScrollView {
-    func scrollToTop(navigHeight: CGFloat) {
-        let desiredOffset = CGPoint(x: 0, y: -navigHeight-3)
-        if contentOffset != desiredOffset {
-            setContentOffset(desiredOffset, animated: true) 
+    func scrollToTopEventsDiscover(navigHeight: CGFloat) {
+        let desiredOffset = CGPoint(x: 0, y: -navigHeight-4)
+        if contentOffset.y != -102 && contentOffset.y != -116 {
+            setContentOffset(desiredOffset, animated: true)
         }
-        //self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
    }
+    
+    func scrollToTopForYou(navigHeight: CGFloat) {
+         let desiredOffset = CGPoint(x: 0, y: -navigHeight-4)
+         print(contentOffset.y)
+         if contentOffset.y != -154 {
+             setContentOffset(desiredOffset, animated: true)
+         }
+    }
+    
     func scrollToTopMyProfile() {
            let desiredOffset = CGPoint(x: 0, y: -(contentInset.top))
            setContentOffset(desiredOffset, animated: true)
@@ -85,11 +93,25 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             let rectWithinTableView : CGRect = (finalVC?.tableView.rectForRow(at: IndexPath(row: 0, section: 0)))!
             navigHeight += rectWithinTableView.minY
             finalVC?.tableView.scrollToTop(navigHeight: navigHeight)
+            //index = 1
         } else if tabBarIndex == 3 {
             let navigVC = viewController as? UINavigationController
             let finalVC = navigVC?.viewControllers[0] as? MyProfileViewController
             finalVC?.tableView.scrollToTopMyProfile()
         }
     }
+    
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//        if viewController != tabBarController.selectedViewController {
+//             let navigVC = viewController as? UINavigationController
+//             let finalVC = navigVC?.viewControllers[0] as? EventsDiscoveryController
+//             var navigHeight = finalVC?.navigationController?.navigationBar.frame.maxY ?? 0
+//             let rectWithinTableView : CGRect = (finalVC?.tableView.rectForRow(at: IndexPath(row: 0, section: 0)))!
+//             navigHeight += rectWithinTableView.minY
+//             finalVC?.tableView.scrollToTop(navigHeight: navigHeight)
+//             return true
+//        }
+//        return false
+//    }
 
 }
