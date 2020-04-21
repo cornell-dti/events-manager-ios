@@ -68,6 +68,7 @@
 		FC48D37B222B0D3F00A8F8DF /* PinkClickableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC48D37A222B0D3F00A8F8DF /* PinkClickableButton.swift */; };
 		FCD0E4D622625F5E00E180DF /* JSONParserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */; };
 		FCD0E4DA2262E12B00E180DF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0E4D92262E12B00E180DF /* Endpoint.swift */; };
+		FF3A66E9244F8FBB0055E560 /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3A66E8244F8FBB0055E560 /* DeviceType.swift */; };
 		FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */; };
 		FF76428C218E227900ED7A11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428B218E227900ED7A11 /* Alert.swift */; };
 		FF76428E218E228F00ED7A11 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76428D218E228F00ED7A11 /* LoadingViewController.swift */; };
@@ -172,6 +173,7 @@
 		FCD0E4D522625F5E00E180DF /* JSONParserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParserHelper.swift; sourceTree = "<group>"; };
 		FCD0E4D92262E12B00E180DF /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		FF292A2F219E680A00A4E7F4 /* EventsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EventsManager.entitlements; sourceTree = "<group>"; };
+		FF3A66E8244F8FBB0055E560 /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
 		FF6F7DEC215FF16500F4B680 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		FF76428B218E227900ED7A11 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FF76428D218E228F00ED7A11 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 				AA6B451F2276285C009925FF /* GenericLoadingHelper.swift */,
 				AA16F3D5231B44F40031DC67 /* GoogleAnalytics.swift */,
 				AA74D062236DE5BF00CACEF1 /* Extensions.swift */,
+				FF3A66E8244F8FBB0055E560 /* DeviceType.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				DA75C223205ABF0400C1822C /* MyProfileViewController.swift in Sources */,
 				AAD334EA2151E83100312F31 /* LoginViewController.swift in Sources */,
 				AA03DC282061B8220059EE1B /* EventDetailViewController.swift in Sources */,
+				FF3A66E9244F8FBB0055E560 /* DeviceType.swift in Sources */,
 				AA8861F7223D6FE500DE9180 /* Location.swift in Sources */,
 				DA75C21D205ABDCD00C1822C /* Event.swift in Sources */,
 				FF6F7DED215FF16500F4B680 /* CheckableTableViewCell.swift in Sources */,
