@@ -101,7 +101,6 @@ class OrganizationViewController: UIViewController, UITableViewDelegate, UITable
         websiteContentLabel.text = organization.website
         emailContentLabel.text = organization.email
         bioContentLabel.text = organization.description
-        
         popularEvents = AppData.getEventsAssociatedWith(organization: organizationPk)
 
         getTags()

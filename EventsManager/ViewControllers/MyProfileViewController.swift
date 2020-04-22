@@ -251,8 +251,7 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
                 showingAllFollowingOrganizations = true
                 tableView.insertRows(at: indexPathsToInsert, with: .fade)
                 sender.setTitle(NSLocalizedString("my-profile-less-button", comment: ""), for: .normal)
-            }
-            else {
+            } else {
                 var indexPathsToInsert: [IndexPath] = []
                 for rowIndex in followingOrganizationRowLimit ..< user.followingOrganizations.count {
                     let newIndexPath = IndexPath(row: rowIndex, section: followingOrganizationsSetion)
@@ -272,13 +271,11 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
                 sectionHeader.setMainTitle(NSLocalizedString("my-profile-following", comment: ""))
                 if user?.followingOrganizations.count ?? followingOrganizationRowLimit <= followingOrganizationRowLimit {
                     sectionHeader.editButton.isHidden = true
-                }
-                else {
+                } else {
                     if !showingAllFollowingOrganizations {
                         sectionHeader.setButtonTitle(NSLocalizedString("my-profile-more-button", comment: ""))
                         sectionHeader.editButton.addTarget(self, action: #selector(self.showOrHideOrganizations), for: .touchUpInside)
-                    }
-                    else {
+                    } else {
                         sectionHeader.setButtonTitle(NSLocalizedString("my-profile-less-button", comment: ""))
                     }
             }

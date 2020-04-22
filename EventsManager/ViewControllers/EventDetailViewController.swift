@@ -660,7 +660,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 //       // GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
 //    }
 
-
     /**
      Handler for the pressing action of the "more" button under event description. Should extend event description or shrink.
      */

@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.delegate = self
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        notificationCenter.requestAuthorization(options: options, completionHandler: {(_, _) in   
+        notificationCenter.requestAuthorization(options: options, completionHandler: {(_, _) in
         })
         //log notifications that have been sent and are in the notification center (have not been clicked by the user)
         notificationCenter.getDeliveredNotifications(completionHandler: { notifications in

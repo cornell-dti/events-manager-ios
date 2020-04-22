@@ -24,7 +24,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     let tomorrowEventsSection = 2
     let seeAllEventSection = 3
     var cells = [Int: EventCardCell]()
-    
     //View Elements
     let tableView = UITableView(frame: CGRect(), style: .grouped)
     lazy var searchBarButton: UIBarButtonItem = {
@@ -78,7 +77,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
                 tomorrowEvents.append(ev)
             }
         }
-        
         todayEvents = todayEvents.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         tomorrowEvents = tomorrowEvents.sorted(by: { $0.eventParticipantCount > $1.eventParticipantCount })
         todayEvents = (Array(todayEvents.prefix(10))).sorted(by: { $0.startTime.timeIntervalSinceNow < $1.startTime.timeIntervalSinceNow })
