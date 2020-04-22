@@ -24,7 +24,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     let tomorrowEventsSection = 2
     let seeAllEventSection = 3
     var cells = [Int: EventCardCell]()
-
     //View Elements
     let tableView = UITableView(frame: CGRect(), style: .grouped)
     lazy var searchBarButton: UIBarButtonItem = {
@@ -48,7 +47,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         preloadCells()
-        
        // if currentDate.timeIntervalSince(user!.timeSinceNotification) > 60 { //if a week (or greater) has elapsed -- 604800 seconds
           scheduleNotification()
            // user?.timeSinceNotification = currentDate
@@ -136,13 +134,11 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         }
 
     }
-    
     func scheduleNotification() {
         let content = UNMutableNotificationContent()
         content.title = NSLocalizedString("notification-weekly-title", comment: "")
         content.body = NSLocalizedString("notification-weekly-body", comment: "")
         content.sound = .default
-        
         // Configure the recurring date.
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
@@ -150,11 +146,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         //n is 7 and Sunday is represented by 1
         dateComponents.weekday = 4  // Wednesday
         dateComponents.hour = 15    // 3:00pm
-           
         // Create the trigger as a repeating event.
         let trigger = UNCalendarNotificationTrigger(
                  dateMatching: dateComponents, repeats: true)
-        
         // Create the request
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString,
@@ -293,6 +287,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
                 if let tomorrowHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: EventTableHeaderFooterView.identifier) as? EventTableHeaderFooterView {
                     tomorrowHeader.setMainTitle(NSLocalizedString("tomorrow-events", comment: "").uppercased())
                     tomorrowHeader.setSubTitle("")
+                    //tomorrowHeader.setNoEvents(NSLocalizedString("tomorrow-events", comment: "").uppercased())
                     tomorrowHeader.setButtonTitle(NSLocalizedString("see-more-button", comment: ""))
                     tomorrowHeader.editButton.removeTarget(nil, action: nil, for: .allEvents)
                     tomorrowHeader.editButton.addTarget(self, action: #selector(tomorrowSeeMoreButtonPressed(_:)), for: .touchUpInside)

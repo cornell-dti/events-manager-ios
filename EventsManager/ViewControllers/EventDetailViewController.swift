@@ -442,6 +442,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                                                              endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
                                                              noConnection: GenericLoadingHelper.noConnection(from: self),
                                                              updateData: false).0
+        if eventLocation.text?.contains("https") ?? false {
+            let eventLocationTapGesture = UITapGestureRecognizer(target: self, action: #selector(eventLocationPressed(_:)))
+            eventLocation.addGestureRecognizer(eventLocationTapGesture)
+            eventLocation.isUserInteractionEnabled = true
+            let attributedString = NSMutableAttributedString.init(string: eventLocation.text ?? "")
+            attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range:
+                NSRange.init(location: 0, length: attributedString.length))
+            eventLocation.attributedText = attributedString
+        }
         eventParticipantCount.text = "\(event.eventParticipantCount) \(NSLocalizedString("participant-going", comment: ""))"
         configureMap(event)
 
@@ -507,6 +516,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             }
         }
 
+    }
+
+    @objc func eventLocationPressed(_ sender: UITapGestureRecognizer) {
+        var eventLocationText = eventLocation.text
+        eventLocationText = eventLocationText?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        guard let eventLocationURL = URL(string: eventLocationText ?? "") else { return  }
+        UIApplication.shared.open(eventLocationURL)
     }
 
     /**
@@ -643,7 +659,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 //        //Ganalytics
 //       // GoogleAnalytics.trackEvent(category: "button click", action: "share", label: "event detail page")
 //    }
-
 
     /**
      Handler for the pressing action of the "more" button under event description. Should extend event description or shrink.

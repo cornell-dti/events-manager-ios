@@ -37,7 +37,6 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let currentDate = Date()
     }
 
     /**
@@ -85,7 +84,7 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         forYouEvents.append(pair.1) //append the event array
                     }
                 }
-                if (!forYouEvents.isEmpty) {
+                if !forYouEvents.isEmpty {
                     var triggerDate = DateComponents()
                     //n is 7 and Sunday is represented by 1
                     triggerDate.day = 2
@@ -123,9 +122,7 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
         }
-            
     }
-
     @objc func refresh(sender:AnyObject) {
         // Code to refresh table view
         self.tableView.reloadData()

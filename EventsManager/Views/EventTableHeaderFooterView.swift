@@ -20,7 +20,6 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
     let buttonFontSize: CGFloat = 14
     let subtitleFontSize: CGFloat = 10
     let subtitleSpacing: CGFloat = 90
-    
     var scrollable = UIScrollView()
     var title = UILabel()
     var subtitle = UILabel()
@@ -45,7 +44,6 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
         subtitle.textColor = UIColor(named: "primaryPink")
         subtitle.textAlignment = .center
 
-
         scrollable.backgroundColor = .clear
         
         self.addSubview(scrollable)
@@ -61,14 +59,12 @@ class EventTableHeaderFooterView: UITableViewHeaderFooterView {
             make.top.equalTo(self)
             make.bottom.equalTo(self).offset(bottomMargins)
         }
-        
         title.snp.makeConstraints { make in
             make.left.equalTo(scrollable).offset(sideMargins)
             make.right.equalTo(scrollable)
             make.top.equalTo(scrollable).offset(topMargins)
             make.bottom.equalTo(scrollable)
         }
-        
         subtitle.snp.makeConstraints { make in
             make.right.equalTo(self).offset(-subtitleSpacing)
             make.top.equalTo(scrollable).offset(topMargins)

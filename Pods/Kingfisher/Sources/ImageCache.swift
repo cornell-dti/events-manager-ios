@@ -629,7 +629,7 @@ open class ImageCache {
     
     /**
     Get the cache path for the key.
-    It is useful for projects with UIWebView or anyone that needs access to the local file path.
+    It is useful for projects with WKWebView or anyone that needs access to the local file path.
     
     i.e. Replace the `<img src='path_for_key'>` tag in your HTML.
      
