@@ -27,5 +27,8 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@master
+      - name: Install Dependencies
+        run: |
+          pod install --repo-update
       - name: Build
         run: xcodebuild -scheme Pods-EventsManager -workspace EventsManager.xcworkspace -quiet clean build
