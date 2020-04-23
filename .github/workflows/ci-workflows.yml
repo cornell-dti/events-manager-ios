@@ -15,8 +15,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Install Dependencies
-        run: |
-          pod install --repo-update
+        run: pod install
       - name: Run SwiftLint
         run: ./Pods/SwiftLint/swiftlint
       - name: Try to autocorrect
@@ -40,7 +39,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Install Dependencies
-        run: |
-          pod install --repo-update
+        run: pod install
       - name: Build
         run: xcodebuild -scheme Pods-EventsManager -workspace EventsManager.xcworkspace -quiet clean build
