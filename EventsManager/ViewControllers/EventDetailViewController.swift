@@ -442,7 +442,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                                                              endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
                                                              noConnection: GenericLoadingHelper.noConnection(from: self),
                                                              updateData: false).0
-        if eventLocation.text?.contains("https") ?? false {
+        if eventLocation.text?.contains("http") ?? false {
             let eventLocationTapGesture = UITapGestureRecognizer(target: self, action: #selector(eventLocationPressed(_:)))
             eventLocation.addGestureRecognizer(eventLocationTapGesture)
             eventLocation.isUserInteractionEnabled = true
@@ -520,9 +520,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
 
     @objc func eventLocationPressed(_ sender: UITapGestureRecognizer) {
         var eventLocationText = eventLocation.text
-        eventLocationText = eventLocationText?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        guard let eventLocationURL = URL(string: eventLocationText ?? "") else { return  }
-        UIApplication.shared.open(eventLocationURL)
+       // eventLocationText = eventLocationText?.trimmingCharacters(in: .whitespaces)
+        eventLocationText = eventLocationText?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        if let url = URL(string: eventLocationText!) {
+            UIApplication.shared.open(url)
+        }
     }
 
     /**
