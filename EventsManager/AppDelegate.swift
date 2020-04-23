@@ -12,7 +12,6 @@ import GooglePlaces
 import GoogleSignIn
 import Firebase
 import UserNotifications
-import UXCam
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -21,8 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
         [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UXCam.optIntoSchematicRecordings()
-        UXCam.start(withKey:"bgqqy0hez9v6qm5")
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
 
