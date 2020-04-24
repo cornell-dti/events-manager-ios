@@ -9,14 +9,15 @@ jobs:
       - name: Set XCode Version
         run: sudo xcode-select -s /Applications/Xcode_11.app
       - uses: actions/cache@v1
+        id: pods-cache
         with:
           path: Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Install Dependencies
-        run: |
-          pod install --repo-update
+        if: steps.pods-cache.outputs.cache-hit != 'true'
+        run: pod install
       - name: Run SwiftLint
         run: ./Pods/SwiftLint/swiftlint
       - name: Try to autocorrect
@@ -34,13 +35,14 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/cache@v1
+        id: pods-cache
         with:
           path: Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Install Dependencies
-        run: |
-          pod install --repo-update
+        if: steps.pods-cache.outputs.cache-hit != 'true'
+        run: pod install
       - name: Build
         run: xcodebuild -scheme Pods-EventsManager -workspace EventsManager.xcworkspace -quiet clean build
