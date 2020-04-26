@@ -19,9 +19,9 @@ extension UIScrollView {
         } else {
             desiredOffset = CGPoint(x: 0, y: -navigHeight-5)
         }
-        print(contentOffset.y)
-        print(desiredOffset.y)
-        print(Offset._offset)
+//        print(contentOffset.y)
+//        print(desiredOffset.y)
+//        print(Offset._offset)
         if contentOffset.y != Offset._offset {
             Offset._offset = desiredOffset.y //content
             setContentOffset(desiredOffset, animated: true)
@@ -38,7 +38,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     let forYouIndex = 1
     let myEventsIndex = 2
     let myProfileIndex = 3
-    var prevViewController = -1
 
     var discoverNavVC = UINavigationController()
     var myEventsNavVC = UINavigationController()
@@ -89,10 +88,8 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             var navigHeight = finalVC?.navigationController?.navigationBar.frame.maxY ?? 0
             let rectWithinTableView : CGRect = (finalVC?.tableView.rectForRow(at: IndexPath(row: 0, section: 0)))!
             navigHeight += rectWithinTableView.minY
-            if prevViewController == 0  {
+            if (finalVC?.tableView.contentOffset.y.isLess(than: -100))! == false  {
                 finalVC?.tableView.scrollToTop(navigHeight: navigHeight, vc: true)
-            } else {
-                prevViewController = 0
             }
         } else if tabBarIndex == 1 {
             let navigVC = viewController as? UINavigationController
@@ -100,20 +97,16 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             var navigHeight = finalVC?.navigationController?.navigationBar.frame.maxY ?? 0
             let rectWithinTableView : CGRect = (finalVC?.tableView.rectForRow(at: IndexPath(row: 0, section: 0)))!
             navigHeight += rectWithinTableView.minY
-            if prevViewController == 1 {
+            if (finalVC?.tableView.contentOffset.y.isLess(than: -100))! == false {
                 finalVC?.tableView.scrollToTop(navigHeight: navigHeight, vc: false)
-            } else {
-                prevViewController = 1
-                }
+            }
         } else if tabBarIndex == 3 {
             let navigVC = viewController as? UINavigationController
             let finalVC = navigVC?.viewControllers[0] as? MyProfileViewController
             finalVC?.tableView.scrollToTopMyProfile()
-            prevViewController = 3
+            
         }
-        else {
-            prevViewController = 2
-        }
+        
     }
 
 }
