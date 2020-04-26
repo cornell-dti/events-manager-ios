@@ -88,7 +88,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             var navigHeight = finalVC?.navigationController?.navigationBar.frame.maxY ?? 0
             let rectWithinTableView : CGRect = (finalVC?.tableView.rectForRow(at: IndexPath(row: 0, section: 0)))!
             navigHeight += rectWithinTableView.minY
-            if (finalVC?.tableView.contentOffset.y.isLess(than: 10))! == false  {
+            if (finalVC?.tableView.contentOffset.y.isLess(than: 1))! == false  {
                 finalVC?.tableView.scrollToTop(navigHeight: navigHeight, vc: true)
             }
         } else if tabBarIndex == 1 {
@@ -97,7 +97,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             var navigHeight = finalVC?.navigationController?.navigationBar.frame.maxY ?? 0
             let rectWithinTableView : CGRect = (finalVC?.tableView.rectForRow(at: IndexPath(row: 0, section: 0)))!
             navigHeight += rectWithinTableView.minY
-            if (finalVC?.tableView.contentOffset.y.isLess(than: 10))! == false {
+            if (finalVC?.tableView.contentOffset.y.isLess(than: 1))! == false {
                 finalVC?.tableView.scrollToTop(navigHeight: navigHeight, vc: false)
             }
         } else if tabBarIndex == 3 {
