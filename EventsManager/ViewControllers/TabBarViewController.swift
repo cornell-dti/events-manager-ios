@@ -19,9 +19,6 @@ extension UIScrollView {
         } else {
             desiredOffset = CGPoint(x: 0, y: -navigHeight-5)
         }
-//        print(contentOffset.y)
-//        print(desiredOffset.y)
-//        print(Offset._offset)
         if contentOffset.y != Offset._offset {
             Offset._offset = desiredOffset.y //content
             setContentOffset(desiredOffset, animated: true)
@@ -104,9 +101,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             let navigVC = viewController as? UINavigationController
             let finalVC = navigVC?.viewControllers[0] as? MyProfileViewController
             finalVC?.tableView.scrollToTopMyProfile()
-            
         }
-        
     }
 
 }

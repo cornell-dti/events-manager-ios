@@ -155,13 +155,15 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
                     content: content, trigger: trigger)
 
         // Schedule the request with the system.
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.add(request) { (error) in
-           if error != nil {
-              // Handle any errors.
-           }
-        }
-        
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            if !(requests.contains(request)) {
+                center.add(request, withCompletionHandler: { (_) in
+                })
+                Analytics.logEvent("weeklyNotificationAdded", parameters: [:])
+            }
+        })
+    }
 //        var dateComponents = DateComponents()
 //        dateComponents.calendar = Calendar.current
 //        let center = UNUserNotificationCenter.current()
@@ -185,7 +187,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
 //            }
 //        })
 
-    }
+    
 
     @objc func refresh(sender:AnyObject) {
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.voidLoading(), endLoading: {

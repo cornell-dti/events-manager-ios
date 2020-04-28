@@ -592,7 +592,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 Analytics.logEvent("bookmarked", parameters: [
                     "eventName": event?.eventName ?? ""
                     ])
-                print("got here")
                 if let event = event {
                     if !user.bookmarkedEvents.contains(event.id) {
                         user.bookmarkedEvents.append(event.id)

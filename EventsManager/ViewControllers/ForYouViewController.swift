@@ -114,9 +114,6 @@ class ForYouViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         if !(requests.contains(request)) {
                             center.add(request, withCompletionHandler: { (_) in
                             })
-                            Analytics.logEvent("tailoredNotificationAdded", parameters: [
-                                "notificationName": mostPopularEvent.eventName
-                            ])
                         }
                     })
                 }

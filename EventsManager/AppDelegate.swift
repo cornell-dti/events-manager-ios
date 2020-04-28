@@ -62,16 +62,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //log notifications that have been sent and are in the notification center (have not been clicked by the user)
         notificationCenter.getDeliveredNotifications(completionHandler: { notifications in
             for notification in notifications {
-                if notification.request.content.title == "Here is an event you may be interested in" {
-                    Analytics.logEvent("tailoredNotificationAppeared", parameters: [
-                        "description": notification.request.content
-                    ])
-                } else {
-                    Analytics.logEvent("notificationAppeared", parameters: [
-                        "description": notification.request.content
-                    ])
-                }
+                Analytics.logEvent("notificationAppeared", parameters: [
+                    "description": notification.request.content
+                ])
             }
+            
         })
 
         return true
@@ -80,15 +75,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     //track notifications that have been clicked
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 
-        if response.notification.request.content.title == "Here is an event you may be interested in" {
-            Analytics.logEvent("tailoredNotificationClicked", parameters: [
-                "description": response.notification.request.content
-            ])
-        } else {
+        
             Analytics.logEvent("notificationClicked", parameters: [
                 "description": response.notification.request.content
             ])
-        }
+        
 
         completionHandler()
     }
