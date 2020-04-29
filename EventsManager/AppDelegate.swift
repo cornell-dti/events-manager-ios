@@ -145,6 +145,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabVC.discoverNavVC.pushViewController(detailsVC, animated: true)
             }
         }
+        if category == "org" {
+            if let tabVC = window?.rootViewController as? TabBarViewController {
+                let detailsVC = OrganizationViewController()
+                detailsVC.configure(organizationPk: Int(id)!)
+                tabVC.selectedIndex = tabVC.discoverIndex
+                tabVC.discoverNavVC.pushViewController(detailsVC, animated: true)
+            }
+        }
         return false
     }
 }
