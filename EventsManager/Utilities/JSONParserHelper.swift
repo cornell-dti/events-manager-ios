@@ -10,7 +10,7 @@ import SwiftyJSON
 
 class JSONParserHelper {
     private static let defaultImageURL = URL(string: "http://ethanhu.me/images/background.jpg")!
-    private static let mediaAddress = Endpoint.baseURL + "app/media/"
+    private static let mediaAddress = Endpoint.apiBaseURL + "app/media/"
 
     public static func parseOrganization(json: JSON) -> Organization? {
         if let pk = json["pk"].int,

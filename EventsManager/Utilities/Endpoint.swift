@@ -9,7 +9,8 @@ import Foundation
 
 class Endpoint {
    // public static let baseURL = "https://cuevents-staging.herokuapp.com/api/"
-    public static let baseURL = "https://cuevents-app.herokuapp.com/api/"
+    public static let apiBaseURL = "https://cuevents-app.herokuapp.com/api/"
+    public static let deeplinksBaseURL = "https://www.cuevents.org/"
     public enum Addresses {
         case serverTokenAddress
         case tagAddress
@@ -20,6 +21,8 @@ class Endpoint {
         case organizationEventAddress
         case incrementAttendanceAddress
         case decrementAttendanceAddress
+        case eventDeepLink
+        case organizationDeepLink
     }
 
     public enum QueryParam {
@@ -36,23 +39,27 @@ class Endpoint {
     public static func getURLString (address: Addresses, queryParams : [QueryParam:String]) -> String {
         switch address {
         case .serverTokenAddress:
-            return baseURL + "get_token/" + queryParams[.googleToken]!
+            return apiBaseURL + "get_token/" + queryParams[.googleToken]!
         case .tagAddress:
-            return baseURL + "get_tag/" + queryParams[.tagPk]! + "/"
+            return apiBaseURL + "get_tag/" + queryParams[.tagPk]! + "/"
         case .locationAddress:
-            return baseURL + "get_location/" + queryParams[.locationPk]! + "/"
+            return apiBaseURL + "get_location/" + queryParams[.locationPk]! + "/"
         case .eventsFeedAddress:
-            return baseURL + "get_event_feed/"
+            return apiBaseURL + "get_event_feed/"
         case .eventDetailsAddress:
-            return baseURL + "get_event/" + queryParams[.eventPk]! + "/"
+            return apiBaseURL + "get_event/" + queryParams[.eventPk]! + "/"
         case .organizationAddress:
-            return baseURL + "get_profile/" + queryParams[.organizationPk]! + "/"
+            return apiBaseURL + "get_profile/" + queryParams[.organizationPk]! + "/"
         case .organizationEventAddress:
-            return baseURL + "get_events/" + queryParams[.organizationPk]! + "/events/"
+            return apiBaseURL + "get_events/" + queryParams[.organizationPk]! + "/events/"
         case .incrementAttendanceAddress:
-            return baseURL + "increment_attendance/" + queryParams[.eventPk]! + "/"
+            return apiBaseURL + "increment_attendance/" + queryParams[.eventPk]! + "/"
         case .decrementAttendanceAddress:
-            return baseURL + "decrement_attendance/" + queryParams[.eventPk]! + "/"
+            return apiBaseURL + "decrement_attendance/" + queryParams[.eventPk]! + "/"
+        case .eventDeepLink:
+            return deeplinksBaseURL + "event/" + queryParams[.eventPk]! + "/"
+        case .organizationDeepLink:
+            return deeplinksBaseURL + "org/" + queryParams[.organizationPk]! + "/"
         }
     }
 
