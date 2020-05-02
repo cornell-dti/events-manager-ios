@@ -40,6 +40,9 @@
 "notification-identifier" = "event_notification_";
 "notification-weekly-title" = "New events have been added to the app";
 "notification-weekly-body" =  "Check them out!";
+"free-food-notification-title" = "A new free food event is coming up";
+"free-food-notification-body" = " is happening tomorrow!";
+
 
 //Event List View
 "tool-bar-cancel-button" = "Cancel";

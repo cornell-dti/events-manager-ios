@@ -47,10 +47,9 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         loadingViewController.configure(with: NSLocalizedString("loading", comment: ""))
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.startLoadding(from: self, loadingVC: loadingViewController), endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController), noConnection: GenericLoadingHelper.noConnection(from: self), updateData: true)
         preloadCells()
-       // if currentDate.timeIntervalSince(user!.timeSinceNotification) > 60 { //if a week (or greater) has elapsed -- 604800 seconds
-          scheduleNotification()
-           // user?.timeSinceNotification = currentDate
-      //  }
+        scheduleNotification()
+
+        freeFoodEventNotifications()
 
         setup()
     }
@@ -164,30 +163,6 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
             }
         })
     }
-//        var dateComponents = DateComponents()
-//        dateComponents.calendar = Calendar.current
-//        let center = UNUserNotificationCenter.current()
-//        //n is 7 and Sunday is represented by 1
-//        let date = Date(timeIntervalSinceNow: 60)
-//        let triggerDate = Calendar.current.dateComponents([.weekday, .hour, .minute, .second,], from: date)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
-//
-//        let content = UNMutableNotificationContent()
-//        content.title = NSLocalizedString("notification-weekly-title", comment: "")
-//        content.body = NSLocalizedString("notification-weekly-body", comment: "")
-//        content.sound = .default
-//        let notificationIdentifier = triggerDate.description
-//        let request = UNNotificationRequest(identifier: notificationIdentifier,
-//                                            content: content, trigger: trigger)
-//        center.getPendingNotificationRequests(completionHandler: { requests in
-//            if !(requests.contains(request)) {
-//                center.add(request, withCompletionHandler: { (_) in
-//                })
-//                Analytics.logEvent("weeklyNotificationAdded", parameters: [:])
-//            }
-//        })
-
-    
 
     @objc func refresh(sender:AnyObject) {
         _ = AppData.getEvents(startLoading: GenericLoadingHelper.voidLoading(), endLoading: {
@@ -240,6 +215,38 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
      */
     @objc func searchButtonPressed(_ sender: UIBarButtonItem) {
         navigationController?.pushViewController(EventsSearchViewController(), animated: true)
+    }
+    
+    //free food notifications
+    func freeFoodEventNotifications() {
+        for event in events {
+            for tag in event.eventTags {
+                if AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name == "Free Food" {
+                    let center = UNUserNotificationCenter.current()
+                    if let user = UserData.getLoggedInUser() {
+                        if user.reminderEnabled {
+                            let content = UNMutableNotificationContent()
+                            content.title = NSLocalizedString("free-food-notification-title", comment: "")
+                            content.body = "\(event.eventName)\(NSLocalizedString("free-food-notification-body", comment: ""))"
+                            content.sound = .default
+                            let minutesBeforeEvent = 1440
+                            let minuteComp = DateComponents(minute: -minutesBeforeEvent)
+                            let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
+                            if let remindDate = remindDate {
+                                let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second ], from: remindDate)
+                                let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+                                                                            repeats: false)
+                                let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
+                                let request = UNNotificationRequest(identifier: notificationIdentifier,
+                                                                    content: content, trigger: trigger)
+                                center.add(request, withCompletionHandler: { (_) in
+                                })
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
