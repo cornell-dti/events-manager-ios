@@ -326,18 +326,15 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        print(checkedOrganizationIDs)
         switch currentOnBoardingProcess {
             case .chooseOrganization:
                 let selectedOrganizationID = filteredOrganizations[indexPath.row].id
-               // print(selectedOrganizationID)
                 checkedOrganizationIDs.remove(at: checkedOrganizationIDs.index(of: selectedOrganizationID)!)
                 user?.followingOrganizations.remove(at: (user?.followingOrganizations.index(of:selectedOrganizationID)!)!)
                 setNavigatorFowardButtonStatus()
             case .chooseTags:
                 let selectedTagID = filteredTags[indexPath.row].id
                 let selectedTagName = filteredTags[indexPath.row].name
-             //   print(selectedTagID)
                 checkedTags.remove(at: checkedTags.index(of: selectedTagID)!)
                 checkedTagNames.remove(at: checkedTagNames.index(of: selectedTagName)!)
                 user?.followingTags.remove(at: (user?.followingTags.index(of:selectedTagID)!)!)

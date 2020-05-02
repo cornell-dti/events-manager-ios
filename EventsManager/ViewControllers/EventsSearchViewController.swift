@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class EventsSearchViewController: UIViewController, UISearchControllerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate {
 
@@ -203,10 +204,12 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch currentSearchScope {
             case .events:
+                Analytics.logEvent("clickedonEventWhileSearching", parameters: [:])
                 let detailsViewController = EventDetailViewController()
                 detailsViewController.configure(with: eventsOnDate[indexPath.section][indexPath.row].id)
                 navigationController?.pushViewController(detailsViewController, animated: true)
             case .organization:
+                Analytics.logEvent("clickedonOrgWhileSearching", parameters: [:])
                 let org = AppData.getOrganization(by: filteredOrganizations[indexPath.row].id, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false)
                 if org.email != "donotdisplay@cornell.edu" {
                     let orgViewController = OrganizationViewController()
@@ -214,7 +217,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
                     navigationController?.pushViewController(orgViewController, animated: true)
                 }
             case .tags:
-              //  GoogleAnalytics.trackEvent(category: "button click", action: "tag", label: "search pg")
+                Analytics.logEvent("clickedOnTagWhileSearching", parameters: [:])
                 let tagViewController = TagViewController()
                 tagViewController.setup(with: events, for: filteredTags[indexPath.row])
                 navigationController?.pushViewController(tagViewController, animated: true)
@@ -241,6 +244,7 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
     func isSearching() -> Bool {
         return searchController.isActive && !searchBarIsEmpty()
     }
+
 
     func searchBarIsEmpty() -> Bool {
         // Returns true if the text is empty or nil
@@ -294,6 +298,17 @@ class EventsSearchViewController: UIViewController, UISearchControllerDelegate, 
 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
             filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        switch searchBar.selectedScopeButtonIndex {
+        case 0:
+            Analytics.logEvent("searchedForEvent", parameters: [:])
+        case 1:
+            Analytics.logEvent("searchedForOrg", parameters: [:])
+        default:
+            Analytics.logEvent("searchedForTag", parameters: [:])
+        }
     }
 
 }
