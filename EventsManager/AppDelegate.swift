@@ -55,12 +55,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
 
         //free food alert
-        let alert = UIAlertController(title: "Don't miss out on events with free food!", message: "Enabling notifications allows us to notify you about events with free food coming up one day in advance.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            //run your function here
+//        let alert = UIAlertController(title: "Don't miss out on events with free food!", message: "Enabling notifications allows us to notify you about events with free food coming up one day in advance.", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+//            //run your function here
             self.notificationAuthorization()
-        }))
-        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+//        }))
+//        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
 
         return true
     }

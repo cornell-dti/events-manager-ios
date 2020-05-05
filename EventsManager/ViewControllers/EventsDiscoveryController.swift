@@ -49,7 +49,7 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         preloadCells()
         scheduleNotification()
 
-        freeFoodEventNotifications()
+//        freeFoodEventNotifications()
 
         setup()
     }
@@ -143,14 +143,15 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
         dateComponents.calendar = Calendar.current
 
         //n is 7 and Sunday is represented by 1
-        dateComponents.weekday = 4  // Wednesday
+        dateComponents.weekday = 1  // Sunday
         dateComponents.hour = 15    // 3:00pm
         // Create the trigger as a repeating event.
         let trigger = UNCalendarNotificationTrigger(
                  dateMatching: dateComponents, repeats: true)
         // Create the request
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString,
+//        let uuidString = UUID().uuidString
+        let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(String(describing: dateComponents.weekOfMonth))"
+        let request = UNNotificationRequest(identifier: notificationIdentifier,
                     content: content, trigger: trigger)
 
         // Schedule the request with the system.
@@ -218,36 +219,36 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     }
     
     //free food notifications
-    func freeFoodEventNotifications() {
-        for event in events {
-            for tag in event.eventTags {
-                if AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name == "Free Food" {
-                    let center = UNUserNotificationCenter.current()
-                    if let user = UserData.getLoggedInUser() {
-                        if user.reminderEnabled {
-                            let content = UNMutableNotificationContent()
-                            content.title = NSLocalizedString("free-food-notification-title", comment: "")
-                            content.body = "\(event.eventName)\(NSLocalizedString("free-food-notification-body", comment: ""))"
-                            content.sound = .default
-                            let minutesBeforeEvent = 1440
-                            let minuteComp = DateComponents(minute: -minutesBeforeEvent)
-                            let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
-                            if let remindDate = remindDate {
-                                let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second ], from: remindDate)
-                                let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
-                                                                            repeats: false)
-                                let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
-                                let request = UNNotificationRequest(identifier: notificationIdentifier,
-                                                                    content: content, trigger: trigger)
-                                center.add(request, withCompletionHandler: { (_) in
-                                })
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    func freeFoodEventNotifications() {
+//        for event in events {
+//            for tag in event.eventTags {
+//                if AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name == "Free Food" {
+//                    let center = UNUserNotificationCenter.current()
+//                    if let user = UserData.getLoggedInUser() {
+//                        if user.reminderEnabled {
+//                            let content = UNMutableNotificationContent()
+//                            content.title = NSLocalizedString("free-food-notification-title", comment: "")
+//                            content.body = "\(event.eventName)\(NSLocalizedString("free-food-notification-body", comment: ""))"
+//                            content.sound = .default
+//                            let minutesBeforeEvent = 1440
+//                            let minuteComp = DateComponents(minute: -minutesBeforeEvent)
+//                            let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
+//                            if let remindDate = remindDate {
+//                                let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second ], from: remindDate)
+//                                let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+//                                                                            repeats: false)
+//                                let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
+//                                let request = UNNotificationRequest(identifier: notificationIdentifier,
+//                                                                    content: content, trigger: trigger)
+//                                center.add(request, withCompletionHandler: { (_) in
+//                                })
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
