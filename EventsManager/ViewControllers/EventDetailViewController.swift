@@ -77,6 +77,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
     var eventParticipantCount = UILabel()
     var eventOrganizer = UnderlinedLabel()
     var eventLocation = UILabel()
+    var eventLocView = UILabel()
     let eventMapViewWrapper = UIView()
     let eventMapDirectionsBar = UIView()
     let eventMapViewDirectionsButton = UIButton()
@@ -283,7 +284,14 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
-        let locationStack = UIStackView(arrangedSubviews: [locationIcon, eventLocation])
+        
+        eventLocation.numberOfLines = 0
+        eventLocView.addSubview(eventLocation)
+        eventLocation.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        let locationStack = UIStackView(arrangedSubviews: [locationIcon, eventLocView])
         locationStack.alignment = .center
         locationStack.axis = .horizontal
         locationStack.distribution = .fill
