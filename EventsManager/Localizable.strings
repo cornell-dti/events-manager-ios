@@ -40,6 +40,9 @@
 "notification-identifier" = "event_notification_";
 "notification-weekly-title" = "New events have been added to the app";
 "notification-weekly-body" =  "Check them out!";
+"free-food-notification-title" = "A new free food event is coming up";
+"free-food-notification-body" = " is happening tomorrow!";
+
 
 //Event List View
 "tool-bar-cancel-button" = "Cancel";
@@ -118,7 +121,7 @@
 "onboarding-interact-title" = "Interact";
 "onboarding-interact-description" = "Choose some on-campus organizations that you would like to follow. ";
 "onboarding-no-orgs" = "No Organizations Yet";
-"on-bording-choose-3-to-continue" = "   Choose 3 to Continue   ";
+"on-bording-choose-3-to-continue" = "   Choose 2 to Continue   ";
 "on-bording-continue" = "   Continue   ";
 "onboarding-interest-title" = "Interest";
 "onboarding-interest-description" = "Let us know your interests. We’ll tailor your feed to include events you’ll be interested in.";
