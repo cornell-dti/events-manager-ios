@@ -13,6 +13,8 @@ import GoogleMaps
 import GooglePlaces
 import UserNotifications
 import Firebase
+import EventKit
+
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
@@ -584,7 +586,48 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             self.bookmarkedButton.isEnabled = true
         }
     }
-
+    /**
+    Handler for adding or deleting events to the user's iCal
+    */
+    func addorDeleteEventToCalendar(title: String, description: String?, startDate: Date, endDate: Date, bookmarked: Bool, completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil) {
+         let eventStore = EKEventStore()
+        eventStore.requestAccess(to: .event, completion: { (granted, error) in
+            if (granted) && (error == nil) {
+                var eventExists = false
+                var identifier = ""
+                let event = EKEvent(eventStore: eventStore)
+                event.title = title
+                event.startDate = startDate
+                event.endDate = endDate
+                event.notes = description
+                event.calendar = eventStore.defaultCalendarForNewEvents
+                let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: nil)
+                let existingEvents = eventStore.events(matching: predicate)
+                for ev in existingEvents {
+                    if ev.title == title && ev.startDate == startDate && ev.endDate == endDate {
+                        eventExists = true
+                        identifier = ev.eventIdentifier
+                        break
+                    }
+                }
+                do {
+                    if !eventExists && bookmarked {
+                        try eventStore.save(event, span: .thisEvent)
+                    } else if eventExists && !bookmarked {
+                        if let calEvToDelete = eventStore.event(withIdentifier: identifier) {
+                            try eventStore.remove(calEvToDelete, span: .thisEvent, commit: true)
+                        }
+                    }
+                } catch let e as NSError {
+                    completion?(false, e)
+                    return
+                }
+                completion?(true, nil)
+            } else {
+                completion?(false, error as NSError?)
+            }
+        })
+    }
     /**
      Handler for the pressing action of the bookmark button. Should change the color of the button and add it to the user's bookmarked list.
      */
@@ -603,6 +646,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 if let event = event {
                     if !user.bookmarkedEvents.contains(event.id) {
                         user.bookmarkedEvents.append(event.id)
+                        addorDeleteEventToCalendar(title: event.eventName, description: event.eventDescription, startDate: event.startTime, endDate: event.endTime, bookmarked: true)
                     }
                     if user.reminderEnabled {
                         let content = UNMutableNotificationContent()
@@ -639,6 +683,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                     ])
                 if let event = event {
                     user.bookmarkedEvents = user.bookmarkedEvents.filter {$0 != event.id}
+                    addorDeleteEventToCalendar(title: event.eventName, description: event.eventDescription, startDate: event.startTime, endDate: event.endTime, bookmarked: false)
                     let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
                 }

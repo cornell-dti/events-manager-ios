@@ -217,38 +217,37 @@ class EventsDiscoveryController: UIViewController, UITableViewDelegate, UITableV
     @objc func searchButtonPressed(_ sender: UIBarButtonItem) {
         navigationController?.pushViewController(EventsSearchViewController(), animated: true)
     }
-    
     //free food notifications
-//    func freeFoodEventNotifications() {
-//        for event in events {
-//            for tag in event.eventTags {
-//                if AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name == "Free Food" {
-//                    let center = UNUserNotificationCenter.current()
-//                    if let user = UserData.getLoggedInUser() {
-//                        if user.reminderEnabled {
-//                            let content = UNMutableNotificationContent()
-//                            content.title = NSLocalizedString("free-food-notification-title", comment: "")
-//                            content.body = "\(event.eventName)\(NSLocalizedString("free-food-notification-body", comment: ""))"
-//                            content.sound = .default
-//                            let minutesBeforeEvent = 1440
-//                            let minuteComp = DateComponents(minute: -minutesBeforeEvent)
-//                            let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
-//                            if let remindDate = remindDate {
-//                                let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second ], from: remindDate)
-//                                let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
-//                                                                            repeats: false)
-//                                let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
-//                                let request = UNNotificationRequest(identifier: notificationIdentifier,
-//                                                                    content: content, trigger: trigger)
-//                                center.add(request, withCompletionHandler: { (_) in
-//                                })
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+    func freeFoodEventNotifications() {
+        for event in events {
+            for tag in event.eventTags {
+                if AppData.getTag(by: tag, startLoading: {_ in }, endLoading: {}, noConnection: {}, updateData: false).name == "Free Food" {
+                    let center = UNUserNotificationCenter.current()
+                    if let user = UserData.getLoggedInUser() {
+                        if user.reminderEnabled {
+                            let content = UNMutableNotificationContent()
+                            content.title = NSLocalizedString("free-food-notification-title", comment: "")
+                            content.body = "\(event.eventName)\(NSLocalizedString("free-food-notification-body", comment: ""))"
+                            content.sound = .default
+                            let minutesBeforeEvent = 1440
+                            let minuteComp = DateComponents(minute: -minutesBeforeEvent)
+                            let remindDate = Calendar.current.date(byAdding: minuteComp, to: event.startTime)
+                            if let remindDate = remindDate {
+                                let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second ], from: remindDate)
+                                let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+                                                                            repeats: false)
+                                let notificationIdentifier = "\(NSLocalizedString("notification-identifier", comment: ""))\(event.id)"
+                                let request = UNNotificationRequest(identifier: notificationIdentifier,
+                                                                    content: content, trigger: trigger)
+                                center.add(request, withCompletionHandler: { (_) in
+                                })
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
