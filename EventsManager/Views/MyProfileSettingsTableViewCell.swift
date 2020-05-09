@@ -124,6 +124,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
 
         self.addSubview(logoutWrapperView)
         logoutWrapperView.addSubview(logoutButton)
+        logoutButton.isHidden = true
         logoutButton.addTarget(self, action: #selector(self.logout(_:)), for: .touchUpInside)
         logoutButton.setTitle(NSLocalizedString("my-profile-logout-button", comment: ""), for: .normal)
         logoutButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
@@ -139,7 +140,6 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
             make.bottom.equalTo(self)
             make.height.equalTo(wrapperViewHeight)
         }
-
     }
 
     /**
