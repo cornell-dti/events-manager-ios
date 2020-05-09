@@ -49,9 +49,6 @@ class UserData {
     /** Creates a generic user (temporary solution until Google Sign-In is re-integrated*/
     static func tempUser() -> User? {
         let netid = "none"
-        Analytics.logEvent("usernetid", parameters: [
-            "netid": netid
-        ])
         return User(
             netID: netid,
             userID: "",

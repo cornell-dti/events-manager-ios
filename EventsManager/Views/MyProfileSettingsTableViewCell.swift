@@ -103,6 +103,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         self.addSubview(netIdWrapperView)
         netIdWrapperView.addSubview(netIdLabel)
         netIdWrapperView.addSubview(netIdDisplayLabel)
+        netIdWrapperView.isHidden = true
         netIdLabel.font = UIFont.systemFont(ofSize: fontSize)
         netIdLabel.text = NSLocalizedString("my-profile-net-id", comment: "")
         netIdDisplayLabel.font = UIFont.systemFont(ofSize: fontSize)
