@@ -31,7 +31,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     let signatureBottomSpacing: CGFloat = 15
 
     //view elements
-    let signinButton = GIDSignInButton()
+    let signinButton = UIButton()
     let appIcon = UIImageView()
     let appLabel = UILabel()
     let appIntro = UILabel()
@@ -52,6 +52,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     func setLayouts() {
         view.backgroundColor = UIColor(named: "primaryPink")
         view.addSubview(signinButton)
+        signinButton.backgroundColor = .white
+        signinButton.setTitle("Get Started", for: .normal)
+        signinButton.setTitleColor(.black, for: .normal)
+        signinButton.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
         let appIconAndNameStack = UIStackView(arrangedSubviews: [appIcon, appLabel])
         appIconAndNameStack.alignment = .center
         appIconAndNameStack.distribution = .fill
@@ -155,6 +159,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
+
+    }
+    @objc func getStarted(_ sender: UIButton) {
+        let user = UserData.tempUser()!
+        _ = UserData.login(for: user)
+        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
 
     }
 }

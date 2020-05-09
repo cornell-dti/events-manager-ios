@@ -45,6 +45,27 @@ class UserData {
         }
         return nil
     }
+    
+    /** Creates a generic user (temporary solution until Google Sign-In is re-integrated*/
+    static func tempUser() -> User? {
+        let netid = "none"
+        return User(
+            netID: netid,
+            userID: "",
+            googleIdToken: "",
+            serverAuthToken: "",
+            name: "My Profile",
+            avatar: nil,
+            bookmarkedEvents: [],
+            followingOrganizations: [],
+            followingTags: [],
+            organizationClicks: [:],
+            tagClicks: [:],
+            reminderEnabled: true,
+            reminderTime: ReminderTimeOptions.getInt(from: .fifteenMinutesBefore),
+            timeSinceNotification: Date()
+        )
+    }
 
     /** Creates a new user based on google login information */
     static func newUser(from googleUser: GIDGoogleUser) -> User? {

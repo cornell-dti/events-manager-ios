@@ -14,7 +14,7 @@ struct User: Codable {
     var googleIdToken: String
     var serverAuthToken: String?
     var name: String
-    var avatar: URL
+    var avatar: URL?
     var bookmarkedEvents: [Int]
     var followingOrganizations: [Int]
     var followingTags: [Int]

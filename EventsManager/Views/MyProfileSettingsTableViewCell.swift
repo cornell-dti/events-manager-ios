@@ -103,6 +103,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
         self.addSubview(netIdWrapperView)
         netIdWrapperView.addSubview(netIdLabel)
         netIdWrapperView.addSubview(netIdDisplayLabel)
+        netIdWrapperView.isHidden = true
         netIdLabel.font = UIFont.systemFont(ofSize: fontSize)
         netIdLabel.text = NSLocalizedString("my-profile-net-id", comment: "")
         netIdDisplayLabel.font = UIFont.systemFont(ofSize: fontSize)
@@ -124,6 +125,7 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
 
         self.addSubview(logoutWrapperView)
         logoutWrapperView.addSubview(logoutButton)
+        logoutButton.isHidden = true
         logoutButton.addTarget(self, action: #selector(self.logout(_:)), for: .touchUpInside)
         logoutButton.setTitle(NSLocalizedString("my-profile-logout-button", comment: ""), for: .normal)
         logoutButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
@@ -139,7 +141,6 @@ class MyProfileSettingsTableViewCell: UITableViewCell {
             make.bottom.equalTo(self)
             make.height.equalTo(wrapperViewHeight)
         }
-
     }
 
     /**

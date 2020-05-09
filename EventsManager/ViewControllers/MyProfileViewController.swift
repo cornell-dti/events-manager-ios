@@ -78,7 +78,11 @@ class MyProfileViewController: UIViewController, UITableViewDelegate, UITableVie
      */
     func configure(with user: User) {
         self.user = user
-        userAvatar.kf.setImage(with: user.avatar)
+        if let avatarURL = user.avatar {
+            userAvatar.kf.setImage(with: avatarURL)
+        } else {
+            userAvatar.image = UIImage(named: "profile")
+        }
         userName.text = user.name
         tableView.reloadData()
     }
