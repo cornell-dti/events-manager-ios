@@ -116,12 +116,13 @@
 "error" = "Error";
 "google-signin-error" = "Google Sign in Failed, make sure you have a working internet connection.";
 "backend-signin-error" = "Cannot connect to eve server, make sure you have a working internet connection.";
+"get-started" = "Get started";
 
 //On Boarding
 "onboarding-interact-title" = "Interact";
 "onboarding-interact-description" = "Choose some on-campus organizations that you would like to follow. ";
 "onboarding-no-orgs" = "No Organizations Yet";
-"on-bording-choose-3-to-continue" = "   Choose 2 to Continue   ";
+"on-bording-choose-3-to-continue" = "   Choose 3 to Continue   ";
 "on-bording-continue" = "   Continue   ";
 "onboarding-interest-title" = "Interest";
 "onboarding-interest-description" = "Let us know your interests. We’ll tailor your feed to include events you’ll be interested in.";
