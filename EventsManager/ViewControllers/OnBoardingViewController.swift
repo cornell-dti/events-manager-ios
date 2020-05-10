@@ -11,7 +11,7 @@ import Firebase
 class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating {
 
     //constants
-    let minimumSelectionCount = 1
+    let minimumSelectionCount = 3
     let navTitleFontSize: CGFloat = 25
     let navSubtitleFontSize: CGFloat = 15
     let titleToTopSpacing: CGFloat = 10

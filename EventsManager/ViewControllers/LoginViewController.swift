@@ -53,9 +53,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         view.backgroundColor = UIColor(named: "primaryPink")
         view.addSubview(signinButton)
         signinButton.backgroundColor = .white
-        signinButton.setTitle("Get Started", for: .normal)
-        signinButton.setTitleColor(.black, for: .normal)
+        signinButton.setTitle(NSLocalizedString("get-started", comment: ""), for: .normal)
+        signinButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         signinButton.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
+        signinButton.titleLabel?.font = UIFont(name: "SFProText-Light", size: 15)
+        signinButton.layer.cornerRadius = 3
         let appIconAndNameStack = UIStackView(arrangedSubviews: [appIcon, appLabel])
         appIconAndNameStack.alignment = .center
         appIconAndNameStack.distribution = .fill

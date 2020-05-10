@@ -48,7 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         window?.makeKeyAndVisible()
         if !UserData.didLogin() {
             //free food alert
-            print("free food")
             let alert = UIAlertController(title: "Don't miss out on events with free food!", message: "Enabling notifications allows us to notify you about events with free food coming up one day in advance.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                 self.notificationAuthorization()
