@@ -29,6 +29,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     let signatureLeftSpacing: CGFloat = 20
     let signatureVerticleSpacing: CGFloat = 5
     let signatureBottomSpacing: CGFloat = 15
+    let signinButtonHeight: CGFloat = 40
+    let signinButtonFontSize: CGFloat = 18
+    let signInButtonCornerRadius: CGFloat = 5
 
     //view elements
     let signinButton = UIButton()
@@ -56,8 +59,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         signinButton.setTitle(NSLocalizedString("get-started", comment: ""), for: .normal)
         signinButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         signinButton.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
-        signinButton.titleLabel?.font = UIFont(name: "SFProText-Light", size: 15)
-        signinButton.layer.cornerRadius = 3
+        signinButton.titleLabel?.font = UIFont(name: "SFProText-Light", size: signinButtonFontSize)
+        signinButton.layer.cornerRadius = signInButtonCornerRadius
         let appIconAndNameStack = UIStackView(arrangedSubviews: [appIcon, appLabel])
         appIconAndNameStack.alignment = .center
         appIconAndNameStack.distribution = .fill
@@ -93,6 +96,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
             make.top.equalTo(appIntro.snp.bottom).offset(buttonIntroSpacing)
             make.left.equalTo(view).offset(sideSpacing)
             make.right.equalTo(view).offset(-sideSpacing)
+            make.height.equalTo(signinButtonHeight)
         }
 
         view.addSubview(powerByLabel)

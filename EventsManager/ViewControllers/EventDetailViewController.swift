@@ -572,12 +572,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         if let user = UserData.getLoggedInUser() {
             if let event = event {
                 Internet.changeAttendance(serverToken: user.serverAuthToken!, id: event.id, attend: bookmarkedButton.backgroundColor == UIColor.white) { result in
+                        print("result", result)
                         success = result
                         group.leave()
                 }
             }
         }
-
         group.notify(queue: .main) {
             if success {
                 self.bookmarkedButtonPressed()

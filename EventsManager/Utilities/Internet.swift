@@ -200,14 +200,16 @@ class Internet {
 
         let qp = [Endpoint.QueryParam.eventPk : String(id)]
         let URL = Endpoint.getURLString(address: attend ? .incrementAttendanceAddress : .decrementAttendanceAddress, queryParams: qp)
+        
+        print("URL", URL)
 
         Alamofire.request(URL, method: .post, parameters: [:], encoding: JSONEncoding.default, headers: headers).validate().responseString(queue: DispatchQueue.global(qos: .default)) { response in
             switch response.result {
             case .success(let value):
-                print(value)
+                print("value", value)
                 completion(true)
             case .failure(let error):
-                print(error)
+                print("error", error)
                 completion(false)
             }
         }
