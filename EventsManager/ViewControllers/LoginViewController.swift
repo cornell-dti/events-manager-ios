@@ -8,6 +8,7 @@
 
 import GoogleSignIn
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController, GIDSignInDelegate {
 
@@ -168,9 +169,38 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
 
     }
     @objc func getStarted(_ sender: UIButton) {
-        let user = UserData.tempUser()!
+        var user = UserData.tempUser()!
         _ = UserData.login(for: user)
-        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+        
+        Auth.auth().signInAnonymously { (authResult, err) in
+            if err != nil {
+                if let err = err as NSError? {
+                    if AuthErrorCode(rawValue: err.code) != nil {
+                        print("Error creating anonymous user: ", err.code)
+                    }
+                }
+            } else {
+                guard let anonymousUser = authResult?.user else { return }
+                let isAnonymous = anonymousUser.isAnonymous  // true
+                let uid = anonymousUser.uid
+                if isAnonymous && uid != "" {
+                    let loadingViewController = LoadingViewController()
+                    loadingViewController.configure(with: "Loading...")
+                    self.present(loadingViewController, animated: true, completion: {
+                        loadingViewController.dismiss(animated: true, completion: {
+                            self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                        })
+                    })
+                    print("UID", uid)
+                    Internet.getServerAuthToken(for: uid, {(serverAuthToken) in
+                        print("SERVERAUTHTOKEN", serverAuthToken)
+                        user.serverAuthToken = serverAuthToken
+                        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                    })
+                }
+            }
+        }
+//        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
 
     }
 }

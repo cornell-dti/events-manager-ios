@@ -233,7 +233,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         }
 
         let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
-//        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton])
         buttonStack.alignment = .center
         buttonStack.axis = .horizontal
         buttonStack.distribution = .fill
@@ -286,7 +285,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
-        
         eventLocation.numberOfLines = 0
         eventLocView.addSubview(eventLocation)
         eventLocation.snp.makeConstraints { make in
@@ -533,7 +531,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         var eventLocationText = eventLocation.text
         eventLocationText = eventLocationText?.trimmingCharacters(in: .whitespaces)
         eventLocationText = eventLocationText?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        print("eventloc", eventLocationText)
         if let url = URL(string: eventLocationText!) {
             UIApplication.shared.open(url)
         }
@@ -567,12 +564,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         bookmarkedButton.isEnabled = false
         var success = false
         let group = DispatchGroup()
-
         group.enter()
         if let user = UserData.getLoggedInUser() {
+            print("TRUE")
+            print("USER", user, user.serverAuthToken)
             if let event = event {
                 Internet.changeAttendance(serverToken: user.serverAuthToken!, id: event.id, attend: bookmarkedButton.backgroundColor == UIColor.white) { result in
-                        print("result", result)
+                        print("authtoken", user.serverAuthToken!)
                         success = result
                         group.leave()
                 }

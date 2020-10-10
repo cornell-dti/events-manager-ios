@@ -11,6 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import GoogleSignIn
 import Firebase
+import FirebaseAuth
 import UserNotifications
 
 @UIApplicationMain
@@ -60,7 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 19)!, NSAttributedString.Key.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 32)!, NSAttributedString.Key.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
         window?.tintColor = UIColor(named: "primaryPink")
-
         return true
     }
     
