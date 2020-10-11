@@ -14,16 +14,13 @@ class Internet {
 
     static func getServerAuthToken(for googleToken: String, _ completion: @escaping (String?) -> Void) {
         let qp = [Endpoint.QueryParam.googleToken : googleToken]
-        print("QP", qp)
         let URL = Endpoint.getURLString(address: .serverTokenAddress, queryParams: qp)
         Alamofire.request(URL).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
-                print("success!")
                 let json = JSON(value)
                 completion(json["token"].string)
             case .failure(let error):
-                print("failure")
                 print(error)
                 completion(nil)
             }
@@ -200,12 +197,10 @@ class Internet {
     static func changeAttendance(serverToken: String, id: Int, attend: Bool, completion: @escaping (Bool) -> Void) {
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
         headers["Authorization"] = "Token \(serverToken)"
-        
         print("header", headers)
 
         let qp = [Endpoint.QueryParam.eventPk : String(id)]
         let URL = Endpoint.getURLString(address: attend ? .incrementAttendanceAddress : .decrementAttendanceAddress, queryParams: qp)
-        
         print("URL", URL)
 
         Alamofire.request(URL, method: .post, parameters: [:], encoding: JSONEncoding.default, headers: headers).validate().responseString(queue: DispatchQueue.global(qos: .default)) { response in

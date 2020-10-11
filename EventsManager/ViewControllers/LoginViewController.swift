@@ -6,11 +6,10 @@
 //  Copyright © 2018 Jagger Brulato. All rights reserved.
 //
 
-import GoogleSignIn
 import UIKit
 import FirebaseAuth
 
-class LoginViewController: UIViewController, GIDSignInDelegate {
+class LoginViewController: UIViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -44,8 +43,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        GIDSignIn.sharedInstance()?.delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
         setLayouts()
         configure()
     }
@@ -127,51 +124,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         signatureLabel.text = NSLocalizedString("app-signature", comment: "")
     }
 
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            Alert.informative(with: NSLocalizedString("google-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: self)
-            print("\(error.localizedDescription)")
-        } else {
-            let loadingViewController = LoadingViewController()
-            loadingViewController.configure(with: "Logging You In...")
-            present(loadingViewController, animated: true, completion: {
-                if var user = UserData.newUser(from: user) {
-                    user.serverAuthToken = ""
-                    loadingViewController.dismiss(animated: true, completion: {
-                        if UserData.login(for: user) {
-                            self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
-                        }
-                    })
-                    Internet.getServerAuthToken(for: user.googleIdToken, { (serverAuthToken) in
-                        if serverAuthToken == nil {
-                            loadingViewController.dismiss(animated: true, completion: {
-                                UserData.logOut()
-                                Alert.informative(with: NSLocalizedString("backend-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: (UIApplication.shared.delegate as! AppDelegate).window!.rootViewController!)
-
-                            })
-                        } else {
-                            user.serverAuthToken = serverAuthToken!
-                            loadingViewController.dismiss(animated: true, completion: {
-                                if UserData.login(for: user) {
-                                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
-                                }
-                            })
-                        }
-                    })
-                }
-            })
-        }
-    }
-
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-
-    }
+    //anonymous sign in triggered after pressing 'get started'
     @objc func getStarted(_ sender: UIButton) {
         var user = UserData.tempUser()!
         _ = UserData.login(for: user)
-        
         Auth.auth().signInAnonymously { (authResult, err) in
             if err != nil {
                 if let err = err as NSError? {
@@ -181,7 +137,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
                 }
             } else {
                 guard let anonymousUser = authResult?.user else { return }
-                let isAnonymous = anonymousUser.isAnonymous  // true
+                let isAnonymous = anonymousUser.isAnonymous //should be true
                 let uid = anonymousUser.uid
                 if isAnonymous && uid != "" {
                     let loadingViewController = LoadingViewController()
@@ -191,16 +147,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
                             self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
                         })
                     })
-                    print("UID", uid)
                     Internet.getServerAuthToken(for: uid, {(serverAuthToken) in
-                        print("SERVERAUTHTOKEN", serverAuthToken)
                         user.serverAuthToken = serverAuthToken
                         self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
                     })
                 }
             }
         }
-//        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
-
     }
 }

@@ -566,11 +566,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         let group = DispatchGroup()
         group.enter()
         if let user = UserData.getLoggedInUser() {
-            print("TRUE")
-            print("USER", user, user.serverAuthToken)
             if let event = event {
                 Internet.changeAttendance(serverToken: user.serverAuthToken!, id: event.id, attend: bookmarkedButton.backgroundColor == UIColor.white) { result in
-                        print("authtoken", user.serverAuthToken!)
                         success = result
                         group.leave()
                 }
