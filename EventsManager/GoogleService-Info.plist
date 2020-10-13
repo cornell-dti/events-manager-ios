@@ -9,7 +9,7 @@
 	<key>ANDROID_CLIENT_ID</key>
 	<string>498336876169-t17se26b9lcqjnie8oj437ki96ljcjip.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyANh000qMZ3qXKNEnZTUa3GSxnKfBZ9Kbw</string>
+	<string>AIzaSyA8IuxX8MI39hgPfa8CJLa0GeqLtQXHdXo</string>
 	<key>GCM_SENDER_ID</key>
 	<string>498336876169</string>
 	<key>PLIST_VERSION</key>
@@ -21,15 +21,15 @@
 	<key>STORAGE_BUCKET</key>
 	<string>propane-melody-209519.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:498336876169:ios:dc1316f8f49e7112152858</string>
 	<key>DATABASE_URL</key>
