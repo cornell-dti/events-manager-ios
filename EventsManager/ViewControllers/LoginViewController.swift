@@ -127,7 +127,6 @@ class LoginViewController: UIViewController {
     //anonymous sign in triggered after pressing 'get started'
     @objc func getStarted(_ sender: UIButton) {
         var user = UserData.tempUser()!
-        _ = UserData.login(for: user)
         Auth.auth().signInAnonymously { (authResult, err) in
             if err != nil {
                 if let err = err as NSError? {
@@ -138,8 +137,7 @@ class LoginViewController: UIViewController {
             } else {
                 guard let anonymousUser = authResult?.user else { return }
                 let isAnonymous = anonymousUser.isAnonymous //should be true
-                let uid = anonymousUser.uid
-                if isAnonymous && uid != "" {
+                if isAnonymous {
                     let loadingViewController = LoadingViewController()
                     loadingViewController.configure(with: "Loading...")
                     self.present(loadingViewController, animated: true, completion: {
@@ -147,10 +145,17 @@ class LoginViewController: UIViewController {
                             self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
                         })
                     })
-                    Internet.getServerAuthToken(for: uid, {(serverAuthToken) in
-                        user.serverAuthToken = serverAuthToken
-                        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
-                    })
+                    anonymousUser.getIDToken { (idToken, error) in
+                        if error == nil {
+                            if let idToken = idToken {
+                                Internet.getServerAuthToken(for: idToken, {(serverAuthToken) in
+                                    user.serverAuthToken = serverAuthToken
+                                    UserData.login(for: user)
+                                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                                })
+                            }
+                        }
+                    }
                 }
             }
         }

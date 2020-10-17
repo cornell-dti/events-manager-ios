@@ -8,7 +8,8 @@
 import Foundation
 
 class Endpoint {
-    public static let apiBaseURL = "https://cuevents-staging.herokuapp.com/api/"
+//    public static let apiBaseURL = "https://cuevents-staging.herokuapp.com/api/"
+    public static let apiBaseURL = "https://cuevents-staging-pr-125.herokuapp.com/api/"
 //    public static let apiBaseURL = "https://cuevents-app.herokuapp.com/api/"
     public static let deeplinksBaseURL = "https://www.cuevents.org/"
     public enum Addresses {

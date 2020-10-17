@@ -290,7 +290,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         eventLocation.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
         let locationStack = UIStackView(arrangedSubviews: [locationIcon, eventLocView])
         locationStack.alignment = .center
         locationStack.axis = .horizontal
@@ -450,7 +449,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                                                              endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
                                                              noConnection: GenericLoadingHelper.noConnection(from: self),
                                                              updateData: false).0
-        
         if eventLocation.text?.contains("http") ?? false {
             let eventLocationTapGesture = UITapGestureRecognizer(target: self, action: #selector(eventLocationPressed(_:)))
             eventLocView.addGestureRecognizer(eventLocationTapGesture)
