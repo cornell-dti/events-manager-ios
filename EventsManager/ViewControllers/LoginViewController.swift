@@ -195,7 +195,12 @@ extension LoginViewController: FUIAuthDelegate{
                             self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
                         }
                     })
-                    Internet.getServerAuthToken(for: currentUser!.uid, { (serverAuthToken) in
+                    currentUser?.getIDToken() { idToken, error in
+                      if let error = error {
+                        print(error.localizedDescription)
+                        return;
+                      }
+                        Internet.getServerAuthToken(for: idToken!, { (serverAuthToken) in
                     if serverAuthToken == nil {
                             loadingViewController.dismiss(animated: true, completion: {
                                 UserData.logOut()
@@ -210,6 +215,7 @@ extension LoginViewController: FUIAuthDelegate{
                             })
                         }
                     })
+                    }
                 }
             })
         }
