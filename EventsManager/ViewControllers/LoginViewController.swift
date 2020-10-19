@@ -41,12 +41,12 @@ class LoginViewController: UIViewController {
     let powerByLabel = UILabel()
     let signatureLabel = UILabel()
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
         configure()
     }
-
     /**
      Sets the basic layout of the view
      */

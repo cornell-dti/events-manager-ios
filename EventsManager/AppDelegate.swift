@@ -25,11 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         window = UIWindow(frame: UIScreen.main.bounds)
 
         let tabBarVC = TabBarViewController()
-        
-        //Initialize google maps
+
         GMSServices.provideAPIKey("AIzaSyA8IuxX8MI39hgPfa8CJLa0GeqLtQXHdXo")
         GMSPlacesClient.provideAPIKey("AIzaSyA8IuxX8MI39hgPfa8CJLa0GeqLtQXHdXo")
-
         FirebaseApp.configure()
 
         //check if logged in
