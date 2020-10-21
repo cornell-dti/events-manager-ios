@@ -13,7 +13,8 @@ target 'EventsManager' do
   pod 'GooglePlaces'
   pod 'GoogleSignIn', '~> 5.0'
   pod 'Firebase/Analytics'
-	pod 'Alamofire', '~> 4.7'
+  pod 'Firebase/Auth'
+  pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'SwiftLint'
 

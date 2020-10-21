@@ -11,7 +11,7 @@ import Firebase
 class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating {
 
     //constants
-    let minimumSelectionCount = 3
+    let minimumSelectionCount = 1
     let navTitleFontSize: CGFloat = 25
     let navSubtitleFontSize: CGFloat = 15
     let titleToTopSpacing: CGFloat = 10
@@ -176,7 +176,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
     private func setNavigatorFowardButtonStatus() {
         switch currentOnBoardingProcess {
             case .chooseOrganization:
-                if checkedOrganizationIDs.count < minimumSelectionCount {
+                if checkedOrganizationIDs.count == 1 {
                     navigatorForwardButton.backgroundColor = UIColor.white
                     navigatorForwardButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-choose-3-to-continue", comment: ""), for: .normal)
@@ -188,7 +188,7 @@ class OnBoardingViewController: UIViewController, UITableViewDelegate, UITableVi
                     navigatorForwardButton.isEnabled = true
                 }
             case .chooseTags:
-                if checkedTags.count < minimumSelectionCount {
+                if checkedTags.count == 1 {
                     navigatorForwardButton.backgroundColor = UIColor.white
                     navigatorForwardButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
                     navigatorForwardButton.setTitle(NSLocalizedString("on-bording-choose-3-to-continue", comment: ""), for: .normal)

@@ -11,6 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import GoogleSignIn
 import Firebase
+import FirebaseAuth
 import UserNotifications
 
 @UIApplicationMain
@@ -25,14 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         let tabBarVC = TabBarViewController()
 
-        //Initialize google maps
         GMSServices.provideAPIKey("AIzaSyA8IuxX8MI39hgPfa8CJLa0GeqLtQXHdXo")
         GMSPlacesClient.provideAPIKey("AIzaSyA8IuxX8MI39hgPfa8CJLa0GeqLtQXHdXo")
-
-        //initiallize Google Sign In
-        GIDSignIn.sharedInstance()?.clientID = "498336876169-c0tedkl028ga401h2qj4g4gelnr68pen.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance()?.hostedDomain = "cornell.edu"
-
         FirebaseApp.configure()
 
         //check if logged in
@@ -60,10 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 19)!, NSAttributedString.Key.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 32)!, NSAttributedString.Key.foregroundColor: UIColor(named: "primaryPink") ?? UIColor.red]
         window?.tintColor = UIColor(named: "primaryPink")
-
         return true
     }
-    
     func notificationAuthorization() {
         //request notifications
         let notificationCenter = UNUserNotificationCenter.current()

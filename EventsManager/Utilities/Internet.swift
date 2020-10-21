@@ -204,10 +204,10 @@ class Internet {
         Alamofire.request(URL, method: .post, parameters: [:], encoding: JSONEncoding.default, headers: headers).validate().responseString(queue: DispatchQueue.global(qos: .default)) { response in
             switch response.result {
             case .success(let value):
-                print(value)
+                print("value", value)
                 completion(true)
             case .failure(let error):
-                print(error)
+                print("error", error)
                 completion(false)
             }
         }

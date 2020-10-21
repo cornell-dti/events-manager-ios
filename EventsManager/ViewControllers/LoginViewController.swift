@@ -6,10 +6,10 @@
 //  Copyright © 2018 Jagger Brulato. All rights reserved.
 //
 
-import GoogleSignIn
 import UIKit
+import FirebaseAuth
 
-class LoginViewController: UIViewController, GIDSignInDelegate {
+class LoginViewController: UIViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -29,6 +29,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     let signatureLeftSpacing: CGFloat = 20
     let signatureVerticleSpacing: CGFloat = 5
     let signatureBottomSpacing: CGFloat = 15
+    let signinButtonHeight: CGFloat = 40
+    let signinButtonFontSize: CGFloat = 18
+    let signInButtonCornerRadius: CGFloat = 5
 
     //view elements
     let signinButton = UIButton()
@@ -38,14 +41,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     let powerByLabel = UILabel()
     let signatureLabel = UILabel()
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        GIDSignIn.sharedInstance()?.delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
         setLayouts()
         configure()
     }
-
     /**
      Sets the basic layout of the view
      */
@@ -56,8 +57,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         signinButton.setTitle(NSLocalizedString("get-started", comment: ""), for: .normal)
         signinButton.setTitleColor(UIColor(named: "primaryPink"), for: .normal)
         signinButton.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
-        signinButton.titleLabel?.font = UIFont(name: "SFProText-Light", size: 15)
-        signinButton.layer.cornerRadius = 3
+        signinButton.titleLabel?.font = UIFont(name: "SFProText-Light", size: signinButtonFontSize)
+        signinButton.layer.cornerRadius = signInButtonCornerRadius
         let appIconAndNameStack = UIStackView(arrangedSubviews: [appIcon, appLabel])
         appIconAndNameStack.alignment = .center
         appIconAndNameStack.distribution = .fill
@@ -93,6 +94,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
             make.top.equalTo(appIntro.snp.bottom).offset(buttonIntroSpacing)
             make.left.equalTo(view).offset(sideSpacing)
             make.right.equalTo(view).offset(-sideSpacing)
+            make.height.equalTo(signinButtonHeight)
         }
 
         view.addSubview(powerByLabel)
@@ -122,51 +124,40 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         signatureLabel.text = NSLocalizedString("app-signature", comment: "")
     }
 
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            Alert.informative(with: NSLocalizedString("google-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: self)
-            print("\(error.localizedDescription)")
-        } else {
-            let loadingViewController = LoadingViewController()
-            loadingViewController.configure(with: "Logging You In...")
-            present(loadingViewController, animated: true, completion: {
-                if var user = UserData.newUser(from: user) {
-                    user.serverAuthToken = ""
-                    loadingViewController.dismiss(animated: true, completion: {
-                        if UserData.login(for: user) {
-                            self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
-                        }
-                    })
-                    Internet.getServerAuthToken(for: user.googleIdToken, { (serverAuthToken) in
-                        if serverAuthToken == nil {
-                            loadingViewController.dismiss(animated: true, completion: {
-                                UserData.logOut()
-                                Alert.informative(with: NSLocalizedString("backend-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: (UIApplication.shared.delegate as! AppDelegate).window!.rootViewController!)
-
-                            })
-                        } else {
-                            user.serverAuthToken = serverAuthToken!
-                            loadingViewController.dismiss(animated: true, completion: {
-                                if UserData.login(for: user) {
-                                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
-                                }
-                            })
-                        }
-                    })
-                }
-            })
-        }
-    }
-
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-
-    }
+    //anonymous sign in triggered after pressing 'get started'
     @objc func getStarted(_ sender: UIButton) {
-        let user = UserData.tempUser()!
-        _ = UserData.login(for: user)
-        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
-
+        var user = UserData.tempUser()!
+        Auth.auth().signInAnonymously { (authResult, err) in
+            if err != nil {
+                if let err = err as NSError? {
+                    if AuthErrorCode(rawValue: err.code) != nil {
+                        print("Error creating anonymous user: ", err.code)
+                    }
+                }
+            } else {
+                guard let anonymousUser = authResult?.user else { return }
+                let isAnonymous = anonymousUser.isAnonymous //should be true
+                if isAnonymous {
+                    let loadingViewController = LoadingViewController()
+                    loadingViewController.configure(with: "Loading...")
+                    self.present(loadingViewController, animated: true, completion: {
+                        loadingViewController.dismiss(animated: true, completion: {
+                            self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                        })
+                    })
+                    anonymousUser.getIDToken { (idToken, error) in
+                        if error == nil {
+                            if let idToken = idToken {
+                                Internet.getServerAuthToken(for: idToken, {(serverAuthToken) in
+                                    user.serverAuthToken = serverAuthToken
+                                    UserData.login(for: user)
+                                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                                })
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

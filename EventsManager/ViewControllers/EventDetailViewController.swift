@@ -233,7 +233,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         }
 
         let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton, shareButton])
-//        let buttonStack = UIStackView(arrangedSubviews: [bookmarkedButton])
         buttonStack.alignment = .center
         buttonStack.axis = .horizontal
         buttonStack.distribution = .fill
@@ -286,13 +285,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
             make.height.equalTo(iconSideLength)
             make.width.equalTo(iconSideLength)
         }
-        
         eventLocation.numberOfLines = 0
         eventLocView.addSubview(eventLocation)
         eventLocation.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
         let locationStack = UIStackView(arrangedSubviews: [locationIcon, eventLocView])
         locationStack.alignment = .center
         locationStack.axis = .horizontal
@@ -452,7 +449,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                                                              endLoading: GenericLoadingHelper.endLoading(loadingVC: loadingViewController),
                                                              noConnection: GenericLoadingHelper.noConnection(from: self),
                                                              updateData: false).0
-        
         if eventLocation.text?.contains("http") ?? false {
             let eventLocationTapGesture = UITapGestureRecognizer(target: self, action: #selector(eventLocationPressed(_:)))
             eventLocView.addGestureRecognizer(eventLocationTapGesture)
@@ -533,7 +529,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         var eventLocationText = eventLocation.text
         eventLocationText = eventLocationText?.trimmingCharacters(in: .whitespaces)
         eventLocationText = eventLocationText?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        print("eventloc", eventLocationText)
         if let url = URL(string: eventLocationText!) {
             UIApplication.shared.open(url)
         }
@@ -567,7 +562,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
         bookmarkedButton.isEnabled = false
         var success = false
         let group = DispatchGroup()
-
         group.enter()
         if let user = UserData.getLoggedInUser() {
             if let event = event {
@@ -577,7 +571,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate, UIGestu
                 }
             }
         }
-
         group.notify(queue: .main) {
             if success {
                 self.bookmarkedButtonPressed()
