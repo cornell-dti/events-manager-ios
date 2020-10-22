@@ -204,6 +204,7 @@ extension LoginViewController: FUIAuthDelegate{
                     if serverAuthToken == nil {
                             loadingViewController.dismiss(animated: true, completion: {
                                 UserData.logOut()
+                                print("error")
                                 Alert.informative(with: NSLocalizedString("backend-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: (UIApplication.shared.delegate as! AppDelegate).window!.rootViewController!)
                             })
                         } else {
