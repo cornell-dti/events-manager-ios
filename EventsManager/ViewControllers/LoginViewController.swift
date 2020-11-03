@@ -8,6 +8,7 @@
 
 import GoogleSignIn
 import UIKit
+import FirebaseUI
 
 class LoginViewController: UIViewController, GIDSignInDelegate {
 
@@ -38,14 +39,19 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     let powerByLabel = UILabel()
     let signatureLabel = UILabel()
 
+    //elements for sign in
+    let authUI = FUIAuth.init(uiWith: Auth.auth())
+    var providers: [FUIAuthProvider] = [FUIEmailAuth()]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance()?.delegate = self
         GIDSignIn.sharedInstance()?.presentingViewController = self
+        self.authUI?.delegate = self
+        self.authUI?.providers = providers
         setLayouts()
         configure()
     }
-
     /**
      Sets the basic layout of the view
      */
@@ -164,9 +170,55 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
 
     }
     @objc func getStarted(_ sender: UIButton) {
-        let user = UserData.tempUser()!
-        _ = UserData.login(for: user)
-        self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+        //let user = UserData.tempUser()!
+        //_ = UserData.login(for: user)
+        let authViewController = (authUI?.authViewController())!
+        self.present(authViewController, animated: true)
+        //self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
 
+    }
+   
+}
+extension LoginViewController: FUIAuthDelegate{
+   func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+      if let error = error {
+          Alert.informative(with: NSLocalizedString("email-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: self)
+          print("\(error.localizedDescription)")
+      } else {
+            let loadingViewController = LoadingViewController()
+            loadingViewController.configure(with: "Logging You In...")
+            present(loadingViewController, animated: true, completion: {
+            let currentUser = Auth.auth().currentUser
+                if var user = UserData.tempUser() {
+                    loadingViewController.dismiss(animated: true, completion: {
+                        if UserData.login(for: user) {
+                            self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                        }
+                    })
+                    currentUser?.getIDToken() { idToken, error in
+                      if let error = error {
+                        print(error.localizedDescription)
+                        return;
+                      }
+                        Internet.getServerAuthToken(for: idToken!, { (serverAuthToken) in
+                    if serverAuthToken == nil {
+                            loadingViewController.dismiss(animated: true, completion: {
+                                UserData.logOut()
+                                print("error")
+                                Alert.informative(with: NSLocalizedString("backend-signin-error", comment: ""), with: NSLocalizedString("error", comment: ""), from: (UIApplication.shared.delegate as! AppDelegate).window!.rootViewController!)
+                            })
+                        } else {
+                            user.serverAuthToken = serverAuthToken!
+                            loadingViewController.dismiss(animated: true, completion: {
+                                if UserData.login(for: user) {
+                                    self.present(UINavigationController(rootViewController: OnBoardingViewController()), animated: true, completion: nil)
+                                }
+                            })
+                        }
+                    })
+                    }
+                }
+            })
+        }
     }
 }

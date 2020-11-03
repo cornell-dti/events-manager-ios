@@ -115,6 +115,7 @@
 "app-signature" = "Cornell Design and Tech Initiative";
 "error" = "Error";
 "google-signin-error" = "Google Sign in Failed, make sure you have a working internet connection.";
+"email-signin-error" = "Email Sign in Failed, make sure you have a working internet connection.";
 "backend-signin-error" = "Cannot connect to eve server, make sure you have a working internet connection.";
 "get-started" = "Get started";
 
