@@ -4,6 +4,8 @@
 <dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Bookmark events to add them to your apple calendar!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Eve needs your location in order to show you events near you</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
